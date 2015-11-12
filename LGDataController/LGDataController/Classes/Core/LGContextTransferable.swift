@@ -10,5 +10,7 @@ import Foundation
 import CoreData
 
 protocol LGContextTransferable {
-    func transferredToContext(context: NSManagedObjectContext) -> AnyObject
+    typealias TransferredType
+    
+    func transferredToContext(context: NSManagedObjectContext) -> TransferredType
 }

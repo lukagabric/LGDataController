@@ -7,3 +7,12 @@
 //
 
 import Foundation
+import CoreData
+
+extension NSManagedObject: LGContextTransferable {
+    
+    func transferredToContext(context: NSManagedObjectContext) -> NSManagedObject {
+        return context.objectWithID(self.objectID)
+    }
+    
+}
