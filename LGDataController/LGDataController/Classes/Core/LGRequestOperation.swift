@@ -19,7 +19,6 @@ class LGRequestOperation: LGConcurrentOperation {
     init(session: NSURLSession, request: NSURLRequest) {
         self.session = session
         self.request = request
-        
         self.signalProducer = self.session.rac_dataWithRequest(request)
 
         super.init()
@@ -31,6 +30,7 @@ class LGRequestOperation: LGConcurrentOperation {
     
     override func cancel() {
         self.signalDisposable?.dispose()
+        
         super.cancel()
     }
     
