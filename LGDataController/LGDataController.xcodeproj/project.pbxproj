@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4101905A1BF5544F007677CC /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C7FDFB1BF53DCA004F9101 /* ReactiveCocoa.framework */; };
+		4101905B1BF5544F007677CC /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41C7FDFB1BF53DCA004F9101 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4101905C1BF5544F007677CC /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C7FDFC1BF53DCA004F9101 /* Result.framework */; };
+		4101905D1BF5544F007677CC /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41C7FDFC1BF53DCA004F9101 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		41341B5E1BF273380074AF6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41341B5C1BF273380074AF6A /* Main.storyboard */; };
 		41341B611BF273380074AF6A /* LGDataController.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 41341B5F1BF273380074AF6A /* LGDataController.xcdatamodeld */; };
 		41341B631BF273380074AF6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41341B621BF273380074AF6A /* Assets.xcassets */; };
@@ -28,9 +32,6 @@
 		41341B931BF276F20074AF6A /* NSArray+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */; };
 		41341B951BF277100074AF6A /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */; };
 		41341B961BF277100074AF6A /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */; };
-		41C7FDFD1BF53DCA004F9101 /* Box.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C7FDFA1BF53DCA004F9101 /* Box.framework */; };
-		41C7FDFE1BF53DCA004F9101 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C7FDFB1BF53DCA004F9101 /* ReactiveCocoa.framework */; };
-		41C7FDFF1BF53DCA004F9101 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C7FDFC1BF53DCA004F9101 /* Result.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,21 @@
 			remoteInfo = LGDataController;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4101905E1BF5544F007677CC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4101905D1BF5544F007677CC /* Result.framework in Embed Frameworks */,
+				4101905B1BF5544F007677CC /* ReactiveCocoa.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		41341B551BF273380074AF6A /* LGDataController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGDataController.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,9 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41C7FDFD1BF53DCA004F9101 /* Box.framework in Frameworks */,
-				41C7FDFE1BF53DCA004F9101 /* ReactiveCocoa.framework in Frameworks */,
-				41C7FDFF1BF53DCA004F9101 /* Result.framework in Frameworks */,
+				4101905C1BF5544F007677CC /* Result.framework in Frameworks */,
+				4101905A1BF5544F007677CC /* ReactiveCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +196,8 @@
 				41341B511BF273380074AF6A /* Sources */,
 				41341B521BF273380074AF6A /* Frameworks */,
 				41341B531BF273380074AF6A /* Resources */,
+				4101904E1BF55229007677CC /* ShellScript */,
+				4101905E1BF5544F007677CC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -266,6 +283,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4101904E1BF55229007677CC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Box.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		41341B511BF273380074AF6A /* Sources */ = {
