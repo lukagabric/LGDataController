@@ -78,7 +78,6 @@
 		41341B8E1BF275A10074AF6A /* LGContextTransferable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGContextTransferable.swift; sourceTree = "<group>"; };
 		41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+LGExtension.swift"; sourceTree = "<group>"; };
 		41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+LGExtension.swift"; sourceTree = "<group>"; };
-		41C7FDFA1BF53DCA004F9101 /* Box.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Box.framework; path = Carthage/Build/iOS/Box.framework; sourceTree = "<group>"; };
 		41C7FDFB1BF53DCA004F9101 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		41C7FDFC1BF53DCA004F9101 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,7 +178,6 @@
 		41C7FE001BF53DD4004F9101 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				41C7FDFA1BF53DCA004F9101 /* Box.framework */,
 				41C7FDFB1BF53DCA004F9101 /* ReactiveCocoa.framework */,
 				41C7FDFC1BF53DCA004F9101 /* Result.framework */,
 			);
