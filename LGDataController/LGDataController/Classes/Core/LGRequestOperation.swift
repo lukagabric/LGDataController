@@ -9,26 +9,34 @@
 import Foundation
 import ReactiveCocoa
 
-class LGRequestOperation: LGConcurrentOperation {
-    
+public class LGRequestOperation: LGConcurrentOperation {
+
+    public let signal: Signal<(NSData, NSURLResponse), NSError>
+
     let session: NSURLSession
     let request: NSURLRequest
     let signalProducer: SignalProducer<(NSData, NSURLResponse), NSError>
     var signalDisposable: Disposable?
-    
+    let observer: Observer<(NSData, NSURLResponse), NSError>
+
     init(session: NSURLSession, request: NSURLRequest) {
         self.session = session
         self.request = request
-        self.signalProducer = self.session.rac_dataWithRequest(request)
+        
+        self.signalProducer = self.session.rac_dataWithRequest(request).retry(1)
+
+        let (signal, observer) = Signal<(NSData, NSURLResponse), NSError>.pipe()
+        self.signal = signal.takeLast(1)
+        self.observer = observer
 
         super.init()
     }
     
-    override func main() {
-        self.signalDisposable = self.signalProducer.start()
+    override public func main() {
+        self.signalDisposable = self.signalProducer.start(self.observer)
     }
     
-    override func cancel() {
+    override public func cancel() {
         self.signalDisposable?.dispose()
         
         super.cancel()

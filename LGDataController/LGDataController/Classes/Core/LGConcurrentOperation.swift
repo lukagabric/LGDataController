@@ -8,14 +8,14 @@
 
 import Foundation
 
-class LGConcurrentOperation: NSOperation {
+public class LGConcurrentOperation: NSOperation {
     
-    override var asynchronous: Bool {
+    public override var asynchronous: Bool {
         return true
     }
     
     private var _executing: Bool = false
-    override var executing: Bool {
+    public override var executing: Bool {
         get {
             return _executing
         }
@@ -29,7 +29,7 @@ class LGConcurrentOperation: NSOperation {
     }
     
     private var _finished: Bool = false;
-    override var finished: Bool {
+    public override var finished: Bool {
         get {
             return _finished
         }
@@ -42,7 +42,7 @@ class LGConcurrentOperation: NSOperation {
         }
     }
     
-    override func start() {
+    public override func start() {
         if (cancelled) {
             finished = true
             return
