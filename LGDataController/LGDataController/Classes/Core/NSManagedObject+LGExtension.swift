@@ -16,3 +16,68 @@ extension NSManagedObject: LGContextTransferable {
     }
     
 }
+
+extension NSManagedObject {
+    
+    func lg_mergeWithDictionary(dictionary: [String : AnyObject]) {
+        if !lg_isUpdateDictionaryValid(dictionary) { return }
+        
+        let mappings = self.lg_dataUpdateMappings
+        let attributes = self.entity.attributesByName
+        let dateFormatter = self.lg_dateFormatter()
+        
+        for (key, rawValue) in dictionary {
+            guard let attributeKey = mappings[key] else { continue }
+            if rawValue is NSNull { continue }
+            
+            let value = lg_transformedValue(rawValue, key: key, attributes: attributes, dateFormatter: dateFormatter)
+            self.setValue(value, forKey: attributeKey)
+        }
+    }
+    
+    func lg_transformedValue(rawValue: AnyObject, key: String, attributes: [String : NSAttributeDescription], dateFormatter: NSDateFormatter) -> AnyObject? {
+        guard let attributeDescription = attributes[key] else { return rawValue }
+        let attributeType = attributeDescription.attributeType;
+        
+        guard let stringValue = rawValue as? String else { return rawValue }
+        
+        let intAttributeTypes: [NSAttributeType] = [.Integer64AttributeType, .Integer32AttributeType, .Integer64AttributeType]
+        
+        if attributeType == .DateAttributeType {
+            return dateFormatter.dateFromString(stringValue)
+        }
+        else if intAttributeTypes.contains(attributeType) {
+            return Int(stringValue)
+        }
+        else if attributeType == .DecimalAttributeType {
+            return Double(stringValue)
+        }
+        else if attributeType == .FloatAttributeType {
+            return Float(stringValue)
+        }
+        else if attributeType == .DoubleAttributeType {
+            return Double(stringValue)
+        }
+    
+        return rawValue
+    }
+    
+    func lg_isUpdateDictionaryValid(dictionary: [String : AnyObject]) -> Bool {
+        return true
+    }
+    
+    var lg_dataUpdateMappings: [String : String] {
+        return [String : String]()
+    }
+    
+    func lg_dateFormatter() -> NSDateFormatter {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+        return dateFormatter
+    }
+    
+    static func entityName() -> String {
+        return ""
+    }
+    
+}
