@@ -92,10 +92,10 @@
 		41C7FDFB1BF53DCA004F9101 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		41C7FDFC1BF53DCA004F9101 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperationTests.swift; sourceTree = "<group>"; };
-		41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Contact+CoreDataProperties.swift"; path = "LGDataController/Classes/Other/Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		41D511E71BF8E86400AE8EFF /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Contact.swift; path = LGDataController/Classes/Other/Contact.swift; sourceTree = "<group>"; };
-		41D511E81BF8E86400AE8EFF /* LGDataUpdateInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LGDataUpdateInfo+CoreDataProperties.swift"; path = "LGDataController/Classes/Other/LGDataUpdateInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		41D511E91BF8E86400AE8EFF /* LGDataUpdateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGDataUpdateInfo.swift; path = LGDataController/Classes/Other/LGDataUpdateInfo.swift; sourceTree = "<group>"; };
+		41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		41D511E71BF8E86400AE8EFF /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		41D511E81BF8E86400AE8EFF /* LGDataUpdateInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LGDataUpdateInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		41D511E91BF8E86400AE8EFF /* LGDataUpdateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGDataUpdateInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,10 +123,6 @@
 		41341B4C1BF273380074AF6A = {
 			isa = PBXGroup;
 			children = (
-				41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */,
-				41D511E71BF8E86400AE8EFF /* Contact.swift */,
-				41D511E81BF8E86400AE8EFF /* LGDataUpdateInfo+CoreDataProperties.swift */,
-				41D511E91BF8E86400AE8EFF /* LGDataUpdateInfo.swift */,
 				41341B571BF273380074AF6A /* LGDataController */,
 				41341B6F1BF273390074AF6A /* LGDataControllerTests */,
 				41341B561BF273380074AF6A /* Products */,
@@ -192,6 +188,10 @@
 		41341B7D1BF273730074AF6A /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */,
+				41D511E71BF8E86400AE8EFF /* Contact.swift */,
+				41D511E81BF8E86400AE8EFF /* LGDataUpdateInfo+CoreDataProperties.swift */,
+				41D511E91BF8E86400AE8EFF /* LGDataUpdateInfo.swift */,
 				41341B7E1BF273730074AF6A /* AppDelegate.swift */,
 				41341B7F1BF273730074AF6A /* ViewController.swift */,
 			);
