@@ -8,14 +8,7 @@
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
-    <entity name="LGDataUpdateInfo" representedClassName="LGDataUpdateInfo" syncable="YES">
-        <attribute name="etag" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="lastModified" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="lastUpdateDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="requestId" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
     <elements>
         <element name="Contact" positionX="-63" positionY="-18" width="128" height="135"/>
-        <element name="LGDataUpdateInfo" positionX="-54" positionY="-9" width="128" height="105"/>
     </elements>
 </model>
