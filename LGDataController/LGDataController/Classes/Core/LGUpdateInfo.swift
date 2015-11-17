@@ -8,18 +8,16 @@
 
 import Foundation
 
-struct LGUpdateInfo {
+class LGUpdateInfo {
     
     var requestId: String
-    var eTag: String
-    var lastModified: String
+    var eTag: String?
+    var lastModified: String?
     var updateDate: NSDate
     
-    init(requestId: String, eTag: String, lastModified: String, updateDate: NSDate) {
+    init(requestId: String) {
         self.requestId = requestId
-        self.eTag = eTag
-        self.lastModified = lastModified
-        self.updateDate = updateDate
+        self.updateDate = NSDate.distantPast()
     }
     
 }

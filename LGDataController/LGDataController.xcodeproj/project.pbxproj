@@ -462,6 +462,7 @@
 				INFOPLIST_FILE = LGDataController/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lukagabric.LGDataController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -478,6 +479,7 @@
 				INFOPLIST_FILE = LGDataController/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DRELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lukagabric.LGDataController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
