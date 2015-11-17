@@ -22,6 +22,8 @@ class LGRequestOperationTests: XCTestCase {
     }
     
     func testRequest() {
+        let expectation = expectationWithDescription("...")
+        
         let operationQueue = NSOperationQueue()
         operationQueue.suspended = true
         operationQueue.maxConcurrentOperationCount = 1
@@ -32,18 +34,35 @@ class LGRequestOperationTests: XCTestCase {
         }
         
         let op1 = LGRequestOperation(session: NSURLSession.sharedSession(), request: NSURLRequest(URL: url, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: 5))
-        op1.signal.observeNext { data, response in
-            let string = String(data: data, encoding: NSUTF8StringEncoding)
-            print("\(string)\n==========================\n\(response)")
+        
+        op1.signal.observeNext { response in
+            print(response)
+            print("\(String(data: response.responseData, encoding: NSUTF8StringEncoding))")
         }
         op1.signal.observeFailed { error in
             print("Error:\n\(error)")
         }
         
+        op1.signal.observe { event in
+            switch event {
+            case .Next(let response):
+                print(response)
+                print("\(String(data: response.responseData, encoding: NSUTF8StringEncoding))")
+            case .Failed(let error):
+                print("Error:\n\(error)")
+                expectation.fulfill()
+            case .Completed:
+                expectation.fulfill()                
+                break
+            default: break
+            }
+        }
+        
         operationQueue.addOperation(op1)
         
         operationQueue.suspended = false
-        operationQueue.waitUntilAllOperationsAreFinished()
+        
+        waitForExpectationsWithTimeout(10, handler: nil)
     }
         
 }

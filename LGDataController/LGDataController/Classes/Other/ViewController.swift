@@ -22,23 +22,7 @@ class ViewController: UIViewController {
     var context: NSManagedObjectContext!
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let context = NSManagedObjectContext()
-
-        let tuple: ([AnotherManagedObject], NSError?) = AnotherManagedObject.lg_existingObjectsOrStubs(guids: [""], guidKey: "", context: context)
-        
-        let x = tuple.0
-
-        print(x)
-        
-        let objects: [SomeManagedObject] = SomeManagedObject.lg_existingObjectsOrStubs(guids: [""], guidKey: "", context: context)
-        
-        print(objects)
-        
-        let firstObject = objects[0]
-        
-        print(firstObject)
+        super.viewDidLoad()        
     }
 
     override func didReceiveMemoryWarning() {

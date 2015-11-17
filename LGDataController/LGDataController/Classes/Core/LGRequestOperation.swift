@@ -11,33 +11,43 @@ import ReactiveCocoa
 
 public class LGRequestOperation: LGConcurrentOperation {
 
-    public let signal: Signal<(NSData, NSURLResponse), NSError>
+    public let signal: Signal<LGResponse, NSError>
+    let observer: Observer<LGResponse, NSError>
+    var disposable: Disposable?
+    
+    var signalProducer: SignalProducer<LGResponse, NSError>!
 
     let session: NSURLSession
     let request: NSURLRequest
-    let signalProducer: SignalProducer<(NSData, NSURLResponse), NSError>
-    var signalDisposable: Disposable?
-    let observer: Observer<(NSData, NSURLResponse), NSError>
-
+    
     init(session: NSURLSession, request: NSURLRequest) {
         self.session = session
         self.request = request
         
-        self.signalProducer = self.session.rac_dataWithRequest(request).retry(1)
-
-        let (signal, observer) = Signal<(NSData, NSURLResponse), NSError>.pipe()
+        let (signal, observer) = Signal<LGResponse, NSError>.pipe()
         self.signal = signal.takeLast(1)
+        
         self.observer = observer
 
         super.init()
+        
+        self.signalProducer = self.session.rac_dataWithRequest(request)
+            .retry(1)
+            .map { (data, response) -> LGResponse in
+                let response = LGResponse(response: response as! NSHTTPURLResponse, data: data)
+                return response
+            }
+            .observeOn(QueueScheduler.mainQueueScheduler)
+            .on(failed: { [weak self] _ in self?.completeOperation() },
+                completed: { [weak self] in self?.completeOperation() })
     }
     
     override public func main() {
-        self.signalDisposable = self.signalProducer.start(self.observer)
+        self.disposable = self.signalProducer.start(self.observer)
     }
     
     override public func cancel() {
-        self.signalDisposable?.dispose()
+        self.disposable?.dispose()
         
         super.cancel()
     }
