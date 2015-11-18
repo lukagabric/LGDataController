@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LGUpdateInfo {
+public class LGUpdateInfo {
     
     var requestId: String
     var eTag: String?

@@ -10,7 +10,7 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-typealias ActionClosure = () -> ()
+typealias LGActionClosure = () -> ()
 
 public class LGDataController {
     
@@ -40,7 +40,26 @@ public class LGDataController {
     
     //MARK: - Main
     
+    func updateData<T>(dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> Signal<T, NSError> {
+        let (signal, observer) = Signal<T, NSError>.pipe()
+
+        let response = LGResponse(response: NSHTTPURLResponse(), data: NSData())
+        let updatedData = dataUpdate(data: NSData(), response: response, context: NSManagedObjectContext())
+        
+        observer.sendNext(updatedData)
+        
+        return signal
+    }
     
+    func testDataUpdate() {
+        let updatedData = self.updateData { (data, response, context) -> [String] in
+            return ["aaa", "bbb"]
+        }
+        
+        updatedData.observeNext { strings in
+            print(strings)
+        }
+    }
     
     //MARK: - Cache Invalidation
     
@@ -126,17 +145,30 @@ public class LGDataController {
     
     //MARK: - Save
     
-    func saveData(completion: ActionClosure?) {
+    func saveData(completion: LGActionClosure?) {
         try! self.bgContext.save()
         
-        self.mainContext.performBlockAndWait {
-            try! self.mainContext.save()
+        self.mainContext.performBlockAndWait { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            try! strongSelf.mainContext.save()
             
             completion?()
+
+            if let parentContext = strongSelf.mainContext.parentContext {
+                strongSelf.saveToPersistentStore(parentContext)
+            }
+        }
+    }
+    
+    func saveToPersistentStore(context: NSManagedObjectContext) {
+        context.performBlock { [weak self] in
+            guard let strongSelf = self else { return }
+
+            try! context.save()
             
-            let rootContext = self.mainContext.parentContext
-            rootContext?.performBlock {
-                try! rootContext?.save()
+            if context.parentContext != nil {
+                strongSelf.saveToPersistentStore(context.parentContext!)
             }
         }
     }
