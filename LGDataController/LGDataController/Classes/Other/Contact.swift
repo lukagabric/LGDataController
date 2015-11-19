@@ -25,7 +25,9 @@ class Contact: NSManagedObject {
     //MARK: Parsing Data
     
     class func parseFullContactsData(data: NSArray, context: NSManagedObjectContext) -> [Contact] {
-        return [Contact]()
+        let guids = data.valueForKey("id") as! [String]
+        let contacts: [Contact] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: "guid")
+        return contacts
     }
     
     //MARK: -

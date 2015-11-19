@@ -85,46 +85,13 @@ extension NSManagedObject {
     class var lg_entityName: String {
         return ""
     }
-    
-    class func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String, context: NSManagedObjectContext) -> ([T], NSError?) {
-        let entityName = T.lg_entityName
-        if entityName.isEmpty { return ([T](), NSError(domain: "Entity name must be specified", code: 0, userInfo: nil)) }
-        assert(!entityName.isEmpty, "Entity name must be specified")
         
-        let fetchRequest = NSFetchRequest(entityName: entityName)
-        fetchRequest.predicate = NSPredicate(format: "(%K IN %@)", guidKey, guids)
-        
-        let existingObjects: [T]
-        
-        do {
-            existingObjects = try context.executeFetchRequest(fetchRequest) as! [T]
-        }
-        catch let error as NSError {
-            return ([], error)
-        }
-        
-        let existingObjectsGuids: [String] = existingObjects.map { ($0 as NSManagedObject).valueForKey(guidKey) as! String }
-        let newObjectGuids = guids.filter { guid in !existingObjectsGuids.contains(guid) }
-        let newObjects = newObjectGuids.map { (guid: String) -> T in
-            let newObject = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context)
-            newObject.setValue(guid, forKey: guidKey)
-            return newObject as! T
-        }
-        
-        return (newObjects + existingObjects, nil)
-    }
-    
-    class func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String, context: NSManagedObjectContext) -> [T] {
-        let tuple: ([T], NSError?) = self.lg_existingObjectsOrStubs(guids: guids, guidKey: guidKey, context: context)
-        return tuple.0
-    }
-    
     class func lg_mergeObjects<T: NSManagedObject>(data data: [[String : AnyObject]], dataGuidKey: String, objectGuidKey: String, weight: LGContentWeight, context: NSManagedObjectContext) -> [T] {
         
         let objectsGuids = data.map { (dictionary: [String : AnyObject]) -> String in
             dictionary[dataGuidKey] as! String
         }
-        let objects: [T] = self.lg_existingObjectsOrStubs(guids: objectsGuids, guidKey: objectGuidKey, context: context)
+        let objects: [T] = context.lg_existingObjectsOrStubs(guids: objectsGuids, guidKey: objectGuidKey)
         
         let objectsById: [String : T] = objects.lg_indexedByKeyPath(objectGuidKey)
         

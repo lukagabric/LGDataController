@@ -70,6 +70,7 @@ public class LGDataController {
                 
                 self.bgContext.performBlock {
                     let resultData = dataUpdate(data: serializedResponse, response: response, context: self.bgContext)
+                    print(resultData)
                     
                     self.saveDataToPersistentStore(context: self.bgContext) {
                         let mainContextResults = resultData.transferredToContext(self.mainContext) as! T
