@@ -11,6 +11,8 @@ import CoreData
 
 @objc(Contact)
 class Contact: NSManagedObject {
+    
+    //MARK: - Override
 
     override class var lg_entityName: String {
         return "Contact"
@@ -19,5 +21,13 @@ class Contact: NSManagedObject {
     override var lg_dataUpdateMappings: [String : String] {
         return [String : String]()
     }
+    
+    //MARK: Parsing Data
+    
+    class func parseFullContactsData(data: NSArray, context: NSManagedObjectContext) -> [Contact] {
+        return [Contact]()
+    }
+    
+    //MARK: -
 
 }

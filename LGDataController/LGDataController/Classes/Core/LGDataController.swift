@@ -40,23 +40,58 @@ public class LGDataController {
     
     //MARK: - Main
     
-    func updateData<T>(dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> Signal<T, NSError> {
-        let (signal, observer) = Signal<T, NSError>.pipe()
+    func updateData<T where T: LGContextTransferable>(
+        url url: String,
+        methodName: String,
+        parameters: [String : AnyObject]?,
+        requestId: String,
+        staleInterval: NSTimeInterval,
+        dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> Signal<T, NSError>? {
+            assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
+            
+            if let update = self.activeUpdates[requestId] {
+                return update as? Signal<T, NSError>
+            }
+            
+            if !self.isDataStale(reqestId: requestId, staleInterval: staleInterval) { return nil }
+            
+            guard let request = self.createRequest(requestId: requestId, url: url, methodName: methodName, parameters: parameters) else { return  nil }
 
-        let response = LGResponse(response: NSHTTPURLResponse(), data: NSData())
-        let updatedData = dataUpdate(data: NSData(), response: response, context: NSManagedObjectContext())
-        
-        observer.sendNext(updatedData)
-        
-        return signal
+            let operation = LGRequestOperation(session: self.session, request: request)
+            self.dataDownloadQueue.addOperation(operation)
+            
+            let dataUpdateSignal = operation.signal.flatMap(FlattenStrategy.Latest) { response -> Signal<T, NSError> in
+                let (signal, observer) = Signal<T, NSError>.pipe()
+
+                guard let serializedResponse = self.serializedResponse(response) else {
+                    observer.sendFailed(NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
+                    return signal
+                }
+                
+                self.bgContext.performBlock {
+                    let resultData = dataUpdate(data: serializedResponse, response: response, context: self.bgContext)
+                    
+                    self.saveDataToPersistentStore(context: self.bgContext) {
+                        let mainContextResults = resultData.transferredToContext(self.mainContext) as! T
+                        observer.sendNext(mainContextResults)
+                        observer.sendCompleted()
+                    }
+                }
+                
+                return signal
+            }
+            
+            return dataUpdateSignal.takeLast(1).observeOn(QueueScheduler.mainQueueScheduler)
     }
     
     func testDataUpdate() {
-        let updatedData = self.updateData { (data, response, context) -> [String] in
+        let s = self.updateData(url:"", methodName: "", parameters: ["aa" : "bb"], requestId: "", staleInterval:1) { (data, response, context) -> [String] in
             return ["aaa", "bbb"]
         }
+
+        guard let signal = s else { return }
         
-        updatedData.observeNext { strings in
+        signal.observeNext { strings in
             print(strings)
         }
     }
@@ -145,37 +180,26 @@ public class LGDataController {
     
     //MARK: - Save
     
-    func saveData(completion: LGActionClosure?) {
-        try! self.bgContext.save()
-        
-        self.mainContext.performBlockAndWait { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            try! strongSelf.mainContext.save()
-            
-            completion?()
-
-            if let parentContext = strongSelf.mainContext.parentContext {
-                strongSelf.saveToPersistentStore(parentContext)
-            }
-        }
-    }
-    
-    func saveToPersistentStore(context: NSManagedObjectContext) {
+    func saveDataToPersistentStore(context context: NSManagedObjectContext, completion: LGActionClosure?) {
         context.performBlock { [weak self] in
             guard let strongSelf = self else { return }
-
+            
             try! context.save()
             
             if context.parentContext != nil {
-                strongSelf.saveToPersistentStore(context.parentContext!)
+                strongSelf.saveDataToPersistentStore(context: context.parentContext!, completion: completion)
+            }
+            else {
+                if completion != nil {
+                    dispatch_async(dispatch_get_main_queue(), completion!)
+                }
             }
         }
     }
     
     //MARK: - Request Convenience
     
-    func createRequest(requestId requestId: String, url: String, methodName: String, parameters: [String : AnyObject]?) -> NSURLRequest {
+    func createRequest(requestId requestId: String, url: String, methodName: String, parameters: [String : AnyObject]?) -> NSURLRequest? {
         var completeUrl = url
         
         if parameters != nil && methodName == "GET" {
@@ -185,7 +209,7 @@ public class LGDataController {
             }
         }
         
-        guard let requestURL = NSURL(string: completeUrl) else { return NSURLRequest() }
+        guard let requestURL = NSURL(string: completeUrl) else { return nil }
         
         let request = NSMutableURLRequest(URL: requestURL)
         request.HTTPMethod = methodName

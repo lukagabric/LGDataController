@@ -11,8 +11,8 @@ import CoreData
 
 extension Array: LGContextTransferable {
 
-    func transferredToContext(context: NSManagedObjectContext) -> [NSManagedObject] {
-        return self.filter{$0 is NSManagedObject}.map{($0 as! NSManagedObject).transferredToContext(context)}
+    func transferredToContext(context: NSManagedObjectContext) -> [Element] {
+        return self.filter{$0 is NSManagedObject}.map{($0 as! NSManagedObject).transferredToContext(context) as! Element}
     }
     
 }

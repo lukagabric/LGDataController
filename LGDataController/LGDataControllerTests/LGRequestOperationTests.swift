@@ -22,7 +22,7 @@ class LGRequestOperationTests: XCTestCase {
     }
     
     func testRequest() {
-        let expectation = expectationWithDescription("...")
+        let expectation = expectationWithDescription("testRequest")
         
         let operationQueue = NSOperationQueue()
         operationQueue.suspended = true

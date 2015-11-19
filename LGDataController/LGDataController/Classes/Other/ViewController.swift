@@ -8,21 +8,39 @@
 
 import UIKit
 import CoreData
-
-class SomeManagedObject: NSManagedObject {
-    
-}
-
-class AnotherManagedObject: NSManagedObject {
-    
-}
+import ReactiveCocoa
 
 class ViewController: UIViewController {
     
     var context: NSManagedObjectContext!
-
+    var session: NSURLSession!
+    var dataController: LGDataController!
+    var signal: Signal<[Contact], NSError>!
+    
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        
+        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else { return }
+        self.dataController = LGDataController(session: session, mainContext: appDelegate.managedObjectContext)
+        
+        let contactsSignalOptional = self.dataController.updateData(
+            url: "http://lukagabric.com/wp-content/contacts-api/contacts",
+            methodName: "GET",
+            parameters: nil,
+            requestId: "ContactsJSON",
+            staleInterval: 10) { (data, response, context) -> [Contact] in
+                let contacts = Contact.parseFullContactsData(data as! NSArray, context: context)
+                return contacts
+        }
+        
+        guard let contactsSignal = contactsSignalOptional else { return }
+        self.signal = contactsSignal
+        
+        self.signal.observeNext { contacts in
+            print(contacts)
+        }
+
     }
 
     override func didReceiveMemoryWarning() {

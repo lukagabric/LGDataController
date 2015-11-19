@@ -12,13 +12,13 @@ import ReactiveCocoa
 public class LGRequestOperation: LGConcurrentOperation {
 
     public let signal: Signal<LGResponse, NSError>
-    let observer: Observer<LGResponse, NSError>
-    var disposable: Disposable?
+    private let observer: Observer<LGResponse, NSError>
+    private var disposable: Disposable?
     
-    var signalProducer: SignalProducer<LGResponse, NSError>!
+    private var signalProducer: SignalProducer<LGResponse, NSError>!
 
-    let session: NSURLSession
-    let request: NSURLRequest
+    private let session: NSURLSession
+    private let request: NSURLRequest
     
     init(session: NSURLSession, request: NSURLRequest) {
         self.session = session
@@ -37,7 +37,7 @@ public class LGRequestOperation: LGConcurrentOperation {
                 let response = LGResponse(response: response as! NSHTTPURLResponse, data: data)
                 return response
             }
-            .observeOn(QueueScheduler.mainQueueScheduler)
+            .observeOn(QueueScheduler.init(queue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)))
             .on(failed: { [weak self] _ in self?.completeOperation() },
                 completed: { [weak self] in self?.completeOperation() })
     }
