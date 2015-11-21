@@ -30,6 +30,8 @@ class Contact: NSManagedObject {
         return contacts
     }
     
+    //MARK: Debug
+    
     func debugLog() {
         print("Guid: \(self.guid)")
         print("First name: \(self.firstName)")

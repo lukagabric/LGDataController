@@ -323,8 +323,8 @@
 				41341B8B1BF2749F0074AF6A /* LGRequestOperation.swift */,
 				41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */,
 				41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */,
-				41341B8E1BF275A10074AF6A /* LGContextTransferable.swift */,
 				41A6F07D1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift */,
+				41341B8E1BF275A10074AF6A /* LGContextTransferable.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
