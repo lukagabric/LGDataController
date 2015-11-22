@@ -12,7 +12,7 @@ import CoreData
 extension NSManagedObjectContext {
     
     func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String) -> ([T], NSError?) {
-        let entityName = T.lg_entityName
+        let entityName = T.lg_entityName()
         if entityName.isEmpty { return ([T](), NSError(domain: "Entity name must be specified", code: 0, userInfo: nil)) }
         assert(!entityName.isEmpty, "Entity name must be specified")
         

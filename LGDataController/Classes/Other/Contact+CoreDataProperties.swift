@@ -2,7 +2,7 @@
 //  Contact+CoreDataProperties.swift
 //  LGDataController
 //
-//  Created by Luka Gabric on 20/11/15.
+//  Created by Luka Gabric on 22/11/15.
 //  Copyright © 2015 Luka Gabric. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu

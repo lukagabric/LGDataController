@@ -28,9 +28,9 @@ extension NSManagedObject {
     func lg_mergeWithDictionary(dictionary: [String : AnyObject]) {
         if !lg_isUpdateDictionaryValid(dictionary) { return }
         
-        let mappings = self.lg_dataUpdateMappings
+        let mappings = self.dynamicType.lg_dataUpdateMappings()
         let attributes = self.entity.attributesByName
-        let dateFormatter = self.lg_dateFormatter
+        let dateFormatter = self.dynamicType.lg_dateFormatter()
         
         for (key, rawValue) in dictionary {
             guard let attributeKey = mappings[key] else { continue }
@@ -72,20 +72,22 @@ extension NSManagedObject {
         return true
     }
     
-    var lg_dataUpdateMappings: [String : String] {
-        return [String : String]()
+    class func lg_dataUpdateMappings() -> [String : String] {
+        print("Mappings need to be provided in a subclass override")
+        abort()
     }
     
-    var lg_dateFormatter: NSDateFormatter {
+    class func lg_dateFormatter() -> NSDateFormatter {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
         return dateFormatter
     }
     
-    class var lg_entityName: String {
-        return ""
+    class func lg_entityName() -> String {
+        print("Entity name needs to be provided in a subclass override")
+        abort()
     }
-        
+    
     class func lg_mergeObjects<T: NSManagedObject>(data data: [[String : AnyObject]], dataGuidKey: String, objectGuidKey: String, weight: LGContentWeight, context: NSManagedObjectContext) -> [T] {
         
         let objectsGuids = data.map { (dictionary: [String : AnyObject]) -> String in

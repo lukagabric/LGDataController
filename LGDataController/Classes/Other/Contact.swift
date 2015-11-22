@@ -12,14 +12,21 @@ import CoreData
 @objc(Contact)
 class Contact: NSManagedObject {
     
-    //MARK: - Override
-
-    override class var lg_entityName: String {
+    //MARK: - Entity Name
+    
+    override class func lg_entityName() -> String {
         return "Contact"
     }
     
-    override var lg_dataUpdateMappings: [String : String] {
-        return [String : String]()
+    //MARK: - Mappings
+    
+    static var mappings: [String : String] = [
+        "aa" : "bb",
+        "cc" : "dd"
+    ]
+    
+    override class func lg_dataUpdateMappings() -> [String : String] {
+        return mappings
     }
     
     //MARK: Parsing Data
@@ -27,6 +34,13 @@ class Contact: NSManagedObject {
     class func parseFullContactsData(data: NSArray, context: NSManagedObjectContext) -> [Contact] {
         let guids = data.valueForKey("id") as! [String]
         let contacts: [Contact] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: "guid")
+        let contactsByGuid: [String : Contact] = contacts.lg_indexedByKeyPath("guid")
+        for contactDict in data as! [[String : AnyObject]] {
+            let guid = contactDict["id"] as! String
+            guard let contact = contactsByGuid[guid] else { continue }
+            contact.lg_mergeWithDictionary(contactDict)
+            contact.weight = NSNumber(integer: LGContentWeight.Full.rawValue)
+        }
         return contacts
     }
     

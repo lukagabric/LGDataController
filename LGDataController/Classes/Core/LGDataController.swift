@@ -63,6 +63,17 @@ public class LGDataController {
             let dataUpdateSignal = operation.signal.flatMap(FlattenStrategy.Latest) { response -> Signal<T, NSError> in
                 let (signal, observer) = Signal<T, NSError>.pipe()
 
+                if let error = self.validateResponse(response) {
+                    observer.sendFailed(error)
+                    return signal
+                }
+                
+                if !self.isDataNew(reqestId: requestId, response: response) {
+                    self.refreshUpdateInfo(reqestId: requestId, response: response)
+                    observer.sendCompleted()
+                    return signal
+                }
+                
                 guard let serializedResponse = self.serializedResponse(response) else {
                     observer.sendFailed(NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
                     return signal
@@ -70,10 +81,12 @@ public class LGDataController {
                 
                 self.bgContext.performBlock {
                     let resultData = dataUpdate(data: serializedResponse, response: response, context: self.bgContext)
-                    print(resultData)
                     
                     self.saveDataToPersistentStore(context: self.bgContext) {
+                        self.refreshUpdateInfo(reqestId: requestId, response: response)
+                        
                         let mainContextResults = resultData.transferredToContext(self.mainContext) as! T
+                        
                         observer.sendNext(mainContextResults)
                         observer.sendCompleted()
                     }
@@ -83,18 +96,6 @@ public class LGDataController {
             }
             
             return dataUpdateSignal.takeLast(1).observeOn(QueueScheduler.mainQueueScheduler)
-    }
-    
-    func testDataUpdate() {
-        let s = self.updateData(url:"", methodName: "", parameters: ["aa" : "bb"], requestId: "", staleInterval:1) { (data, response, context) -> [String] in
-            return ["aaa", "bbb"]
-        }
-
-        guard let signal = s else { return }
-        
-        signal.observeNext { strings in
-            print(strings)
-        }
     }
     
     //MARK: - Cache Invalidation
@@ -156,6 +157,7 @@ public class LGDataController {
         let updateInfo = self.updateInfoForRequestId(requestId)
         updateInfo.eTag = response.eTag
         updateInfo.lastModified = response.lastModified
+        updateInfo.updateDate = NSDate()
         return updateInfo
     }
     
@@ -171,8 +173,8 @@ public class LGDataController {
     
     //MARK: - Response
     
-    func isResponseValid(response: LGResponse) -> Bool {
-        return true
+    func validateResponse(response: LGResponse) -> NSError? {
+        return nil
     }
     
     func serializedResponse(response: LGResponse) -> AnyObject? {
