@@ -21,11 +21,10 @@ class Contact: NSManagedObject {
     //MARK: - Mappings
     
     static var mappings: [String : String] = [
-        "aa" : "bb",
-        "cc" : "dd"
+        "id" : "guid",
     ]
     
-    override class func lg_dataUpdateMappings() -> [String : String] {
+    override class func lg_responseToEntityMappings() -> [String : String] {
         return mappings
     }
     

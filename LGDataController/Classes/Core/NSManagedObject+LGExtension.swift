@@ -27,13 +27,23 @@ extension NSManagedObject {
     
     func lg_mergeWithDictionary(dictionary: [String : AnyObject]) {
         if !lg_isUpdateDictionaryValid(dictionary) { return }
-        
-        let mappings = self.dynamicType.lg_dataUpdateMappings()
+
+        let mappings = self.dynamicType.lg_responseToEntityMappings()
         let attributes = self.entity.attributesByName
         let dateFormatter = self.dynamicType.lg_dateFormatter()
         
         for (key, rawValue) in dictionary {
-            guard let attributeKey = mappings[key] else { continue }
+            let attributeKey: String
+            if let mappingsAttributeKey = mappings[key] {
+                attributeKey = mappingsAttributeKey
+            }
+            else if attributes[key] != nil {
+                attributeKey = key
+            }
+            else {
+                continue
+            }
+            
             if rawValue is NSNull { continue }
             
             let value = lg_transformedValue(rawValue, key: key, attributes: attributes, dateFormatter: dateFormatter)
@@ -72,9 +82,8 @@ extension NSManagedObject {
         return true
     }
     
-    class func lg_dataUpdateMappings() -> [String : String] {
-        print("Mappings need to be provided in a subclass override")
-        abort()
+    class func lg_responseToEntityMappings() -> [String : String] {
+        return [String : String]()
     }
     
     class func lg_dateFormatter() -> NSDateFormatter {
