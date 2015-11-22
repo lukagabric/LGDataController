@@ -98,6 +98,15 @@ public class LGDataController {
             return dataUpdateSignal.takeLast(1).observeOn(QueueScheduler.mainQueueScheduler)
     }
     
+    public func refreshSignal<T>(inputSignal inputSignal: Signal<T, NSError>?) -> Signal<Void, NSError>? {
+        let refreshSignal = inputSignal?.flatMap(FlattenStrategy.Latest) { input -> Signal<Void, NSError> in
+            let (signal, observer) = Signal<Void, NSError>.pipe()
+            observer.sendCompleted()
+            return signal
+        }
+        return refreshSignal
+    }
+    
     //MARK: - Cache Invalidation
     
     func isDataStale(reqestId requestId: String, staleInterval: Double) -> Bool {

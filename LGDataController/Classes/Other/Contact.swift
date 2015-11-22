@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(Contact)
-class Contact: NSManagedObject {
+public class Contact: NSManagedObject {
     
     //MARK: - Entity Name
     
