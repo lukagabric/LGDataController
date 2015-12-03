@@ -29,6 +29,10 @@ public class ContactsViewModel {
         self.contactsModelObserver.refreshSignal?.observeCompleted {
             print("update completed")
         }
+        
+        self.contactsModelObserver.modelChangedSignal.observeNext { change in
+            print(change.sections)
+        }
     }
     
 }

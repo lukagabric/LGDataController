@@ -21,5 +21,69 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LGDataController/Classes/Other/ContactsViewModel.swift"
+            timestampString = "470849114.290851"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "init(dataController:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LGDataController/Classes/Other/ContactsViewModel.swift"
+            timestampString = "470849115.068881"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "init(dataController:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LGDataController.ContactsViewModel.init (LGDataController.ContactsViewModel.Type)(dataController : LGDataController.LGDataController) -&gt; LGDataController.ContactsViewModel"
+                  moduleName = "LGDataController"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lukagabric/Workspaces/iOS/LGDataController/LGDataController/Classes/Other/ContactsViewModel.swift"
+                  timestampString = "470849117.864038"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "756">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LGDataController.ContactsViewModel.(init (LGDataController.ContactsViewModel.Type) -&gt; (dataController : LGDataController.LGDataController) -&gt; LGDataController.ContactsViewModel).(closure #2)"
+                  moduleName = "LGDataController"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lukagabric/Workspaces/iOS/LGDataController/LGDataController/Classes/Other/ContactsViewModel.swift"
+                  timestampString = "470849117.864261"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
