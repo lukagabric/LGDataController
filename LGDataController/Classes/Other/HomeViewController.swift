@@ -11,7 +11,9 @@ import UIKit
 public class HomeViewController: UIViewController {
 
     @IBAction func showContacts() {
-        self.navigationController?.pushViewController(ContactsViewController(), animated: true)
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        print(appDelegate)
+        self.navigationController?.pushViewController(ContactsViewController(dataController: appDelegate.dataController), animated: true)
     }
 
 }

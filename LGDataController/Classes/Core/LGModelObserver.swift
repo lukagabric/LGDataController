@@ -10,10 +10,6 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-public class NoValue {
-    
-}
-
 public class LGModelChange {
     
     public let previousSections: [NSFetchedResultsSectionInfo]?

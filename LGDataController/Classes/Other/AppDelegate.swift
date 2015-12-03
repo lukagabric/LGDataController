@@ -13,7 +13,14 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    lazy var urlSession: NSURLSession = {
+        return NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+    }()
+    
+    lazy var dataController: LGDataController = {
+        return LGDataController(session: self.urlSession, mainContext: self.managedObjectContext)
+    }()
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.rootViewController = UINavigationController(rootViewController: HomeViewController())

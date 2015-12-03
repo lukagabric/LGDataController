@@ -22,6 +22,10 @@ public class ContactsViewModel {
         let contactsInteractor = ContactsInteractor(dataController: dataController)
         self.contactsModelObserver = contactsInteractor.contactsModelObserver()
         
+        if self.contactsModelObserver.refreshSignal == nil {
+            print("no refresh signal means data is not stale")
+        }
+        
         self.contactsModelObserver.refreshSignal?.observeCompleted {
             print("update completed")
         }

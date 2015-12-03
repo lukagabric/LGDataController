@@ -36,7 +36,7 @@ public class ContactsInteractor {
         let frc = NSFetchedResultsController(
             fetchRequest: contactsFetchRequest,
             managedObjectContext: self.dataController.mainContext,
-            sectionNameKeyPath: "classification.order",
+            sectionNameKeyPath: nil,
             cacheName: nil)
         
         let modelObserver: LGModelObserver = LGModelObserver(fetchedResultsController: frc, refreshSignal: self.dataController.refreshSignal(inputSignal: contactsUpdateSignal))
