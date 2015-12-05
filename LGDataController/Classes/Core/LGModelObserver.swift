@@ -22,10 +22,13 @@ public class LGModelChange {
     
 }
 
-public class LGModelObserver: NSObject, NSFetchedResultsControllerDelegate {
+public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsControllerDelegate {
     
     public let modelChangedSignalProducer: SignalProducer<LGModelChange, NSError>
     private let modelChangedObserver: Observer<LGModelChange, NSError>
+    
+    public let fetchedObjectsSignalProducer: SignalProducer<[T]?, NSError>
+    private let fetchedObjectsObserver: Observer<[T]?, NSError>
     
     public let refreshSignal: Signal<Void, NSError>?
     
@@ -42,6 +45,10 @@ public class LGModelObserver: NSObject, NSFetchedResultsControllerDelegate {
         self.modelChangedSignalProducer = modelChangedSignalProducer
         self.modelChangedObserver = modelChangedObserver
         
+        let (fetchedObjectsSignalProducer, fetchedObjectsObserver) = SignalProducer<[T]?, NSError>.buffer(1)
+        self.fetchedObjectsSignalProducer = fetchedObjectsSignalProducer
+        self.fetchedObjectsObserver = fetchedObjectsObserver
+        
         super.init()
         
         self.fetchedResultsController.delegate = self
@@ -49,6 +56,13 @@ public class LGModelObserver: NSObject, NSFetchedResultsControllerDelegate {
         
         let modelChange = LGModelChange(previousSections: nil, sections: self.fetchedResultsController.sections)
         self.modelChangedObserver.sendNext(modelChange)
+
+        self.sendFetchedObjects()
+    }
+    
+    private func sendFetchedObjects() {
+        let fetchedObjects = self.fetchedResultsController.fetchedObjects as? [T]
+        self.fetchedObjectsObserver.sendNext(fetchedObjects)
     }
     
 }
@@ -63,6 +77,8 @@ extension LGModelObserver {
         let modelChange = LGModelChange(previousSections: self.previousSections, sections: controller.sections)
         self.previousSections = nil
         self.modelChangedObserver.sendNext(modelChange)
+
+        self.sendFetchedObjects()
     }
     
 }

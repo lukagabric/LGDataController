@@ -14,7 +14,7 @@ public class ContactsViewModel {
     
     private let dataController: LGDataController
     
-    public let contactsModelObserver: LGModelObserver
+    public let contactsModelObserver: LGModelObserver<Contact>
     
     init(dataController: LGDataController) {
         self.dataController = dataController
@@ -36,6 +36,11 @@ public class ContactsViewModel {
             guard let objects = firstSection.objects else { return }
             print(objects)
         }
+        
+        self.contactsModelObserver.fetchedObjectsSignalProducer.startWithNext { contacts in
+            print(contacts)
+        }
+        
     }
     
 }

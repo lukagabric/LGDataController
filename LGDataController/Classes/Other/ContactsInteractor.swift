@@ -45,7 +45,7 @@ public class ContactsInteractor {
         return self.dataController.refreshSignal(inputSignal: contactsUpdateSignal)
     }
     
-    func contactsModelObserver() -> LGModelObserver {
+    func contactsModelObserver() -> LGModelObserver<Contact> {
         let contactsFrc = self.contactsFrc()
         let refreshSignal = self.contactsRefreshSignal()
         
