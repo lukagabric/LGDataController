@@ -24,7 +24,7 @@ public class LGModelChange {
 
 public class LGModelObserver: NSObject, NSFetchedResultsControllerDelegate {
     
-    public let modelChangedSignal: Signal<LGModelChange, NSError>
+    public let modelChangedSignalProducer: SignalProducer<LGModelChange, NSError>
     private let modelChangedObserver: Observer<LGModelChange, NSError>
     
     public let refreshSignal: Signal<Void, NSError>?
@@ -35,20 +35,25 @@ public class LGModelObserver: NSObject, NSFetchedResultsControllerDelegate {
     
     init(fetchedResultsController: NSFetchedResultsController, refreshSignal: Signal<Void, NSError>?) {
         self.fetchedResultsController = fetchedResultsController
+
         self.refreshSignal = refreshSignal
         
-        let (modelChangedSignal, modelChangedObserver) = Signal<LGModelChange, NSError>.pipe()
-        self.modelChangedSignal = modelChangedSignal
+        let (modelChangedSignalProducer, modelChangedObserver) = SignalProducer<LGModelChange, NSError>.buffer(1)
+        self.modelChangedSignalProducer = modelChangedSignalProducer
         self.modelChangedObserver = modelChangedObserver
         
         super.init()
         
         self.fetchedResultsController.delegate = self
         try! self.fetchedResultsController.performFetch()
-
+        
         let modelChange = LGModelChange(previousSections: nil, sections: self.fetchedResultsController.sections)
         self.modelChangedObserver.sendNext(modelChange)
     }
+    
+}
+
+extension LGModelObserver {
     
     public func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.previousSections = controller.sections

@@ -30,8 +30,11 @@ public class ContactsViewModel {
             print("update completed")
         }
         
-        self.contactsModelObserver.modelChangedSignal.observeNext { change in
-            print(change.sections)
+        self.contactsModelObserver.modelChangedSignalProducer.startWithNext { change in
+            guard let sections = change.sections else { return }
+            let firstSection = sections[0]
+            guard let objects = firstSection.objects else { return }
+            print(objects)
         }
     }
     
