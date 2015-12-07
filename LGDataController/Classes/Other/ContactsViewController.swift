@@ -10,7 +10,7 @@ import UIKit
 
 class ContactsViewController: UIViewController {
     
-    var viewModel: ContactsViewModel?
+    var viewModel: ContactsViewModel!
     
     init(dataController: LGDataController) {
         self.viewModel = ContactsViewModel(dataController: dataController)
@@ -23,8 +23,21 @@ class ContactsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.viewModel.isLoadingContacts.producer.startWithNext { loading in
+            print("Contacts \(loading ? "ARE" : "ARE NOT") loading!")
+        }
 
-        // Do any additional setup after loading the view.
+        self.viewModel.contactsCount.producer.startWithNext { [weak self] string in
+            self?.title = string
+        }
+        
+        self.viewModel.contacts.producer.startWithNext { contacts in
+            guard let allContacts = contacts else { return }
+            
+            print(allContacts);
+        }
+        
     }
 
 }

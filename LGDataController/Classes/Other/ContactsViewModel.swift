@@ -14,33 +14,33 @@ public class ContactsViewModel {
     
     private let dataController: LGDataController
     
-    public let contactsModelObserver: LGModelObserver<Contact>
+    private let contactsInteractor: ContactsInteractor
+    private let contactsModelObserver: LGModelObserver<Contact>
     
+    public let contactsCount = MutableProperty<String>("No contacts")
+    public let isLoadingContacts = MutableProperty<Bool>(false)
+    public let contacts = MutableProperty<[Contact]?>(nil)
+        
     init(dataController: LGDataController) {
         self.dataController = dataController
-        
-        let contactsInteractor = ContactsInteractor(dataController: dataController)
+        self.contactsInteractor = ContactsInteractor(dataController: dataController)
         self.contactsModelObserver = contactsInteractor.contactsModelObserver()
         
-        if self.contactsModelObserver.refreshSignal == nil {
-            print("no refresh signal means data is not stale")
+        self.contacts <~ self.contactsModelObserver.fetchedObjectsSignalProducer
+
+        self.contactsCount <~ self.contactsModelObserver.fetchedObjectsSignalProducer.map { contacts -> String in
+            guard let allContacts = contacts else { return "No contacts" }
+            return "\(String(allContacts.count)) contact(s)"
         }
-        
-        self.contactsModelObserver.refreshSignal?.observeCompleted {
-            print("update completed")
+
+        //TO-DO: Create signal/signal producer and bind to mutable property
+        if let refreshSignal = self.contactsModelObserver.refreshSignal {
+            self.isLoadingContacts.value = true
+            refreshSignal.observe { [weak self] _ in
+                self?.isLoadingContacts.value = false
+            }
         }
-        
-        self.contactsModelObserver.modelChangedSignalProducer.startWithNext { change in
-            guard let sections = change.sections else { return }
-            let firstSection = sections[0]
-            guard let objects = firstSection.objects else { return }
-            print(objects)
-        }
-        
-        self.contactsModelObserver.fetchedObjectsSignalProducer.startWithNext { contacts in
-            print(contacts)
-        }
-        
+
     }
     
 }

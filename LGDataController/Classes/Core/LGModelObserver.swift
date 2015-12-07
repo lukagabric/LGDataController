@@ -24,11 +24,11 @@ public class LGModelChange {
 
 public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsControllerDelegate {
     
-    public let modelChangedSignalProducer: SignalProducer<LGModelChange, NSError>
-    private let modelChangedObserver: Observer<LGModelChange, NSError>
+    public let modelChangedSignalProducer: SignalProducer<LGModelChange, NoError>
+    private let modelChangedObserver: Observer<LGModelChange, NoError>
     
-    public let fetchedObjectsSignalProducer: SignalProducer<[T]?, NSError>
-    private let fetchedObjectsObserver: Observer<[T]?, NSError>
+    public let fetchedObjectsSignalProducer: SignalProducer<[T]?, NoError>
+    private let fetchedObjectsObserver: Observer<[T]?, NoError>
     
     public let refreshSignal: Signal<Void, NSError>?
     
@@ -41,11 +41,11 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
 
         self.refreshSignal = refreshSignal
         
-        let (modelChangedSignalProducer, modelChangedObserver) = SignalProducer<LGModelChange, NSError>.buffer(1)
+        let (modelChangedSignalProducer, modelChangedObserver) = SignalProducer<LGModelChange, NoError>.buffer(1)
         self.modelChangedSignalProducer = modelChangedSignalProducer
         self.modelChangedObserver = modelChangedObserver
         
-        let (fetchedObjectsSignalProducer, fetchedObjectsObserver) = SignalProducer<[T]?, NSError>.buffer(1)
+        let (fetchedObjectsSignalProducer, fetchedObjectsObserver) = SignalProducer<[T]?, NoError>.buffer(1)
         self.fetchedObjectsSignalProducer = fetchedObjectsSignalProducer
         self.fetchedObjectsObserver = fetchedObjectsObserver
         
