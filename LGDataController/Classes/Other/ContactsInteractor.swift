@@ -18,6 +18,13 @@ public class ContactsInteractor {
         self.dataController = dataController
     }
     
+    func contactsModelObserver() -> LGModelObserver<Contact> {
+        let contactsFrc = self.contactsFrc()
+        let refreshSignal = self.contactsRefreshSignal()
+        
+        return LGModelObserver(fetchedResultsController: contactsFrc, refreshSignal: refreshSignal)
+    }
+    
     func contactsFrc() -> NSFetchedResultsController {
         let contactsFetchRequest = NSFetchRequest(entityName: Contact.lg_entityName())
         let sortDescriptor = NSSortDescriptor(key: "lastName", ascending: true)
@@ -43,13 +50,6 @@ public class ContactsInteractor {
         }
 
         return self.dataController.refreshSignal(inputSignal: contactsUpdateSignal)
-    }
-    
-    func contactsModelObserver() -> LGModelObserver<Contact> {
-        let contactsFrc = self.contactsFrc()
-        let refreshSignal = self.contactsRefreshSignal()
-        
-        return LGModelObserver(fetchedResultsController: contactsFrc, refreshSignal: refreshSignal)
     }
     
 }

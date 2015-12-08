@@ -31,6 +31,9 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     private let fetchedObjectsObserver: Observer<[T]?, NoError>
     
     public let refreshSignal: Signal<Void, NSError>?
+    lazy public var refreshSignalNoError: Signal<Void, NoError>? = {
+        return self.refreshSignal?.flatMapError { _ in return SignalProducer<Void, NoError>(value: ()) }
+    }()
     
     private let fetchedResultsController: NSFetchedResultsController
 

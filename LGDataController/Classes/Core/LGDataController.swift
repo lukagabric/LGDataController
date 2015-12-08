@@ -99,12 +99,7 @@ public class LGDataController {
     }
     
     public func refreshSignal<T>(inputSignal inputSignal: Signal<T, NSError>?) -> Signal<Void, NSError>? {
-        let refreshSignal = inputSignal?.flatMap(FlattenStrategy.Latest) { input -> Signal<Void, NSError> in
-            let (signal, observer) = Signal<Void, NSError>.pipe()
-            observer.sendCompleted()
-            return signal
-        }
-        return refreshSignal
+        return inputSignal?.map { _ in () }
     }
     
     //MARK: - Cache Invalidation

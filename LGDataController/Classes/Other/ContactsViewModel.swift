@@ -33,14 +33,11 @@ public class ContactsViewModel {
             return "\(String(allContacts.count)) contact(s)"
         }
 
-        //TO-DO: Create signal/signal producer and bind to mutable property
-        if let refreshSignal = self.contactsModelObserver.refreshSignal {
-            self.isLoadingContacts.value = true
-            refreshSignal.observe { [weak self] _ in
-                self?.isLoadingContacts.value = false
-            }
+        if let refreshSignal = self.contactsModelObserver.refreshSignalNoError {
+            isLoadingContacts.value = true
+            isLoadingContacts <~ refreshSignal.map { _ in false }
         }
-
+        
     }
     
 }
