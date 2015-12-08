@@ -31,9 +31,9 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     private let fetchedObjectsObserver: Observer<[T]?, NoError>
     
     public let refreshSignal: Signal<Void, NSError>?
-    lazy public var refreshSignalNoError: Signal<Void, NoError>? = {
-        return self.refreshSignal?.flatMapError { _ in return SignalProducer<Void, NoError>(value: ()) }
-    }()
+    
+    public let loadingSignalProducer: SignalProducer<Bool, NoError>
+    private let loadingSignalObserver: Observer<Bool, NoError>
     
     private let fetchedResultsController: NSFetchedResultsController
 
@@ -51,8 +51,14 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
         let (fetchedObjectsSignalProducer, fetchedObjectsObserver) = SignalProducer<[T]?, NoError>.buffer(1)
         self.fetchedObjectsSignalProducer = fetchedObjectsSignalProducer
         self.fetchedObjectsObserver = fetchedObjectsObserver
+
+        let (loadingSignalProducer, loadingSignalObserver) = SignalProducer<Bool, NoError>.buffer(1)
+        self.loadingSignalProducer = loadingSignalProducer
+        self.loadingSignalObserver = loadingSignalObserver
         
         super.init()
+
+        self.configureLoadingSignalProducer()
         
         self.fetchedResultsController.delegate = self
         try! self.fetchedResultsController.performFetch()
@@ -66,6 +72,21 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     private func sendFetchedObjects() {
         let fetchedObjects = self.fetchedResultsController.fetchedObjects as? [T]
         self.fetchedObjectsObserver.sendNext(fetchedObjects)
+    }
+    
+    private func configureLoadingSignalProducer() {
+        if let refreshSignal = self.refreshSignal {
+            self.loadingSignalObserver.sendNext(true)
+            
+            refreshSignal.observe { [weak self] _ in
+                self?.loadingSignalObserver.sendNext(false)
+                self?.loadingSignalObserver.sendCompleted()
+            }
+        }
+        else {
+            self.loadingSignalObserver.sendNext(false)
+            self.loadingSignalObserver.sendCompleted()
+        }
     }
     
 }

@@ -26,18 +26,18 @@ public class ContactsViewModel {
         self.contactsInteractor = ContactsInteractor(dataController: dataController)
         self.contactsModelObserver = contactsInteractor.contactsModelObserver()
         
+        self.configureBindings()
+    }
+    
+    func configureBindings() {
         self.contacts <~ self.contactsModelObserver.fetchedObjectsSignalProducer
-
+        
         self.contactsCount <~ self.contactsModelObserver.fetchedObjectsSignalProducer.map { contacts -> String in
             guard let allContacts = contacts else { return "No contacts" }
             return "\(String(allContacts.count)) contact(s)"
         }
-
-        if let refreshSignal = self.contactsModelObserver.refreshSignalNoError {
-            isLoadingContacts.value = true
-            isLoadingContacts <~ refreshSignal.map { _ in false }
-        }
         
+        self.isLoadingContacts <~ self.contactsModelObserver.loadingSignalProducer
     }
     
 }
