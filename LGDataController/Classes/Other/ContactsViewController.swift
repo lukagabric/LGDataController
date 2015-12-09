@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import ReactiveCocoa
+import CoreData
 
 class ContactsViewController: UIViewController {
     
     var viewModel: ContactsViewModel!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadingOverlayView: UIView!
     
     init(dataController: LGDataController) {
         self.viewModel = ContactsViewModel(dataController: dataController)
@@ -31,6 +35,8 @@ class ContactsViewController: UIViewController {
         self.viewModel.loadingProducer.startWithNext { loading in
             print("Contacts \(loading ? "ARE" : "ARE NOT") loading!")
         }
+        
+        self.loadingOverlayView.rac_hidden <~ self.viewModel.loadingProducer.map { !$0 }
         
         self.viewModel.contactsCountProducer.startWithNext { [weak self] string in
             self?.title = string

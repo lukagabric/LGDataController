@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4106D9551BFE702A005EC5A9 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4106D9531BFE702A005EC5A9 /* ContactsViewController.swift */; };
 		4106D9561BFE702A005EC5A9 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4106D9541BFE702A005EC5A9 /* ContactsViewController.xib */; };
+		410927AD1C18173F005A3CBF /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410927AC1C18173F005A3CBF /* UIKitExtensions.swift */; };
+		410927AE1C18173F005A3CBF /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410927AC1C18173F005A3CBF /* UIKitExtensions.swift */; };
 		4127C9BD1C0061AC006C0DFE /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9B21C00618E006C0DFE /* Result.framework */; };
 		4127C9BE1C0061AC006C0DFE /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9B21C00618E006C0DFE /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4127C9C11C0061AC006C0DFE /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9801C00615E006C0DFE /* ReactiveCocoa.framework */; };
@@ -194,6 +196,7 @@
 /* Begin PBXFileReference section */
 		4106D9531BFE702A005EC5A9 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		4106D9541BFE702A005EC5A9 /* ContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
+		410927AC1C18173F005A3CBF /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		4127C9721C00615D006C0DFE /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = ReactiveCocoa/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
 		4127C9A21C00618E006C0DFE /* Result.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Result.xcodeproj; path = ReactiveCocoa/Carthage/Checkouts/Result/Result.xcodeproj; sourceTree = "<group>"; };
 		41341B551BF273380074AF6A /* LGDataController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGDataController.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -343,6 +346,7 @@
 		41341B7D1BF273730074AF6A /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				410927AC1C18173F005A3CBF /* UIKitExtensions.swift */,
 				41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */,
 				41D511E71BF8E86400AE8EFF /* Contact.swift */,
 				41341B7E1BF273730074AF6A /* AppDelegate.swift */,
@@ -582,6 +586,7 @@
 				413A7D141BFE6D9C00CD361A /* LGResponse.swift in Sources */,
 				413A7D1A1BFE6D9C00CD361A /* LGContextTransferable.swift in Sources */,
 				413A7D181BFE6D9C00CD361A /* NSArray+LGExtension.swift in Sources */,
+				410927AD1C18173F005A3CBF /* UIKitExtensions.swift in Sources */,
 				413A7D191BFE6D9C00CD361A /* NSManagedObject+LGExtension.swift in Sources */,
 				41A6F07E1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift in Sources */,
 				41341B801BF273730074AF6A /* AppDelegate.swift in Sources */,
@@ -607,6 +612,7 @@
 				413A7D101BFE6D9B00CD361A /* LGContextTransferable.swift in Sources */,
 				41A6F07F1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift in Sources */,
 				413A7D0A1BFE6D9B00CD361A /* LGResponse.swift in Sources */,
+				410927AE1C18173F005A3CBF /* UIKitExtensions.swift in Sources */,
 				413A7D0B1BFE6D9B00CD361A /* LGUpdateInfo.swift in Sources */,
 				413A7D111BFE6D9B00CD361A /* Contact+CoreDataProperties.swift in Sources */,
 				41A9C6321C01FE7300D9E1C5 /* HomeViewController.swift in Sources */,
