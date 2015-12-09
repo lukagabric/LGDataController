@@ -328,8 +328,8 @@
 		41341B7D1BF273730074AF6A /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				41D6A7B81C18BB1A0059353E /* ManagedObjects */,
 				41D6A7B91C18BB280059353E /* AppDelegate */,
+				41D6A7B81C18BB1A0059353E /* ManagedObjects */,
 				41D6A7BC1C18BB620059353E /* Modules */,
 			);
 			path = Other;
