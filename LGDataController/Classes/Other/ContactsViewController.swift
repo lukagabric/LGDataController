@@ -24,20 +24,23 @@ class ContactsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.viewModel.isLoadingContacts.producer.startWithNext { loading in
+        self.configureBindings()
+    }
+    
+    func configureBindings() {
+        self.viewModel.loadingProducer.startWithNext { loading in
             print("Contacts \(loading ? "ARE" : "ARE NOT") loading!")
         }
-
-        self.viewModel.contactsCount.producer.startWithNext { [weak self] string in
+        
+        self.viewModel.contactsCountProducer.startWithNext { [weak self] string in
             self?.title = string
         }
         
-        self.viewModel.contacts.producer.startWithNext { contacts in
+        self.viewModel.contactsProducer.startWithNext { contacts in
             guard let allContacts = contacts else { return }
             
             print(allContacts);
         }
-        
     }
 
 }

@@ -12,32 +12,27 @@ import CoreData
 
 public class ContactsViewModel {
     
-    private let dataController: LGDataController
+    public let loadingProducer: SignalProducer<Bool, NoError>
+    public let contactsCountProducer: SignalProducer<String, NoError>
+    public let contactsProducer: SignalProducer<[Contact]?, NoError>
     
+    private let dataController: LGDataController
     private let contactsInteractor: ContactsInteractor
     private let contactsModelObserver: LGModelObserver<Contact>
-    
-    public let contactsCount = MutableProperty<String>("No contacts")
-    public let isLoadingContacts = MutableProperty<Bool>(false)
-    public let contacts = MutableProperty<[Contact]?>(nil)
-        
+
     init(dataController: LGDataController) {
         self.dataController = dataController
         self.contactsInteractor = ContactsInteractor(dataController: dataController)
         self.contactsModelObserver = contactsInteractor.contactsModelObserver()
         
-        self.configureBindings()
-    }
-    
-    func configureBindings() {
-        self.contacts <~ self.contactsModelObserver.fetchedObjectsSignalProducer
-        
-        self.contactsCount <~ self.contactsModelObserver.fetchedObjectsSignalProducer.map { contacts -> String in
+        self.contactsCountProducer = self.contactsModelObserver.fetchedObjectsSignalProducer.map { contacts -> String in
             guard let allContacts = contacts else { return "No contacts" }
             return "\(String(allContacts.count)) contact(s)"
         }
         
-        self.isLoadingContacts <~ self.contactsModelObserver.loadingSignalProducer
+        self.contactsProducer = self.contactsModelObserver.fetchedObjectsSignalProducer
+
+        self.loadingProducer = self.contactsModelObserver.loadingSignalProducer
     }
     
 }
