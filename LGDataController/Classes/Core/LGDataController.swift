@@ -12,6 +12,25 @@ import CoreData
 
 typealias LGActionClosure = () -> ()
 
+protocol LGContextTransferable {
+    typealias TransferredType
+    func transferredToContext(context: NSManagedObjectContext) -> TransferredType
+}
+
+public class LGUpdateInfo {
+    
+    var requestId: String
+    var eTag: String?
+    var lastModified: String?
+    var updateDate: NSDate
+    
+    init(requestId: String) {
+        self.requestId = requestId
+        self.updateDate = NSDate.distantPast()
+    }
+    
+}
+
 public class LGDataController {
     
     let session: NSURLSession

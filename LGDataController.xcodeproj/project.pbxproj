@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		4106D9551BFE702A005EC5A9 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4106D9531BFE702A005EC5A9 /* ContactsViewController.swift */; };
 		4106D9561BFE702A005EC5A9 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4106D9541BFE702A005EC5A9 /* ContactsViewController.xib */; };
-		410927AD1C18173F005A3CBF /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410927AC1C18173F005A3CBF /* UIKitExtensions.swift */; };
-		410927AE1C18173F005A3CBF /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410927AC1C18173F005A3CBF /* UIKitExtensions.swift */; };
 		4127C9BD1C0061AC006C0DFE /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9B21C00618E006C0DFE /* Result.framework */; };
 		4127C9BE1C0061AC006C0DFE /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9B21C00618E006C0DFE /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4127C9C11C0061AC006C0DFE /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9801C00615E006C0DFE /* ReactiveCocoa.framework */; };
@@ -21,23 +19,15 @@
 		41341B711BF273390074AF6A /* LGDataControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B701BF273390074AF6A /* LGDataControllerTests.swift */; };
 		41341B801BF273730074AF6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B7E1BF273730074AF6A /* AppDelegate.swift */; };
 		413A7D091BFE6D9B00CD361A /* LGDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B851BF273F90074AF6A /* LGDataController.swift */; };
-		413A7D0A1BFE6D9B00CD361A /* LGResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B881BF274370074AF6A /* LGResponse.swift */; };
-		413A7D0B1BFE6D9B00CD361A /* LGUpdateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D3D3491BF9F31200BA7371 /* LGUpdateInfo.swift */; };
-		413A7D0C1BFE6D9B00CD361A /* LGConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B821BF273E70074AF6A /* LGConcurrentOperation.swift */; };
 		413A7D0D1BFE6D9B00CD361A /* LGRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B8B1BF2749F0074AF6A /* LGRequestOperation.swift */; };
 		413A7D0E1BFE6D9B00CD361A /* NSArray+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */; };
 		413A7D0F1BFE6D9B00CD361A /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */; };
-		413A7D101BFE6D9B00CD361A /* LGContextTransferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B8E1BF275A10074AF6A /* LGContextTransferable.swift */; };
 		413A7D111BFE6D9B00CD361A /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */; };
 		413A7D121BFE6D9B00CD361A /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D511E71BF8E86400AE8EFF /* Contact.swift */; };
 		413A7D131BFE6D9C00CD361A /* LGDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B851BF273F90074AF6A /* LGDataController.swift */; };
-		413A7D141BFE6D9C00CD361A /* LGResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B881BF274370074AF6A /* LGResponse.swift */; };
-		413A7D151BFE6D9C00CD361A /* LGUpdateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D3D3491BF9F31200BA7371 /* LGUpdateInfo.swift */; };
-		413A7D161BFE6D9C00CD361A /* LGConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B821BF273E70074AF6A /* LGConcurrentOperation.swift */; };
 		413A7D171BFE6D9C00CD361A /* LGRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B8B1BF2749F0074AF6A /* LGRequestOperation.swift */; };
 		413A7D181BFE6D9C00CD361A /* NSArray+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */; };
 		413A7D191BFE6D9C00CD361A /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */; };
-		413A7D1A1BFE6D9C00CD361A /* LGContextTransferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B8E1BF275A10074AF6A /* LGContextTransferable.swift */; };
 		413A7D1B1BFE6D9C00CD361A /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */; };
 		413A7D1C1BFE6D9C00CD361A /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D511E71BF8E86400AE8EFF /* Contact.swift */; };
 		413A7D1D1BFE6DAC00CD361A /* LGDataController.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 41341B5F1BF273380074AF6A /* LGDataController.xcdatamodeld */; };
@@ -54,6 +44,8 @@
 		41A9C6331C01FE7300D9E1C5 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A9C6301C01FE7300D9E1C5 /* HomeViewController.xib */; };
 		41A9C6341C01FE7300D9E1C5 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A9C6301C01FE7300D9E1C5 /* HomeViewController.xib */; };
 		41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */; };
+		41D6A7B51C18B6760059353E /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D6A7B41C18B6760059353E /* UIKitExtensions.swift */; };
+		41D6A7B61C18B67D0059353E /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D6A7B41C18B6760059353E /* UIKitExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,7 +188,6 @@
 /* Begin PBXFileReference section */
 		4106D9531BFE702A005EC5A9 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		4106D9541BFE702A005EC5A9 /* ContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
-		410927AC1C18173F005A3CBF /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		4127C9721C00615D006C0DFE /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = ReactiveCocoa/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
 		4127C9A21C00618E006C0DFE /* Result.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Result.xcodeproj; path = ReactiveCocoa/Carthage/Checkouts/Result/Result.xcodeproj; sourceTree = "<group>"; };
 		41341B551BF273380074AF6A /* LGDataController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGDataController.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,11 +199,8 @@
 		41341B701BF273390074AF6A /* LGDataControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGDataControllerTests.swift; sourceTree = "<group>"; };
 		41341B721BF273390074AF6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41341B7E1BF273730074AF6A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		41341B821BF273E70074AF6A /* LGConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGConcurrentOperation.swift; sourceTree = "<group>"; };
 		41341B851BF273F90074AF6A /* LGDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGDataController.swift; sourceTree = "<group>"; };
-		41341B881BF274370074AF6A /* LGResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGResponse.swift; sourceTree = "<group>"; };
 		41341B8B1BF2749F0074AF6A /* LGRequestOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperation.swift; sourceTree = "<group>"; };
-		41341B8E1BF275A10074AF6A /* LGContextTransferable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGContextTransferable.swift; sourceTree = "<group>"; };
 		41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+LGExtension.swift"; sourceTree = "<group>"; };
 		41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+LGExtension.swift"; sourceTree = "<group>"; };
 		417759BB1C0201A4003065DF /* ContactsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsInteractor.swift; sourceTree = "<group>"; };
@@ -222,9 +210,9 @@
 		41A9C62F1C01FE7300D9E1C5 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		41A9C6301C01FE7300D9E1C5 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperationTests.swift; sourceTree = "<group>"; };
-		41D3D3491BF9F31200BA7371 /* LGUpdateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGUpdateInfo.swift; sourceTree = "<group>"; };
 		41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41D511E71BF8E86400AE8EFF /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		41D6A7B41C18B6760059353E /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,15 +318,9 @@
 			isa = PBXGroup;
 			children = (
 				41341B851BF273F90074AF6A /* LGDataController.swift */,
-				41341B881BF274370074AF6A /* LGResponse.swift */,
-				41D3D3491BF9F31200BA7371 /* LGUpdateInfo.swift */,
-				41341B821BF273E70074AF6A /* LGConcurrentOperation.swift */,
-				41341B8B1BF2749F0074AF6A /* LGRequestOperation.swift */,
-				41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */,
-				41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */,
-				41A6F07D1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift */,
-				41341B8E1BF275A10074AF6A /* LGContextTransferable.swift */,
 				417759BE1C0201FA003065DF /* LGModelObserver.swift */,
+				41341B8B1BF2749F0074AF6A /* LGRequestOperation.swift */,
+				41D6A7B71C18BA030059353E /* Extensions */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -346,18 +328,68 @@
 		41341B7D1BF273730074AF6A /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				410927AC1C18173F005A3CBF /* UIKitExtensions.swift */,
+				41D6A7B81C18BB1A0059353E /* ManagedObjects */,
+				41D6A7B91C18BB280059353E /* AppDelegate */,
+				41D6A7BC1C18BB620059353E /* Modules */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		41D6A7B71C18BA030059353E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */,
+				41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */,
+				41A6F07D1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift */,
+				41D6A7B41C18B6760059353E /* UIKitExtensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		41D6A7B81C18BB1A0059353E /* ManagedObjects */ = {
+			isa = PBXGroup;
+			children = (
 				41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */,
 				41D511E71BF8E86400AE8EFF /* Contact.swift */,
+			);
+			name = ManagedObjects;
+			sourceTree = "<group>";
+		};
+		41D6A7B91C18BB280059353E /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
 				41341B7E1BF273730074AF6A /* AppDelegate.swift */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		41D6A7BA1C18BB310059353E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				41A9C62F1C01FE7300D9E1C5 /* HomeViewController.swift */,
+				41A9C6301C01FE7300D9E1C5 /* HomeViewController.xib */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		41D6A7BB1C18BB3E0059353E /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
 				417759BB1C0201A4003065DF /* ContactsInteractor.swift */,
 				41A9C6291C01F90600D9E1C5 /* ContactsViewModel.swift */,
 				4106D9531BFE702A005EC5A9 /* ContactsViewController.swift */,
 				4106D9541BFE702A005EC5A9 /* ContactsViewController.xib */,
-				41A9C62F1C01FE7300D9E1C5 /* HomeViewController.swift */,
-				41A9C6301C01FE7300D9E1C5 /* HomeViewController.xib */,
 			);
-			path = Other;
+			name = Contacts;
+			sourceTree = "<group>";
+		};
+		41D6A7BC1C18BB620059353E /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				41D6A7BB1C18BB3E0059353E /* Contacts */,
+				41D6A7BA1C18BB310059353E /* Home */,
+			);
+			name = Modules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -582,16 +614,12 @@
 				413A7D1B1BFE6D9C00CD361A /* Contact+CoreDataProperties.swift in Sources */,
 				41A9C6311C01FE7300D9E1C5 /* HomeViewController.swift in Sources */,
 				413A7D171BFE6D9C00CD361A /* LGRequestOperation.swift in Sources */,
-				413A7D161BFE6D9C00CD361A /* LGConcurrentOperation.swift in Sources */,
-				413A7D141BFE6D9C00CD361A /* LGResponse.swift in Sources */,
-				413A7D1A1BFE6D9C00CD361A /* LGContextTransferable.swift in Sources */,
+				41D6A7B51C18B6760059353E /* UIKitExtensions.swift in Sources */,
 				413A7D181BFE6D9C00CD361A /* NSArray+LGExtension.swift in Sources */,
-				410927AD1C18173F005A3CBF /* UIKitExtensions.swift in Sources */,
 				413A7D191BFE6D9C00CD361A /* NSManagedObject+LGExtension.swift in Sources */,
 				41A6F07E1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift in Sources */,
 				41341B801BF273730074AF6A /* AppDelegate.swift in Sources */,
 				417759BF1C0201FA003065DF /* LGModelObserver.swift in Sources */,
-				413A7D151BFE6D9C00CD361A /* LGUpdateInfo.swift in Sources */,
 				41A9C62A1C01F90600D9E1C5 /* ContactsViewModel.swift in Sources */,
 				413A7D131BFE6D9C00CD361A /* LGDataController.swift in Sources */,
 				41341B611BF273380074AF6A /* LGDataController.xcdatamodeld in Sources */,
@@ -609,17 +637,13 @@
 				413A7D0D1BFE6D9B00CD361A /* LGRequestOperation.swift in Sources */,
 				413A7D1D1BFE6DAC00CD361A /* LGDataController.xcdatamodeld in Sources */,
 				413A7D0F1BFE6D9B00CD361A /* NSManagedObject+LGExtension.swift in Sources */,
-				413A7D101BFE6D9B00CD361A /* LGContextTransferable.swift in Sources */,
+				41D6A7B61C18B67D0059353E /* UIKitExtensions.swift in Sources */,
 				41A6F07F1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift in Sources */,
-				413A7D0A1BFE6D9B00CD361A /* LGResponse.swift in Sources */,
-				410927AE1C18173F005A3CBF /* UIKitExtensions.swift in Sources */,
-				413A7D0B1BFE6D9B00CD361A /* LGUpdateInfo.swift in Sources */,
 				413A7D111BFE6D9B00CD361A /* Contact+CoreDataProperties.swift in Sources */,
 				41A9C6321C01FE7300D9E1C5 /* HomeViewController.swift in Sources */,
 				417759C01C0201FA003065DF /* LGModelObserver.swift in Sources */,
 				41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */,
 				41341B711BF273390074AF6A /* LGDataControllerTests.swift in Sources */,
-				413A7D0C1BFE6D9B00CD361A /* LGConcurrentOperation.swift in Sources */,
 				413A7D0E1BFE6D9B00CD361A /* NSArray+LGExtension.swift in Sources */,
 				417759BD1C0201A4003065DF /* ContactsInteractor.swift in Sources */,
 			);

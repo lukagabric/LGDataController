@@ -9,7 +9,25 @@
 import Foundation
 import ReactiveCocoa
 
-public class LGRequestOperation: LGConcurrentOperation {
+public struct LGResponse {
+    
+    let httpResponse: NSHTTPURLResponse
+    let responseData: NSData
+    let eTag: String?
+    let lastModified: String?
+    let statusCode: Int
+    
+    init(response: NSHTTPURLResponse, data: NSData) {
+        self.httpResponse = response
+        self.responseData = data
+        self.statusCode = response.statusCode
+        self.eTag = self.httpResponse.allHeaderFields["Etag"] as? String
+        self.lastModified = self.httpResponse.allHeaderFields["Last-Modified"] as? String
+    }
+    
+}
+
+public class LGRequestOperation: NSOperation {
 
     public let signal: Signal<LGResponse, NSError>
     private let observer: Observer<LGResponse, NSError>
@@ -19,6 +37,8 @@ public class LGRequestOperation: LGConcurrentOperation {
 
     private let session: NSURLSession
     private let request: NSURLRequest
+    
+    //MARK: - Init
     
     init(session: NSURLSession, request: NSURLRequest) {
         self.session = session
@@ -42,6 +62,8 @@ public class LGRequestOperation: LGConcurrentOperation {
                 completed: { [weak self] in self?.completeOperation() })
     }
     
+    //MARK: - Override
+    
     override public func main() {
         self.disposable = self.signalProducer.start(self.observer)
     }
@@ -51,5 +73,57 @@ public class LGRequestOperation: LGConcurrentOperation {
         
         super.cancel()
     }
+    
+    //MARK: - Concurrency
+    
+    public override var asynchronous: Bool {
+        return true
+    }
+    
+    private var _executing: Bool = false
+    public override var executing: Bool {
+        get {
+            return _executing
+        }
+        set {
+            if (_executing != newValue) {
+                self.willChangeValueForKey("isExecuting")
+                _executing = newValue
+                self.didChangeValueForKey("isExecuting")
+            }
+        }
+    }
+    
+    private var _finished: Bool = false;
+    public override var finished: Bool {
+        get {
+            return _finished
+        }
+        set {
+            if (_finished != newValue) {
+                self.willChangeValueForKey("isFinished")
+                _finished = newValue
+                self.didChangeValueForKey("isFinished")
+            }
+        }
+    }
+    
+    public override func start() {
+        if (cancelled) {
+            finished = true
+            return
+        }
+        
+        executing = true
+        
+        main()
+    }
+    
+    func completeOperation() {
+        executing = false
+        finished  = true
+    }
+    
+    //MARK: -
     
 }
