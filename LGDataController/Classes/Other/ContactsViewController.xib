@@ -21,6 +21,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="LfT-cy-d1e"/>
+                        <outlet property="delegate" destination="-1" id="ZVi-Xh-xar"/>
+                    </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmf-8g-nEA" userLabel="Loading Overlay View">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>

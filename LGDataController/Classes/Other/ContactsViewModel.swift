@@ -14,7 +14,7 @@ public class ContactsViewModel {
     
     public let loadingProducer: SignalProducer<Bool, NoError>
     public let contactsCountProducer: SignalProducer<String, NoError>
-    public let contactsProducer: SignalProducer<[Contact]?, NoError>
+    public let contacts = MutableProperty<[Contact]?>(nil)
     
     private let dataController: LGDataController
     private let contactsInteractor: ContactsInteractor
@@ -26,11 +26,11 @@ public class ContactsViewModel {
         self.contactsModelObserver = contactsInteractor.contactsModelObserver()
         
         self.contactsCountProducer = self.contactsModelObserver.fetchedObjectsSignalProducer.map { contacts -> String in
-            guard let allContacts = contacts else { return "No contacts" }
+            guard let allContacts = contacts else { return "0 contact(s)" }
             return "\(String(allContacts.count)) contact(s)"
         }
         
-        self.contactsProducer = self.contactsModelObserver.fetchedObjectsSignalProducer
+        self.contacts <~ self.contactsModelObserver.fetchedObjectsSignalProducer
 
         self.loadingProducer = self.contactsModelObserver.loadingSignalProducer
     }

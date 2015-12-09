@@ -43,6 +43,17 @@ public class Contact: NSManagedObject {
         return contacts
     }
     
+    //MARK: Info
+    
+    var info: String {
+        var nameComponents: [String] = [String]()
+        if let lastName = self.lastName { nameComponents.append(lastName) }
+        if let firstName = self.firstName { nameComponents.append(firstName) }
+        var info = nameComponents.joinWithSeparator(", ")
+        if let email = self.email { info.appendContentsOf(" (\(email))") }
+        return info
+    }
+    
     //MARK: Debug
     
     func debugLog() {

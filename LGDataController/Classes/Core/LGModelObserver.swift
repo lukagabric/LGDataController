@@ -39,6 +39,8 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
 
     private var previousSections: [NSFetchedResultsSectionInfo]?
     
+    //MARK: - Init
+    
     init(fetchedResultsController: NSFetchedResultsController, refreshSignal: Signal<Void, NSError>?) {
         self.fetchedResultsController = fetchedResultsController
 
@@ -59,19 +61,18 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
         super.init()
 
         self.configureLoadingSignalProducer()
-        
-        self.fetchedResultsController.delegate = self
-        try! self.fetchedResultsController.performFetch()
+        self.configureFRC()
         
         let modelChange = LGModelChange(previousSections: nil, sections: self.fetchedResultsController.sections)
-        self.modelChangedObserver.sendNext(modelChange)
-
+        self.sendModelChange(modelChange)
         self.sendFetchedObjects()
     }
     
-    private func sendFetchedObjects() {
-        let fetchedObjects = self.fetchedResultsController.fetchedObjects as? [T]
-        self.fetchedObjectsObserver.sendNext(fetchedObjects)
+    //MARK: - Configuration
+    
+    private func configureFRC() {
+        self.fetchedResultsController.delegate = self
+        try! self.fetchedResultsController.performFetch()
     }
     
     private func configureLoadingSignalProducer() {
@@ -89,9 +90,18 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
         }
     }
     
-}
+    //MARK: - Signaling
+    
+    private func sendModelChange(modelChange: LGModelChange) {
+        self.modelChangedObserver.sendNext(modelChange)
+    }
 
-extension LGModelObserver {
+    private func sendFetchedObjects() {
+        let fetchedObjects = self.fetchedResultsController.fetchedObjects as? [T]
+        self.fetchedObjectsObserver.sendNext(fetchedObjects)
+    }
+    
+    //MARK: - NSFetchedResultsControllerDelegate
     
     public func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.previousSections = controller.sections
@@ -100,9 +110,11 @@ extension LGModelObserver {
     public func controllerDidChangeContent(controller: NSFetchedResultsController) {
         let modelChange = LGModelChange(previousSections: self.previousSections, sections: controller.sections)
         self.previousSections = nil
-        self.modelChangedObserver.sendNext(modelChange)
-
+        
+        self.sendModelChange(modelChange)
         self.sendFetchedObjects()
     }
+    
+    //MARK: -
     
 }

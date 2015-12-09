@@ -11,9 +11,10 @@ import UIKit
 import ReactiveCocoa
 
 struct AssociationKey {
-  static var hidden: UInt8 = 1
-  static var alpha: UInt8 = 2
-  static var text: UInt8 = 3
+    static var hidden: UInt8 = 1
+    static var alpha: UInt8 = 2
+    static var text: UInt8 = 3
+    static var title: UInt8 = 4
 }
 
 // lazily creates a gettable associated property via the given factory
@@ -49,9 +50,15 @@ extension UIView {
 }
 
 extension UILabel {
-  public var rac_text: MutableProperty<String> {
-    return lazyMutableProperty(self, key: &AssociationKey.text, setter: { self.text = $0 }, getter: { self.text ?? "" })
-  }
+    public var rac_text: MutableProperty<String> {
+        return lazyMutableProperty(self, key: &AssociationKey.text, setter: { self.text = $0 }, getter: { self.text ?? "" })
+    }
+}
+
+extension UIViewController {
+    public var rac_title: MutableProperty<String> {
+        return lazyMutableProperty(self, key: &AssociationKey.title, setter: { self.title = $0 }, getter: { self.title ?? "" })
+    }
 }
 
 extension UITextField {
@@ -73,4 +80,10 @@ extension UITextField {
   func changed() {
     rac_text.value = self.text ?? ""
   }
+}
+
+extension UITableView {
+    public func reloadWithProducer<T>(producer: SignalProducer<T, NoError>) {
+        producer.startWithNext { [weak self] _ in self?.reloadData() }
+    }
 }
