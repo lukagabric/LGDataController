@@ -14,8 +14,8 @@ public class ContactsInteractor {
     
     private let dataController: LGDataController
     
-    init(dataController: LGDataController) {
-        self.dataController = dataController
+    init(dependencies: ContactsModuleDependencies) {
+        self.dataController = dependencies.dataController
     }
     
     func contactsModelObserver() -> LGModelObserver<Contact> {

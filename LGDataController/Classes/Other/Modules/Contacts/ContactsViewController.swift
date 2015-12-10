@@ -18,8 +18,8 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - Init
     
-    init(dataController: LGDataController) {
-        self.viewModel = ContactsViewModel(dataController: dataController)
+    init(dependencies: ContactsModuleDependencies) {
+        self.viewModel = ContactsViewModel(dependencies: dependencies)
         super.init(nibName: nil, bundle: nil)
     }
     

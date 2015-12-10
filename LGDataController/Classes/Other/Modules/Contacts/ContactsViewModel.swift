@@ -20,9 +20,9 @@ public class ContactsViewModel {
     private let contactsInteractor: ContactsInteractor
     private let contactsModelObserver: LGModelObserver<Contact>
 
-    init(dataController: LGDataController) {
-        self.dataController = dataController
-        self.contactsInteractor = ContactsInteractor(dataController: dataController)
+    init(dependencies: ContactsModuleDependencies) {
+        self.dataController = dependencies.dataController
+        self.contactsInteractor = ContactsInteractor(dependencies: dependencies)
         self.contactsModelObserver = contactsInteractor.contactsModelObserver()
         
         self.contactsCountProducer = self.contactsModelObserver.fetchedObjectsSignalProducer.map { contacts -> String in

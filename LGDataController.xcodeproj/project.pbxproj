@@ -7,8 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4106D9551BFE702A005EC5A9 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4106D9531BFE702A005EC5A9 /* ContactsViewController.swift */; };
-		4106D9561BFE702A005EC5A9 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4106D9541BFE702A005EC5A9 /* ContactsViewController.xib */; };
+		410C84291C19C431009D2B9D /* NSArray+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84131C19C431009D2B9D /* NSArray+LGExtension.swift */; };
+		410C842A1C19C431009D2B9D /* NSArray+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84131C19C431009D2B9D /* NSArray+LGExtension.swift */; };
+		410C842B1C19C431009D2B9D /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84141C19C431009D2B9D /* NSManagedObject+LGExtension.swift */; };
+		410C842C1C19C431009D2B9D /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84141C19C431009D2B9D /* NSManagedObject+LGExtension.swift */; };
+		410C842D1C19C431009D2B9D /* NSManagedObjectContext+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84151C19C431009D2B9D /* NSManagedObjectContext+LGExtension.swift */; };
+		410C842E1C19C431009D2B9D /* NSManagedObjectContext+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84151C19C431009D2B9D /* NSManagedObjectContext+LGExtension.swift */; };
+		410C842F1C19C431009D2B9D /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84161C19C431009D2B9D /* UIKitExtensions.swift */; };
+		410C84301C19C431009D2B9D /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84161C19C431009D2B9D /* UIKitExtensions.swift */; };
+		410C84311C19C431009D2B9D /* LGDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84171C19C431009D2B9D /* LGDataController.swift */; };
+		410C84321C19C431009D2B9D /* LGDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84171C19C431009D2B9D /* LGDataController.swift */; };
+		410C84331C19C431009D2B9D /* LGModelObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84181C19C431009D2B9D /* LGModelObserver.swift */; };
+		410C84341C19C431009D2B9D /* LGModelObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84181C19C431009D2B9D /* LGModelObserver.swift */; };
+		410C84351C19C431009D2B9D /* LGRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84191C19C431009D2B9D /* LGRequestOperation.swift */; };
+		410C84361C19C431009D2B9D /* LGRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84191C19C431009D2B9D /* LGRequestOperation.swift */; };
+		410C84371C19C431009D2B9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C841C1C19C431009D2B9D /* AppDelegate.swift */; };
+		410C84381C19C431009D2B9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C841C1C19C431009D2B9D /* AppDelegate.swift */; };
+		410C84391C19C431009D2B9D /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C841E1C19C431009D2B9D /* Contact+CoreDataProperties.swift */; };
+		410C843A1C19C431009D2B9D /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C841E1C19C431009D2B9D /* Contact+CoreDataProperties.swift */; };
+		410C843B1C19C431009D2B9D /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C841F1C19C431009D2B9D /* Contact.swift */; };
+		410C843C1C19C431009D2B9D /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C841F1C19C431009D2B9D /* Contact.swift */; };
+		410C843D1C19C431009D2B9D /* ContactsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84221C19C431009D2B9D /* ContactsInteractor.swift */; };
+		410C843E1C19C431009D2B9D /* ContactsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84221C19C431009D2B9D /* ContactsInteractor.swift */; };
+		410C843F1C19C431009D2B9D /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84231C19C431009D2B9D /* ContactsViewController.swift */; };
+		410C84401C19C431009D2B9D /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84231C19C431009D2B9D /* ContactsViewController.swift */; };
+		410C84411C19C431009D2B9D /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 410C84241C19C431009D2B9D /* ContactsViewController.xib */; };
+		410C84421C19C431009D2B9D /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 410C84241C19C431009D2B9D /* ContactsViewController.xib */; };
+		410C84431C19C431009D2B9D /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84251C19C431009D2B9D /* ContactsViewModel.swift */; };
+		410C84441C19C431009D2B9D /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84251C19C431009D2B9D /* ContactsViewModel.swift */; };
+		410C84451C19C431009D2B9D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84271C19C431009D2B9D /* HomeViewController.swift */; };
+		410C84461C19C431009D2B9D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C84271C19C431009D2B9D /* HomeViewController.swift */; };
+		410C84471C19C431009D2B9D /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 410C84281C19C431009D2B9D /* HomeViewController.xib */; };
+		410C84481C19C431009D2B9D /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 410C84281C19C431009D2B9D /* HomeViewController.xib */; };
 		4127C9BD1C0061AC006C0DFE /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9B21C00618E006C0DFE /* Result.framework */; };
 		4127C9BE1C0061AC006C0DFE /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9B21C00618E006C0DFE /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4127C9C11C0061AC006C0DFE /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9801C00615E006C0DFE /* ReactiveCocoa.framework */; };
@@ -17,35 +47,18 @@
 		41341B631BF273380074AF6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41341B621BF273380074AF6A /* Assets.xcassets */; };
 		41341B661BF273380074AF6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41341B641BF273380074AF6A /* LaunchScreen.storyboard */; };
 		41341B711BF273390074AF6A /* LGDataControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B701BF273390074AF6A /* LGDataControllerTests.swift */; };
-		41341B801BF273730074AF6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B7E1BF273730074AF6A /* AppDelegate.swift */; };
-		413A7D091BFE6D9B00CD361A /* LGDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B851BF273F90074AF6A /* LGDataController.swift */; };
-		413A7D0D1BFE6D9B00CD361A /* LGRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B8B1BF2749F0074AF6A /* LGRequestOperation.swift */; };
-		413A7D0E1BFE6D9B00CD361A /* NSArray+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */; };
-		413A7D0F1BFE6D9B00CD361A /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */; };
-		413A7D111BFE6D9B00CD361A /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */; };
-		413A7D121BFE6D9B00CD361A /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D511E71BF8E86400AE8EFF /* Contact.swift */; };
-		413A7D131BFE6D9C00CD361A /* LGDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B851BF273F90074AF6A /* LGDataController.swift */; };
-		413A7D171BFE6D9C00CD361A /* LGRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B8B1BF2749F0074AF6A /* LGRequestOperation.swift */; };
-		413A7D181BFE6D9C00CD361A /* NSArray+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */; };
-		413A7D191BFE6D9C00CD361A /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */; };
-		413A7D1B1BFE6D9C00CD361A /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */; };
-		413A7D1C1BFE6D9C00CD361A /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D511E71BF8E86400AE8EFF /* Contact.swift */; };
 		413A7D1D1BFE6DAC00CD361A /* LGDataController.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 41341B5F1BF273380074AF6A /* LGDataController.xcdatamodeld */; };
-		417759BC1C0201A4003065DF /* ContactsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417759BB1C0201A4003065DF /* ContactsInteractor.swift */; };
-		417759BD1C0201A4003065DF /* ContactsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417759BB1C0201A4003065DF /* ContactsInteractor.swift */; };
-		417759BF1C0201FA003065DF /* LGModelObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417759BE1C0201FA003065DF /* LGModelObserver.swift */; };
-		417759C01C0201FA003065DF /* LGModelObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417759BE1C0201FA003065DF /* LGModelObserver.swift */; };
-		41A6F07E1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A6F07D1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift */; };
-		41A6F07F1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A6F07D1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift */; };
-		41A9C62A1C01F90600D9E1C5 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9C6291C01F90600D9E1C5 /* ContactsViewModel.swift */; };
-		41A9C62B1C01F90600D9E1C5 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9C6291C01F90600D9E1C5 /* ContactsViewModel.swift */; };
-		41A9C6311C01FE7300D9E1C5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9C62F1C01FE7300D9E1C5 /* HomeViewController.swift */; };
-		41A9C6321C01FE7300D9E1C5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9C62F1C01FE7300D9E1C5 /* HomeViewController.swift */; };
-		41A9C6331C01FE7300D9E1C5 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A9C6301C01FE7300D9E1C5 /* HomeViewController.xib */; };
-		41A9C6341C01FE7300D9E1C5 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A9C6301C01FE7300D9E1C5 /* HomeViewController.xib */; };
+		4186A9B41C19C5BB003C3A89 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9B31C19C5BB003C3A89 /* Dependencies.swift */; };
+		4186A9B51C19C5BB003C3A89 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9B31C19C5BB003C3A89 /* Dependencies.swift */; };
+		4186A9B71C19C5E1003C3A89 /* ContactsModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9B61C19C5E1003C3A89 /* ContactsModuleDependencies.swift */; };
+		4186A9B81C19C5E1003C3A89 /* ContactsModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9B61C19C5E1003C3A89 /* ContactsModuleDependencies.swift */; };
+		4186A9BA1C19C5ED003C3A89 /* HomeModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9B91C19C5ED003C3A89 /* HomeModuleDependencies.swift */; };
+		4186A9BB1C19C5ED003C3A89 /* HomeModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9B91C19C5ED003C3A89 /* HomeModuleDependencies.swift */; };
+		4186A9BE1C19C649003C3A89 /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9BD1C19C649003C3A89 /* NavigationService.swift */; };
+		4186A9BF1C19C649003C3A89 /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9BD1C19C649003C3A89 /* NavigationService.swift */; };
+		4186A9C11C19CBE5003C3A89 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C01C19CBE5003C3A89 /* HomeViewModel.swift */; };
+		4186A9C21C19CBE5003C3A89 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C01C19CBE5003C3A89 /* HomeViewModel.swift */; };
 		41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */; };
-		41D6A7B51C18B6760059353E /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D6A7B41C18B6760059353E /* UIKitExtensions.swift */; };
-		41D6A7B61C18B67D0059353E /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D6A7B41C18B6760059353E /* UIKitExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,8 +199,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4106D9531BFE702A005EC5A9 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
-		4106D9541BFE702A005EC5A9 /* ContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
+		410C84131C19C431009D2B9D /* NSArray+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+LGExtension.swift"; sourceTree = "<group>"; };
+		410C84141C19C431009D2B9D /* NSManagedObject+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+LGExtension.swift"; sourceTree = "<group>"; };
+		410C84151C19C431009D2B9D /* NSManagedObjectContext+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+LGExtension.swift"; sourceTree = "<group>"; };
+		410C84161C19C431009D2B9D /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
+		410C84171C19C431009D2B9D /* LGDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGDataController.swift; sourceTree = "<group>"; };
+		410C84181C19C431009D2B9D /* LGModelObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGModelObserver.swift; sourceTree = "<group>"; };
+		410C84191C19C431009D2B9D /* LGRequestOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperation.swift; sourceTree = "<group>"; };
+		410C841C1C19C431009D2B9D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		410C841E1C19C431009D2B9D /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		410C841F1C19C431009D2B9D /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		410C84221C19C431009D2B9D /* ContactsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsInteractor.swift; sourceTree = "<group>"; };
+		410C84231C19C431009D2B9D /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		410C84241C19C431009D2B9D /* ContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
+		410C84251C19C431009D2B9D /* ContactsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
+		410C84271C19C431009D2B9D /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		410C84281C19C431009D2B9D /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		4127C9721C00615D006C0DFE /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = ReactiveCocoa/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
 		4127C9A21C00618E006C0DFE /* Result.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Result.xcodeproj; path = ReactiveCocoa/Carthage/Checkouts/Result/Result.xcodeproj; sourceTree = "<group>"; };
 		41341B551BF273380074AF6A /* LGDataController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGDataController.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,21 +225,12 @@
 		41341B6C1BF273390074AF6A /* LGDataControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LGDataControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41341B701BF273390074AF6A /* LGDataControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGDataControllerTests.swift; sourceTree = "<group>"; };
 		41341B721BF273390074AF6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		41341B7E1BF273730074AF6A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		41341B851BF273F90074AF6A /* LGDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGDataController.swift; sourceTree = "<group>"; };
-		41341B8B1BF2749F0074AF6A /* LGRequestOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperation.swift; sourceTree = "<group>"; };
-		41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+LGExtension.swift"; sourceTree = "<group>"; };
-		41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+LGExtension.swift"; sourceTree = "<group>"; };
-		417759BB1C0201A4003065DF /* ContactsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsInteractor.swift; sourceTree = "<group>"; };
-		417759BE1C0201FA003065DF /* LGModelObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGModelObserver.swift; sourceTree = "<group>"; };
-		41A6F07D1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+LGExtension.swift"; sourceTree = "<group>"; };
-		41A9C6291C01F90600D9E1C5 /* ContactsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
-		41A9C62F1C01FE7300D9E1C5 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		41A9C6301C01FE7300D9E1C5 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		4186A9B31C19C5BB003C3A89 /* Dependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		4186A9B61C19C5E1003C3A89 /* ContactsModuleDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsModuleDependencies.swift; sourceTree = "<group>"; };
+		4186A9B91C19C5ED003C3A89 /* HomeModuleDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeModuleDependencies.swift; sourceTree = "<group>"; };
+		4186A9BD1C19C649003C3A89 /* NavigationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
+		4186A9C01C19CBE5003C3A89 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperationTests.swift; sourceTree = "<group>"; };
-		41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		41D511E71BF8E86400AE8EFF /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
-		41D6A7B41C18B6760059353E /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +253,89 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		410C84111C19C431009D2B9D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				410C84171C19C431009D2B9D /* LGDataController.swift */,
+				410C84181C19C431009D2B9D /* LGModelObserver.swift */,
+				410C84191C19C431009D2B9D /* LGRequestOperation.swift */,
+				410C84121C19C431009D2B9D /* Extensions */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		410C84121C19C431009D2B9D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				410C84131C19C431009D2B9D /* NSArray+LGExtension.swift */,
+				410C84141C19C431009D2B9D /* NSManagedObject+LGExtension.swift */,
+				410C84151C19C431009D2B9D /* NSManagedObjectContext+LGExtension.swift */,
+				410C84161C19C431009D2B9D /* UIKitExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		410C841A1C19C431009D2B9D /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				4186A9A61C19C5AC003C3A89 /* Dependencies */,
+				4186A9BC1C19C63B003C3A89 /* NavigationService */,
+				410C841B1C19C431009D2B9D /* AppDelegate */,
+				410C841D1C19C431009D2B9D /* ManagedObjects */,
+				410C84201C19C431009D2B9D /* Modules */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		410C841B1C19C431009D2B9D /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				410C841C1C19C431009D2B9D /* AppDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		410C841D1C19C431009D2B9D /* ManagedObjects */ = {
+			isa = PBXGroup;
+			children = (
+				410C841E1C19C431009D2B9D /* Contact+CoreDataProperties.swift */,
+				410C841F1C19C431009D2B9D /* Contact.swift */,
+			);
+			path = ManagedObjects;
+			sourceTree = "<group>";
+		};
+		410C84201C19C431009D2B9D /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				410C84211C19C431009D2B9D /* Contacts */,
+				410C84261C19C431009D2B9D /* Home */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		410C84211C19C431009D2B9D /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				4186A9B61C19C5E1003C3A89 /* ContactsModuleDependencies.swift */,
+				410C84221C19C431009D2B9D /* ContactsInteractor.swift */,
+				410C84231C19C431009D2B9D /* ContactsViewController.swift */,
+				410C84241C19C431009D2B9D /* ContactsViewController.xib */,
+				410C84251C19C431009D2B9D /* ContactsViewModel.swift */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+		410C84261C19C431009D2B9D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				4186A9B91C19C5ED003C3A89 /* HomeModuleDependencies.swift */,
+				410C84271C19C431009D2B9D /* HomeViewController.swift */,
+				410C84281C19C431009D2B9D /* HomeViewController.xib */,
+				4186A9C01C19CBE5003C3A89 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		4127C9731C00615D006C0DFE /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,88 +409,26 @@
 		41341B7B1BF273730074AF6A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				41341B7C1BF273730074AF6A /* Core */,
-				41341B7D1BF273730074AF6A /* Other */,
+				410C84111C19C431009D2B9D /* Core */,
+				410C841A1C19C431009D2B9D /* Other */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		41341B7C1BF273730074AF6A /* Core */ = {
+		4186A9A61C19C5AC003C3A89 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				41341B851BF273F90074AF6A /* LGDataController.swift */,
-				417759BE1C0201FA003065DF /* LGModelObserver.swift */,
-				41341B8B1BF2749F0074AF6A /* LGRequestOperation.swift */,
-				41D6A7B71C18BA030059353E /* Extensions */,
+				4186A9B31C19C5BB003C3A89 /* Dependencies.swift */,
 			);
-			path = Core;
+			path = Dependencies;
 			sourceTree = "<group>";
 		};
-		41341B7D1BF273730074AF6A /* Other */ = {
+		4186A9BC1C19C63B003C3A89 /* NavigationService */ = {
 			isa = PBXGroup;
 			children = (
-				41D6A7B91C18BB280059353E /* AppDelegate */,
-				41D6A7B81C18BB1A0059353E /* ManagedObjects */,
-				41D6A7BC1C18BB620059353E /* Modules */,
+				4186A9BD1C19C649003C3A89 /* NavigationService.swift */,
 			);
-			path = Other;
-			sourceTree = "<group>";
-		};
-		41D6A7B71C18BA030059353E /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				41341B911BF276F20074AF6A /* NSArray+LGExtension.swift */,
-				41341B941BF277100074AF6A /* NSManagedObject+LGExtension.swift */,
-				41A6F07D1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift */,
-				41D6A7B41C18B6760059353E /* UIKitExtensions.swift */,
-			);
-			name = Extensions;
-			sourceTree = "<group>";
-		};
-		41D6A7B81C18BB1A0059353E /* ManagedObjects */ = {
-			isa = PBXGroup;
-			children = (
-				41D511E61BF8E86400AE8EFF /* Contact+CoreDataProperties.swift */,
-				41D511E71BF8E86400AE8EFF /* Contact.swift */,
-			);
-			name = ManagedObjects;
-			sourceTree = "<group>";
-		};
-		41D6A7B91C18BB280059353E /* AppDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				41341B7E1BF273730074AF6A /* AppDelegate.swift */,
-			);
-			name = AppDelegate;
-			sourceTree = "<group>";
-		};
-		41D6A7BA1C18BB310059353E /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				41A9C62F1C01FE7300D9E1C5 /* HomeViewController.swift */,
-				41A9C6301C01FE7300D9E1C5 /* HomeViewController.xib */,
-			);
-			name = Home;
-			sourceTree = "<group>";
-		};
-		41D6A7BB1C18BB3E0059353E /* Contacts */ = {
-			isa = PBXGroup;
-			children = (
-				417759BB1C0201A4003065DF /* ContactsInteractor.swift */,
-				41A9C6291C01F90600D9E1C5 /* ContactsViewModel.swift */,
-				4106D9531BFE702A005EC5A9 /* ContactsViewController.swift */,
-				4106D9541BFE702A005EC5A9 /* ContactsViewController.xib */,
-			);
-			name = Contacts;
-			sourceTree = "<group>";
-		};
-		41D6A7BC1C18BB620059353E /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-				41D6A7BB1C18BB3E0059353E /* Contacts */,
-				41D6A7BA1C18BB310059353E /* Home */,
-			);
-			name = Modules;
+			path = NavigationService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -588,9 +627,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				41341B661BF273380074AF6A /* LaunchScreen.storyboard in Resources */,
-				4106D9561BFE702A005EC5A9 /* ContactsViewController.xib in Resources */,
+				410C84411C19C431009D2B9D /* ContactsViewController.xib in Resources */,
 				41341B631BF273380074AF6A /* Assets.xcassets in Resources */,
-				41A9C6331C01FE7300D9E1C5 /* HomeViewController.xib in Resources */,
+				410C84471C19C431009D2B9D /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,7 +637,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41A9C6341C01FE7300D9E1C5 /* HomeViewController.xib in Resources */,
+				410C84421C19C431009D2B9D /* ContactsViewController.xib in Resources */,
+				410C84481C19C431009D2B9D /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,21 +649,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				413A7D1C1BFE6D9C00CD361A /* Contact.swift in Sources */,
-				4106D9551BFE702A005EC5A9 /* ContactsViewController.swift in Sources */,
-				413A7D1B1BFE6D9C00CD361A /* Contact+CoreDataProperties.swift in Sources */,
-				41A9C6311C01FE7300D9E1C5 /* HomeViewController.swift in Sources */,
-				413A7D171BFE6D9C00CD361A /* LGRequestOperation.swift in Sources */,
-				41D6A7B51C18B6760059353E /* UIKitExtensions.swift in Sources */,
-				413A7D181BFE6D9C00CD361A /* NSArray+LGExtension.swift in Sources */,
-				413A7D191BFE6D9C00CD361A /* NSManagedObject+LGExtension.swift in Sources */,
-				41A6F07E1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift in Sources */,
-				41341B801BF273730074AF6A /* AppDelegate.swift in Sources */,
-				417759BF1C0201FA003065DF /* LGModelObserver.swift in Sources */,
-				41A9C62A1C01F90600D9E1C5 /* ContactsViewModel.swift in Sources */,
-				413A7D131BFE6D9C00CD361A /* LGDataController.swift in Sources */,
+				410C84351C19C431009D2B9D /* LGRequestOperation.swift in Sources */,
+				4186A9B71C19C5E1003C3A89 /* ContactsModuleDependencies.swift in Sources */,
+				410C843F1C19C431009D2B9D /* ContactsViewController.swift in Sources */,
+				4186A9C11C19CBE5003C3A89 /* HomeViewModel.swift in Sources */,
+				410C84311C19C431009D2B9D /* LGDataController.swift in Sources */,
+				410C84431C19C431009D2B9D /* ContactsViewModel.swift in Sources */,
+				4186A9BA1C19C5ED003C3A89 /* HomeModuleDependencies.swift in Sources */,
+				4186A9B41C19C5BB003C3A89 /* Dependencies.swift in Sources */,
+				410C842D1C19C431009D2B9D /* NSManagedObjectContext+LGExtension.swift in Sources */,
+				410C84451C19C431009D2B9D /* HomeViewController.swift in Sources */,
+				410C84371C19C431009D2B9D /* AppDelegate.swift in Sources */,
+				410C84331C19C431009D2B9D /* LGModelObserver.swift in Sources */,
+				410C843D1C19C431009D2B9D /* ContactsInteractor.swift in Sources */,
 				41341B611BF273380074AF6A /* LGDataController.xcdatamodeld in Sources */,
-				417759BC1C0201A4003065DF /* ContactsInteractor.swift in Sources */,
+				410C843B1C19C431009D2B9D /* Contact.swift in Sources */,
+				410C84291C19C431009D2B9D /* NSArray+LGExtension.swift in Sources */,
+				410C842B1C19C431009D2B9D /* NSManagedObject+LGExtension.swift in Sources */,
+				410C84391C19C431009D2B9D /* Contact+CoreDataProperties.swift in Sources */,
+				4186A9BE1C19C649003C3A89 /* NavigationService.swift in Sources */,
+				410C842F1C19C431009D2B9D /* UIKitExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,21 +676,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				413A7D121BFE6D9B00CD361A /* Contact.swift in Sources */,
-				41A9C62B1C01F90600D9E1C5 /* ContactsViewModel.swift in Sources */,
-				413A7D091BFE6D9B00CD361A /* LGDataController.swift in Sources */,
-				413A7D0D1BFE6D9B00CD361A /* LGRequestOperation.swift in Sources */,
+				410C843C1C19C431009D2B9D /* Contact.swift in Sources */,
+				4186A9C21C19CBE5003C3A89 /* HomeViewModel.swift in Sources */,
+				410C843A1C19C431009D2B9D /* Contact+CoreDataProperties.swift in Sources */,
+				410C84381C19C431009D2B9D /* AppDelegate.swift in Sources */,
+				410C84461C19C431009D2B9D /* HomeViewController.swift in Sources */,
+				410C84361C19C431009D2B9D /* LGRequestOperation.swift in Sources */,
+				410C842E1C19C431009D2B9D /* NSManagedObjectContext+LGExtension.swift in Sources */,
+				410C843E1C19C431009D2B9D /* ContactsInteractor.swift in Sources */,
 				413A7D1D1BFE6DAC00CD361A /* LGDataController.xcdatamodeld in Sources */,
-				413A7D0F1BFE6D9B00CD361A /* NSManagedObject+LGExtension.swift in Sources */,
-				41D6A7B61C18B67D0059353E /* UIKitExtensions.swift in Sources */,
-				41A6F07F1BFE7D5B000F21D6 /* NSManagedObjectContext+LGExtension.swift in Sources */,
-				413A7D111BFE6D9B00CD361A /* Contact+CoreDataProperties.swift in Sources */,
-				41A9C6321C01FE7300D9E1C5 /* HomeViewController.swift in Sources */,
-				417759C01C0201FA003065DF /* LGModelObserver.swift in Sources */,
+				410C84321C19C431009D2B9D /* LGDataController.swift in Sources */,
+				410C84341C19C431009D2B9D /* LGModelObserver.swift in Sources */,
 				41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */,
 				41341B711BF273390074AF6A /* LGDataControllerTests.swift in Sources */,
-				413A7D0E1BFE6D9B00CD361A /* NSArray+LGExtension.swift in Sources */,
-				417759BD1C0201A4003065DF /* ContactsInteractor.swift in Sources */,
+				4186A9B51C19C5BB003C3A89 /* Dependencies.swift in Sources */,
+				4186A9BF1C19C649003C3A89 /* NavigationService.swift in Sources */,
+				410C842A1C19C431009D2B9D /* NSArray+LGExtension.swift in Sources */,
+				410C84301C19C431009D2B9D /* UIKitExtensions.swift in Sources */,
+				410C84441C19C431009D2B9D /* ContactsViewModel.swift in Sources */,
+				410C842C1C19C431009D2B9D /* NSManagedObject+LGExtension.swift in Sources */,
+				4186A9BB1C19C5ED003C3A89 /* HomeModuleDependencies.swift in Sources */,
+				410C84401C19C431009D2B9D /* ContactsViewController.swift in Sources */,
+				4186A9B81C19C5E1003C3A89 /* ContactsModuleDependencies.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
