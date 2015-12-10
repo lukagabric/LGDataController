@@ -31,7 +31,7 @@ public class DefaultDependencies: Dependencies {
     }()
     
     private lazy var managedObjectContext: NSManagedObjectContext = {
-        let modelURL = NSBundle.mainBundle().URLForResource("LGDataController", withExtension: "momd")!
+        let modelURL = NSBundle.mainBundle().URLForResource("LGDataController", withExtension: "mom")!
         let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)!
         
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
