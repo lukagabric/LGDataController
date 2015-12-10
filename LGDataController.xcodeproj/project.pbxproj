@@ -278,9 +278,9 @@
 		410C841A1C19C431009D2B9D /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				410C841B1C19C431009D2B9D /* AppDelegate */,
 				4186A9A61C19C5AC003C3A89 /* Dependencies */,
 				4186A9BC1C19C63B003C3A89 /* NavigationService */,
-				410C841B1C19C431009D2B9D /* AppDelegate */,
 				410C841D1C19C431009D2B9D /* ManagedObjects */,
 				410C84201C19C431009D2B9D /* Modules */,
 			);
