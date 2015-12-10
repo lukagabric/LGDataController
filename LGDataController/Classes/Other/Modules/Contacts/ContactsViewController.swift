@@ -10,11 +10,11 @@ import UIKit
 import ReactiveCocoa
 import CoreData
 
-class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+public class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var viewModel: ContactsViewModel!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var loadingOverlayView: UIView!
+    private var viewModel: ContactsViewModel!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var loadingOverlayView: UIView!
     
     //MARK: - Init
     
@@ -23,13 +23,13 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     //MARK: - View Lifecycle
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
@@ -47,11 +47,11 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - UITableViewDelegate, UITableViewDataSource
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.contacts.value?.count ?? 0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
         let contact = self.viewModel.contacts.value![indexPath.row]
         cell.textLabel?.text = contact.info

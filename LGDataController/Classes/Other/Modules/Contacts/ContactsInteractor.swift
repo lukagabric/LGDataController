@@ -18,14 +18,14 @@ public class ContactsInteractor {
         self.dataController = dependencies.dataController
     }
     
-    func contactsModelObserver() -> LGModelObserver<Contact> {
+    public func contactsModelObserver() -> LGModelObserver<Contact> {
         let contactsFrc = self.contactsFrc()
         let refreshSignal = self.contactsRefreshSignal()
         
         return LGModelObserver(fetchedResultsController: contactsFrc, refreshSignal: refreshSignal)
     }
     
-    func contactsFrc() -> NSFetchedResultsController {
+    public func contactsFrc() -> NSFetchedResultsController {
         let contactsFetchRequest = NSFetchRequest(entityName: Contact.lg_entityName())
         let sortDescriptor = NSSortDescriptor(key: "lastName", ascending: true)
         contactsFetchRequest.sortDescriptors = [sortDescriptor]
@@ -38,7 +38,7 @@ public class ContactsInteractor {
         return contactsFrc;
     }
     
-    func contactsRefreshSignal() -> Signal<Void, NSError>? {
+    private func contactsRefreshSignal() -> Signal<Void, NSError>? {
         let contactsUpdateSignal = self.dataController.updateData(
             url: "http://lukagabric.com/wp-content/contacts-api/contacts",
             methodName: "GET",

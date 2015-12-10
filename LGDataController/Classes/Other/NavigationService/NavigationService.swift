@@ -11,8 +11,8 @@ import UIKit
 
 public class NavigationService {
     
-    let dependencies: Dependencies
-    var navigationController: UINavigationController!
+    private let dependencies: Dependencies
+    private var navigationController: UINavigationController!
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+public class HomeViewController: UIViewController {
 
     var viewModel: HomeViewModel!
     
@@ -19,11 +19,11 @@ class HomeViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    @IBAction func showContacts() {
+    @IBAction private func showContacts() {
         self.viewModel.showContacts()
     }
 
