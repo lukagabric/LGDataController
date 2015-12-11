@@ -68,8 +68,8 @@ public class LGDataController {
         dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> Signal<T, NSError>? {
             assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
             
-            if let update = self.activeUpdates[requestId] {
-                return update as? Signal<T, NSError>
+            if let activeUpdateSignal = self.activeUpdates[requestId] {
+                return activeUpdateSignal as? Signal<T, NSError>
             }
             
             if !self.isDataStale(reqestId: requestId, staleInterval: staleInterval) { return nil }
@@ -79,24 +79,21 @@ public class LGDataController {
             let operation = LGRequestOperation(session: self.session, request: request)
             self.dataDownloadQueue.addOperation(operation)
             
-            let dataUpdateSignal = operation.signal.flatMap(FlattenStrategy.Latest) { response -> Signal<T, NSError> in
-                let (signal, observer) = Signal<T, NSError>.pipe()
-
+            let dataUpdateSignal = operation.signal.flatMap(FlattenStrategy.Latest) { response -> SignalProducer<T, NSError> in
                 if let error = self.validateResponse(response) {
-                    observer.sendFailed(error)
-                    return signal
+                    return SignalProducer<T, NSError>(error: error)
                 }
                 
                 if !self.isDataNew(reqestId: requestId, response: response) {
                     self.refreshUpdateInfo(reqestId: requestId, response: response)
-                    observer.sendCompleted()
-                    return signal
+                    return SignalProducer<T, NSError>.empty
                 }
                 
                 guard let serializedResponse = self.serializedResponse(response) else {
-                    observer.sendFailed(NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
-                    return signal
+                    return SignalProducer<T, NSError>(error: NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
                 }
+                
+                let (signalProducer, observer) = SignalProducer<T, NSError>.buffer(1)
                 
                 self.bgContext.performBlock {
                     let resultData = dataUpdate(data: serializedResponse, response: response, context: self.bgContext)
@@ -111,10 +108,19 @@ public class LGDataController {
                     }
                 }
                 
-                return signal
+                return signalProducer
             }
             
-            return dataUpdateSignal.takeLast(1).observeOn(QueueScheduler.mainQueueScheduler)
+            let updateSignal = dataUpdateSignal.takeLast(1).observeOn(QueueScheduler.mainQueueScheduler)
+            updateSignal.observe { [weak self] event in
+                if event.isTerminating {
+                    self?.activeUpdates.removeValueForKey(requestId)
+                }
+            }
+            
+            self.activeUpdates[requestId] = updateSignal
+            
+            return updateSignal
     }
     
     public func refreshSignal<T>(inputSignal inputSignal: Signal<T, NSError>?) -> Signal<Void, NSError>? {

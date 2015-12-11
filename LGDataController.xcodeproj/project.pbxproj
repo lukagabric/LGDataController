@@ -393,9 +393,9 @@
 			children = (
 				4186A9D61C19D2A4003C3A89 /* ContactsInteractor.swift */,
 				4186A9D71C19D2A4003C3A89 /* ContactsModuleDependencies.swift */,
+				4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */,
 				4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */,
 				4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */,
-				4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -404,9 +404,9 @@
 			isa = PBXGroup;
 			children = (
 				4186A9DC1C19D2A4003C3A89 /* HomeModuleDependencies.swift */,
+				4186A9DF1C19D2A4003C3A89 /* HomeViewModel.swift */,
 				4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */,
 				4186A9DE1C19D2A4003C3A89 /* HomeViewController.xib */,
-				4186A9DF1C19D2A4003C3A89 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";

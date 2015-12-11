@@ -79,9 +79,11 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
         if let refreshSignal = self.refreshSignal {
             self.loadingSignalObserver.sendNext(true)
             
-            refreshSignal.observe { [weak self] _ in
-                self?.loadingSignalObserver.sendNext(false)
-                self?.loadingSignalObserver.sendCompleted()
+            refreshSignal.observe { [weak self] event in
+                if event.isTerminating {
+                    self?.loadingSignalObserver.sendNext(false)
+                    self?.loadingSignalObserver.sendCompleted()
+                }
             }
         }
         else {
