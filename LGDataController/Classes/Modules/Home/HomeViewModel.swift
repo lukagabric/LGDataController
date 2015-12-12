@@ -10,12 +10,12 @@ import Foundation
 
 public class HomeViewModel {
     
-    private var navigationService: NavigationService
+    private var navigationService: HomeNavigationService
     
     //MARK: - Init
 
     init(dependencies: HomeModuleDependencies) {
-        self.navigationService = dependencies.navigationService
+        self.navigationService = dependencies.homeNavigationService
     }
     
     //MARK: - User Interaction

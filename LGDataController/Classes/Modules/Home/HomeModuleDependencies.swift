@@ -8,8 +8,14 @@
 
 import Foundation
 
+public protocol HomeNavigationService {
+    
+    func pushContacts()
+    
+}
+
 public protocol HomeModuleDependencies {
     
-    var navigationService: NavigationService { get }
+    var homeNavigationService: HomeNavigationService { get }
     
 }

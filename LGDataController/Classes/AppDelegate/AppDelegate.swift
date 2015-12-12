@@ -13,10 +13,10 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var dependencies: DefaultDependencies!
+    var dependencies: Dependencies!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.dependencies = DefaultDependencies()
+        self.dependencies = Dependencies()
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.dependencies.navigationService.configureRootViewControllerForWindow(self.window!)

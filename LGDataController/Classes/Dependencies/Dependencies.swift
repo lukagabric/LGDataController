@@ -10,14 +10,10 @@ import Foundation
 import UIKit
 import CoreData
 
-protocol Dependencies:
-ContactsModuleDependencies,
-HomeModuleDependencies {}
-
-public class DefaultDependencies: Dependencies {
+public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     
     //MARK: - Dependencies
-
+    
     private lazy var urlSession: NSURLSession = {
         return NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     }()
@@ -29,6 +25,10 @@ public class DefaultDependencies: Dependencies {
     public lazy var navigationService: NavigationService = {
         return NavigationService(dependencies: self)
     }()
+    
+    public var homeNavigationService: HomeNavigationService {
+        return self.navigationService
+    }
     
     private lazy var managedObjectContext: NSManagedObjectContext = {
         let modelURL = NSBundle.mainBundle().URLForResource("LGDataController", withExtension: "mom")!

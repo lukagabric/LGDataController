@@ -9,18 +9,19 @@
 import Foundation
 import UIKit
 
-public class NavigationService {
+public class NavigationService: HomeNavigationService {
     
     private let dependencies: Dependencies
-    private var navigationController: UINavigationController!
+    private var navigationController: UINavigationController
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+        self.navigationController = UINavigationController()
     }
     
     public func configureRootViewControllerForWindow(window: UIWindow) {
         let homeViewController = HomeViewController(dependencies: self.dependencies)
-        self.navigationController = UINavigationController(rootViewController: homeViewController)
+        self.navigationController.setViewControllers([homeViewController], animated: false)
         window.rootViewController = self.navigationController
     }
     
