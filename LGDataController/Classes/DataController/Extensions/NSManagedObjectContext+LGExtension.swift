@@ -11,7 +11,7 @@ import CoreData
 
 extension NSManagedObjectContext {
     
-    func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String) -> ([T], NSError?) {
+    public func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String) -> ([T], NSError?) {
         let entityName = T.lg_entityName()
         if entityName.isEmpty { return ([T](), NSError(domain: "Entity name must be specified", code: 0, userInfo: nil)) }
         assert(!entityName.isEmpty, "Entity name must be specified")
@@ -39,7 +39,7 @@ extension NSManagedObjectContext {
         return (newObjects + existingObjects, nil)
     }
     
-    func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String) -> [T] {
+    public func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String) -> [T] {
         let tuple: ([T], NSError?) = self.lg_existingObjectsOrStubs(guids: guids, guidKey: guidKey)
         return tuple.0
     }

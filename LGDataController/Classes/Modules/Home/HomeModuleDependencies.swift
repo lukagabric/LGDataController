@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol HomeModuleDependencies {
+public protocol HomeModuleDependencies {
     
     var navigationService: NavigationService { get }
     

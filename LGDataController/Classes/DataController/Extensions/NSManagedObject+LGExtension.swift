@@ -17,7 +17,7 @@ enum LGContentWeight: Int {
 
 extension NSManagedObject: LGContextTransferable {
     
-    func transferredToContext(context: NSManagedObjectContext) -> NSManagedObject {
+    public func transferredToContext(context: NSManagedObjectContext) -> NSManagedObject {
         return context.objectWithID(self.objectID)
     }
     
@@ -25,7 +25,7 @@ extension NSManagedObject: LGContextTransferable {
 
 extension NSManagedObject {
     
-    func lg_mergeWithDictionary(dictionary: [String : AnyObject]) {
+    public func lg_mergeWithDictionary(dictionary: [String : AnyObject]) {
         if !lg_isUpdateDictionaryValid(dictionary) { return }
 
         let mappings = self.dynamicType.lg_responseToEntityMappings()
@@ -51,7 +51,7 @@ extension NSManagedObject {
         }
     }
     
-    func lg_transformedValue(rawValue: AnyObject, key: String, attributes: [String : NSAttributeDescription], dateFormatter: NSDateFormatter) -> AnyObject? {
+    public func lg_transformedValue(rawValue: AnyObject, key: String, attributes: [String : NSAttributeDescription], dateFormatter: NSDateFormatter) -> AnyObject? {
         guard let attributeDescription = attributes[key] else { return rawValue }
         let attributeType = attributeDescription.attributeType;
         
@@ -78,7 +78,7 @@ extension NSManagedObject {
         return rawValue
     }
     
-    func lg_isUpdateDictionaryValid(dictionary: [String : AnyObject]) -> Bool {
+    public func lg_isUpdateDictionaryValid(dictionary: [String : AnyObject]) -> Bool {
         return true
     }
     

@@ -391,8 +391,8 @@
 		4186A9D51C19D2A4003C3A89 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				4186A9D61C19D2A4003C3A89 /* ContactsInteractor.swift */,
 				4186A9D71C19D2A4003C3A89 /* ContactsModuleDependencies.swift */,
+				4186A9D61C19D2A4003C3A89 /* ContactsInteractor.swift */,
 				4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */,
 				4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */,
 				4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */,

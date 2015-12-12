@@ -8,9 +8,8 @@
 
 import Foundation
 
-protocol ContactsModuleDependencies {
+public protocol ContactsModuleDependencies {
     
-    var dataController: LGDataController { get }
-    var navigationService: NavigationService { get }
+    var dataController: DataController { get }
     
 }

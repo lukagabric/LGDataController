@@ -22,7 +22,7 @@ public class DefaultDependencies: Dependencies {
         return NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     }()
     
-    public lazy var dataController: LGDataController = {
+    public lazy var dataController: DataController = {
         return LGDataController(session: self.urlSession, mainContext: self.managedObjectContext)
     }()
     

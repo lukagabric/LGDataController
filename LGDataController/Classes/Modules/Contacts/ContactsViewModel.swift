@@ -16,7 +16,7 @@ public class ContactsViewModel {
     public let contactsCountProducer: SignalProducer<String, NoError>
     public let contacts = MutableProperty<[Contact]?>(nil)
     
-    private let dataController: LGDataController
+    private let dataController: DataController
     private let contactsInteractor: ContactsInteractor
     private let contactsModelObserver: LGModelObserver<Contact>
 

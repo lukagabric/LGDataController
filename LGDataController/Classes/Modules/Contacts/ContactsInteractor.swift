@@ -12,7 +12,7 @@ import CoreData
 
 public class ContactsInteractor {
     
-    private let dataController: LGDataController
+    private let dataController: DataController
     
     init(dependencies: ContactsModuleDependencies) {
         self.dataController = dependencies.dataController
@@ -20,9 +20,9 @@ public class ContactsInteractor {
     
     public func contactsModelObserver() -> LGModelObserver<Contact> {
         let contactsFrc = self.contactsFrc()
-        let refreshSignal = self.contactsRefreshSignal()
+        let updateSignal = self.contactsUpdateSignal()
         
-        return LGModelObserver(fetchedResultsController: contactsFrc, refreshSignal: refreshSignal)
+        return LGModelObserver(fetchedResultsController: contactsFrc, updateSignal: updateSignal)
     }
     
     public func contactsFrc() -> NSFetchedResultsController {
@@ -38,7 +38,7 @@ public class ContactsInteractor {
         return contactsFrc;
     }
     
-    private func contactsRefreshSignal() -> Signal<Void, NSError>? {
+    private func contactsUpdateSignal() -> Signal<[Contact], NSError>? {
         let contactsUpdateSignal = self.dataController.updateData(
             url: "http://lukagabric.com/wp-content/contacts-api/contacts",
             methodName: "GET",
@@ -49,7 +49,7 @@ public class ContactsInteractor {
                 return contacts
         }
 
-        return self.dataController.refreshSignal(inputSignal: contactsUpdateSignal)
+        return contactsUpdateSignal
     }
     
 }

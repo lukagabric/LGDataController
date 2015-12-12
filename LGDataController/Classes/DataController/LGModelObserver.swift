@@ -41,10 +41,10 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     
     //MARK: - Init
     
-    init(fetchedResultsController: NSFetchedResultsController, refreshSignal: Signal<Void, NSError>?) {
+    init(fetchedResultsController: NSFetchedResultsController, updateSignal: Signal<[T], NSError>?) {
         self.fetchedResultsController = fetchedResultsController
 
-        self.refreshSignal = refreshSignal
+        self.refreshSignal = updateSignal?.map { _ in () }
         
         let (modelChangedSignalProducer, modelChangedObserver) = SignalProducer<LGModelChange, NoError>.buffer(1)
         self.modelChangedSignalProducer = modelChangedSignalProducer

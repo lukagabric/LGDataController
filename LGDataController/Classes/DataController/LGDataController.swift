@@ -12,7 +12,7 @@ import CoreData
 
 typealias LGActionClosure = () -> ()
 
-protocol LGContextTransferable {
+public protocol LGContextTransferable {
     typealias TransferredType
     func transferredToContext(context: NSManagedObjectContext) -> TransferredType
 }
@@ -31,10 +31,24 @@ public class LGUpdateInfo {
     
 }
 
-public class LGDataController {
+public protocol DataController {
+    
+    func updateData<T where T: LGContextTransferable>(
+        url url: String,
+        methodName: String,
+        parameters: [String : AnyObject]?,
+        requestId: String,
+        staleInterval: NSTimeInterval,
+        dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> Signal<T, NSError>?
+    
+    var mainContext: NSManagedObjectContext { get }
+    
+}
+
+public class LGDataController: DataController {
     
     let session: NSURLSession
-    let mainContext: NSManagedObjectContext
+    public let mainContext: NSManagedObjectContext
     let bgContext: NSManagedObjectContext
     let dataDownloadQueue: NSOperationQueue
     var activeUpdates: [String : AnyObject]
@@ -59,7 +73,7 @@ public class LGDataController {
     
     //MARK: - Main
     
-    func updateData<T where T: LGContextTransferable>(
+    public func updateData<T where T: LGContextTransferable>(
         url url: String,
         methodName: String,
         parameters: [String : AnyObject]?,
@@ -121,10 +135,6 @@ public class LGDataController {
             self.activeUpdates[requestId] = updateSignal
             
             return updateSignal
-    }
-    
-    public func refreshSignal<T>(inputSignal inputSignal: Signal<T, NSError>?) -> Signal<Void, NSError>? {
-        return inputSignal?.map { _ in () }
     }
     
     //MARK: - Cache Invalidation
