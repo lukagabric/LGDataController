@@ -93,23 +93,24 @@ public class LGDataController: DataController {
             let operation = LGRequestOperation(session: self.session, request: request)
             self.dataDownloadQueue.addOperation(operation)
             
-            let operationProducer = operation.producer
-                .takeLast(1)
-                .flatMap(FlattenStrategy.Latest) { response -> SignalProducer<T, NSError> in
+            let (updateProducer, updateObserver) = SignalProducer<T, NSError>.buffer(1)
+            
+            operation.producer.takeLast(1).startWithNext { response in
                 if let error = self.validateResponse(response) {
-                    return SignalProducer<T, NSError>(error: error)
+                    updateObserver.sendFailed(error)
+                    return
                 }
                 
                 if !self.isDataNew(reqestId: requestId, response: response) {
                     self.refreshUpdateInfo(reqestId: requestId, response: response)
-                    return SignalProducer<T, NSError>.empty
+                    updateObserver.sendCompleted()
+                    return
                 }
                 
                 guard let serializedResponse = self.serializedResponse(response) else {
-                    return SignalProducer<T, NSError>(error: NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
+                    updateObserver.sendFailed(NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
+                    return
                 }
-                
-                let (signalProducer, observer) = SignalProducer<T, NSError>.buffer(1)
                 
                 self.bgContext.performBlock {
                     let resultData = dataUpdate(data: serializedResponse, response: response, context: self.bgContext)
@@ -119,23 +120,18 @@ public class LGDataController: DataController {
                         
                         let mainContextResults = resultData.transferredToContext(self.mainContext) as! T
                         
-                        observer.sendNext(mainContextResults)
-                        observer.sendCompleted()
+                        updateObserver.sendNext(mainContextResults)
+                        updateObserver.sendCompleted()
                     }
                 }
-                
-                return signalProducer
             }
-            
-            let (updateProducer, observer) = SignalProducer<T, NSError>.buffer(1)
-            operationProducer.start(observer)
             
             updateProducer.start { [weak self] event in
                 if event.isTerminating {
                     self?.activeUpdates.removeValueForKey(requestId)
                 }
             }
-
+            
             self.activeUpdates[requestId] = updateProducer
 
             return updateProducer
