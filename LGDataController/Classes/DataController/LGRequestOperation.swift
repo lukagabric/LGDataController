@@ -29,12 +29,12 @@ public struct LGResponse {
 
 public class LGRequestOperation: NSOperation {
 
-    public let signal: Signal<LGResponse, NSError>
+    public let producer: SignalProducer<LGResponse, NSError>
     private let observer: Observer<LGResponse, NSError>
     private var disposable: Disposable?
     
-    private var signalProducer: SignalProducer<LGResponse, NSError>!
-
+    private var dataProducer: SignalProducer<LGResponse, NSError>!
+    
     private let session: NSURLSession
     private let request: NSURLRequest
     
@@ -44,28 +44,21 @@ public class LGRequestOperation: NSOperation {
         self.session = session
         self.request = request
         
-        let (signal, observer) = Signal<LGResponse, NSError>.pipe()
-        self.signal = signal.takeLast(1)
-        
-        self.observer = observer
+        (self.producer, self.observer) = SignalProducer<LGResponse, NSError>.buffer(1)
 
         super.init()
-        
-        self.signalProducer = self.session.rac_dataWithRequest(request)
+
+        self.dataProducer = self.session.rac_dataWithRequest(request)
             .retry(1)
-            .map { (data, response) -> LGResponse in
-                let response = LGResponse(response: response as! NSHTTPURLResponse, data: data)
-                return response
-            }
-            .observeOn(QueueScheduler.init(queue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)))
-            .on(failed: { [weak self] _ in self?.completeOperation() },
-                completed: { [weak self] in self?.completeOperation() })
+            .takeLast(1)
+            .map { (data, response) -> LGResponse in LGResponse(response: response as! NSHTTPURLResponse, data: data) }
+            .on(terminated: { [weak self] _ in self?.completeOperation() })
     }
     
     //MARK: - Override
     
     override public func main() {
-        self.disposable = self.signalProducer.start(self.observer)
+        self.disposable = self.dataProducer.start(self.observer)
     }
     
     override public func cancel() {

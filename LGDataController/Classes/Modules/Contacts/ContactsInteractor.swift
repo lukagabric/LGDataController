@@ -20,9 +20,9 @@ public class ContactsInteractor {
     
     public func contactsModelObserver() -> LGModelObserver<Contact> {
         let contactsFrc = self.contactsFrc()
-        let updateSignal = self.contactsUpdateSignal()
+        let updateProducer = self.contactsUpdateProducer()
         
-        return LGModelObserver(fetchedResultsController: contactsFrc, updateSignal: updateSignal)
+        return LGModelObserver(fetchedResultsController: contactsFrc, updateProducer: updateProducer)
     }
     
     public func contactsFrc() -> NSFetchedResultsController {
@@ -38,8 +38,8 @@ public class ContactsInteractor {
         return contactsFrc;
     }
     
-    private func contactsUpdateSignal() -> Signal<[Contact], NSError>? {
-        let contactsUpdateSignal = self.dataController.updateData(
+    private func contactsUpdateProducer() -> SignalProducer<[Contact], NSError>? {
+        let contactsUpdateProducer = self.dataController.updateData(
             url: "http://lukagabric.com/wp-content/contacts-api/contacts",
             methodName: "GET",
             parameters: nil,
@@ -49,7 +49,7 @@ public class ContactsInteractor {
                 return contacts
         }
 
-        return contactsUpdateSignal
+        return contactsUpdateProducer
     }
     
 }

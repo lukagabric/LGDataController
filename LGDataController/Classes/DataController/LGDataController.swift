@@ -39,7 +39,7 @@ public protocol DataController {
         parameters: [String : AnyObject]?,
         requestId: String,
         staleInterval: NSTimeInterval,
-        dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> Signal<T, NSError>?
+        dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> SignalProducer<T, NSError>?
     
     var mainContext: NSManagedObjectContext { get }
     
@@ -79,11 +79,11 @@ public class LGDataController: DataController {
         parameters: [String : AnyObject]?,
         requestId: String,
         staleInterval: NSTimeInterval,
-        dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> Signal<T, NSError>? {
+        dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> SignalProducer<T, NSError>? {
             assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
             
-            if let activeUpdateSignal = self.activeUpdates[requestId] {
-                return activeUpdateSignal as? Signal<T, NSError>
+            if let activeUpdateProducer = self.activeUpdates[requestId] {
+                return activeUpdateProducer as? SignalProducer<T, NSError>
             }
             
             if !self.isDataStale(reqestId: requestId, staleInterval: staleInterval) { return nil }
@@ -93,7 +93,9 @@ public class LGDataController: DataController {
             let operation = LGRequestOperation(session: self.session, request: request)
             self.dataDownloadQueue.addOperation(operation)
             
-            let dataUpdateSignal = operation.signal.flatMap(FlattenStrategy.Latest) { response -> SignalProducer<T, NSError> in
+            let operationProducer = operation.producer
+                .takeLast(1)
+                .flatMap(FlattenStrategy.Latest) { response -> SignalProducer<T, NSError> in
                 if let error = self.validateResponse(response) {
                     return SignalProducer<T, NSError>(error: error)
                 }
@@ -125,16 +127,18 @@ public class LGDataController: DataController {
                 return signalProducer
             }
             
-            let updateSignal = dataUpdateSignal.takeLast(1).observeOn(QueueScheduler.mainQueueScheduler)
-            updateSignal.observe { [weak self] event in
+            let (updateProducer, observer) = SignalProducer<T, NSError>.buffer(1)
+            operationProducer.start(observer)
+            
+            updateProducer.start { [weak self] event in
                 if event.isTerminating {
                     self?.activeUpdates.removeValueForKey(requestId)
                 }
             }
-            
-            self.activeUpdates[requestId] = updateSignal
-            
-            return updateSignal
+
+            self.activeUpdates[requestId] = updateProducer as? AnyObject
+
+            return updateProducer
     }
     
     //MARK: - Cache Invalidation

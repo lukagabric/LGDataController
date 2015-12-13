@@ -24,16 +24,16 @@ public class LGModelChange {
 
 public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsControllerDelegate {
     
-    public let modelChangedSignalProducer: SignalProducer<LGModelChange, NoError>
+    public let modelChangedProducer: SignalProducer<LGModelChange, NoError>
     private let modelChangedObserver: Observer<LGModelChange, NoError>
     
-    public let fetchedObjectsSignalProducer: SignalProducer<[T]?, NoError>
+    public let fetchedObjectsProducer: SignalProducer<[T]?, NoError>
     private let fetchedObjectsObserver: Observer<[T]?, NoError>
     
-    public let refreshSignal: Signal<Void, NSError>?
+    public let refreshProducer: SignalProducer<Void, NSError>?
     
-    public let loadingSignalProducer: SignalProducer<Bool, NoError>
-    private let loadingSignalObserver: Observer<Bool, NoError>
+    public let loadingProducer: SignalProducer<Bool, NoError>
+    private let loadingObserver: Observer<Bool, NoError>
     
     private let fetchedResultsController: NSFetchedResultsController
 
@@ -41,22 +41,14 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     
     //MARK: - Init
     
-    init(fetchedResultsController: NSFetchedResultsController, updateSignal: Signal<[T], NSError>?) {
+    init(fetchedResultsController: NSFetchedResultsController, updateProducer: SignalProducer<[T], NSError>?) {
         self.fetchedResultsController = fetchedResultsController
 
-        self.refreshSignal = updateSignal?.map { _ in () }
+        self.refreshProducer = updateProducer?.map { _ in () }
         
-        let (modelChangedSignalProducer, modelChangedObserver) = SignalProducer<LGModelChange, NoError>.buffer(1)
-        self.modelChangedSignalProducer = modelChangedSignalProducer
-        self.modelChangedObserver = modelChangedObserver
-        
-        let (fetchedObjectsSignalProducer, fetchedObjectsObserver) = SignalProducer<[T]?, NoError>.buffer(1)
-        self.fetchedObjectsSignalProducer = fetchedObjectsSignalProducer
-        self.fetchedObjectsObserver = fetchedObjectsObserver
-
-        let (loadingSignalProducer, loadingSignalObserver) = SignalProducer<Bool, NoError>.buffer(1)
-        self.loadingSignalProducer = loadingSignalProducer
-        self.loadingSignalObserver = loadingSignalObserver
+        (self.modelChangedProducer, self.modelChangedObserver) = SignalProducer<LGModelChange, NoError>.buffer(1)
+        (self.fetchedObjectsProducer, self.fetchedObjectsObserver) = SignalProducer<[T]?, NoError>.buffer(1)
+        (self.loadingProducer, self.loadingObserver) = SignalProducer<Bool, NoError>.buffer(1)
         
         super.init()
 
@@ -76,19 +68,19 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     }
     
     private func configureLoadingSignalProducer() {
-        if let refreshSignal = self.refreshSignal {
-            self.loadingSignalObserver.sendNext(true)
+        if let refreshProducer = self.refreshProducer {
+            self.loadingObserver.sendNext(true)
             
-            refreshSignal.observe { [weak self] event in
+            refreshProducer.start { [weak self] event in
                 if event.isTerminating {
-                    self?.loadingSignalObserver.sendNext(false)
-                    self?.loadingSignalObserver.sendCompleted()
+                    self?.loadingObserver.sendNext(false)
+                    self?.loadingObserver.sendCompleted()
                 }
             }
         }
         else {
-            self.loadingSignalObserver.sendNext(false)
-            self.loadingSignalObserver.sendCompleted()
+            self.loadingObserver.sendNext(false)
+            self.loadingObserver.sendCompleted()
         }
     }
     
