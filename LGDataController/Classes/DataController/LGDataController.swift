@@ -39,7 +39,7 @@ public protocol DataController {
         parameters: [String : AnyObject]?,
         requestId: String,
         staleInterval: NSTimeInterval,
-        dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> SignalProducer<T, NSError>?
+        dataUpdate: (data: Any, response: LGResponse, context: NSManagedObjectContext) -> T) -> SignalProducer<T, NSError>?
     
     var mainContext: NSManagedObjectContext { get }
     
@@ -79,7 +79,7 @@ public class LGDataController: DataController {
         parameters: [String : AnyObject]?,
         requestId: String,
         staleInterval: NSTimeInterval,
-        dataUpdate: (data: AnyObject, response: LGResponse, context: NSManagedObjectContext) -> T) -> SignalProducer<T, NSError>? {
+        dataUpdate: (data: Any, response: LGResponse, context: NSManagedObjectContext) -> T) -> SignalProducer<T, NSError>? {
             assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
             
             if let activeUpdateProducer = self.activeUpdates[requestId] {
