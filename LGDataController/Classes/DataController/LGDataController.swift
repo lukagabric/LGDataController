@@ -51,7 +51,7 @@ public class LGDataController: DataController {
     public let mainContext: NSManagedObjectContext
     let bgContext: NSManagedObjectContext
     let dataDownloadQueue: NSOperationQueue
-    var activeUpdates: [String : AnyObject]
+    var activeUpdates: [String : Any]
     var updateInfoCache: [String : LGUpdateInfo]
     
     //MARK: - Init
@@ -68,7 +68,7 @@ public class LGDataController: DataController {
 
         self.updateInfoCache = [String : LGUpdateInfo]()
         
-        self.activeUpdates = [String : AnyObject]()
+        self.activeUpdates = [String : Any]()
     }
     
     //MARK: - Main
@@ -136,7 +136,7 @@ public class LGDataController: DataController {
                 }
             }
 
-            self.activeUpdates[requestId] = updateProducer as? AnyObject
+            self.activeUpdates[requestId] = updateProducer
 
             return updateProducer
     }
