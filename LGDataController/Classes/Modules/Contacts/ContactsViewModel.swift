@@ -25,14 +25,12 @@ public class ContactsViewModel {
         self.contactsInteractor = ContactsInteractor(dependencies: dependencies)
         self.contactsModelObserver = contactsInteractor.contactsModelObserver()
         
+        self.loadingProducer = self.contactsModelObserver.loadingProducer
+        self.contacts <~ self.contactsModelObserver.fetchedObjectsProducer
         self.contactsTitleProducer = self.contactsModelObserver.fetchedObjectsProducer.map { contacts -> String in
             guard let allContacts = contacts else { return "0 contact(s)" }
             return "\(String(allContacts.count)) contact(s)"
         }
-        
-        self.contacts <~ self.contactsModelObserver.fetchedObjectsProducer
-
-        self.loadingProducer = self.contactsModelObserver.loadingProducer
     }
     
 }
