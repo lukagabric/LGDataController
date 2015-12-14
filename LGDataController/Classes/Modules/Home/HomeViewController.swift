@@ -8,6 +8,12 @@
 
 import UIKit
 
+public protocol HomeViewModelType {
+    
+    func showContacts()
+    
+}
+
 public class HomeViewController: UIViewController {
 
     var viewModel: HomeViewModelType!
@@ -22,9 +28,13 @@ public class HomeViewController: UIViewController {
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    //MARK: - User Interaction
 
     @IBAction private func showContacts() {
         self.viewModel.showContacts()
     }
+    
+    //MARK: -
 
 }

@@ -14,16 +14,15 @@ public class NavigationService: HomeNavigationService {
     private let dependencies: Dependencies
     private var navigationController: UINavigationController
     
-    init(dependencies: Dependencies) {
+    init(dependencies: Dependencies, navigationController: UINavigationController) {
         self.dependencies = dependencies
-        self.navigationController = UINavigationController()
+        self.navigationController = navigationController
     }
     
-    public func configureRootViewControllerForWindow(window: UIWindow) {
+    public func showHome() {
         let homeViewModel = HomeViewModel(dependencies: dependencies)
         let homeViewController = HomeViewController(viewModel: homeViewModel)
         self.navigationController.setViewControllers([homeViewController], animated: false)
-        window.rootViewController = self.navigationController
     }
     
     public func pushContacts() {

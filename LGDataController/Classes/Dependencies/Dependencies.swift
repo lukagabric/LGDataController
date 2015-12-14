@@ -12,8 +12,16 @@ import CoreData
 
 public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     
-    //MARK: - Dependencies
+    private let navigationController: UINavigationController
     
+    //MARK: - Init
+    
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+    
+    //MARK: - Dependencies
+
     lazy public var urlSession: NSURLSession = {
         return NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     }()
@@ -23,7 +31,7 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     }()
     
     lazy public var navigationService: NavigationService = {
-        return NavigationService(dependencies: self)
+        return NavigationService(dependencies: self, navigationController: self.navigationController)
     }()
     
     public var homeNavigationService: HomeNavigationService {

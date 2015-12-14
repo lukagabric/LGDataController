@@ -16,11 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var dependencies: Dependencies!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.dependencies = Dependencies()
+        let navigationController = UINavigationController()
+        self.dependencies = Dependencies(navigationController: navigationController)
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.dependencies.navigationService.configureRootViewControllerForWindow(self.window!)
+        self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
+        
+        self.dependencies.navigationService.showHome()
         
         return true
     }

@@ -20,11 +20,3 @@ public protocol ContactsDataServiceType {
     func contactsModelObserver() -> LGModelObserver<Contact>
     
 }
-
-public protocol ContactsViewModelType {
-    
-    var loadingProducer: SignalProducer<Bool, NoError> { get }
-    var contactsTitleProducer: SignalProducer<String, NoError> { get }
-    var contacts: MutableProperty<[Contact]?> { get }
-    
-}

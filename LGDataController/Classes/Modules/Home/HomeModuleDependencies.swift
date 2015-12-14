@@ -19,9 +19,3 @@ public protocol HomeNavigationService {
     func pushContacts()
     
 }
-
-public protocol HomeViewModelType {
-    
-    func showContacts()
-    
-}
