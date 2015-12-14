@@ -18,6 +18,8 @@ public class ContactsViewModel: ContactsViewModelType {
     
     private let dataService: ContactsDataServiceType
     private let contactsModelObserver: LGModelObserver<Contact>
+    
+    //MARK: - Init
 
     init(dependencies: ContactsModuleDependencies) {
         self.dataService = dependencies.contactsDataService
@@ -31,4 +33,6 @@ public class ContactsViewModel: ContactsViewModelType {
         }
     }
     
+    //MARK: -
+
 }

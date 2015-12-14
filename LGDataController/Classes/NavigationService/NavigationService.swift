@@ -14,11 +14,15 @@ public class NavigationService: HomeNavigationService {
     private let dependencies: Dependencies
     private var navigationController: UINavigationController
     
+    //MARK: - Init
+
     init(dependencies: Dependencies, navigationController: UINavigationController) {
         self.dependencies = dependencies
         self.navigationController = navigationController
     }
     
+    //MARK: - Navigation
+
     public func showHome() {
         let homeViewModel = HomeViewModel(dependencies: dependencies)
         let homeViewController = HomeViewController(viewModel: homeViewModel)
@@ -30,5 +34,7 @@ public class NavigationService: HomeNavigationService {
         let contactsViewController = ContactsViewController(viewModel: contactsViewModel)
         self.navigationController.pushViewController(contactsViewController, animated: true)
     }
+    
+    //MARK: -
     
 }

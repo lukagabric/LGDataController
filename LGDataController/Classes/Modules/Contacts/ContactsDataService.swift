@@ -14,9 +14,13 @@ public class ContactsDataService: ContactsDataServiceType {
     
     private let dataController: DataController
     
+    //MARK: - Init
+    
     init(dataController: DataController) {
         self.dataController = dataController
     }
+    
+    //MARK: - Contacts Model Observer
     
     public func contactsModelObserver() -> LGModelObserver<Contact> {
         let contactsFrc = self.contactsFrc()
@@ -51,5 +55,7 @@ public class ContactsDataService: ContactsDataServiceType {
 
         return contactsUpdateProducer
     }
+    
+    //MARK: -
     
 }
