@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class HomeViewModel {
+public class HomeViewModel: HomeViewModelType {
     
     private var navigationService: HomeNavigationService
     

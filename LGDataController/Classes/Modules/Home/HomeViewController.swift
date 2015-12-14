@@ -10,12 +10,12 @@ import UIKit
 
 public class HomeViewController: UIViewController {
 
-    var viewModel: HomeViewModel!
+    var viewModel: HomeViewModelType!
     
     //MARK: - Init
     
-    init(dependencies: HomeModuleDependencies) {
-        self.viewModel = HomeViewModel(dependencies: dependencies)
+    init(viewModel: HomeViewModelType) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     

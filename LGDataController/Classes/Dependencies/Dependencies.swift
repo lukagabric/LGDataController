@@ -14,21 +14,25 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     
     //MARK: - Dependencies
     
-    private lazy var urlSession: NSURLSession = {
+    lazy public var urlSession: NSURLSession = {
         return NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     }()
     
-    public lazy var dataController: DataController = {
+    lazy public var dataController: DataController = {
         return LGDataController(session: self.urlSession, mainContext: self.managedObjectContext)
     }()
     
-    public lazy var navigationService: NavigationService = {
+    lazy public var navigationService: NavigationService = {
         return NavigationService(dependencies: self)
     }()
     
     public var homeNavigationService: HomeNavigationService {
         return self.navigationService
     }
+    
+    lazy public var contactsDataService: ContactsDataServiceType = {
+        return ContactsDataService(dataController: self.dataController)
+    }()
     
     private lazy var managedObjectContext: NSManagedObjectContext = {
         let modelURL = NSBundle.mainBundle().URLForResource("LGDataController", withExtension: "mom")!

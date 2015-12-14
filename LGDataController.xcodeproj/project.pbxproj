@@ -34,8 +34,8 @@
 		4186A9F51C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D21C19D2A4003C3A89 /* Contact+CoreDataProperties.swift */; };
 		4186A9F61C19D2A4003C3A89 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D31C19D2A4003C3A89 /* Contact.swift */; };
 		4186A9F71C19D2A4003C3A89 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D31C19D2A4003C3A89 /* Contact.swift */; };
-		4186A9F81C19D2A4003C3A89 /* ContactsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D61C19D2A4003C3A89 /* ContactsInteractor.swift */; };
-		4186A9F91C19D2A4003C3A89 /* ContactsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D61C19D2A4003C3A89 /* ContactsInteractor.swift */; };
+		4186A9F81C19D2A4003C3A89 /* ContactsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D61C19D2A4003C3A89 /* ContactsDataService.swift */; };
+		4186A9F91C19D2A4003C3A89 /* ContactsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D61C19D2A4003C3A89 /* ContactsDataService.swift */; };
 		4186A9FA1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D71C19D2A4003C3A89 /* ContactsModuleDependencies.swift */; };
 		4186A9FB1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D71C19D2A4003C3A89 /* ContactsModuleDependencies.swift */; };
 		4186A9FC1C19D2A4003C3A89 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */; };
@@ -216,7 +216,7 @@
 		4186A9D01C19D2A4003C3A89 /* Dependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		4186A9D21C19D2A4003C3A89 /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4186A9D31C19D2A4003C3A89 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
-		4186A9D61C19D2A4003C3A89 /* ContactsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsInteractor.swift; sourceTree = "<group>"; };
+		4186A9D61C19D2A4003C3A89 /* ContactsDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsDataService.swift; sourceTree = "<group>"; };
 		4186A9D71C19D2A4003C3A89 /* ContactsModuleDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsModuleDependencies.swift; sourceTree = "<group>"; };
 		4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
@@ -392,7 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				4186A9D71C19D2A4003C3A89 /* ContactsModuleDependencies.swift */,
-				4186A9D61C19D2A4003C3A89 /* ContactsInteractor.swift */,
+				4186A9D61C19D2A4003C3A89 /* ContactsDataService.swift */,
 				4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */,
 				4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */,
 				4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */,
@@ -650,7 +650,7 @@
 				4186AA081C19D2A4003C3A89 /* HomeViewModel.swift in Sources */,
 				4186A9F61C19D2A4003C3A89 /* Contact.swift in Sources */,
 				4186A9E61C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */,
-				4186A9F81C19D2A4003C3A89 /* ContactsInteractor.swift in Sources */,
+				4186A9F81C19D2A4003C3A89 /* ContactsDataService.swift in Sources */,
 				4186A9E41C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
 				4186A9EA1C19D2A4003C3A89 /* UIKitExtensions.swift in Sources */,
 				4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
@@ -676,7 +676,7 @@
 			files = (
 				4186A9F31C19D2A4003C3A89 /* Dependencies.swift in Sources */,
 				4186A9E51C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
-				4186A9F91C19D2A4003C3A89 /* ContactsInteractor.swift in Sources */,
+				4186A9F91C19D2A4003C3A89 /* ContactsDataService.swift in Sources */,
 				4186A9F11C19D2A4003C3A89 /* LGRequestOperation.swift in Sources */,
 				4186A9FD1C19D2A4003C3A89 /* ContactsViewController.swift in Sources */,
 				4186A9E31C19D2A4003C3A89 /* AppDelegate.swift in Sources */,

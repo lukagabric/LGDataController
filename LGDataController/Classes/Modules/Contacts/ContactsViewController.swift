@@ -12,14 +12,14 @@ import CoreData
 
 public class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    private var viewModel: ContactsViewModel!
+    private var viewModel: ContactsViewModelType!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var loadingOverlayView: UIView!
     
     //MARK: - Init
     
-    init(dependencies: ContactsModuleDependencies) {
-        self.viewModel = ContactsViewModel(dependencies: dependencies)
+    init(viewModel: ContactsViewModelType) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     

@@ -1,5 +1,5 @@
 //
-//  ContactsInteractor.swift
+//  ContactsDataService.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 22/11/15.
@@ -10,12 +10,12 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-public class ContactsInteractor {
+public class ContactsDataService: ContactsDataServiceType {
     
     private let dataController: DataController
     
-    init(dependencies: ContactsModuleDependencies) {
-        self.dataController = dependencies.dataController
+    init(dataController: DataController) {
+        self.dataController = dataController
     }
     
     public func contactsModelObserver() -> LGModelObserver<Contact> {
@@ -25,7 +25,7 @@ public class ContactsInteractor {
         return LGModelObserver(fetchedResultsController: contactsFrc, updateProducer: updateProducer)
     }
     
-    public func contactsFrc() -> NSFetchedResultsController {
+    private func contactsFrc() -> NSFetchedResultsController {
         let contactsFetchRequest = NSFetchRequest(entityName: Contact.lg_entityName())
         let sortDescriptor = NSSortDescriptor(key: "lastName", ascending: true)
         contactsFetchRequest.sortDescriptors = [sortDescriptor]

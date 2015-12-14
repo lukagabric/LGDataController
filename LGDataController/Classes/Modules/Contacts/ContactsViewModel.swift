@@ -10,20 +10,18 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-public class ContactsViewModel {
+public class ContactsViewModel: ContactsViewModelType {
     
     public let loadingProducer: SignalProducer<Bool, NoError>
     public let contactsTitleProducer: SignalProducer<String, NoError>
     public let contacts = MutableProperty<[Contact]?>(nil)
     
-    private let dataController: DataController
-    private let contactsInteractor: ContactsInteractor
+    private let dataService: ContactsDataServiceType
     private let contactsModelObserver: LGModelObserver<Contact>
 
     init(dependencies: ContactsModuleDependencies) {
-        self.dataController = dependencies.dataController
-        self.contactsInteractor = ContactsInteractor(dependencies: dependencies)
-        self.contactsModelObserver = contactsInteractor.contactsModelObserver()
+        self.dataService = dependencies.contactsDataService
+        self.contactsModelObserver = self.dataService.contactsModelObserver()
         
         self.loadingProducer = self.contactsModelObserver.loadingProducer
         self.contacts <~ self.contactsModelObserver.fetchedObjectsProducer
