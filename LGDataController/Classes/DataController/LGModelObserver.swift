@@ -52,8 +52,8 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
         
         super.init()
 
-        self.configureLoadingSignalProducer()
         self.configureFRC()
+        self.configureLoadingSignalProducer()
         
         let modelChange = LGModelChange(previousSections: nil, sections: self.fetchedResultsController.sections)
         self.sendModelChange(modelChange)
@@ -68,15 +68,17 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     }
     
     private func configureLoadingSignalProducer() {
-        if let refreshProducer = self.refreshProducer {
-            self.loadingObserver.sendNext(true)
-            
-            refreshProducer.start { [weak self] event in
-                if event.isTerminating {
-                    self?.loadingObserver.sendNext(false)
-                    self?.loadingObserver.sendCompleted()
+        if let
+            refreshProducer = self.refreshProducer,
+            count = self.fetchedResultsController.fetchedObjects?.count where count == 0 {
+                self.loadingObserver.sendNext(true)
+                
+                refreshProducer.start { [weak self] event in
+                    if event.isTerminating {
+                        self?.loadingObserver.sendNext(false)
+                        self?.loadingObserver.sendCompleted()
+                    }
                 }
-            }
         }
         else {
             self.loadingObserver.sendNext(false)

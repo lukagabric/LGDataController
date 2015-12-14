@@ -13,7 +13,7 @@ import CoreData
 public class ContactsViewModel {
     
     public let loadingProducer: SignalProducer<Bool, NoError>
-    public let contactsCountProducer: SignalProducer<String, NoError>
+    public let contactsTitleProducer: SignalProducer<String, NoError>
     public let contacts = MutableProperty<[Contact]?>(nil)
     
     private let dataController: DataController
@@ -25,7 +25,7 @@ public class ContactsViewModel {
         self.contactsInteractor = ContactsInteractor(dependencies: dependencies)
         self.contactsModelObserver = contactsInteractor.contactsModelObserver()
         
-        self.contactsCountProducer = self.contactsModelObserver.fetchedObjectsProducer.map { contacts -> String in
+        self.contactsTitleProducer = self.contactsModelObserver.fetchedObjectsProducer.map { contacts -> String in
             guard let allContacts = contacts else { return "0 contact(s)" }
             return "\(String(allContacts.count)) contact(s)"
         }

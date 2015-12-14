@@ -41,7 +41,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     
     func configureBindings() {
         self.loadingOverlayView.rac_hidden <~ self.viewModel.loadingProducer.map { !$0 }
-        self.rac_title <~ self.viewModel.contactsCountProducer
+        self.rac_title <~ self.viewModel.contactsTitleProducer
         self.tableView.reloadWithProducer(self.viewModel.contacts.producer)
     }
     
