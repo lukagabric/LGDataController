@@ -93,9 +93,11 @@ public class LGDataController: DataController {
             let operation = LGRequestOperation(session: self.session, request: request)
             self.dataDownloadQueue.addOperation(operation)
             
-            let (updateProducer, updateObserver) = SignalProducer<T, NSError>.buffer(1)
+            let (producer, updateObserver) = SignalProducer<T, NSError>.buffer(1)
+            let updateProducer = producer.observeOn(UIScheduler())
             
-            operation.producer.takeLast(1).startWithNext { response in
+            let operationProducer = operation.producer.takeLast(1)
+            operationProducer.startWithNext { response in
                 if let error = self.validateResponse(response) {
                     updateObserver.sendFailed(error)
                     return
@@ -124,6 +126,10 @@ public class LGDataController: DataController {
                         updateObserver.sendCompleted()
                     }
                 }
+            }
+            
+            operationProducer.startWithFailed { error in
+                updateObserver.sendFailed(error)
             }
             
             updateProducer.start { [weak self] event in
@@ -253,7 +259,7 @@ public class LGDataController: DataController {
         
         guard let requestURL = NSURL(string: completeUrl) else { return nil }
         
-        let request = NSMutableURLRequest(URL: requestURL)
+        let request = NSMutableURLRequest(URL: requestURL, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: 5)
         request.HTTPMethod = methodName
         
         if parameters != nil && methodName == "POST" {
