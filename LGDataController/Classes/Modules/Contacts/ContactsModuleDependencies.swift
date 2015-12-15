@@ -21,9 +21,9 @@ public protocol ContactsDataServiceType {
     func contactsModelObserver() -> LGModelObserver<Contact>
 
     func updateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NSError>?
-    func propertyUpdateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NoError>
+//    func propertyUpdateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NoError>
     func mutablePropertyForContactWithId(contactId: String) -> MutableProperty<Contact?>
-    func loadingProducerForContactWithId(contactId: String) -> SignalProducer<Bool, NoError>
+//    func loadingProducerForContactWithId(contactId: String) -> SignalProducer<Bool, NoError>
     
 }
 

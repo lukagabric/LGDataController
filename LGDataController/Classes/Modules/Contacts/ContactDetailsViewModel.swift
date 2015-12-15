@@ -12,7 +12,7 @@ import ReactiveCocoa
 public class ContactDetailsViewModel: ContactDetailsViewModelType {
     
     public let contact: MutableProperty<Contact?>
-    public let loadingProducer: SignalProducer<Bool, NoError>
+    public let updateProducer: SignalProducer<Contact?, NSError>?
 
     private let contactId: String
     private let dataService: ContactsDataServiceType
@@ -22,7 +22,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         self.contactId = contactId
 
         self.contact = self.dataService.mutablePropertyForContactWithId(contactId)
-        self.loadingProducer = self.dataService.loadingProducerForContactWithId(contactId)        
+        self.updateProducer = self.dataService.updateProducerForContactWithId(contactId)
     }
     
 }

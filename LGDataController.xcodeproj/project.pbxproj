@@ -58,6 +58,8 @@
 		4186AA171C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */; };
 		4186AA281C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
 		4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
+		41A75F801C20A956007DD6AA /* LGLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */; };
+		41A75F811C20A956007DD6AA /* LGLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */; };
 		41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
 		41BD999A1C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
 		41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */; };
@@ -235,6 +237,7 @@
 		4186AA111C19D376003C3A89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LGDataController.xcdatamodel; sourceTree = "<group>"; };
+		41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGLoadingView.swift; sourceTree = "<group>"; };
 		41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewModel.swift; sourceTree = "<group>"; };
 		41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperationTests.swift; sourceTree = "<group>"; };
 		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
@@ -331,6 +334,7 @@
 		4186A9C31C19D2A4003C3A89 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				41A75F711C20A93E007DD6AA /* Common */,
 				4186A9CF1C19D2A4003C3A89 /* Dependencies */,
 				4186A9C61C19D2A4003C3A89 /* DataController */,
 				4186A9E01C19D2A4003C3A89 /* NavigationService */,
@@ -439,6 +443,22 @@
 				4186AA111C19D376003C3A89 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		41A75F711C20A93E007DD6AA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				41A75F721C20A93E007DD6AA /* LGLoadingView */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		41A75F721C20A93E007DD6AA /* LGLoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */,
+			);
+			path = LGLoadingView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -667,6 +687,7 @@
 				4186A9F81C19D2A4003C3A89 /* ContactsDataService.swift in Sources */,
 				41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
 				4186A9E41C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
+				41A75F801C20A956007DD6AA /* LGLoadingView.swift in Sources */,
 				4186A9EA1C19D2A4003C3A89 /* UIKitExtensions.swift in Sources */,
 				4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
 				4186A9EC1C19D2A4003C3A89 /* LGDataController.swift in Sources */,
@@ -702,6 +723,7 @@
 				4186A9E71C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */,
 				4186A9F71C19D2A4003C3A89 /* Contact.swift in Sources */,
 				4186A9ED1C19D2A4003C3A89 /* LGDataController.swift in Sources */,
+				41A75F811C20A956007DD6AA /* LGLoadingView.swift in Sources */,
 				4186A9F51C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
 				41EF86C41C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */,
 				41BD999A1C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
