@@ -30,8 +30,8 @@ public class ContactsViewModel: ContactsViewModelType {
         self.loadingProducer = self.contactsModelObserver.loadingProducer
         self.contacts <~ self.contactsModelObserver.fetchedObjectsProducer
         self.contactsTitleProducer = self.contactsModelObserver.fetchedObjectsProducer.map { contacts -> String in
-            guard let allContacts = contacts else { return "0 contact(s)" }
-            return "\(String(allContacts.count)) contact(s)"
+            guard let contacts = contacts else { return "0 contact(s)" }
+            return "\(String(contacts.count)) contact(s)"
         }
     }
     

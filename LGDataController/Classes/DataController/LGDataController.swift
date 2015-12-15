@@ -39,7 +39,7 @@ public protocol DataController {
         parameters: [String : AnyObject]?,
         requestId: String,
         staleInterval: NSTimeInterval,
-        dataUpdate: (data: Any, response: LGResponse, context: NSManagedObjectContext) -> T) -> SignalProducer<T, NSError>?
+        dataUpdate: (data: Any, response: LGResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>?
     
     var mainContext: NSManagedObjectContext { get }
     
@@ -79,11 +79,11 @@ public class LGDataController: DataController {
         parameters: [String : AnyObject]?,
         requestId: String,
         staleInterval: NSTimeInterval,
-        dataUpdate: (data: Any, response: LGResponse, context: NSManagedObjectContext) -> T) -> SignalProducer<T, NSError>? {
+        dataUpdate: (data: Any, response: LGResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>? {
             assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
             
             if let activeUpdateProducer = self.activeUpdates[requestId] {
-                return activeUpdateProducer as? SignalProducer<T, NSError>
+                return activeUpdateProducer as? SignalProducer<T?, NSError>
             }
             
             if !self.isDataStale(reqestId: requestId, staleInterval: staleInterval) { return nil }
@@ -93,7 +93,7 @@ public class LGDataController: DataController {
             let operation = LGRequestOperation(session: self.session, request: request)
             self.dataDownloadQueue.addOperation(operation)
             
-            let (producer, updateObserver) = SignalProducer<T, NSError>.buffer(1)
+            let (producer, updateObserver) = SignalProducer<T?, NSError>.buffer(1)
             let updateProducer = producer.observeOn(UIScheduler())
             
             let operationProducer = operation.producer.takeLast(1)
@@ -120,7 +120,7 @@ public class LGDataController: DataController {
                     self.saveDataToPersistentStore(context: self.bgContext) {
                         self.refreshUpdateInfo(reqestId: requestId, response: response)
                         
-                        let mainContextResults = resultData.transferredToContext(self.mainContext) as! T
+                        let mainContextResults = resultData?.transferredToContext(self.mainContext) as? T
                         
                         updateObserver.sendNext(mainContextResults)
                         updateObserver.sendCompleted()

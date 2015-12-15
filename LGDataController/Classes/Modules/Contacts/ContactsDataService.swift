@@ -42,13 +42,13 @@ public class ContactsDataService: ContactsDataServiceType {
         return contactsFrc;
     }
     
-    private func contactsUpdateProducer() -> SignalProducer<[Contact], NSError>? {
+    private func contactsUpdateProducer() -> SignalProducer<[Contact]?, NSError>? {
         let contactsUpdateProducer = self.dataController.updateData(
             url: "http://lukagabric.com/wp-content/contacts-api/contacts",
             methodName: "GET",
             parameters: nil,
             requestId: "ContactsJSON",
-            staleInterval: 10) { (data, response, context) -> [Contact] in
+            staleInterval: 10) { (data, response, context) -> [Contact]? in
                 let contacts = Contact.parseFullContactsData(data as! NSArray, context: context)
                 return contacts
         }
@@ -56,6 +56,39 @@ public class ContactsDataService: ContactsDataServiceType {
         return contactsUpdateProducer
     }
     
+    public func contactWithId(contactId: String) -> Contact? {
+        let fetchRequest = NSFetchRequest(entityName: Contact.lg_entityName())
+        let predicate = NSPredicate(format: "guid == %@", contactId)
+        fetchRequest.predicate = predicate
+        
+        let contact = try! self.dataController.mainContext.executeFetchRequest(fetchRequest).first as? Contact
+        
+        return contact
+    }
+
+    public func producerAndContactWithId(contactId: String) -> (Contact?, SignalProducer<Contact?, NSError>?) {
+        let contact = self.contactWithId(contactId)
+
+        let contactUpdateProducer: SignalProducer<Contact?, NSError>? = self.dataController.updateData(
+            url: "http://lukagabric.com/wp-content/contacts-api/contacts",
+            methodName: "GET",
+            parameters: nil,
+            requestId: "ContactDetailsJSON",
+            staleInterval: 10) { (data, response, context) -> Contact? in
+                let contacts = Contact.parseFullContactsData(data as! NSArray, context: context)
+                for contact in contacts {
+                    if let guid = contact.guid where guid == contactId {
+                        return contact
+                    }
+                }
+                
+                return nil
+        }
+        
+        return (contact, contactUpdateProducer)
+    }
+    
+
     //MARK: -
     
 }

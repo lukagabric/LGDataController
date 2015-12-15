@@ -41,7 +41,7 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     
     //MARK: - Init
     
-    init(fetchedResultsController: NSFetchedResultsController, updateProducer: SignalProducer<[T], NSError>?) {
+    init(fetchedResultsController: NSFetchedResultsController, updateProducer: SignalProducer<[T]?, NSError>?) {
         self.fetchedResultsController = fetchedResultsController
 
         self.refreshProducer = updateProducer?.map { _ in () }

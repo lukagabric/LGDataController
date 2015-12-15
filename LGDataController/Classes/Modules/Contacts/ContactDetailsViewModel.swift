@@ -11,11 +11,20 @@ import ReactiveCocoa
 
 public class ContactDetailsViewModel: ContactDetailsViewModelType {
     
-    private let contactId: String
     public let contact = MutableProperty<Contact?>(nil)
+
+    private let contactId: String
+    private let dataService: ContactsDataServiceType
     
     init(dependencies: ContactsModuleDependencies, contactId: String) {
+        self.dataService = dependencies.contactsDataService
         self.contactId = contactId
+        
+        let (_, producer) = self.dataService.producerAndContactWithId(self.contactId)
+        
+        producer?.startWithNext { [weak self] contact in
+            self?.contact.value = contact
+        }
     }
     
 }
