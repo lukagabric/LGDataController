@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
         
-        self.dependencies.navigationService.showHome()
+        self.dependencies.navigationService.showHomeView()
         
         return true
     }

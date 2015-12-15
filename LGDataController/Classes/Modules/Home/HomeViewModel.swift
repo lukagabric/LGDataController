@@ -10,7 +10,7 @@ import Foundation
 
 public class HomeViewModel: HomeViewModelType {
     
-    private var navigationService: HomeNavigationService
+    private var navigationService: HomeNavigationServiceType
     
     //MARK: - Init
 
@@ -21,7 +21,7 @@ public class HomeViewModel: HomeViewModelType {
     //MARK: - User Interaction
     
     public func showContacts() {
-        self.navigationService.pushContacts()
+        self.navigationService.pushContactsView()
     }
     
     //MARK: -

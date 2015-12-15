@@ -58,7 +58,13 @@
 		4186AA171C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */; };
 		4186AA281C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
 		4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
+		41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
+		41BD999A1C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
 		41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */; };
+		41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
+		41EF86C41C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
+		41EF86C51C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */; };
+		41EF86C61C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,7 +235,10 @@
 		4186AA111C19D376003C3A89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LGDataController.xcdatamodel; sourceTree = "<group>"; };
+		41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewModel.swift; sourceTree = "<group>"; };
 		41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperationTests.swift; sourceTree = "<group>"; };
+		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
+		41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,6 +405,9 @@
 				4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */,
 				4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */,
 				4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */,
+				41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */,
+				41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */,
+				41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -624,6 +636,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41EF86C51C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */,
 				4186A9FE1C19D2A4003C3A89 /* ContactsViewController.xib in Resources */,
 				4186AA161C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */,
 				4186AA061C19D2A4003C3A89 /* HomeViewController.xib in Resources */,
@@ -634,6 +647,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41EF86C61C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */,
 				4186AA171C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */,
 				4186A9FF1C19D2A4003C3A89 /* ContactsViewController.xib in Resources */,
 				4186AA071C19D2A4003C3A89 /* HomeViewController.xib in Resources */,
@@ -651,10 +665,12 @@
 				4186A9F61C19D2A4003C3A89 /* Contact.swift in Sources */,
 				4186A9E61C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */,
 				4186A9F81C19D2A4003C3A89 /* ContactsDataService.swift in Sources */,
+				41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
 				4186A9E41C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
 				4186A9EA1C19D2A4003C3A89 /* UIKitExtensions.swift in Sources */,
 				4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
 				4186A9EC1C19D2A4003C3A89 /* LGDataController.swift in Sources */,
+				41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */,
 				4186A9EE1C19D2A4003C3A89 /* LGModelObserver.swift in Sources */,
 				4186A9E21C19D2A4003C3A89 /* AppDelegate.swift in Sources */,
 				4186AA021C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */,
@@ -687,6 +703,8 @@
 				4186A9F71C19D2A4003C3A89 /* Contact.swift in Sources */,
 				4186A9ED1C19D2A4003C3A89 /* LGDataController.swift in Sources */,
 				4186A9F51C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
+				41EF86C41C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */,
+				41BD999A1C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
 				41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */,
 				41341B711BF273390074AF6A /* LGDataControllerTests.swift in Sources */,
 				4186AA051C19D2A4003C3A89 /* HomeViewController.swift in Sources */,

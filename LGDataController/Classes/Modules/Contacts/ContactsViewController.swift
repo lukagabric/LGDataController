@@ -16,6 +16,8 @@ public protocol ContactsViewModelType {
     var contactsTitleProducer: SignalProducer<String, NoError> { get }
     var contacts: MutableProperty<[Contact]?> { get }
     
+    func didSelectContact(contact: Contact)
+
 }
 
 public class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -64,6 +66,11 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
         let contact = self.viewModel.contacts.value![indexPath.row]
         cell.textLabel?.text = contact.info
         return cell
+    }
+    
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let contact = self.viewModel.contacts.value![indexPath.row]
+        self.viewModel.didSelectContact(contact)
     }
     
     //MARK: -

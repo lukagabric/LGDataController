@@ -10,12 +10,12 @@ import Foundation
 
 public protocol HomeModuleDependencies {
     
-    var homeNavigationService: HomeNavigationService { get }
+    var homeNavigationService: HomeNavigationServiceType { get }
     
 }
 
-public protocol HomeNavigationService {
+public protocol HomeNavigationServiceType {
     
-    func pushContacts()
+    func pushContactsView()
     
 }

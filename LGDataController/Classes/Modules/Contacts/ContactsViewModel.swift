@@ -18,11 +18,13 @@ public class ContactsViewModel: ContactsViewModelType {
     
     private let dataService: ContactsDataServiceType
     private let contactsModelObserver: LGModelObserver<Contact>
+    private let navigationService: ContactsNavigationServiceType
     
     //MARK: - Init
 
     init(dependencies: ContactsModuleDependencies) {
         self.dataService = dependencies.contactsDataService
+        self.navigationService = dependencies.contactsNavigationService
         self.contactsModelObserver = self.dataService.contactsModelObserver()
         
         self.loadingProducer = self.contactsModelObserver.loadingProducer
@@ -31,6 +33,12 @@ public class ContactsViewModel: ContactsViewModelType {
             guard let allContacts = contacts else { return "0 contact(s)" }
             return "\(String(allContacts.count)) contact(s)"
         }
+    }
+    
+    //MARK: - User Interaction
+    
+    public func didSelectContact(contact: Contact) {
+        self.navigationService.pushContactDetails(contactId: contact.guid!)
     }
     
     //MARK: -

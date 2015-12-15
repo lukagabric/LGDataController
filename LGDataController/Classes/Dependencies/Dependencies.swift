@@ -34,7 +34,11 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
         return NavigationService(dependencies: self, navigationController: self.navigationController)
     }()
     
-    public var homeNavigationService: HomeNavigationService {
+    public var homeNavigationService: HomeNavigationServiceType {
+        return self.navigationService
+    }
+    
+    public var contactsNavigationService: ContactsNavigationServiceType {
         return self.navigationService
     }
     

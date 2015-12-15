@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-public class NavigationService: HomeNavigationService {
+public class NavigationService: HomeNavigationServiceType, ContactsNavigationServiceType {
     
     private let dependencies: Dependencies
-    private var navigationController: UINavigationController
+    let navigationController: UINavigationController
     
     //MARK: - Init
 
@@ -21,18 +21,28 @@ public class NavigationService: HomeNavigationService {
         self.navigationController = navigationController
     }
     
-    //MARK: - Navigation
+    //MARK: - Show Home
 
-    public func showHome() {
+    public func showHomeView() {
         let homeViewModel = HomeViewModel(dependencies: dependencies)
         let homeViewController = HomeViewController(viewModel: homeViewModel)
         self.navigationController.setViewControllers([homeViewController], animated: false)
     }
     
-    public func pushContacts() {
+    //MARK: - HomeNavigationServiceType
+    
+    public func pushContactsView() {
         let contactsViewModel = ContactsViewModel(dependencies: self.dependencies)
         let contactsViewController = ContactsViewController(viewModel: contactsViewModel)
         self.navigationController.pushViewController(contactsViewController, animated: true)
+    }
+    
+    //MARK: - ContactsNavigationServiceType
+    
+    public func pushContactDetails(contactId contactId: String) {
+        let contactDetailsViewModel = ContactDetailsViewModel(dependencies: self.dependencies, contactId: contactId)
+        let contactDetailsViewController = ContactDetailsViewController(viewModel: contactDetailsViewModel)
+        self.navigationController.pushViewController(contactDetailsViewController, animated: true)
     }
     
     //MARK: -

@@ -12,11 +12,18 @@ import ReactiveCocoa
 public protocol ContactsModuleDependencies {
     
     var contactsDataService: ContactsDataServiceType { get }
+    var contactsNavigationService: ContactsNavigationServiceType { get }
     
 }
 
 public protocol ContactsDataServiceType {
     
     func contactsModelObserver() -> LGModelObserver<Contact>
+    
+}
+
+public protocol ContactsNavigationServiceType {
+    
+    func pushContactDetails(contactId contactId: String)
     
 }

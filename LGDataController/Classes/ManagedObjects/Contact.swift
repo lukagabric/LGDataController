@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import ReactiveCocoa
 
 @objc(Contact)
 public class Contact: NSManagedObject {
@@ -53,6 +54,32 @@ public class Contact: NSManagedObject {
         if let email = self.email { info.appendContentsOf(" (\(email))") }
         return info
     }
+    
+    //MARK: Producers
+    
+    lazy var firstNameProducer: SignalProducer<String, NoError> = {
+        let firstNameProperty = DynamicProperty(object: self, keyPath: "firstName")
+        let firstNameProducer = firstNameProperty.producer.map { $0 as? String ?? "" }
+        return firstNameProducer
+    }()
+    
+    lazy var lastNameProducer: SignalProducer<String, NoError> = {
+        let lastNameProperty = DynamicProperty(object: self, keyPath: "lastName")
+        let lastNameProducer = lastNameProperty.producer.map { $0 as? String ?? "" }
+        return lastNameProducer
+    }()
+    
+    lazy var companyProducer: SignalProducer<String, NoError> = {
+        let companyProperty = DynamicProperty(object: self, keyPath: "company")
+        let companyProducer = companyProperty.producer.map { $0 as? String ?? "" }
+        return companyProducer
+    }()
+    
+    lazy var emailProducer: SignalProducer<String, NoError> = {
+        let emailProperty = DynamicProperty(object: self, keyPath: "email")
+        let emailProducer = emailProperty.producer.map { $0 as? String ?? "" }
+        return emailProducer
+    }()
     
     //MARK: Debug
     
