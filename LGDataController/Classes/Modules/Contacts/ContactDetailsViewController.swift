@@ -12,7 +12,8 @@ import ReactiveCocoa
 public protocol ContactDetailsViewModelType {
     
     var contact: MutableProperty<Contact?> { get }
-    
+    var loadingProducer: SignalProducer<Bool, NoError> { get }
+
 }
 
 public class ContactDetailsViewController: UIViewController {
@@ -42,6 +43,10 @@ public class ContactDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         self.edgesForExtendedLayout = .None
+        
+        self.viewModel.loadingProducer.startWithNext { loading in
+            print("Contact details loading: \(loading)")
+        }
         
         self.viewModel.contact.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }

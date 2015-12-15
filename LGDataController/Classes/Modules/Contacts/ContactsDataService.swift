@@ -56,6 +56,8 @@ public class ContactsDataService: ContactsDataServiceType {
         return contactsUpdateProducer
     }
     
+    //MARK: - Contact
+    
     public func contactWithId(contactId: String) -> Contact? {
         let fetchRequest = NSFetchRequest(entityName: Contact.lg_entityName())
         let predicate = NSPredicate(format: "guid == %@", contactId)
@@ -66,14 +68,12 @@ public class ContactsDataService: ContactsDataServiceType {
         return contact
     }
 
-    public func producerAndContactWithId(contactId: String) -> (Contact?, SignalProducer<Contact?, NSError>?) {
-        let contact = self.contactWithId(contactId)
-
-        let contactUpdateProducer: SignalProducer<Contact?, NSError>? = self.dataController.updateData(
+    public func updateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NSError>? {
+        let contactUpdateProducer = self.dataController.updateData(
             url: "http://lukagabric.com/wp-content/contacts-api/contacts",
             methodName: "GET",
             parameters: nil,
-            requestId: "ContactDetailsJSON",
+            requestId: contactId,
             staleInterval: 10) { (data, response, context) -> Contact? in
                 let contacts = Contact.parseFullContactsData(data as! NSArray, context: context)
                 for contact in contacts {
@@ -85,10 +85,34 @@ public class ContactsDataService: ContactsDataServiceType {
                 return nil
         }
         
-        return (contact, contactUpdateProducer)
+        return contactUpdateProducer
     }
     
-
+    public func loadingProducerForContactWithId(contactId: String) -> SignalProducer<Bool, NoError> {
+        if self.contactWithId(contactId) != nil {
+            return SignalProducer<Bool, NoError>(value: false)
+        }
+            
+        let updateProducer = self.updateProducerForContactWithId(contactId)
+        let loadingProducer = self.dataController.loadingProducerFrom(updateProducer)
+        return loadingProducer
+    }
+    
+    public func propertyUpdateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NoError> {
+        let updateProducer = self.updateProducerForContactWithId(contactId) ?? SignalProducer<Contact?, NSError>.empty
+        let updateNoErrorProducer = updateProducer.flatMapError { _ in SignalProducer<Contact?, NoError>.empty }
+        return updateNoErrorProducer
+    }
+    
+    public func mutablePropertyForContactWithId(contactId: String) -> MutableProperty<Contact?> {
+        let contact = self.contactWithId(contactId)
+        let contactMutableProperty = MutableProperty<Contact?>(contact)
+        
+        contactMutableProperty <~ self.propertyUpdateProducerForContactWithId(contactId)
+        
+        return contactMutableProperty
+    }
+    
     //MARK: -
     
 }

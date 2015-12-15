@@ -19,8 +19,11 @@ public protocol ContactsModuleDependencies {
 public protocol ContactsDataServiceType {
     
     func contactsModelObserver() -> LGModelObserver<Contact>
-    func producerAndContactWithId(contactId: String) -> (Contact?, SignalProducer<Contact?, NSError>?)
-    func contactWithId(contactId: String) -> Contact?
+
+    func updateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NSError>?
+    func propertyUpdateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NoError>
+    func mutablePropertyForContactWithId(contactId: String) -> MutableProperty<Contact?>
+    func loadingProducerForContactWithId(contactId: String) -> SignalProducer<Bool, NoError>
     
 }
 

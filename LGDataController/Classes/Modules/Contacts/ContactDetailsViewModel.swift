@@ -11,7 +11,8 @@ import ReactiveCocoa
 
 public class ContactDetailsViewModel: ContactDetailsViewModelType {
     
-    public let contact = MutableProperty<Contact?>(nil)
+    public let contact: MutableProperty<Contact?>
+    public let loadingProducer: SignalProducer<Bool, NoError>
 
     private let contactId: String
     private let dataService: ContactsDataServiceType
@@ -19,12 +20,9 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
     init(dependencies: ContactsModuleDependencies, contactId: String) {
         self.dataService = dependencies.contactsDataService
         self.contactId = contactId
-        
-        let (_, producer) = self.dataService.producerAndContactWithId(self.contactId)
-        
-        producer?.startWithNext { [weak self] contact in
-            self?.contact.value = contact
-        }
+
+        self.contact = self.dataService.mutablePropertyForContactWithId(contactId)
+        self.loadingProducer = self.dataService.loadingProducerForContactWithId(contactId)        
     }
     
 }

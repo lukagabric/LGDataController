@@ -41,6 +41,8 @@ public protocol DataController {
         staleInterval: NSTimeInterval,
         dataUpdate: (data: Any, response: LGResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>?
     
+    func loadingProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError>
+    
     var mainContext: NSManagedObjectContext { get }
     
 }
@@ -132,15 +134,38 @@ public class LGDataController: DataController {
                 updateObserver.sendFailed(error)
             }
             
-            updateProducer.start { [weak self] event in
+            let resultProducer = updateProducer.takeLast(1)
+            
+            resultProducer.start { [weak self] event in
                 if event.isTerminating {
                     self?.activeUpdates.removeValueForKey(requestId)
                 }
             }
             
-            self.activeUpdates[requestId] = updateProducer
+            self.activeUpdates[requestId] = resultProducer
 
-            return updateProducer
+            return resultProducer
+    }
+    
+    //MARK: - Loading Producer
+    
+    public func loadingProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
+        guard let producer = producer else { return SignalProducer<Bool, NoError>(value: false) }
+        
+        let (loadingProducer, loadingObserver) = SignalProducer<Bool, NoError>.buffer(1)
+        loadingObserver.sendNext(true)
+        
+        producer
+            .map { _ in false }
+            .flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
+            .takeLast(1)
+            .start { event in
+                if event.isTerminating {
+                    loadingObserver.sendNext(false)
+                }
+        }
+        
+        return loadingProducer
     }
     
     //MARK: - Cache Invalidation
