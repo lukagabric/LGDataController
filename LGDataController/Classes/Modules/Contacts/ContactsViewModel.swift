@@ -12,7 +12,7 @@ import CoreData
 
 public class ContactsViewModel: ContactsViewModelType {
     
-    public let loadingProducer: SignalProducer<Bool, NoError>
+    public let refreshProducer: SignalProducer<Void, NSError>?
     public let contactsTitleProducer: SignalProducer<String, NoError>
     public let contacts = MutableProperty<[Contact]?>(nil)
     
@@ -27,7 +27,7 @@ public class ContactsViewModel: ContactsViewModelType {
         self.navigationService = dependencies.contactsNavigationService
         self.contactsModelObserver = self.dataService.contactsModelObserver()
         
-        self.loadingProducer = self.contactsModelObserver.loadingProducer
+        self.refreshProducer = self.contactsModelObserver.refreshProducer
         self.contacts <~ self.contactsModelObserver.fetchedObjectsProducer
         self.contactsTitleProducer = self.contactsModelObserver.fetchedObjectsProducer.map { contacts -> String in
             guard let contacts = contacts else { return "0 contact(s)" }

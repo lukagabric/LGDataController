@@ -6,7 +6,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactsViewController" customModule="LGDataController" customModuleProvider="target">
             <connections>
-                <outlet property="loadingOverlayView" destination="jmf-8g-nEA" id="iGu-kz-86N"/>
                 <outlet property="tableView" destination="AgT-vn-Nxg" id="qiO-L8-VEM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,30 +23,13 @@
                         <outlet property="delegate" destination="-1" id="ZVi-Xh-xar"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmf-8g-nEA" userLabel="Loading Overlay View">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2Dt-vg-Nx5">
-                            <rect key="frame" x="282" y="281" width="37" height="37"/>
-                        </activityIndicatorView>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.60019003378378377" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="2Dt-vg-Nx5" firstAttribute="centerY" secondItem="jmf-8g-nEA" secondAttribute="centerY" id="Fvh-6G-W4A"/>
-                        <constraint firstItem="2Dt-vg-Nx5" firstAttribute="centerX" secondItem="jmf-8g-nEA" secondAttribute="centerX" id="oMZ-fV-fcg"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="jmf-8g-nEA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5nx-Ta-IrN"/>
                 <constraint firstItem="AgT-vn-Nxg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="A7Q-He-2GW"/>
-                <constraint firstAttribute="trailing" secondItem="jmf-8g-nEA" secondAttribute="trailing" id="TES-rE-v8q"/>
                 <constraint firstItem="AgT-vn-Nxg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="c7x-6g-Peg"/>
                 <constraint firstAttribute="trailing" secondItem="AgT-vn-Nxg" secondAttribute="trailing" id="dso-ZG-GIh"/>
                 <constraint firstAttribute="bottom" secondItem="AgT-vn-Nxg" secondAttribute="bottom" id="mW4-QJ-Yyi"/>
-                <constraint firstItem="jmf-8g-nEA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="tTT-r5-2Wi"/>
-                <constraint firstAttribute="bottom" secondItem="jmf-8g-nEA" secondAttribute="bottom" id="zLI-Y2-HZf"/>
             </constraints>
             <point key="canvasLocation" x="89" y="317"/>
         </view>

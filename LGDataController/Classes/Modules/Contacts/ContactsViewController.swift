@@ -12,7 +12,7 @@ import CoreData
 
 public protocol ContactsViewModelType {
     
-    var loadingProducer: SignalProducer<Bool, NoError> { get }
+    var refreshProducer: SignalProducer<Void, NSError>? { get }
     var contactsTitleProducer: SignalProducer<String, NoError> { get }
     var contacts: MutableProperty<[Contact]?> { get }
     
@@ -24,7 +24,6 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     
     private var viewModel: ContactsViewModelType!
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var loadingOverlayView: UIView!
     
     //MARK: - Init
     
@@ -41,7 +40,9 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        LGLoadingView.attachToView(self.view, entity: self.viewModel.contacts.value, updateProducer: self.viewModel.refreshProducer)
+
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
         
         self.configureBindings()
@@ -50,7 +51,6 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     //MARK: - Configuration
     
     func configureBindings() {
-        self.loadingOverlayView.rac_hidden <~ self.viewModel.loadingProducer.map { !$0 }
         self.rac_title <~ self.viewModel.contactsTitleProducer
         self.tableView.reloadWithProducer(self.viewModel.contacts.producer)
     }

@@ -32,9 +32,6 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     
     public let refreshProducer: SignalProducer<Void, NSError>?
     
-    public let loadingProducer: SignalProducer<Bool, NoError>
-    private let loadingObserver: Observer<Bool, NoError>
-    
     private let fetchedResultsController: NSFetchedResultsController
 
     private var previousSections: [NSFetchedResultsSectionInfo]?
@@ -48,12 +45,10 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
         
         (self.modelChangedProducer, self.modelChangedObserver) = SignalProducer<LGModelChange, NoError>.buffer(1)
         (self.fetchedObjectsProducer, self.fetchedObjectsObserver) = SignalProducer<[T]?, NoError>.buffer(1)
-        (self.loadingProducer, self.loadingObserver) = SignalProducer<Bool, NoError>.buffer(1)
         
         super.init()
 
         self.configureFRC()
-        self.configureLoadingSignalProducer()
         
         let modelChange = LGModelChange(previousSections: nil, sections: self.fetchedResultsController.sections)
         self.sendModelChange(modelChange)
@@ -67,25 +62,6 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
         try! self.fetchedResultsController.performFetch()
     }
     
-    private func configureLoadingSignalProducer() {
-        if let
-            refreshProducer = self.refreshProducer,
-            count = self.fetchedResultsController.fetchedObjects?.count where count == 0 {
-                self.loadingObserver.sendNext(true)
-                
-                refreshProducer.start { [weak self] event in
-                    if event.isTerminating {
-                        self?.loadingObserver.sendNext(false)
-                        self?.loadingObserver.sendCompleted()
-                    }
-                }
-        }
-        else {
-            self.loadingObserver.sendNext(false)
-            self.loadingObserver.sendCompleted()
-        }
-    }
-    
     //MARK: - Signaling
     
     private func sendModelChange(modelChange: LGModelChange) {
@@ -94,7 +70,7 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
 
     private func sendFetchedObjects() {
         let fetchedObjects = self.fetchedResultsController.fetchedObjects as? [T]
-        self.fetchedObjectsObserver.sendNext(fetchedObjects)
+        self.fetchedObjectsObserver.sendNext(fetchedObjects?.count > 0 ? fetchedObjects : nil)
     }
     
     //MARK: - NSFetchedResultsControllerDelegate

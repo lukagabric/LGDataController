@@ -88,27 +88,14 @@ public class ContactsDataService: ContactsDataServiceType {
         return contactUpdateProducer
     }
     
-//    public func loadingProducerForContactWithId(contactId: String) -> SignalProducer<Bool, NoError> {
-//        if self.contactWithId(contactId) != nil {
-//            return SignalProducer<Bool, NoError>(value: false)
-//        }
-//            
-//        let updateProducer = self.updateProducerForContactWithId(contactId)
-//        let loadingProducer = self.dataController.loadingProducerFrom(updateProducer)
-//        return loadingProducer
-//    }
-    
-    public func propertyUpdateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NoError> {
-        let updateProducer = self.updateProducerForContactWithId(contactId) ?? SignalProducer<Contact?, NSError>.empty
-        let updateNoErrorProducer = updateProducer.flatMapError { _ in SignalProducer<Contact?, NoError>.empty }
-        return updateNoErrorProducer
-    }
-    
     public func mutablePropertyForContactWithId(contactId: String) -> MutableProperty<Contact?> {
         let contact = self.contactWithId(contactId)
         let contactMutableProperty = MutableProperty<Contact?>(contact)
-        
-        contactMutableProperty <~ self.propertyUpdateProducerForContactWithId(contactId)
+
+        let updateProducer = self.updateProducerForContactWithId(contactId) ?? SignalProducer<Contact?, NSError>.empty
+        let updateNoErrorProducer = updateProducer.flatMapError { _ in SignalProducer<Contact?, NoError>.empty }
+
+        contactMutableProperty <~ updateNoErrorProducer
         
         return contactMutableProperty
     }
