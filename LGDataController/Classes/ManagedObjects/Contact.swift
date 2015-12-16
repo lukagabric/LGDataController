@@ -11,7 +11,7 @@ import CoreData
 import ReactiveCocoa
 
 @objc(Contact)
-public class Contact: LGEntity {
+public class Contact: ContentEntity {
     
     //MARK: - Entity Name
     

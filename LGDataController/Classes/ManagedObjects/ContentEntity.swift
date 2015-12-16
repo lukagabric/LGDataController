@@ -1,5 +1,5 @@
 //
-//  LGEntity.swift
+//  ContentEntity.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 16/12/15.
@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import ReactiveCocoa
 
-public class LGEntity: NSManagedObject {
+public class ContentEntity: NSManagedObject {
 
     var contentWeight: LGContentWeight {
         guard let weight = self.weight else { return .Stub }
@@ -28,10 +28,10 @@ public class LGEntity: NSManagedObject {
             
             if weight == LGContentWeight.Light.rawValue { return "Light" }
             if weight == LGContentWeight.Full.rawValue { return "Full" }
-
+            
             return "Stub"
         }
         return weightProducer
     }()
-    
+
 }

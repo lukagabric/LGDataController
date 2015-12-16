@@ -1,5 +1,5 @@
 //
-//  LGEntity+CoreDataProperties.swift
+//  ContentEntity+CoreDataProperties.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 16/12/15.
@@ -12,7 +12,7 @@
 import Foundation
 import CoreData
 
-extension LGEntity {
+extension ContentEntity {
 
     @NSManaged var guid: String?
     @NSManaged var weight: NSNumber?
