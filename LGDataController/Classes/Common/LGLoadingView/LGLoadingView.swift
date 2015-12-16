@@ -13,7 +13,7 @@ class LGLoadingView: UIView {
     
     //MARK: Attach
 
-    class func attachToView<T, U>(view: UIView, entity: Any?, updateProducer: SignalProducer<T, U>?) -> LGLoadingView {
+    class func attachToView<T, U>(view: UIView, updateProducer: SignalProducer<T, U>?) -> LGLoadingView {
         let loadingView = LGLoadingView(frame: view.bounds)
         loadingView.backgroundColor = UIColor(white: 0, alpha: 0.6)
         loadingView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
@@ -26,7 +26,6 @@ class LGLoadingView: UIView {
         activityIndicator.autoresizingMask = [.FlexibleTopMargin, .FlexibleBottomMargin, .FlexibleLeftMargin, .FlexibleRightMargin]
         activityIndicator.startAnimating()
         
-        if entity != nil { return loadingView }
         guard let updateProducer = updateProducer else { return loadingView }
         
         loadingView.rac_hidden <~ self.loadingProducerFrom(updateProducer).map { !$0 }

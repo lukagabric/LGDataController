@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
-    <entity name="Contact" representedClassName="Contact" syncable="YES">
+    <entity name="Contact" representedClassName=".Contact" parentEntity="LGEntity" syncable="YES">
         <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="guid" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="LGEntity" representedClassName=".LGEntity" isAbstract="YES" syncable="YES">
+        <attribute name="guid" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="weight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Contact" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Contact" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="LGEntity" positionX="-54" positionY="36" width="128" height="75"/>
     </elements>
 </model>

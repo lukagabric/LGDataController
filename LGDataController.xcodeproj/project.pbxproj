@@ -58,6 +58,10 @@
 		4186AA171C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */; };
 		4186AA281C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
 		4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
+		4196EDF61C213BE50079A972 /* LGEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4196EDF41C213BE50079A972 /* LGEntity+CoreDataProperties.swift */; };
+		4196EDF71C213BE50079A972 /* LGEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4196EDF41C213BE50079A972 /* LGEntity+CoreDataProperties.swift */; };
+		4196EDF81C213BE50079A972 /* LGEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4196EDF51C213BE50079A972 /* LGEntity.swift */; };
+		4196EDF91C213BE50079A972 /* LGEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4196EDF51C213BE50079A972 /* LGEntity.swift */; };
 		41A75F801C20A956007DD6AA /* LGLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */; };
 		41A75F811C20A956007DD6AA /* LGLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */; };
 		41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
@@ -237,6 +241,8 @@
 		4186AA111C19D376003C3A89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LGDataController.xcdatamodel; sourceTree = "<group>"; };
+		4196EDF41C213BE50079A972 /* LGEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LGEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4196EDF51C213BE50079A972 /* LGEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGEntity.swift; sourceTree = "<group>"; };
 		41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGLoadingView.swift; sourceTree = "<group>"; };
 		41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewModel.swift; sourceTree = "<group>"; };
 		41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperationTests.swift; sourceTree = "<group>"; };
@@ -386,6 +392,8 @@
 		4186A9D11C19D2A4003C3A89 /* ManagedObjects */ = {
 			isa = PBXGroup;
 			children = (
+				4196EDF41C213BE50079A972 /* LGEntity+CoreDataProperties.swift */,
+				4196EDF51C213BE50079A972 /* LGEntity.swift */,
 				4186A9D21C19D2A4003C3A89 /* Contact+CoreDataProperties.swift */,
 				4186A9D31C19D2A4003C3A89 /* Contact.swift */,
 			);
@@ -681,6 +689,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4196EDF81C213BE50079A972 /* LGEntity.swift in Sources */,
 				4186AA081C19D2A4003C3A89 /* HomeViewModel.swift in Sources */,
 				4186A9F61C19D2A4003C3A89 /* Contact.swift in Sources */,
 				4186A9E61C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */,
@@ -694,6 +703,7 @@
 				41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */,
 				4186A9EE1C19D2A4003C3A89 /* LGModelObserver.swift in Sources */,
 				4186A9E21C19D2A4003C3A89 /* AppDelegate.swift in Sources */,
+				4196EDF61C213BE50079A972 /* LGEntity+CoreDataProperties.swift in Sources */,
 				4186AA021C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */,
 				4186A9FA1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */,
 				4186A9F41C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
@@ -713,6 +723,7 @@
 			files = (
 				4186A9F31C19D2A4003C3A89 /* Dependencies.swift in Sources */,
 				4186A9E51C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
+				4196EDF91C213BE50079A972 /* LGEntity.swift in Sources */,
 				4186A9F91C19D2A4003C3A89 /* ContactsDataService.swift in Sources */,
 				4186A9F11C19D2A4003C3A89 /* LGRequestOperation.swift in Sources */,
 				4186A9FD1C19D2A4003C3A89 /* ContactsViewController.swift in Sources */,
@@ -732,6 +743,7 @@
 				4186AA051C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
 				4186AA091C19D2A4003C3A89 /* HomeViewModel.swift in Sources */,
 				4186A9EB1C19D2A4003C3A89 /* UIKitExtensions.swift in Sources */,
+				4196EDF71C213BE50079A972 /* LGEntity+CoreDataProperties.swift in Sources */,
 				4186AA031C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */,
 				4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */,
 				4186A9FB1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */,

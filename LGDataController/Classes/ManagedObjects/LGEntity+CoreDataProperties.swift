@@ -1,5 +1,5 @@
 //
-//  Contact+CoreDataProperties.swift
+//  LGEntity+CoreDataProperties.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 16/12/15.
@@ -12,11 +12,9 @@
 import Foundation
 import CoreData
 
-extension Contact {
+extension LGEntity {
 
-    @NSManaged var company: String?
-    @NSManaged var email: String?
-    @NSManaged var firstName: String?
-    @NSManaged var lastName: String?
+    @NSManaged var guid: String?
+    @NSManaged var weight: NSNumber?
 
 }

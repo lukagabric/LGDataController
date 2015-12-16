@@ -23,6 +23,11 @@ public protocol ContactsViewModelType {
 public class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private var viewModel: ContactsViewModelType!
+    
+    private var contacts: [Contact]? {
+        return self.viewModel.contacts.value
+    }
+    
     @IBOutlet private weak var tableView: UITableView!
     
     //MARK: - Init
@@ -41,7 +46,9 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     override public func viewDidLoad() {
         super.viewDidLoad()
 
-        LGLoadingView.attachToView(self.view, entity: self.viewModel.contacts.value, updateProducer: self.viewModel.refreshProducer)
+        if self.contacts == nil || self.contacts!.count == 0 {
+            LGLoadingView.attachToView(self.view, updateProducer: self.viewModel.refreshProducer)
+        }
 
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
         

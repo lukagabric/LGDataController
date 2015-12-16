@@ -20,6 +20,10 @@ public class ContactDetailsViewController: UIViewController {
     
     private var viewModel: ContactDetailsViewModelType!
     
+    private var contact: Contact? {
+        return self.viewModel.contact.value
+    }
+    
     @IBOutlet weak var guidLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
@@ -44,7 +48,9 @@ public class ContactDetailsViewController: UIViewController {
         
         self.edgesForExtendedLayout = .None
         
-        LGLoadingView.attachToView(self.view, entity: self.viewModel.contact.value, updateProducer: self.viewModel.updateProducer)
+        if self.contact == nil || self.contact!.contentWeight != .Full {
+            LGLoadingView.attachToView(self.view, updateProducer: self.viewModel.updateProducer)
+        }
         
         self.viewModel.contact.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
