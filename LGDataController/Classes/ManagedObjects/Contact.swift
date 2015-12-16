@@ -22,7 +22,7 @@ public class Contact: LGEntity {
     //MARK: - Mappings
     
     static var mappings: [String : String] = [
-        "id" : "guid",
+        "objectId" : "guid",
     ]
     
     override class func lg_responseToEntityMappings() -> [String : String] {
@@ -31,17 +31,42 @@ public class Contact: LGEntity {
     
     //MARK: Parsing Data
     
-    class func parseFullContactsData(data: NSArray, context: NSManagedObjectContext) -> [Contact] {
-        let guids = data.valueForKey("id") as! [String]
+    class func parseLightContactsData(data: NSArray, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
+        let guids = data.valueForKey(payloadGuidKey) as! [String]
         let contacts: [Contact] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: "guid")
         let contactsByGuid: [String : Contact] = contacts.lg_indexedByKeyPath("guid")
-        for contactDict in data as! [[String : AnyObject]] {
-            let guid = contactDict["id"] as! String
+        for payloadDict in data as! [[String : AnyObject]] {
+            let guid = payloadDict[payloadGuidKey] as! String
             guard let contact = contactsByGuid[guid] else { continue }
-            contact.lg_mergeWithDictionary(contactDict)
-            contact.weight = NSNumber(integer: LGContentWeight.Full.rawValue)
+            
+            self.parseLightPayloadForContact(contact, payloadDict: payloadDict, context: context)
         }
+        
         return contacts
+    }
+    
+    class func parseLightPayloadForContact(contact: Contact, payloadDict: [String : AnyObject], context: NSManagedObjectContext) {
+        contact.lg_mergeWithDictionary(payloadDict)
+        contact.weight = NSNumber(integer: LGContentWeight.Light.rawValue)
+    }
+
+    class func parseFullContactsData(data: NSArray, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
+        let guids = data.valueForKey(payloadGuidKey) as! [String]
+        let contacts: [Contact] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: "guid")
+        let contactsByGuid: [String : Contact] = contacts.lg_indexedByKeyPath("guid")
+        for payloadDict in data as! [[String : AnyObject]] {
+            let guid = payloadDict[payloadGuidKey] as! String
+            guard let contact = contactsByGuid[guid] else { continue }
+            
+            self.parseFullPayloadForContact(contact, payloadDict: payloadDict, context: context)
+        }
+        
+        return contacts
+    }
+
+    class func parseFullPayloadForContact(contact: Contact, payloadDict: [String : AnyObject], context: NSManagedObjectContext) {
+        contact.lg_mergeWithDictionary(payloadDict)
+        contact.weight = NSNumber(integer: LGContentWeight.Full.rawValue)
     }
     
     //MARK: Info

@@ -43,13 +43,17 @@ public class ContactsDataService: ContactsDataServiceType {
     }
     
     private func contactsUpdateProducer() -> SignalProducer<[Contact]?, NSError>? {
+        guard let parameters = self.parametersForLightContactsData() else { return nil }
+
         let contactsUpdateProducer = self.dataController.updateData(
-            url: "http://lukagabric.com/wp-content/contacts-api/contacts",
+            url: "https://api.parse.com/1/classes/contacts",
             methodName: "GET",
-            parameters: nil,
-            requestId: "ContactsJSON",
+            parameters: parameters,
+            requestId: "GetAllContacts",
             staleInterval: 10) { (data, response, context) -> [Contact]? in
-                let contacts = Contact.parseFullContactsData(data as! NSArray, context: context)
+                let dataDictionary = data as! NSDictionary
+                let payloadArray = (dataDictionary["results"]) as! NSArray
+                let contacts = Contact.parseLightContactsData(payloadArray, payloadGuidKey: "objectId", context: context)
                 return contacts
         }
 
@@ -69,20 +73,19 @@ public class ContactsDataService: ContactsDataServiceType {
     }
 
     public func updateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NSError>? {
+        guard let parameters = self.parametersForObjectId(contactId) else { return nil }
+
         let contactUpdateProducer = self.dataController.updateData(
-            url: "http://lukagabric.com/wp-content/contacts-api/contacts",
+            url: "https://api.parse.com/1/classes/contacts",
             methodName: "GET",
-            parameters: nil,
+            parameters: parameters,
             requestId: contactId,
             staleInterval: 10) { (data, response, context) -> Contact? in
-                let contacts = Contact.parseFullContactsData(data as! NSArray, context: context)
-                for contact in contacts {
-                    if let guid = contact.guid where guid == contactId {
-                        return contact
-                    }
-                }
-                
-                return nil
+                let dataDictionary = data as! NSDictionary
+                let payloadArray = (dataDictionary["results"]) as! NSArray
+                let contacts = Contact.parseFullContactsData(payloadArray, payloadGuidKey: "objectId", context: context)
+                let contact = contacts.first
+                return contact
         }
         
         return contactUpdateProducer
@@ -98,6 +101,30 @@ public class ContactsDataService: ContactsDataServiceType {
         contactMutableProperty <~ updateNoErrorProducer
         
         return contactMutableProperty
+    }
+    
+    //MARK: - Private
+    
+    private func parametersForLightContactsData() -> [String : String]? {
+        let parameterValue = "firstName,lastName"
+        guard let escapedParameterValue = parameterValue.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) else { return nil }
+        
+        return ["keys" : escapedParameterValue]
+    }
+    
+    private func parametersForObjectId(objectId: String) -> [String : String]? {
+        let params = ["objectId" : objectId]
+
+        let parameterValue = self.stringFromDict(params)
+        guard let escapedParameterValue = parameterValue.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) else { return nil }
+        
+        return ["where" : escapedParameterValue]
+    }
+    
+    private func stringFromDict(dict: [String : String]) -> String {
+        let jsonData = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+        let jsonText = String(data: jsonData, encoding: NSASCIIStringEncoding)
+        return jsonText!
     }
     
     //MARK: -
