@@ -25,8 +25,8 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     lazy public var urlSession: NSURLSession = {
         let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
         sessionConfiguration.requestCachePolicy = .ReloadIgnoringLocalCacheData
-        sessionConfiguration.timeoutIntervalForRequest = 5
-        sessionConfiguration.timeoutIntervalForResource = 5
+        sessionConfiguration.timeoutIntervalForRequest = 10
+        sessionConfiguration.timeoutIntervalForResource = 10
         sessionConfiguration.HTTPAdditionalHeaders = [
             "X-Parse-Application-Id" : "kS07SE0oFWuckkykW38FN9vdagFZFd5gMsreUzg1",
             "X-Parse-REST-API-Key" : "woMheRmrU3cz4WzYfT6enRCKuIiFrn9dBFn7usCj"

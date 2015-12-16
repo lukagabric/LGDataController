@@ -40,6 +40,10 @@ public class Contact: LGEntity {
             guard let contact = contactsByGuid[guid] else { continue }
             
             self.parseLightPayloadForContact(contact, payloadDict: payloadDict, context: context)
+
+            if contact.contentWeight != .Full {
+                contact.weight = NSNumber(integer: LGContentWeight.Light.rawValue)
+            }
         }
         
         return contacts
@@ -47,7 +51,7 @@ public class Contact: LGEntity {
     
     class func parseLightPayloadForContact(contact: Contact, payloadDict: [String : AnyObject], context: NSManagedObjectContext) {
         contact.lg_mergeWithDictionary(payloadDict)
-        contact.weight = NSNumber(integer: LGContentWeight.Light.rawValue)
+        //No other actions needed but this would be used to handle relationship
     }
 
     class func parseFullContactsData(data: NSArray, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
@@ -59,6 +63,7 @@ public class Contact: LGEntity {
             guard let contact = contactsByGuid[guid] else { continue }
             
             self.parseFullPayloadForContact(contact, payloadDict: payloadDict, context: context)
+            contact.weight = NSNumber(integer: LGContentWeight.Full.rawValue)
         }
         
         return contacts
@@ -66,7 +71,7 @@ public class Contact: LGEntity {
 
     class func parseFullPayloadForContact(contact: Contact, payloadDict: [String : AnyObject], context: NSManagedObjectContext) {
         contact.lg_mergeWithDictionary(payloadDict)
-        contact.weight = NSNumber(integer: LGContentWeight.Full.rawValue)
+        //No other actions needed but this would be used to handle relationship
     }
     
     //MARK: Info
@@ -105,7 +110,7 @@ public class Contact: LGEntity {
         let emailProducer = emailProperty.producer.map { $0 as? String ?? "" }
         return emailProducer
     }()
-    
+        
     //MARK: Debug
     
     func debugLog() {

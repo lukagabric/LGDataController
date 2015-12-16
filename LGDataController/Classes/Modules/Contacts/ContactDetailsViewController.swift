@@ -29,6 +29,7 @@ public class ContactDetailsViewController: UIViewController {
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var companyLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
     
     //MARK: - Init
     
@@ -60,6 +61,7 @@ public class ContactDetailsViewController: UIViewController {
             sself.lastNameLabel.rac_text <~ contact.lastNameProducer
             sself.companyLabel.rac_text <~ contact.companyProducer
             sself.emailLabel.rac_text <~ contact.emailProducer
+            sself.weightLabel.rac_text <~ contact.weightProducer
         }
     }
 
