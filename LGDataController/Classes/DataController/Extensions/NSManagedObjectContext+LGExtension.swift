@@ -11,6 +11,27 @@ import CoreData
 
 extension NSManagedObjectContext {
     
+    public func lg_existingObjectOrStub<T: NSManagedObject>(guid guid: String, guidKey: String) -> T {
+        let entityName = T.lg_entityName()
+        assert(!entityName.isEmpty, "Entity name must be specified")
+        
+        let fetchRequest = NSFetchRequest(entityName: entityName)
+        
+        let existingObjects: [T] = try! self.executeFetchRequest(fetchRequest) as! [T]
+        
+        let object: T
+        if let entity = existingObjects.first {
+            object = entity
+        }
+        else {
+            let newObject = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self)
+            newObject.setValue(guid, forKey: guidKey)
+            object = newObject as! T
+        }
+        
+        return object
+    }
+    
     public func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String) -> ([T], NSError?) {
         let entityName = T.lg_entityName()
         if entityName.isEmpty { return ([T](), NSError(domain: "Entity name must be specified", code: 0, userInfo: nil)) }
