@@ -67,9 +67,21 @@ public class ContactDetailsViewController: UIViewController {
                 guard let view = self?.view else { return }
                 LGTextOverlayView.contentUnavailableView(frame: view.bounds, addedToView: view)
             }
+
+            self?.simulateUnrelatedDeleteOfCurrentObject()
         }
     }
 
     //MARK: -
+    
+    func simulateUnrelatedDeleteOfCurrentObject() {
+        if self.contact == nil { return }
+        let c = self.contact!
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            c.managedObjectContext!.deleteObject(c)
+            try! c.managedObjectContext!.save()
+        }
+    }
 
 }
