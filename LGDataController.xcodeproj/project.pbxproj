@@ -58,6 +58,16 @@
 		4186AA171C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */; };
 		4186AA281C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
 		4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
+		419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */; };
+		419B65E51C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */; };
+		419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E11C2298C800C7C28B /* PermanentEntity.swift */; };
+		419B65E71C2298C800C7C28B /* PermanentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E11C2298C800C7C28B /* PermanentEntity.swift */; };
+		419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */; };
+		419B65E91C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */; };
+		419B65EA1C2298C800C7C28B /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E31C2298C800C7C28B /* SessionEntity.swift */; };
+		419B65EB1C2298C800C7C28B /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E31C2298C800C7C28B /* SessionEntity.swift */; };
+		419B65FA1C22A24400C7C28B /* LGCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65F91C22A24400C7C28B /* LGCacheController.swift */; };
+		419B65FB1C22A24400C7C28B /* LGCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65F91C22A24400C7C28B /* LGCacheController.swift */; };
 		41A75F801C20A956007DD6AA /* LGLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */; };
 		41A75F811C20A956007DD6AA /* LGLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */; };
 		41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
@@ -241,6 +251,11 @@
 		4186AA111C19D376003C3A89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LGDataController.xcdatamodel; sourceTree = "<group>"; };
+		419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PermanentEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		419B65E11C2298C800C7C28B /* PermanentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentEntity.swift; sourceTree = "<group>"; };
+		419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SessionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		419B65E31C2298C800C7C28B /* SessionEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionEntity.swift; sourceTree = "<group>"; };
+		419B65F91C22A24400C7C28B /* LGCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGCacheController.swift; sourceTree = "<group>"; };
 		41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGLoadingView.swift; sourceTree = "<group>"; };
 		41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewModel.swift; sourceTree = "<group>"; };
 		41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -392,6 +407,10 @@
 		4186A9D11C19D2A4003C3A89 /* ManagedObjects */ = {
 			isa = PBXGroup;
 			children = (
+				419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */,
+				419B65E11C2298C800C7C28B /* PermanentEntity.swift */,
+				419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */,
+				419B65E31C2298C800C7C28B /* SessionEntity.swift */,
 				41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */,
 				41CA59F31C2218F400A47168 /* ContentEntity.swift */,
 				4186A9D21C19D2A4003C3A89 /* Contact+CoreDataProperties.swift */,
@@ -453,9 +472,18 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		419B65F81C22A22800C7C28B /* LGCacheController */ = {
+			isa = PBXGroup;
+			children = (
+				419B65F91C22A24400C7C28B /* LGCacheController.swift */,
+			);
+			path = LGCacheController;
+			sourceTree = "<group>";
+		};
 		41A75F711C20A93E007DD6AA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				419B65F81C22A22800C7C28B /* LGCacheController */,
 				41A75F721C20A93E007DD6AA /* LGLoadingView */,
 			);
 			path = Common;
@@ -696,8 +724,10 @@
 				4186A9F81C19D2A4003C3A89 /* ContactsDataService.swift in Sources */,
 				41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
 				4186A9E41C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
+				419B65EA1C2298C800C7C28B /* SessionEntity.swift in Sources */,
 				41A75F801C20A956007DD6AA /* LGLoadingView.swift in Sources */,
 				4186A9EA1C19D2A4003C3A89 /* UIKitExtensions.swift in Sources */,
+				419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */,
 				4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
 				4186A9EC1C19D2A4003C3A89 /* LGDataController.swift in Sources */,
 				41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */,
@@ -708,8 +738,11 @@
 				4186A9FA1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */,
 				4186A9F41C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
 				4186AA281C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */,
+				419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */,
 				4186A9E81C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
 				4186AA0A1C19D2A4003C3A89 /* NavigationService.swift in Sources */,
+				419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */,
+				419B65FA1C22A24400C7C28B /* LGCacheController.swift in Sources */,
 				4186A9F21C19D2A4003C3A89 /* Dependencies.swift in Sources */,
 				4186AA001C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */,
 				4186A9F01C19D2A4003C3A89 /* LGRequestOperation.swift in Sources */,
@@ -730,9 +763,11 @@
 				4186A9EF1C19D2A4003C3A89 /* LGModelObserver.swift in Sources */,
 				4186AA0B1C19D2A4003C3A89 /* NavigationService.swift in Sources */,
 				41CA59F71C2218F400A47168 /* ContentEntity.swift in Sources */,
+				419B65E51C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */,
 				4186AA011C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */,
 				4186A9E71C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */,
 				4186A9F71C19D2A4003C3A89 /* Contact.swift in Sources */,
+				419B65E91C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */,
 				4186A9ED1C19D2A4003C3A89 /* LGDataController.swift in Sources */,
 				41A75F811C20A956007DD6AA /* LGLoadingView.swift in Sources */,
 				4186A9F51C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
@@ -746,8 +781,11 @@
 				4186AA031C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */,
 				4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */,
 				4186A9FB1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */,
+				419B65E71C2298C800C7C28B /* PermanentEntity.swift in Sources */,
 				41CA59F51C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */,
+				419B65FB1C22A24400C7C28B /* LGCacheController.swift in Sources */,
 				4186A9E91C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
+				419B65EB1C2298C800C7C28B /* SessionEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

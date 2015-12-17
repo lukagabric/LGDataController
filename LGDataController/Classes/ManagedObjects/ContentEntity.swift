@@ -43,4 +43,12 @@ public class ContentEntity: NSManagedObject {
         }
     }
     
+    func markAsPermanentInContext(context: NSManagedObjectContext) {
+        self.permanentEntity = PermanentEntity.permanentEntityInContext(context)
+    }
+
+    func markAsSessionInContext(context: NSManagedObjectContext) {
+        self.sessionEntity = SessionEntity.sessionEntityInContext(context)
+    }
+
 }

@@ -1,5 +1,5 @@
 //
-//  ContentEntity+CoreDataProperties.swift
+//  SessionEntity+CoreDataProperties.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 17/12/15.
@@ -12,11 +12,8 @@
 import Foundation
 import CoreData
 
-extension ContentEntity {
+extension SessionEntity {
 
-    @NSManaged var guid: String?
-    @NSManaged var weight: NSNumber?
-    @NSManaged var permanentEntity: PermanentEntity?
-    @NSManaged var sessionEntity: SessionEntity?
+    @NSManaged var contentEntity: NSSet?
 
 }

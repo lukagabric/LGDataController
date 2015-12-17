@@ -13,11 +13,15 @@ import CoreData
 public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     
     private let navigationController: UINavigationController
-    
+    private let application: UIApplication
+    public var cacheController: CacheControllerType!
+
     //MARK: - Init
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, application: UIApplication) {
         self.navigationController = navigationController
+        self.application = application
+        self.cacheController = LGCacheController(application: self.application, context: self.dataController.mainContext, notificationCenter: self.notificationCenter)
     }
     
     //MARK: - Dependencies
@@ -54,6 +58,10 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     lazy public var contactsDataService: ContactsDataServiceType = {
         return ContactsDataService(dataController: self.dataController)
     }()
+    
+    public var notificationCenter: NSNotificationCenter {
+        return NSNotificationCenter.defaultCenter()
+    }
     
     private lazy var managedObjectContext: NSManagedObjectContext = {
         let modelURL = NSBundle.mainBundle().URLForResource("LGDataController", withExtension: "mom")!

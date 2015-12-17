@@ -10,7 +10,6 @@ import Foundation
 import CoreData
 import ReactiveCocoa
 
-@objc(Contact)
 public class Contact: ContentEntity {
     
     //MARK: - Entity Name
@@ -48,6 +47,7 @@ public class Contact: ContentEntity {
             
             self.parsePayloadForContact(contact, payloadDict: payloadDict, context: context)
             contact.updateForPayloadWeight(weight)
+            contact.markAsPermanentInContext(context)
             
             resultContacts.append(contact)
         }
@@ -59,7 +59,7 @@ public class Contact: ContentEntity {
         return resultContacts
     }
     
-    class func parseContactsData(data: NSArray, weight: LGContentWeight, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
+    class func parseContactsData(data: NSArray, weight: LGContentWeight, isPermanent: Bool = true, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
         let guids = data.valueForKey(payloadGuidKey) as! [String]
         let contacts: [Contact] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: "guid")
         let contactsByGuid: [String : Contact] = contacts.lg_indexedByKeyPath("guid")
@@ -69,6 +69,12 @@ public class Contact: ContentEntity {
             
             self.parsePayloadForContact(contact, payloadDict: payloadDict, context: context)
             contact.updateForPayloadWeight(weight)
+            if isPermanent {
+                contact.markAsPermanentInContext(context)
+            }
+            else {
+                contact.markAsSessionInContext(context)
+            }
         }
         
         return contacts
