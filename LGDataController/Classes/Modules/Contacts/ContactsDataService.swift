@@ -53,7 +53,7 @@ public class ContactsDataService: ContactsDataServiceType {
             staleInterval: 10) { (data, response, context) -> [Contact]? in
                 let dataDictionary = data as! NSDictionary
                 let payloadArray = (dataDictionary["results"]) as! NSArray
-                let contacts = Contact.parseLightContactsData(payloadArray, payloadGuidKey: "objectId", context: context)
+                let contacts = Contact.parseAllContactsData(payloadArray, weight: .Light, payloadGuidKey: "objectId", context: context)
                 return contacts
         }
 
@@ -83,7 +83,7 @@ public class ContactsDataService: ContactsDataServiceType {
             staleInterval: 10) { (data, response, context) -> Contact? in
                 let dataDictionary = data as! NSDictionary
                 let payloadArray = (dataDictionary["results"]) as! NSArray
-                let contacts = Contact.parseFullContactsData(payloadArray, payloadGuidKey: "objectId", context: context)
+                let contacts = Contact.parseContactsData(payloadArray, weight: .Full, payloadGuidKey: "objectId", context: context)
                 let contact = contacts.first
                 return contact
         }

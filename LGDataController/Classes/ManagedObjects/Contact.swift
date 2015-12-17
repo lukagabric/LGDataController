@@ -31,30 +31,35 @@ public class Contact: ContentEntity {
     
     //MARK: Parsing Data
     
-    class func parseLightContactsData(data: NSArray, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
-        let guids = data.valueForKey(payloadGuidKey) as! [String]
-        let contacts: [Contact] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: "guid")
-        let contactsByGuid: [String : Contact] = contacts.lg_indexedByKeyPath("guid")
+    class func parseAllContactsData(data: NSArray, weight: LGContentWeight, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
+        let allContacts: [Contact] = context.lg_allObjects()
+        var contactsByGuid: [String : Contact] = allContacts.lg_indexedByKeyPath("guid")
+        
+        var resultContacts = [Contact]()
         for payloadDict in data as! [[String : AnyObject]] {
             let guid = payloadDict[payloadGuidKey] as! String
-            guard let contact = contactsByGuid[guid] else { continue }
-            
-            self.parseLightPayloadForContact(contact, payloadDict: payloadDict, context: context)
-
-            if contact.contentWeight != .Full {
-                contact.weight = NSNumber(integer: LGContentWeight.Light.rawValue)
+            let contact: Contact
+            if let c = contactsByGuid.removeValueForKey(guid) {
+                contact = c
             }
+            else {
+                contact = NSEntityDescription.insertNewObjectForEntityForName(Contact.lg_entityName(), inManagedObjectContext: context) as! Contact
+            }
+            
+            self.parsePayloadForContact(contact, payloadDict: payloadDict, context: context)
+            contact.updateForPayloadWeight(weight)
+            
+            resultContacts.append(contact)
         }
         
-        return contacts
+        for (_, contact) in contactsByGuid {
+            context.deleteObject(contact)
+        }
+        
+        return resultContacts
     }
     
-    class func parseLightPayloadForContact(contact: Contact, payloadDict: [String : AnyObject], context: NSManagedObjectContext) {
-        contact.lg_mergeWithDictionary(payloadDict)
-        //No other actions needed but this would be used to handle relationship
-    }
-
-    class func parseFullContactsData(data: NSArray, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
+    class func parseContactsData(data: NSArray, weight: LGContentWeight, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
         let guids = data.valueForKey(payloadGuidKey) as! [String]
         let contacts: [Contact] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: "guid")
         let contactsByGuid: [String : Contact] = contacts.lg_indexedByKeyPath("guid")
@@ -62,18 +67,18 @@ public class Contact: ContentEntity {
             let guid = payloadDict[payloadGuidKey] as! String
             guard let contact = contactsByGuid[guid] else { continue }
             
-            self.parseFullPayloadForContact(contact, payloadDict: payloadDict, context: context)
-            contact.weight = NSNumber(integer: LGContentWeight.Full.rawValue)
+            self.parsePayloadForContact(contact, payloadDict: payloadDict, context: context)
+            contact.updateForPayloadWeight(weight)
         }
         
         return contacts
     }
-
-    class func parseFullPayloadForContact(contact: Contact, payloadDict: [String : AnyObject], context: NSManagedObjectContext) {
+    
+    class func parsePayloadForContact(contact: Contact, payloadDict: [String : AnyObject], context: NSManagedObjectContext) {
         contact.lg_mergeWithDictionary(payloadDict)
         //No other actions needed but this would be used to handle relationship
     }
-    
+
     //MARK: Info
     
     var info: String {

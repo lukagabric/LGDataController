@@ -34,4 +34,13 @@ public class ContentEntity: NSManagedObject {
         return weightProducer
     }()
 
+    func updateForPayloadWeight(weight: LGContentWeight) {
+        if weight == .Full {
+            self.weight = NSNumber(integer: LGContentWeight.Full.rawValue)
+        }
+        else if self.contentWeight != .Full {
+            self.weight = NSNumber(integer: LGContentWeight.Light.rawValue)
+        }
+    }
+    
 }
