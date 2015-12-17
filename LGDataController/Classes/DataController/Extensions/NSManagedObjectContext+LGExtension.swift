@@ -16,7 +16,8 @@ extension NSManagedObjectContext {
         assert(!entityName.isEmpty, "Entity name must be specified")
         
         let fetchRequest = NSFetchRequest(entityName: entityName)
-        
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", guidKey, guid)
+
         let existingObjects: [T] = try! self.executeFetchRequest(fetchRequest) as! [T]
         
         let object: T
