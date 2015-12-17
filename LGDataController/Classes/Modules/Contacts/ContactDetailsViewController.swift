@@ -62,6 +62,11 @@ public class ContactDetailsViewController: UIViewController {
             sself.companyLabel.rac_text <~ contact.companyProducer
             sself.emailLabel.rac_text <~ contact.emailProducer
             sself.weightLabel.rac_text <~ contact.weightProducer
+            
+            contact.deleteProducer.startWithNext { [weak self] in
+                guard let view = self?.view else { return }
+                LGTextOverlayView.contentUnavailableView(frame: view.bounds, addedToView: view)
+            }
         }
     }
 

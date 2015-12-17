@@ -94,8 +94,14 @@ public class ContactsDataService: ContactsDataServiceType {
     public func mutablePropertyForContactWithId(contactId: String) -> MutableProperty<Contact?> {
         let contact = self.contactWithId(contactId)
         let contactMutableProperty = MutableProperty<Contact?>(contact)
+        
+        let contactUpdateProducer = self.updateProducerForContactWithId(contactId)
+        
+        if contact != nil {
+            return contactMutableProperty
+        }
 
-        let updateProducer = self.updateProducerForContactWithId(contactId) ?? SignalProducer<Contact?, NSError>.empty
+        let updateProducer = contactUpdateProducer ?? SignalProducer<Contact?, NSError>.empty
         let updateNoErrorProducer = updateProducer.flatMapError { _ in SignalProducer<Contact?, NoError>.empty }
 
         contactMutableProperty <~ updateNoErrorProducer

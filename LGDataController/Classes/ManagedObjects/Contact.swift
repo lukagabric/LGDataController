@@ -121,7 +121,7 @@ public class Contact: ContentEntity {
         let emailProducer = emailProperty.producer.map { $0 as? String ?? "" }
         return emailProducer
     }()
-        
+    
     //MARK: Debug
     
     func debugLog() {

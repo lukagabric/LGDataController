@@ -33,6 +33,21 @@ public class ContentEntity: NSManagedObject {
         }
         return weightProducer
     }()
+    
+    lazy var deleteProducer: SignalProducer<Void, NoError> = {
+        let (deleteProducer, deleteObserver) = SignalProducer<Void, NoError>.buffer(1)
+        self.deleteObserver = deleteObserver
+        return deleteProducer
+    }()
+    
+    private var deleteObserver: Observer<Void, NoError>?
+    
+    override public func prepareForDeletion() {
+        if let observer = self.deleteObserver {
+            observer.sendNext()
+            observer.sendCompleted()
+        }
+    }
 
     func updateForPayloadWeight(weight: LGContentWeight) {
         if weight == .Full {

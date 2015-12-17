@@ -76,6 +76,8 @@
 		41CA59F51C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */; };
 		41CA59F61C2218F400A47168 /* ContentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F31C2218F400A47168 /* ContentEntity.swift */; };
 		41CA59F71C2218F400A47168 /* ContentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F31C2218F400A47168 /* ContentEntity.swift */; };
+		41D0AEF21C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */; };
+		41D0AEF31C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */; };
 		41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */; };
 		41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
 		41EF86C41C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
@@ -260,6 +262,7 @@
 		41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewModel.swift; sourceTree = "<group>"; };
 		41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41CA59F31C2218F400A47168 /* ContentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentEntity.swift; sourceTree = "<group>"; };
+		41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTextOverlayView.swift; sourceTree = "<group>"; };
 		41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperationTests.swift; sourceTree = "<group>"; };
 		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsViewController.xib; sourceTree = "<group>"; };
@@ -483,6 +486,7 @@
 		41A75F711C20A93E007DD6AA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				41D0AEE41C236D29002AB0D4 /* LGTextOverlayView */,
 				419B65F81C22A22800C7C28B /* LGCacheController */,
 				41A75F721C20A93E007DD6AA /* LGLoadingView */,
 			);
@@ -495,6 +499,14 @@
 				41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */,
 			);
 			path = LGLoadingView;
+			sourceTree = "<group>";
+		};
+		41D0AEE41C236D29002AB0D4 /* LGTextOverlayView */ = {
+			isa = PBXGroup;
+			children = (
+				41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */,
+			);
+			path = LGTextOverlayView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -739,6 +751,7 @@
 				4186A9F41C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
 				4186AA281C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */,
 				419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */,
+				41D0AEF21C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */,
 				4186A9E81C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
 				4186AA0A1C19D2A4003C3A89 /* NavigationService.swift in Sources */,
 				419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */,
@@ -780,6 +793,7 @@
 				4186A9EB1C19D2A4003C3A89 /* UIKitExtensions.swift in Sources */,
 				4186AA031C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */,
 				4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */,
+				41D0AEF31C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */,
 				4186A9FB1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */,
 				419B65E71C2298C800C7C28B /* PermanentEntity.swift in Sources */,
 				41CA59F51C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */,
