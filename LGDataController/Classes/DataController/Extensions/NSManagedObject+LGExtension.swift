@@ -104,34 +104,34 @@ extension NSManagedObject {
         abort()
     }
     
-    class func lg_mergeEntitiesWithPayload<T where T: NSManagedObject, T: LGContentEntityType>(
+    class func lg_mergeObjectsWithPayload<T where T: NSManagedObject, T: LGContentEntityType>(
         payload: [[String : AnyObject]],
         payloadGuidKey: String,
-        entityGuidKey: String,
+        objectGuidKey: String,
         weight: LGContentWeight,
         context: NSManagedObjectContext) -> [T] {
             let guids = payload.map { (dictionary: [String : AnyObject]) -> String in
                 dictionary[payloadGuidKey] as! String
             }
-            let entities: [T] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: entityGuidKey)
+            let objects: [T] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: objectGuidKey)
             
-            let entitiesById: [String : T] = entities.lg_indexedByKeyPath(entityGuidKey)
+            let objectsById: [String : T] = objects.lg_indexedByKeyPath(objectGuidKey)
             
             for dictionary in payload {
                 let guid = dictionary[payloadGuidKey] as! String
-                var entity = entitiesById[guid] as T!
+                var object = objectsById[guid] as T!
                 
                 if weight == .Full {
-                    entity.contentWeight = .Full
+                    object.contentWeight = .Full
                 }
-                else if entity.contentWeight != .Full {
-                    entity.contentWeight = .Light
+                else if object.contentWeight != .Full {
+                    object.contentWeight = .Light
                 }
                 
-                entity.lg_mergeWithDictionary(dictionary)
+                object.lg_mergeWithDictionary(dictionary)
             }
             
-            return entities
+            return objects
     }
     
 }
