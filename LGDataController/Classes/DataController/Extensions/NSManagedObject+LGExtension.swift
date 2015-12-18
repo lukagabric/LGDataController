@@ -15,10 +15,14 @@ public enum LGContentWeight: Int {
     case Full
 }
 
-public protocol LGContentEntityType {
+protocol LGContentEntityType {
     
     var guid: String? { get }
     var contentWeight: LGContentWeight { get set }
+
+    func updateForPayloadWeight(weight: LGContentWeight)
+    func markAs(permanent permanent: Bool, context: NSManagedObjectContext)
+    func shouldUpdateDataForWeight(weight: LGContentWeight, payloadDict: [String : AnyObject]) -> Bool
     
 }
 
@@ -109,29 +113,73 @@ extension NSManagedObject {
         payloadGuidKey: String,
         objectGuidKey: String,
         weight: LGContentWeight,
+        permanent: Bool = true,
         context: NSManagedObjectContext) -> [T] {
             let guids = payload.map { (dictionary: [String : AnyObject]) -> String in
                 dictionary[payloadGuidKey] as! String
             }
+            
             let objects: [T] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: objectGuidKey)
             
             let objectsById: [String : T] = objects.lg_indexedByKeyPath(objectGuidKey)
             
             for dictionary in payload {
                 let guid = dictionary[payloadGuidKey] as! String
-                var object = objectsById[guid] as T!
+                let object = objectsById[guid]!
                 
-                if weight == .Full {
-                    object.contentWeight = .Full
+                if object.shouldUpdateDataForWeight(weight, payloadDict: dictionary) {
+                    self.lg_parsePayloadForObject(object, payloadDict: dictionary, context: context)
+                    object.updateForPayloadWeight(weight)
                 }
-                else if object.contentWeight != .Full {
-                    object.contentWeight = .Light
-                }
-                
-                object.lg_mergeWithDictionary(dictionary)
+
+                object.markAs(permanent: permanent, context: context)
             }
             
             return objects
     }
     
+    class func lg_mergeAndTruncateObjectsWithPayload<T where T: NSManagedObject, T: LGContentEntityType>(
+        payload: [[String : AnyObject]],
+        payloadGuidKey: String,
+        objectGuidKey: String,
+        weight: LGContentWeight,
+        permanent: Bool = true,
+        context: NSManagedObjectContext) -> [T] {
+        let allObjects: [T] = context.lg_allObjects()
+        var objectsByGuid: [String : T] = allObjects.lg_indexedByKeyPath(objectGuidKey)
+        
+        var resultObjects = [T]()
+        for payloadDict in payload {
+            let guid = payloadDict[payloadGuidKey] as! String
+            let object: T
+            if let item = objectsByGuid.removeValueForKey(guid) {
+                object = item
+            }
+            else {
+                object = NSEntityDescription.insertNewObjectForEntityForName(T.lg_entityName(), inManagedObjectContext: context) as! T
+            }
+            
+            if object.shouldUpdateDataForWeight(weight, payloadDict: payloadDict) {
+                self.lg_parsePayloadForObject(object, payloadDict: payloadDict, context: context)
+                object.updateForPayloadWeight(weight)
+            }
+            
+            object.markAs(permanent: permanent, context: context)
+
+            resultObjects.append(object)
+        }
+        
+        for (_, object) in objectsByGuid {
+            context.deleteObject(object)
+        }
+        
+        return resultObjects
+    }
+    
+    
+    class func lg_parsePayloadForObject<T: NSManagedObject>(object: T, payloadDict: [String : AnyObject], context: NSManagedObjectContext) {
+        object.lg_mergeWithDictionary(payloadDict)
+        //Subclasses may override this method to perform additional parsing, like handle relationship objects
+    }
+        
 }

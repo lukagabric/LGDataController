@@ -66,6 +66,15 @@ public class ContentEntity: NSManagedObject, LGContentEntityType {
         }
     }
     
+    func markAs(permanent permanent: Bool, context: NSManagedObjectContext) {
+        if permanent {
+            self.markAsPermanentInContext(context)
+        }
+        else {
+            self.markAsSessionInContext(context)
+        }
+    }
+    
     func markAsPermanentInContext(context: NSManagedObjectContext) {
         self.permanentEntity = PermanentEntity.permanentEntityInContext(context)
     }
@@ -73,5 +82,9 @@ public class ContentEntity: NSManagedObject, LGContentEntityType {
     func markAsSessionInContext(context: NSManagedObjectContext) {
         self.sessionEntity = SessionEntity.sessionEntityInContext(context)
     }
-
+    
+    func shouldUpdateDataForWeight(weight: LGContentWeight, payloadDict: [String : AnyObject]) -> Bool {
+        return self.contentWeight.rawValue < weight.rawValue || self.updatedAtString != payloadDict["updatedAt"] as? String
+    }
+    
 }

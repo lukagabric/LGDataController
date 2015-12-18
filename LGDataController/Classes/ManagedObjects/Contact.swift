@@ -29,71 +29,12 @@ public class Contact: ContentEntity {
     }
     
     //MARK: Parsing Payload
-    
-    class func parseAllContactsPayload(payload: NSArray, weight: LGContentWeight, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
-        let allContacts: [Contact] = context.lg_allObjects()
-        var contactsByGuid: [String : Contact] = allContacts.lg_indexedByKeyPath("guid")
         
-        var resultContacts = [Contact]()
-        for payloadDict in payload as! [[String : AnyObject]] {
-            let guid = payloadDict[payloadGuidKey] as! String
-            let contact: Contact
-            if let c = contactsByGuid.removeValueForKey(guid) {
-                contact = c
-            }
-            else {
-                contact = NSEntityDescription.insertNewObjectForEntityForName(Contact.lg_entityName(), inManagedObjectContext: context) as! Contact
-            }
-            
-            if contact.contentWeight != weight || contact.updatedAtString != payloadDict["updatedAt"] as? String {
-                self.parsePayloadForContact(contact, payloadDict: payloadDict, context: context)
-                
-                contact.updateForPayloadWeight(weight)
-            }
-
-            contact.markAsPermanentInContext(context)
-
-            resultContacts.append(contact)
-        }
-        
-        for (_, contact) in contactsByGuid {
-            context.deleteObject(contact)
-        }
-        
-        return resultContacts
-    }
-    
-    class func parseContactsPayload(payload: NSArray, weight: LGContentWeight, isPermanent: Bool = true, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
-        let guids = payload.valueForKey(payloadGuidKey) as! [String]
-        let contacts: [Contact] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: "guid")
-        let contactsByGuid: [String : Contact] = contacts.lg_indexedByKeyPath("guid")
-        for payloadDict in payload as! [[String : AnyObject]] {
-            let guid = payloadDict[payloadGuidKey] as! String
-            guard let contact = contactsByGuid[guid] else { continue }
-            
-            self.parsePayloadForContact(contact, payloadDict: payloadDict, context: context)
-            contact.updateForPayloadWeight(weight)
-            if isPermanent {
-                contact.markAsPermanentInContext(context)
-            }
-            else {
-                contact.markAsSessionInContext(context)
-            }
-        }
-        
-        return contacts
-    }
-    
-    class func parsePayloadForContact(contact: Contact, payloadDict: [String : AnyObject], context: NSManagedObjectContext) {
-        contact.lg_mergeWithDictionary(payloadDict)
-        //No other actions needed but this would be used to handle relationship
-    }
-    
     override public func lg_mergeWithDictionary(dictionary: [String : AnyObject]) {
         super.lg_mergeWithDictionary(dictionary)
         self.updatedAtString = dictionary["updatedAt"] as? String
     }
-
+    
     //MARK: Info
     
     var info: String {

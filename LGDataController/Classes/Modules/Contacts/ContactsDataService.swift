@@ -52,8 +52,8 @@ public class ContactsDataService: ContactsDataServiceType {
             requestId: "GetAllContacts",
             staleInterval: 10) { (payload, response, context) -> [Contact]? in
                 let dataDictionary = payload as! NSDictionary
-                let payloadArray = (dataDictionary["results"]) as! NSArray
-                let contacts = Contact.parseAllContactsPayload(payloadArray, weight: .Light, payloadGuidKey: "objectId", context: context)
+                let payloadArray = (dataDictionary["results"]) as! [[String : AnyObject]]
+                let contacts: [Contact] = NSManagedObject.lg_mergeAndTruncateObjectsWithPayload(payloadArray, payloadGuidKey: "objectId", objectGuidKey: "guid", weight: .Light, context: context)
                 return contacts
         }
 
@@ -82,8 +82,8 @@ public class ContactsDataService: ContactsDataServiceType {
             requestId: contactId,
             staleInterval: 10) { (payload, response, context) -> Contact? in
                 let dataDictionary = payload as! NSDictionary
-                let payloadArray = (dataDictionary["results"]) as! NSArray
-                let contacts = Contact.parseContactsPayload(payloadArray, weight: .Full, payloadGuidKey: "objectId", context: context)
+                let payloadArray = (dataDictionary["results"]) as! [[String : AnyObject]]
+                let contacts: [Contact] = NSManagedObject.lg_mergeObjectsWithPayload(payloadArray, payloadGuidKey: "objectId", objectGuidKey: "guid", weight: .Full, context: context)
                 let contact = contacts.first
                 return contact
         }
