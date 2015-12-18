@@ -30,7 +30,8 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         
         self.deleteAction = Action { [weak self] in
             guard let sself = self, contact = sself.contact.value else { return SignalProducer.empty }
-            
+
+            sself.contact.value = nil
             sself.dataService.deleteContact(contact)
             sself.navigationService.popView(animated: true)
             

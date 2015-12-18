@@ -13,7 +13,6 @@ import ReactiveCocoa
 public class ContentEntity: NSManagedObject, LGContentEntityType {
 
     public var contentWeight: LGContentWeight {
-        
         get {
             guard let weight = self.weight else { return .Stub }
             
@@ -22,11 +21,9 @@ public class ContentEntity: NSManagedObject, LGContentEntityType {
             
             return .Stub
         }
-        
         set(contentWeight) {
             self.weight = NSNumber(integer: contentWeight.rawValue)
         }
-        
     }
     
     lazy public var weightProducer: SignalProducer<String, NoError> = {
@@ -39,7 +36,7 @@ public class ContentEntity: NSManagedObject, LGContentEntityType {
             
             return "Stub"
         }
-        return weightProducer
+        return weightProducer.takeUntil(self.deleteProducer)
     }()
     
     lazy var deleteProducer: SignalProducer<Void, NoError> = {

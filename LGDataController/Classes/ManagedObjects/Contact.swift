@@ -51,25 +51,25 @@ public class Contact: ContentEntity {
     lazy var firstNameProducer: SignalProducer<String, NoError> = {
         let firstNameProperty = DynamicProperty(object: self, keyPath: "firstName")
         let firstNameProducer = firstNameProperty.producer.map { $0 as? String ?? "" }
-        return firstNameProducer
+        return firstNameProducer.takeUntil(self.deleteProducer)
     }()
     
     lazy var lastNameProducer: SignalProducer<String, NoError> = {
         let lastNameProperty = DynamicProperty(object: self, keyPath: "lastName")
         let lastNameProducer = lastNameProperty.producer.map { $0 as? String ?? "" }
-        return lastNameProducer
+        return lastNameProducer.takeUntil(self.deleteProducer)
     }()
     
     lazy var companyProducer: SignalProducer<String, NoError> = {
         let companyProperty = DynamicProperty(object: self, keyPath: "company")
         let companyProducer = companyProperty.producer.map { $0 as? String ?? "" }
-        return companyProducer
+        return companyProducer.takeUntil(self.deleteProducer)
     }()
     
     lazy var emailProducer: SignalProducer<String, NoError> = {
         let emailProperty = DynamicProperty(object: self, keyPath: "email")
         let emailProducer = emailProperty.producer.map { $0 as? String ?? "" }
-        return emailProducer
+        return emailProducer.takeUntil(self.deleteProducer)
     }()
     
     //MARK: Debug

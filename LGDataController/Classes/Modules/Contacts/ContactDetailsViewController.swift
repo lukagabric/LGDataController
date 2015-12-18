@@ -71,7 +71,8 @@ public class ContactDetailsViewController: UIViewController {
             sself.weightLabel.rac_text <~ contact.weightProducer
             
             contact.deleteProducer.startWithNext { [weak self] in
-                guard let view = self?.view else { return }
+                guard let sself = self, view = sself.view else { return }
+                if sself.contact == nil { return }
                 LGTextOverlayView.contentUnavailableView(frame: view.bounds, addedToView: view)
             }
         }
