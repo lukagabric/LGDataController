@@ -21,7 +21,11 @@ public class NavigationService: HomeNavigationServiceType, ContactsNavigationSer
         self.navigationController = navigationController
     }
     
-    //MARK: - Show Home
+    //MARK: - Common
+    
+    public func popView(animated animated: Bool) {
+        self.navigationController.popViewControllerAnimated(animated)
+    }
 
     public func showHomeView() {
         let homeViewModel = HomeViewModel(dependencies: dependencies)

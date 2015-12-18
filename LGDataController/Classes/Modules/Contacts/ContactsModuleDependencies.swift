@@ -23,11 +23,13 @@ public protocol ContactsDataServiceType {
     func contactWithId(contactId: String) -> Contact?
     func updateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NSError>?
     func mutablePropertyForContactWithId(contactId: String) -> MutableProperty<Contact?>
+    func deleteContact(contact: Contact)
     
 }
 
 public protocol ContactsNavigationServiceType {
     
     func pushContactDetails(contactId contactId: String)
+    func popView(animated animated: Bool)
     
 }

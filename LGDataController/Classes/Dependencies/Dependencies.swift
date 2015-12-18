@@ -21,7 +21,7 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     init(navigationController: UINavigationController, application: UIApplication) {
         self.navigationController = navigationController
         self.application = application
-        self.cacheController = LGCacheController(application: self.application, context: self.dataController.mainContext, notificationCenter: self.notificationCenter)
+        self.cacheController = LGCacheController(application: self.application, context: self.mainContext, notificationCenter: self.notificationCenter)
     }
     
     //MARK: - Dependencies
@@ -40,7 +40,7 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     }()
     
     lazy public var dataController: DataController = {
-        return LGDataController(session: self.urlSession, mainContext: self.managedObjectContext)
+        return LGDataController(session: self.urlSession, mainContext: self.mainContext)
     }()
     
     lazy public var navigationService: NavigationService = {
@@ -63,7 +63,7 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
         return NSNotificationCenter.defaultCenter()
     }
     
-    private lazy var managedObjectContext: NSManagedObjectContext = {
+    private lazy var mainContext: NSManagedObjectContext = {
         let modelURL = NSBundle.mainBundle().URLForResource("LGDataController", withExtension: "mom")!
         let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)!
         

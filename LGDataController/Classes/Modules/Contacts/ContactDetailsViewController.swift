@@ -13,12 +13,15 @@ public protocol ContactDetailsViewModelType {
     
     var contact: MutableProperty<Contact?> { get }
     var updateProducer: SignalProducer<Contact?, NSError>? { get }
+    var deleteAction: Action<Void, Void, NoError>! { get }
 
 }
 
 public class ContactDetailsViewController: UIViewController {
     
     private var viewModel: ContactDetailsViewModelType!
+    
+    private var barButtonAction: CocoaAction!
     
     private var contact: Contact? {
         return self.viewModel.contact.value
@@ -35,6 +38,8 @@ public class ContactDetailsViewController: UIViewController {
     
     init(viewModel: ContactDetailsViewModelType) {
         self.viewModel = viewModel
+        self.barButtonAction = CocoaAction(viewModel.deleteAction, input: ())
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -46,6 +51,12 @@ public class ContactDetailsViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .Trash,
+            target: self.barButtonAction,
+            action: CocoaAction.selector
+        )
         
         self.edgesForExtendedLayout = .None
         

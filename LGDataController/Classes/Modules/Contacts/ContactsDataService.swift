@@ -109,6 +109,12 @@ public class ContactsDataService: ContactsDataServiceType {
         return contactMutableProperty
     }
     
+    //MARK: - Delete
+    
+    public func deleteContact(contact: Contact) {
+        self.dataController.deleteObject(contact)
+    }
+    
     //MARK: - Private
     
     private func parametersForLightContactsData() -> [String : String]? {

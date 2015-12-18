@@ -42,6 +42,7 @@ public protocol DataController {
         dataUpdate: (payload: Any, response: LGResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>?
     
     var mainContext: NSManagedObjectContext { get }
+    func deleteObject(object: NSManagedObject)
     
 }
 
@@ -143,6 +144,13 @@ public class LGDataController: DataController {
             self.activeUpdates[requestId] = resultProducer
 
             return resultProducer
+    }
+    
+    public func deleteObject(object: NSManagedObject) {
+        assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
+
+        self.mainContext.deleteObject(object)
+        self.saveDataToPersistentStore(context: self.mainContext, completion: nil)
     }
     
     //MARK: - Cache Invalidation
