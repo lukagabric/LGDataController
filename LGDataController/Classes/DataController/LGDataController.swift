@@ -168,7 +168,7 @@ public class LGDataController: DataController {
     func isDataNew(reqestId requestId: String, response: LGResponse) -> Bool {
         if response.eTag == nil && response.lastModified == nil {
             #if DEBUG
-                NSLog("No response etag or last modified for request with id: '\(requestId)', url: '\(response.httpResponse.URL?.absoluteString)'. Request needs to have a fingerprint (e.g. ETag or Last-Modified) for caching.")
+                print("No response etag or last modified for request with id: '\(requestId)', url: '\(response.httpResponse.URL?.absoluteString)'. Request needs to have a fingerprint (e.g. ETag or Last-Modified) for caching.")
             #endif
             return true
         }
@@ -192,7 +192,7 @@ public class LGDataController: DataController {
         }
             
         #if DEBUG
-            NSLog("Data is \(isDataNew ? "" : "NOT ")new for this request.");
+            print("Data is \(isDataNew ? "" : "NOT ")new for this request.");
         #endif
         
         return isDataNew
