@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class PermanentEntity: NSManagedObject {
+public class PermanentEntity: NSManagedObject {
     
     //MARK: - Entity Name
     

@@ -39,7 +39,7 @@ public protocol DataController {
         parameters: [String : AnyObject]?,
         requestId: String,
         staleInterval: NSTimeInterval,
-        dataUpdate: (data: Any, response: LGResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>?
+        dataUpdate: (payload: Any, response: LGResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>?
     
     var mainContext: NSManagedObjectContext { get }
     
@@ -79,7 +79,7 @@ public class LGDataController: DataController {
         parameters: [String : AnyObject]?,
         requestId: String,
         staleInterval: NSTimeInterval,
-        dataUpdate: (data: Any, response: LGResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>? {
+        dataUpdate: (payload: Any, response: LGResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>? {
             assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
             
             if let activeUpdateProducer = self.activeUpdates[requestId] {
@@ -115,7 +115,7 @@ public class LGDataController: DataController {
                 }
                 
                 self.bgContext.performBlock {
-                    let resultData = dataUpdate(data: serializedResponse, response: response, context: self.bgContext)
+                    let resultData = dataUpdate(payload: serializedResponse, response: response, context: self.bgContext)
                     
                     self.saveDataToPersistentStore(context: self.bgContext) {
                         self.refreshUpdateInfo(reqestId: requestId, response: response)

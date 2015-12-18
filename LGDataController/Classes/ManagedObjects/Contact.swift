@@ -21,21 +21,21 @@ public class Contact: ContentEntity {
     //MARK: - Mappings
     
     static var mappings: [String : String] = [
-        "objectId" : "guid",
+        "objectId" : "guid"
     ]
     
     override class func lg_responseToEntityMappings() -> [String : String] {
         return mappings
     }
     
-    //MARK: Parsing Data
+    //MARK: Parsing Payload
     
-    class func parseAllContactsData(data: NSArray, weight: LGContentWeight, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
+    class func parseAllContactsPayload(payload: NSArray, weight: LGContentWeight, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
         let allContacts: [Contact] = context.lg_allObjects()
         var contactsByGuid: [String : Contact] = allContacts.lg_indexedByKeyPath("guid")
         
         var resultContacts = [Contact]()
-        for payloadDict in data as! [[String : AnyObject]] {
+        for payloadDict in payload as! [[String : AnyObject]] {
             let guid = payloadDict[payloadGuidKey] as! String
             let contact: Contact
             if let c = contactsByGuid.removeValueForKey(guid) {
@@ -45,10 +45,14 @@ public class Contact: ContentEntity {
                 contact = NSEntityDescription.insertNewObjectForEntityForName(Contact.lg_entityName(), inManagedObjectContext: context) as! Contact
             }
             
-            self.parsePayloadForContact(contact, payloadDict: payloadDict, context: context)
-            contact.updateForPayloadWeight(weight)
+            if contact.contentWeight != weight || contact.updatedAtString != payloadDict["updatedAt"] as? String {
+                self.parsePayloadForContact(contact, payloadDict: payloadDict, context: context)
+                
+                contact.updateForPayloadWeight(weight)
+            }
+
             contact.markAsPermanentInContext(context)
-            
+
             resultContacts.append(contact)
         }
         
@@ -59,11 +63,11 @@ public class Contact: ContentEntity {
         return resultContacts
     }
     
-    class func parseContactsData(data: NSArray, weight: LGContentWeight, isPermanent: Bool = true, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
-        let guids = data.valueForKey(payloadGuidKey) as! [String]
+    class func parseContactsPayload(payload: NSArray, weight: LGContentWeight, isPermanent: Bool = true, payloadGuidKey: String, context: NSManagedObjectContext) -> [Contact] {
+        let guids = payload.valueForKey(payloadGuidKey) as! [String]
         let contacts: [Contact] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: "guid")
         let contactsByGuid: [String : Contact] = contacts.lg_indexedByKeyPath("guid")
-        for payloadDict in data as! [[String : AnyObject]] {
+        for payloadDict in payload as! [[String : AnyObject]] {
             let guid = payloadDict[payloadGuidKey] as! String
             guard let contact = contactsByGuid[guid] else { continue }
             
@@ -83,6 +87,11 @@ public class Contact: ContentEntity {
     class func parsePayloadForContact(contact: Contact, payloadDict: [String : AnyObject], context: NSManagedObjectContext) {
         contact.lg_mergeWithDictionary(payloadDict)
         //No other actions needed but this would be used to handle relationship
+    }
+    
+    override public func lg_mergeWithDictionary(dictionary: [String : AnyObject]) {
+        super.lg_mergeWithDictionary(dictionary)
+        self.updatedAtString = dictionary["updatedAt"] as? String
     }
 
     //MARK: Info

@@ -9,10 +9,17 @@
 import Foundation
 import CoreData
 
-enum LGContentWeight: Int {
+public enum LGContentWeight: Int {
     case Stub
     case Light
     case Full
+}
+
+public protocol LGContentEntityType {
+    
+    var guid: String? { get }
+    var contentWeight: LGContentWeight { get set }
+    
 }
 
 extension NSManagedObject: LGContextTransferable {
@@ -88,7 +95,7 @@ extension NSManagedObject {
     
     class func lg_dateFormatter() -> NSDateFormatter {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
         return dateFormatter
     }
     
@@ -97,23 +104,34 @@ extension NSManagedObject {
         abort()
     }
     
-    class func lg_mergeObjects<T: NSManagedObject>(data data: [[String : AnyObject]], dataGuidKey: String, objectGuidKey: String, weight: LGContentWeight, context: NSManagedObjectContext) -> [T] {
-        
-        let objectsGuids = data.map { (dictionary: [String : AnyObject]) -> String in
-            dictionary[dataGuidKey] as! String
-        }
-        let objects: [T] = context.lg_existingObjectsOrStubs(guids: objectsGuids, guidKey: objectGuidKey)
-        
-        let objectsById: [String : T] = objects.lg_indexedByKeyPath(objectGuidKey)
-        
-        for dictionary in data {
-            let guid = dictionary[dataGuidKey] as! String
-            let object = objectsById[guid] as! NSManagedObject
-            object.setValue(weight.rawValue, forKey: "weight")
-            object.lg_mergeWithDictionary(dictionary)
-        }
-        
-        return objects
+    class func lg_mergeEntitiesWithPayload<T where T: NSManagedObject, T: LGContentEntityType>(
+        payload: [[String : AnyObject]],
+        payloadGuidKey: String,
+        entityGuidKey: String,
+        weight: LGContentWeight,
+        context: NSManagedObjectContext) -> [T] {
+            let guids = payload.map { (dictionary: [String : AnyObject]) -> String in
+                dictionary[payloadGuidKey] as! String
+            }
+            let entities: [T] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: entityGuidKey)
+            
+            let entitiesById: [String : T] = entities.lg_indexedByKeyPath(entityGuidKey)
+            
+            for dictionary in payload {
+                let guid = dictionary[payloadGuidKey] as! String
+                var entity = entitiesById[guid] as T!
+                
+                if weight == .Full {
+                    entity.contentWeight = .Full
+                }
+                else if entity.contentWeight != .Full {
+                    entity.contentWeight = .Light
+                }
+                
+                entity.lg_mergeWithDictionary(dictionary)
+            }
+            
+            return entities
     }
     
 }

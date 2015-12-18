@@ -10,18 +10,26 @@ import Foundation
 import CoreData
 import ReactiveCocoa
 
-public class ContentEntity: NSManagedObject {
+public class ContentEntity: NSManagedObject, LGContentEntityType {
 
-    var contentWeight: LGContentWeight {
-        guard let weight = self.weight else { return .Stub }
+    public var contentWeight: LGContentWeight {
         
-        if weight == LGContentWeight.Light.rawValue { return .Light }
-        if weight == LGContentWeight.Full.rawValue { return .Full }
+        get {
+            guard let weight = self.weight else { return .Stub }
+            
+            if weight == LGContentWeight.Light.rawValue { return .Light }
+            if weight == LGContentWeight.Full.rawValue { return .Full }
+            
+            return .Stub
+        }
         
-        return .Stub
+        set(contentWeight) {
+            self.weight = NSNumber(integer: contentWeight.rawValue)
+        }
+        
     }
     
-    lazy var weightProducer: SignalProducer<String, NoError> = {
+    lazy public var weightProducer: SignalProducer<String, NoError> = {
         let weightProperty = DynamicProperty(object: self, keyPath: "weight")
         let weightProducer = weightProperty.producer.map { value -> String in
             guard let weight = value as? NSNumber else { return "Not set" }
@@ -51,10 +59,10 @@ public class ContentEntity: NSManagedObject {
 
     func updateForPayloadWeight(weight: LGContentWeight) {
         if weight == .Full {
-            self.weight = NSNumber(integer: LGContentWeight.Full.rawValue)
+            self.contentWeight = .Full
         }
         else if self.contentWeight != .Full {
-            self.weight = NSNumber(integer: LGContentWeight.Light.rawValue)
+            self.contentWeight = .Light
         }
     }
     

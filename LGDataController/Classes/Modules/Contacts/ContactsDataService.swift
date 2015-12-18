@@ -50,10 +50,10 @@ public class ContactsDataService: ContactsDataServiceType {
             methodName: "GET",
             parameters: parameters,
             requestId: "GetAllContacts",
-            staleInterval: 10) { (data, response, context) -> [Contact]? in
-                let dataDictionary = data as! NSDictionary
+            staleInterval: 10) { (payload, response, context) -> [Contact]? in
+                let dataDictionary = payload as! NSDictionary
                 let payloadArray = (dataDictionary["results"]) as! NSArray
-                let contacts = Contact.parseAllContactsData(payloadArray, weight: .Light, payloadGuidKey: "objectId", context: context)
+                let contacts = Contact.parseAllContactsPayload(payloadArray, weight: .Light, payloadGuidKey: "objectId", context: context)
                 return contacts
         }
 
@@ -80,10 +80,10 @@ public class ContactsDataService: ContactsDataServiceType {
             methodName: "GET",
             parameters: parameters,
             requestId: contactId,
-            staleInterval: 10) { (data, response, context) -> Contact? in
-                let dataDictionary = data as! NSDictionary
+            staleInterval: 10) { (payload, response, context) -> Contact? in
+                let dataDictionary = payload as! NSDictionary
                 let payloadArray = (dataDictionary["results"]) as! NSArray
-                let contacts = Contact.parseContactsData(payloadArray, weight: .Full, payloadGuidKey: "objectId", context: context)
+                let contacts = Contact.parseContactsPayload(payloadArray, weight: .Full, payloadGuidKey: "objectId", context: context)
                 let contact = contacts.first
                 return contact
         }

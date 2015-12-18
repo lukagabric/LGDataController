@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class SessionEntity: NSManagedObject {
+public class SessionEntity: NSManagedObject {
 
     //MARK: - Entity Name
     
