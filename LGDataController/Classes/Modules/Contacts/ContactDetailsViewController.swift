@@ -52,11 +52,7 @@ public class ContactDetailsViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .Trash,
-            target: self.barButtonAction,
-            action: CocoaAction.selector
-        )
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Trash, target: self.barButtonAction, action: CocoaAction.selector)
         
         self.edgesForExtendedLayout = .None
         
