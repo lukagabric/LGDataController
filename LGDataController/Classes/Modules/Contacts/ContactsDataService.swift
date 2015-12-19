@@ -13,6 +13,7 @@ import CoreData
 public class ContactsDataService: ContactsDataServiceType {
     
     private let dataController: DataController
+    private let parametersError = NSError(domain: "Parameters error", code: 0, userInfo: nil)
     
     //MARK: - Init
     
@@ -62,9 +63,9 @@ public class ContactsDataService: ContactsDataServiceType {
     
     //MARK: - Contact
     
-    public func contactWithId(contactId: String) -> Contact? {
+    public func contactWithId(contactId: String, weight: LGContentWeight = .Full) -> Contact? {
         let fetchRequest = NSFetchRequest(entityName: Contact.lg_entityName())
-        let predicate = NSPredicate(format: "guid == %@", contactId)
+        let predicate = NSPredicate(format: "guid == %@ && weight >= %ld", contactId, weight.rawValue)
         fetchRequest.predicate = predicate
         
         let contact = try! self.dataController.mainContext.executeFetchRequest(fetchRequest).first as? Contact
@@ -72,8 +73,10 @@ public class ContactsDataService: ContactsDataServiceType {
         return contact
     }
 
-    public func updateProducerForContactWithId(contactId: String) -> SignalProducer<Contact?, NSError>? {
-        guard let parameters = self.parametersForObjectId(contactId) else { return nil }
+    public func producerForContactWithId(contactId: String, weight: LGContentWeight = .Full) -> SignalProducer<Contact?, NSError> {
+        guard let parameters = self.parametersForObjectId(contactId) else { return SignalProducer(error: self.parametersError) }
+        
+        let contact = self.contactWithId(contactId, weight: weight)
 
         let contactUpdateProducer = self.dataController.updateData(
             url: "https://api.parse.com/1/classes/contacts",
@@ -83,32 +86,16 @@ public class ContactsDataService: ContactsDataServiceType {
             staleInterval: 10) { (payload, response, context) -> Contact? in
                 let dataDictionary = payload as! NSDictionary
                 let payloadArray = (dataDictionary["results"]) as! [[String : AnyObject]]
-                let contacts: [Contact] = NSManagedObject.lg_mergeObjectsWithPayload(payloadArray, payloadGuidKey: "objectId", objectGuidKey: "guid", weight: .Full, context: context)
+                let contacts: [Contact] = NSManagedObject.lg_mergeObjectsWithPayload(payloadArray, payloadGuidKey: "objectId", objectGuidKey: "guid", weight: weight, context: context)
                 let contact = contacts.first
                 return contact
         }
         
-        return contactUpdateProducer
+        let resultProducer = contact != nil ? SignalProducer(value: contact) : contactUpdateProducer!
+        
+        return resultProducer
     }
-    
-    public func mutablePropertyForContactWithId(contactId: String) -> MutableProperty<Contact?> {
-        let contact = self.contactWithId(contactId)
-        let contactMutableProperty = MutableProperty<Contact?>(contact)
-        
-        let contactUpdateProducer = self.updateProducerForContactWithId(contactId)
-        
-        if contact != nil {
-            return contactMutableProperty
-        }
 
-        let updateProducer = contactUpdateProducer ?? SignalProducer<Contact?, NSError>.empty
-        let updateNoErrorProducer = updateProducer.flatMapError { _ in SignalProducer<Contact?, NoError>.empty }
-
-        contactMutableProperty <~ updateNoErrorProducer
-        
-        return contactMutableProperty
-    }
-    
     //MARK: - Delete
     
     public func deleteContact(contact: Contact) {

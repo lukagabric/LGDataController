@@ -12,10 +12,10 @@ import CoreData
 
 public protocol ContactsViewModelType {
     
-    var refreshProducer: SignalProducer<Void, NSError>? { get }
-    var contactsTitleProducer: SignalProducer<String, NoError> { get }
     var contacts: MutableProperty<[Contact]?> { get }
-    
+    var loadingHidden: MutableProperty<Bool> { get }
+    var contactsTitleProducer: SignalProducer<String, NoError> { get }
+
     func didSelectContact(contact: Contact)
 
 }
@@ -46,9 +46,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     override public func viewDidLoad() {
         super.viewDidLoad()
 
-        if self.contacts == nil || self.contacts!.count == 0 {
-            LGLoadingView.attachToView(self.view, updateProducer: self.viewModel.refreshProducer)
-        }
+        LGLoadingView.attachToView(self.view).rac_hidden <~ self.viewModel.loadingHidden.producer
 
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
         

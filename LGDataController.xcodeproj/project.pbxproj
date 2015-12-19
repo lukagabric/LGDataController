@@ -58,6 +58,8 @@
 		4186AA171C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */; };
 		4186AA281C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
 		4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
+		418827ED1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418827EC1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift */; };
+		418827EE1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418827EC1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift */; };
 		419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */; };
 		419B65E51C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */; };
 		419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E11C2298C800C7C28B /* PermanentEntity.swift */; };
@@ -253,6 +255,7 @@
 		4186AA111C19D376003C3A89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LGDataController.xcdatamodel; sourceTree = "<group>"; };
+		418827EC1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReactiveCocoa+LGExtension.swift"; sourceTree = "<group>"; };
 		419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PermanentEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		419B65E11C2298C800C7C28B /* PermanentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentEntity.swift; sourceTree = "<group>"; };
 		419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SessionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -395,6 +398,7 @@
 				4186A9C91C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift */,
 				4186A9CA1C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift */,
 				4186A9CB1C19D2A4003C3A89 /* UIKitExtensions.swift */,
+				418827EC1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -742,6 +746,7 @@
 				419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */,
 				4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
 				4186A9EC1C19D2A4003C3A89 /* LGDataController.swift in Sources */,
+				418827ED1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift in Sources */,
 				41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */,
 				4186A9EE1C19D2A4003C3A89 /* LGModelObserver.swift in Sources */,
 				4186A9E21C19D2A4003C3A89 /* AppDelegate.swift in Sources */,
@@ -786,6 +791,7 @@
 				4186A9F51C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
 				41EF86C41C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */,
 				41BD999A1C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
+				418827EE1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift in Sources */,
 				41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */,
 				41341B711BF273390074AF6A /* LGDataControllerTests.swift in Sources */,
 				4186AA051C19D2A4003C3A89 /* HomeViewController.swift in Sources */,

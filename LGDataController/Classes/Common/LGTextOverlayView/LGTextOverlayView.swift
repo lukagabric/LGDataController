@@ -10,16 +10,20 @@ import UIKit
 
 public class LGTextOverlayView: UIView {
     
-    class func contentUnavailableView(frame frame: CGRect, addedToView: UIView) -> LGTextOverlayView {
-        let overlayView = LGTextOverlayView(frame: frame, text: "Content not available")
-        addedToView.addSubview(overlayView)
+    class func contentUnavailableViewAttachToView(view: UIView) -> LGTextOverlayView {
+        let overlayView = LGTextOverlayView(frame: view.bounds, text: "Content not available")
+        overlayView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        view.addSubview(overlayView)
+        
+        overlayView.backgroundColor = UIColor(white: 0, alpha: 0.6)
+
         return overlayView
     }
 
     init(frame: CGRect, text: String) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.lightGrayColor()
 
         let label = UILabel(frame: frame)
         label.text = text

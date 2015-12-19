@@ -11,8 +11,9 @@ import ReactiveCocoa
 
 public protocol ContactDetailsViewModelType {
     
-    var contact: MutableProperty<Contact?> { get }
-    var updateProducer: SignalProducer<Contact?, NSError>? { get }
+    var contactProducer: SignalProducer<Contact?, NSError>! { get }
+    var loadingHiddenProducer: SignalProducer<Bool, NoError>! { get }
+    var contentUnavailableHiddenProducer: SignalProducer<Bool, NoError>! { get }
     var deleteAction: Action<Void, Void, NoError>! { get }
 
 }
@@ -23,16 +24,14 @@ public class ContactDetailsViewController: UIViewController {
     
     private var barButtonAction: CocoaAction!
     
-    private var contact: Contact? {
-        return self.viewModel.contact.value
-    }
-    
     @IBOutlet weak var guidLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var companyLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
+    
+    var deleteBarButtonItem: UIBarButtonItem!
     
     //MARK: - Init
     
@@ -41,6 +40,8 @@ public class ContactDetailsViewController: UIViewController {
         self.barButtonAction = CocoaAction(viewModel.deleteAction, input: ())
 
         super.init(nibName: nil, bundle: nil)
+        
+//        self.simulateUnrelatedDeleteOfCurrentObject()
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -52,15 +53,15 @@ public class ContactDetailsViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Trash, target: self.barButtonAction, action: CocoaAction.selector)
+        self.deleteBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Trash, target: self.barButtonAction, action: CocoaAction.selector)
+        self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
         self.edgesForExtendedLayout = .None
         
-        if self.contact == nil || self.contact!.contentWeight != .Full {
-            LGLoadingView.attachToView(self.view, updateProducer: self.viewModel.updateProducer)
-        }
-        
-        self.viewModel.contact.producer.startWithNext { [weak self] contact in
+        LGLoadingView.attachToView(self.view).rac_hidden <~ self.viewModel.loadingHiddenProducer
+        LGTextOverlayView.contentUnavailableViewAttachToView(self.view).rac_hidden <~ self.viewModel.contentUnavailableHiddenProducer
+
+        self.viewModel.contactProducer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
 
             sself.guidLabel.text = contact.guid
@@ -68,16 +69,19 @@ public class ContactDetailsViewController: UIViewController {
             sself.lastNameLabel.rac_text <~ contact.lastNameProducer
             sself.companyLabel.rac_text <~ contact.companyProducer
             sself.emailLabel.rac_text <~ contact.emailProducer
-            sself.weightLabel.rac_text <~ contact.weightProducer
-            
-            contact.deleteProducer.startWithNext { [weak self] in
-                guard let sself = self, view = sself.view else { return }
-                if sself.contact == nil { return }
-                LGTextOverlayView.contentUnavailableView(frame: view.bounds, addedToView: view)
-            }
+            sself.weightLabel.rac_text <~ contact.weightProducer            
         }
     }
 
     //MARK: -
+    
+    func simulateUnrelatedDeleteOfCurrentObject() {
+//        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
+//        dispatch_after(delayTime, dispatch_get_main_queue()) { [weak self] in
+//            guard let contact = self?.viewModel.contact.value else { return }
+//            contact.managedObjectContext?.deleteObject(contact)
+//            try! contact.managedObjectContext?.save()
+//        }
+    }
 
 }

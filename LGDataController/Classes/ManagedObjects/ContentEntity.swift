@@ -42,7 +42,7 @@ public class ContentEntity: NSManagedObject, LGContentEntityType {
     lazy var deleteProducer: SignalProducer<Void, NoError> = {
         let (deleteProducer, deleteObserver) = SignalProducer<Void, NoError>.buffer(1)
         self.deleteObserver = deleteObserver
-        return deleteProducer
+        return deleteProducer.takeLast(1)
     }()
     
     private var deleteObserver: Observer<Void, NoError>?
