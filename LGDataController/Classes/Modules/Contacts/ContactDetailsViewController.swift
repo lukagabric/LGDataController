@@ -8,6 +8,7 @@
 
 import UIKit
 import ReactiveCocoa
+import Rex
 
 public protocol ContactDetailsViewModelType {
     
@@ -31,7 +32,7 @@ public class ContactDetailsViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     
-    var deleteBarButtonItem: UIBarButtonItem!
+    @IBOutlet var deleteBarButtonItem: UIBarButtonItem!
     
     //MARK: - Init
     
@@ -52,24 +53,24 @@ public class ContactDetailsViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.deleteBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Trash, target: self.barButtonAction, action: CocoaAction.selector)
-        self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
-        
+
         self.edgesForExtendedLayout = .None
         
-        LGLoadingView.attachToView(self.view).rac_hidden <~ self.viewModel.loadingHiddenProducer
-        LGTextOverlayView.contentUnavailableViewAttachToView(self.view).rac_hidden <~ self.viewModel.contentUnavailableHiddenProducer
+        self.deleteBarButtonItem.rex_action <~ SignalProducer(value: CocoaAction(self.viewModel.deleteAction, input: ()))
+        self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
+        
+        LGLoadingView.attachToView(self.view).rex_hidden <~ self.viewModel.loadingHiddenProducer
+        LGTextOverlayView.contentUnavailableViewAttachToView(self.view).rex_hidden <~ self.viewModel.contentUnavailableHiddenProducer
 
         self.viewModel.contactProducer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
 
             sself.guidLabel.text = contact.guid
-            sself.firstNameLabel.rac_text <~ contact.firstNameProducer
-            sself.lastNameLabel.rac_text <~ contact.lastNameProducer
-            sself.companyLabel.rac_text <~ contact.companyProducer
-            sself.emailLabel.rac_text <~ contact.emailProducer
-            sself.weightLabel.rac_text <~ contact.weightProducer            
+            sself.firstNameLabel.rex_text <~ contact.firstNameProducer
+            sself.lastNameLabel.rex_text <~ contact.lastNameProducer
+            sself.companyLabel.rex_text <~ contact.companyProducer
+            sself.emailLabel.rex_text <~ contact.emailProducer
+            sself.weightLabel.rex_text <~ contact.weightProducer            
         }
     }
 

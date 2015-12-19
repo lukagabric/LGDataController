@@ -39,22 +39,6 @@ public func lazyMutableProperty<T>(host: AnyObject, key: UnsafePointer<Void>, se
   }
 }
 
-extension UIView {
-  public var rac_alpha: MutableProperty<CGFloat> {
-    return lazyMutableProperty(self, key: &AssociationKey.alpha, setter: { self.alpha = $0 }, getter: { self.alpha  })
-  }
-  
-  public var rac_hidden: MutableProperty<Bool> {
-    return lazyMutableProperty(self, key: &AssociationKey.hidden, setter: { self.hidden = $0 }, getter: { self.hidden  })
-  }
-}
-
-extension UILabel {
-    public var rac_text: MutableProperty<String> {
-        return lazyMutableProperty(self, key: &AssociationKey.text, setter: { self.text = $0 }, getter: { self.text ?? "" })
-    }
-}
-
 extension UIViewController {
     public var rac_title: MutableProperty<String> {
         return lazyMutableProperty(self, key: &AssociationKey.title, setter: { self.title = $0 }, getter: { self.title ?? "" })
@@ -80,10 +64,4 @@ extension UITextField {
   func changed() {
     rac_text.value = self.text ?? ""
   }
-}
-
-extension UITableView {
-    public func reloadWithProducer<T>(producer: SignalProducer<T, NoError>) {
-        producer.startWithNext { [weak self] _ in self?.reloadData() }
-    }
 }

@@ -47,3 +47,9 @@ func mutablePropertyForObject<T>(object: T?, updateProducer: SignalProducer<T?, 
 func loadingHiddenProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
     return loadingProducerFrom(producer).map { !$0 }
 }
+
+extension UITableView {
+    public func reloadWithProducer<T>(producer: SignalProducer<T, NoError>) {
+        producer.startWithNext { [weak self] _ in self?.reloadData() }
+    }
+}

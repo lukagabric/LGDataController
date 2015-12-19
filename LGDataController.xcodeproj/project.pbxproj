@@ -20,8 +20,6 @@
 		4186A9E71C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C91C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift */; };
 		4186A9E81C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CA1C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift */; };
 		4186A9E91C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CA1C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift */; };
-		4186A9EA1C19D2A4003C3A89 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CB1C19D2A4003C3A89 /* UIKitExtensions.swift */; };
-		4186A9EB1C19D2A4003C3A89 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CB1C19D2A4003C3A89 /* UIKitExtensions.swift */; };
 		4186A9EC1C19D2A4003C3A89 /* LGDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CC1C19D2A4003C3A89 /* LGDataController.swift */; };
 		4186A9ED1C19D2A4003C3A89 /* LGDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CC1C19D2A4003C3A89 /* LGDataController.swift */; };
 		4186A9EE1C19D2A4003C3A89 /* LGModelObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CD1C19D2A4003C3A89 /* LGModelObserver.swift */; };
@@ -81,6 +79,10 @@
 		41D0AEF21C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */; };
 		41D0AEF31C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */; };
 		41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */; };
+		41EF0B511C25D21C0088CFCC /* Rex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EF0B481C25D20B0088CFCC /* Rex.framework */; };
+		41EF0B521C25D21C0088CFCC /* Rex.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41EF0B481C25D20B0088CFCC /* Rex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		41EF0B561C25D2950088CFCC /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */; };
+		41EF0B571C25D2950088CFCC /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */; };
 		41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
 		41EF86C41C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
 		41EF86C51C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */; };
@@ -207,6 +209,62 @@
 			remoteGlobalIDString = 41341B541BF273380074AF6A;
 			remoteInfo = LGDataController;
 		};
+		41EF0B431C25D20B0088CFCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D86E77A91AFEE646004BF23D;
+			remoteInfo = "Rex-Mac";
+		};
+		41EF0B451C25D20B0088CFCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D86E77AA1AFEE646004BF23D;
+			remoteInfo = "RexTests-Mac";
+		};
+		41EF0B471C25D20B0088CFCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D86E77AB1AFEE646004BF23D;
+			remoteInfo = "Rex-iOS";
+		};
+		41EF0B491C25D20B0088CFCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D86E77AC1AFEE646004BF23D;
+			remoteInfo = "RexTests-iOS";
+		};
+		41EF0B4B1C25D20B0088CFCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D8715DB01C21123E005F4191;
+			remoteInfo = "Rex-tvOS";
+		};
+		41EF0B4D1C25D20B0088CFCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D8715DD11C21160A005F4191;
+			remoteInfo = "RexTests-tvOS";
+		};
+		41EF0B4F1C25D20B0088CFCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D8715D941C210F97005F4191;
+			remoteInfo = "Rex-watchOS";
+		};
+		41EF0B531C25D21D0088CFCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D83457131AFEE44E0070616A;
+			remoteInfo = "Rex-iOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -217,6 +275,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4127C9BE1C0061AC006C0DFE /* Result.framework in Embed Frameworks */,
+				41EF0B521C25D21C0088CFCC /* Rex.framework in Embed Frameworks */,
 				4127C9C21C0061AC006C0DFE /* ReactiveCocoa.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -235,7 +294,6 @@
 		4186A9C81C19D2A4003C3A89 /* NSArray+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+LGExtension.swift"; sourceTree = "<group>"; };
 		4186A9C91C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+LGExtension.swift"; sourceTree = "<group>"; };
 		4186A9CA1C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+LGExtension.swift"; sourceTree = "<group>"; };
-		4186A9CB1C19D2A4003C3A89 /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		4186A9CC1C19D2A4003C3A89 /* LGDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGDataController.swift; sourceTree = "<group>"; };
 		4186A9CD1C19D2A4003C3A89 /* LGModelObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGModelObserver.swift; sourceTree = "<group>"; };
 		4186A9CE1C19D2A4003C3A89 /* LGRequestOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperation.swift; sourceTree = "<group>"; };
@@ -267,6 +325,8 @@
 		41CA59F31C2218F400A47168 /* ContentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentEntity.swift; sourceTree = "<group>"; };
 		41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTextOverlayView.swift; sourceTree = "<group>"; };
 		41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperationTests.swift; sourceTree = "<group>"; };
+		41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rex.xcodeproj; path = Rex/Rex.xcodeproj; sourceTree = "<group>"; };
+		41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -277,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4127C9BD1C0061AC006C0DFE /* Result.framework in Frameworks */,
+				41EF0B511C25D21C0088CFCC /* Rex.framework in Frameworks */,
 				4127C9C11C0061AC006C0DFE /* ReactiveCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,6 +383,7 @@
 		41341B4C1BF273380074AF6A = {
 			isa = PBXGroup;
 			children = (
+				41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */,
 				4127C9A21C00618E006C0DFE /* Result.xcodeproj */,
 				4127C9721C00615D006C0DFE /* ReactiveCocoa.xcodeproj */,
 				41341B571BF273380074AF6A /* LGDataController */,
@@ -394,10 +456,10 @@
 		4186A9C71C19D2A4003C3A89 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */,
 				4186A9C81C19D2A4003C3A89 /* NSArray+LGExtension.swift */,
 				4186A9C91C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift */,
 				4186A9CA1C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift */,
-				4186A9CB1C19D2A4003C3A89 /* UIKitExtensions.swift */,
 				418827EC1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift */,
 			);
 			path = Extensions;
@@ -513,6 +575,20 @@
 			path = LGTextOverlayView;
 			sourceTree = "<group>";
 		};
+		41EF0B3A1C25D20B0088CFCC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41EF0B441C25D20B0088CFCC /* Rex.framework */,
+				41EF0B461C25D20B0088CFCC /* RexTests-Mac.xctest */,
+				41EF0B481C25D20B0088CFCC /* Rex.framework */,
+				41EF0B4A1C25D20B0088CFCC /* RexTests-iOS.xctest */,
+				41EF0B4C1C25D20B0088CFCC /* Rex.framework */,
+				41EF0B4E1C25D20B0088CFCC /* RexTests-tvOS.xctest */,
+				41EF0B501C25D20B0088CFCC /* Rex.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -530,6 +606,7 @@
 			dependencies = (
 				4127C9C01C0061AC006C0DFE /* PBXTargetDependency */,
 				4127C9C41C0061AC006C0DFE /* PBXTargetDependency */,
+				41EF0B541C25D21D0088CFCC /* PBXTargetDependency */,
 			);
 			name = LGDataController;
 			productName = LGDataController;
@@ -592,6 +669,10 @@
 				{
 					ProductGroup = 4127C9A31C00618E006C0DFE /* Products */;
 					ProjectRef = 4127C9A21C00618E006C0DFE /* Result.xcodeproj */;
+				},
+				{
+					ProductGroup = 41EF0B3A1C25D20B0088CFCC /* Products */;
+					ProjectRef = 41EF0B391C25D20B0088CFCC /* Rex.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -701,6 +782,55 @@
 			remoteRef = 4127C9BB1C00618E006C0DFE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		41EF0B441C25D20B0088CFCC /* Rex.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Rex.framework;
+			remoteRef = 41EF0B431C25D20B0088CFCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		41EF0B461C25D20B0088CFCC /* RexTests-Mac.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "RexTests-Mac.xctest";
+			remoteRef = 41EF0B451C25D20B0088CFCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		41EF0B481C25D20B0088CFCC /* Rex.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Rex.framework;
+			remoteRef = 41EF0B471C25D20B0088CFCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		41EF0B4A1C25D20B0088CFCC /* RexTests-iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "RexTests-iOS.xctest";
+			remoteRef = 41EF0B491C25D20B0088CFCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		41EF0B4C1C25D20B0088CFCC /* Rex.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Rex.framework;
+			remoteRef = 41EF0B4B1C25D20B0088CFCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		41EF0B4E1C25D20B0088CFCC /* RexTests-tvOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "RexTests-tvOS.xctest";
+			remoteRef = 41EF0B4D1C25D20B0088CFCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		41EF0B501C25D20B0088CFCC /* Rex.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Rex.framework;
+			remoteRef = 41EF0B4F1C25D20B0088CFCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -739,10 +869,10 @@
 				41CA59F61C2218F400A47168 /* ContentEntity.swift in Sources */,
 				4186A9F81C19D2A4003C3A89 /* ContactsDataService.swift in Sources */,
 				41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
+				41EF0B561C25D2950088CFCC /* UIKitExtensions.swift in Sources */,
 				4186A9E41C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
 				419B65EA1C2298C800C7C28B /* SessionEntity.swift in Sources */,
 				41A75F801C20A956007DD6AA /* LGLoadingView.swift in Sources */,
-				4186A9EA1C19D2A4003C3A89 /* UIKitExtensions.swift in Sources */,
 				419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */,
 				4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
 				4186A9EC1C19D2A4003C3A89 /* LGDataController.swift in Sources */,
@@ -790,13 +920,13 @@
 				41A75F811C20A956007DD6AA /* LGLoadingView.swift in Sources */,
 				4186A9F51C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
 				41EF86C41C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */,
+				41EF0B571C25D2950088CFCC /* UIKitExtensions.swift in Sources */,
 				41BD999A1C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
 				418827EE1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift in Sources */,
 				41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */,
 				41341B711BF273390074AF6A /* LGDataControllerTests.swift in Sources */,
 				4186AA051C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
 				4186AA091C19D2A4003C3A89 /* HomeViewModel.swift in Sources */,
-				4186A9EB1C19D2A4003C3A89 /* UIKitExtensions.swift in Sources */,
 				4186AA031C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */,
 				4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */,
 				41D0AEF31C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */,
@@ -826,6 +956,11 @@
 			isa = PBXTargetDependency;
 			target = 41341B541BF273380074AF6A /* LGDataController */;
 			targetProxy = 41341B6D1BF273390074AF6A /* PBXContainerItemProxy */;
+		};
+		41EF0B541C25D21D0088CFCC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Rex-iOS";
+			targetProxy = 41EF0B531C25D21D0088CFCC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -9,6 +9,7 @@
 import UIKit
 import ReactiveCocoa
 import CoreData
+import Rex
 
 public protocol ContactsViewModelType {
     
@@ -46,7 +47,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     override public func viewDidLoad() {
         super.viewDidLoad()
 
-        LGLoadingView.attachToView(self.view).rac_hidden <~ self.viewModel.loadingHidden.producer
+        LGLoadingView.attachToView(self.view).rex_hidden <~ self.viewModel.loadingHidden.producer
 
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
         

@@ -4,17 +4,19 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E084C86B03F81D63323C9E7510697EA528A758C7" : 0,
     "09C3748B9BA25704207D20E96988CC4200B189F1" : 0,
     "51B210D0D41486D3ADD6940D57E4480BBD4DE4C5" : 0,
     "956D2B21DD155C49504BB67697A67F7C5351A353" : 0,
-    "E084C86B03F81D63323C9E7510697EA528A758C7" : 0
+    "58670FCEAD17022FAE9F039FA9ADA185D5237F34" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6F89AC3D-0F5F-4B3A-AD92-C0E3F1F94544",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E084C86B03F81D63323C9E7510697EA528A758C7" : "LGDataController\/ReactiveCocoa\/Carthage\/Checkouts\/xcconfigs\/",
     "09C3748B9BA25704207D20E96988CC4200B189F1" : "LGDataController\/",
     "51B210D0D41486D3ADD6940D57E4480BBD4DE4C5" : "LGDataController\/ReactiveCocoa\/",
     "956D2B21DD155C49504BB67697A67F7C5351A353" : "LGDataController\/ReactiveCocoa\/Carthage\/Checkouts\/Result\/",
-    "E084C86B03F81D63323C9E7510697EA528A758C7" : "LGDataController\/ReactiveCocoa\/Carthage\/Checkouts\/xcconfigs\/"
+    "58670FCEAD17022FAE9F039FA9ADA185D5237F34" : "LGDataController\/Rex\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "LGDataController",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -29,6 +31,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ReactiveCocoa\/ReactiveCocoa.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "51B210D0D41486D3ADD6940D57E4480BBD4DE4C5"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/neilpa\/Rex.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "58670FCEAD17022FAE9F039FA9ADA185D5237F34"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/antitypical\/Result.git",
