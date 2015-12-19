@@ -23,8 +23,6 @@ public class ContactDetailsViewController: UIViewController {
     
     private var viewModel: ContactDetailsViewModelType!
     
-    private var barButtonAction: CocoaAction!
-    
     @IBOutlet weak var guidLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
@@ -38,7 +36,6 @@ public class ContactDetailsViewController: UIViewController {
     
     init(viewModel: ContactDetailsViewModelType) {
         self.viewModel = viewModel
-        self.barButtonAction = CocoaAction(viewModel.deleteAction, input: ())
 
         super.init(nibName: nil, bundle: nil)
         
@@ -57,6 +54,7 @@ public class ContactDetailsViewController: UIViewController {
         self.edgesForExtendedLayout = .None
         
         self.deleteBarButtonItem.rex_action <~ SignalProducer(value: CocoaAction(self.viewModel.deleteAction, input: ()))
+        
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
         LGLoadingView.attachToView(self.view).rex_hidden <~ self.viewModel.loadingHiddenProducer
