@@ -13,8 +13,8 @@ import Rex
 public protocol ContactDetailsViewModelType {
     
     var contactProducer: SignalProducer<Contact?, NSError>! { get }
-    var loadingHiddenProducer: SignalProducer<Bool, NoError>! { get }
-    var contentUnavailableHiddenProducer: SignalProducer<Bool, NoError>! { get }
+    var loadingViewHiddenProducer: SignalProducer<Bool, NoError>! { get }
+    var contentUnavailableViewHiddenProducer: SignalProducer<Bool, NoError>! { get }
     var deleteAction: Action<Void, Void, NoError>! { get }
 
 }
@@ -29,17 +29,13 @@ public class ContactDetailsViewController: UIViewController {
     @IBOutlet weak var companyLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
-    
     @IBOutlet var deleteBarButtonItem: UIBarButtonItem!
     
     //MARK: - Init
     
     init(viewModel: ContactDetailsViewModelType) {
         self.viewModel = viewModel
-
         super.init(nibName: nil, bundle: nil)
-        
-//        self.simulateUnrelatedDeleteOfCurrentObject()
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -57,8 +53,8 @@ public class ContactDetailsViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
-        LGLoadingView.attachToView(self.view).rex_hidden <~ self.viewModel.loadingHiddenProducer
-        LGTextOverlayView.contentUnavailableViewAttachToView(self.view).rex_hidden <~ self.viewModel.contentUnavailableHiddenProducer
+        LGLoadingView.attachToView(self.view).rex_hidden <~ self.viewModel.loadingViewHiddenProducer
+        LGTextOverlayView.contentUnavailableViewAttachToView(self.view).rex_hidden <~ self.viewModel.contentUnavailableViewHiddenProducer
 
         self.viewModel.contactProducer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
@@ -74,13 +70,4 @@ public class ContactDetailsViewController: UIViewController {
 
     //MARK: -
     
-    func simulateUnrelatedDeleteOfCurrentObject() {
-//        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
-//        dispatch_after(delayTime, dispatch_get_main_queue()) { [weak self] in
-//            guard let contact = self?.viewModel.contact.value else { return }
-//            contact.managedObjectContext?.deleteObject(contact)
-//            try! contact.managedObjectContext?.save()
-//        }
-    }
-
 }

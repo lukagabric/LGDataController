@@ -12,22 +12,20 @@ import ReactiveCocoa
 public class ContactDetailsViewModel: ContactDetailsViewModelType {
     
     public var contactProducer: SignalProducer<Contact?, NSError>!
-    public var loadingHiddenProducer: SignalProducer<Bool, NoError>!
-    public var contentUnavailableHiddenProducer: SignalProducer<Bool, NoError>!
-    
+    public var loadingViewHiddenProducer: SignalProducer<Bool, NoError>!
+    public var contentUnavailableViewHiddenProducer: SignalProducer<Bool, NoError>!
+
+    private var deleteButtonEnabled = MutableProperty<Bool>(false)
     private let dataService: ContactsDataServiceType
     private let navigationService: ContactsNavigationServiceType
     
-    public var deleteAction: Action<(), (), NoError>!
+    public var deleteAction: Action<Void, Void, NoError>!
     
     init(dependencies: ContactsModuleDependencies, contactId: String) {
         self.dataService = dependencies.contactsDataService
         self.navigationService = dependencies.contactsNavigationService
 
-        self.contactProducer = self.dataService.producerForContactWithId(contactId, weight: .Full)
-        self.loadingHiddenProducer = loadingHiddenProducerFrom(self.contactProducer)
-
-        self.deleteAction = Action { [weak self] in
+        self.deleteAction = Action(enabledIf: self.deleteButtonEnabled) { [weak self] _ in
             self?.contactProducer.startWithNext { [weak self] contact in
                 guard let sself = self, contact = contact else { return }
                 
@@ -37,23 +35,26 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
             
             return SignalProducer.empty
         }
-
-        let firstHiddenProducer = SignalProducer<Bool, NoError>(value: true)
-        let hiddenAfterRefreshProducer = self.contactProducer
-            .flatMapError { _ in SignalProducer<Contact?, NoError>(value: nil) }
-            .map { contact in contact != nil }
-        let hiddenAfterDeleteProducer = self.contactProducer
-            .flatMapError { _ in return SignalProducer(value: nil) }
-            .flatMap(.Concat) { contact in contact?.deleteProducer ?? SignalProducer.empty }
-            .map { _ in false }
         
+        self.contactProducer = self.dataService.producerForContactWithId(contactId, weight: .Full)
+        self.loadingViewHiddenProducer = loadingHiddenProducerFrom(self.contactProducer)
+
+        let trueProducer = SignalProducer<Bool, NoError>(value: true)
+        let contactOrNilProducer = self.contactProducer.flatMapError { _ in SignalProducer<Contact?, NoError>(value: nil) }
+        let contactAvailableProducer = contactOrNilProducer.map { contact in contact != nil }
+        let contactDeleteProducer = contactOrNilProducer.flatMap(.Concat) { contact in contact?.deleteProducer ?? SignalProducer.empty }
+        let falseAfterContactDeletedProducer = contactDeleteProducer.map { _ in false }
         let deleteActionExecutedProducer = self.deleteAction.executing.producer.skip(1).map { _ in () }
+        
+        let contentUnavailableHiddenProducer = trueProducer
+            .concat(contactAvailableProducer)
+            .concat(falseAfterContactDeletedProducer)
 
-        self.contentUnavailableHiddenProducer = firstHiddenProducer
-            .concat(hiddenAfterRefreshProducer)
-            .concat(hiddenAfterDeleteProducer)
-            .takeUntil(deleteActionExecutedProducer)
+        self.contentUnavailableViewHiddenProducer = contentUnavailableHiddenProducer.takeUntil(deleteActionExecutedProducer)
         
+        self.deleteButtonEnabled <~ self.loadingViewHiddenProducer
+            .combineLatestWith(contentUnavailableHiddenProducer)
+            .map { $0 && $1 }
     }
-        
+    
 }

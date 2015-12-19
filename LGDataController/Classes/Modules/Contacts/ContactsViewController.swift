@@ -77,8 +77,19 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let contact = self.viewModel.contacts.value![indexPath.row]
         self.viewModel.didSelectContact(contact)
+//        self.simulateDeleteOfContact(contact)
     }
     
+    //MARK: - Just for testing when an object is deleted under you on e.g. details screen
+    
+    func simulateDeleteOfContact(contact: Contact) {
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            contact.managedObjectContext?.deleteObject(contact)
+            try! contact.managedObjectContext?.save()
+        }
+    }
+
     //MARK: -
 
 }
