@@ -15,6 +15,7 @@ public struct AssociationKey {
     static var alpha: UInt8 = 2
     static var text: UInt8 = 3
     static var title: UInt8 = 4
+    static var tableReload: UInt = 5
 }
 
 // lazily creates a gettable associated property via the given factory
@@ -64,4 +65,18 @@ extension UITextField {
   func changed() {
     rac_text.value = self.text ?? ""
   }
+}
+
+extension UITableView {
+    public var rac_tableReload: MutableProperty<Void> {
+        return lazyAssociatedProperty(self, key: &AssociationKey.tableReload) {
+            let property = MutableProperty<Void>(())
+            property.producer
+                .startWithNext {
+                    self.reloadData()
+            }
+            return property
+        }
+    }
+
 }

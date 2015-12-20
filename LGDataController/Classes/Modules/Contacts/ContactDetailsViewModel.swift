@@ -77,10 +77,10 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         
         self.mutableContact <~ contactProducer.ignoreError()
         
-        let loadingHiddenProducer = loadingHiddenProducerFrom(contactProducer)
+        let loadingHiddenProducer = lg_loadingHiddenProducerFrom(contactProducer)
         self.mutableLoadingViewHidden <~ loadingHiddenProducer
         
-        self.loadingContactData <~ loadingProducerFrom(contactProducer)
+        self.loadingContactData <~ lg_loadingProducerFrom(contactProducer)
         
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
         let contactOrNilProducer = contactProducer.flatMapError { _ in SignalProducer<Contact?, NoError>(value: nil) }

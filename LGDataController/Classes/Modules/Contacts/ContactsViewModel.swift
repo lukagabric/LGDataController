@@ -34,7 +34,7 @@ public class ContactsViewModel: ContactsViewModelType {
         }
         
         if self.contacts.value == nil || self.contacts.value!.count == 0 {
-            self.loadingHidden <~ loadingHiddenProducerFrom(self.contactsModelObserver.refreshProducer)
+            self.loadingHidden <~ lg_loadingHiddenProducerFrom(self.contactsModelObserver.refreshProducer)
         }
     }
     

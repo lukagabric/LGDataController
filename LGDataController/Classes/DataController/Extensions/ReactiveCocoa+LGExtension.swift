@@ -9,7 +9,7 @@
 import Foundation
 import ReactiveCocoa
 
-func loadingProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
+func lg_loadingProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
     guard let producer = producer else { return SignalProducer(value: false) }
     
     let (loadingProducer, loadingObserver) = SignalProducer<Bool, NoError>.buffer(1)
@@ -29,27 +29,14 @@ func loadingProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProduce
     return loadingProducer
 }
 
-func mutablePropertyForObject<T>(object: T?, updateProducer: SignalProducer<T?, NSError>?) -> MutableProperty<T?> {
-    let objectMutableProperty = MutableProperty<T?>(object)
-    
-    if object != nil {
-        return objectMutableProperty
-    }
-    
-    let objectUpdateProducer = updateProducer ?? SignalProducer<T?, NSError>.empty
-    let updateNoErrorProducer = objectUpdateProducer.flatMapError { _ in SignalProducer<T?, NoError>.empty }
-    
-    objectMutableProperty <~ updateNoErrorProducer
-    
-    return objectMutableProperty
+func lg_loadingHiddenProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
+    return lg_loadingProducerFrom(producer).map { !$0 }
 }
 
-func loadingHiddenProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
-    return loadingProducerFrom(producer).map { !$0 }
-}
-
-extension UITableView {
-    public func reloadWithProducer<T>(producer: SignalProducer<T, NoError>) {
-        producer.startWithNext { [weak self] _ in self?.reloadData() }
+extension SignalProducerType {
+    
+    var lg_tableReloadProducer: SignalProducer<Void, NoError> {
+        return self.map { _ in () }.flatMapError { _ in SignalProducer.empty }
     }
+    
 }

@@ -58,7 +58,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     
     func configureBindings() {
         self.rac_title <~ self.viewModel.contactsTitleProducer
-        self.tableView.reloadWithProducer(self.viewModel.contacts.producer)
+        self.tableView.rac_tableReload <~ self.viewModel.contacts.producer.lg_tableReloadProducer
     }
     
     //MARK: - UITableViewDelegate, UITableViewDataSource
