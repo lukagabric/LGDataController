@@ -12,9 +12,9 @@ import Rex
 
 public protocol ContactDetailsViewModelType {
     
-    var contactProducer: SignalProducer<Contact?, NSError>! { get }
-    var loadingViewHiddenProducer: SignalProducer<Bool, NoError>! { get }
-    var contentUnavailableViewHiddenProducer: SignalProducer<Bool, NoError>! { get }
+    var contact: AnyProperty<Contact?> { get }
+    var loadingViewHidden: AnyProperty<Bool> { get }
+    var contentUnavailableViewHidden: AnyProperty<Bool> { get }
     var deleteAction: Action<Void, Void, NoError>! { get }
 
 }
@@ -53,21 +53,20 @@ public class ContactDetailsViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
-        LGLoadingView.attachToView(self.view).rex_hidden <~ self.viewModel.loadingViewHiddenProducer
-        LGTextOverlayView.contentUnavailableViewAttachToView(self.view).rex_hidden <~ self.viewModel.contentUnavailableViewHiddenProducer
+        LGLoadingView.attachToView(self.view).rex_hidden <~ self.viewModel.loadingViewHidden
+        LGTextOverlayView.contentUnavailableViewAttachToView(self.view).rex_hidden <~ self.viewModel.contentUnavailableViewHidden
 
-        self.viewModel.contactProducer.startWithNext { [weak self] contact in
+        self.viewModel.contact.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
-
             sself.guidLabel.text = contact.guid
             sself.firstNameLabel.rex_text <~ contact.firstNameProducer
             sself.lastNameLabel.rex_text <~ contact.lastNameProducer
             sself.companyLabel.rex_text <~ contact.companyProducer
             sself.emailLabel.rex_text <~ contact.emailProducer
-            sself.weightLabel.rex_text <~ contact.weightProducer            
+            sself.weightLabel.rex_text <~ contact.weightProducer
         }
     }
-
+    
     //MARK: -
     
 }

@@ -10,7 +10,7 @@ import Foundation
 import ReactiveCocoa
 
 func loadingProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
-    guard let producer = producer else { return SignalProducer<Bool, NoError>(value: false) }
+    guard let producer = producer else { return SignalProducer(value: false) }
     
     let (loadingProducer, loadingObserver) = SignalProducer<Bool, NoError>.buffer(1)
     loadingObserver.sendNext(true)
