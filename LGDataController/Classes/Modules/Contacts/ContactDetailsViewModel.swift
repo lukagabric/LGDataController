@@ -88,13 +88,13 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         let contactDeletedEventProducer = contactOrNilProducer.flatMap(.Concat) { contact in contact?.deleteProducer ?? SignalProducer.empty }
         let falseOnContactDeletedProducer = contactDeletedEventProducer.map { _ in false }
         
-        let contentUnavailableHiddenProducers = [trueProducer, contactAvailableBoolProducer, falseOnContactDeletedProducer]
-        let contentUnavailableHiddenProducer = SignalProducer<SignalProducer<Bool, NoError>, NoError>(values: contentUnavailableHiddenProducers).flatten(.Concat)
-        let contentUnavailableViewHiddenProducer = contentUnavailableHiddenProducer.takeUntil(self.deleteActionExecutedProducer)
-        self.mutableContentUnavailableViewHidden <~ contentUnavailableViewHiddenProducer
+        let contentUnavailableProducers = [trueProducer, contactAvailableBoolProducer, falseOnContactDeletedProducer]
+        let contentUnavailableProducer = SignalProducer<SignalProducer<Bool, NoError>, NoError>(values: contentUnavailableProducers).flatten(.Concat)
+        let contentUnavailableExceptUserDeleteActionProducer = contentUnavailableProducer.takeUntil(self.deleteActionExecutedProducer)
+        self.mutableContentUnavailableViewHidden <~ contentUnavailableExceptUserDeleteActionProducer
         
         let deleteButtonEnabledProducer = loadingHiddenProducer
-            .combineLatestWith(contentUnavailableHiddenProducer)
+            .combineLatestWith(contentUnavailableProducer)
             .map { $0 && $1 }
         self.mutableDeleteButtonEnabled <~ deleteButtonEnabledProducer
     }
