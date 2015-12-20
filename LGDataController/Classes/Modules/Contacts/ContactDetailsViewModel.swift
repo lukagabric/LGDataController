@@ -11,9 +11,17 @@ import ReactiveCocoa
 
 public class ContactDetailsViewModel: ContactDetailsViewModelType {
     
+    private let contactId: String
+    
+    private let dataService: ContactsDataServiceType
+    private let navigationService: ContactsNavigationServiceType
+    private let reachability: ReachabilityType
+    
     public let contact: AnyProperty<Contact?>
     private let mutableContact = MutableProperty<Contact?>(nil)
-    
+
+    private let loadingContactData = MutableProperty<Bool>(false)
+
     public let loadingViewHidden: AnyProperty<Bool>
     private let mutableLoadingViewHidden = MutableProperty<Bool>(true)
     
@@ -23,17 +31,13 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
     private var deleteButtonEnabled: AnyProperty<Bool>
     private var mutableDeleteButtonEnabled = MutableProperty<Bool>(false)
     
-    private let dataService: ContactsDataServiceType
-    private let navigationService: ContactsNavigationServiceType
-    
     public var deleteAction: Action<Void, Void, NoError>!
     private var deleteActionExecutedProducer: SignalProducer<Void, NoError>!
-    
-    private let contactId: String
     
     init(dependencies: ContactsModuleDependencies, contactId: String) {
         self.dataService = dependencies.contactsDataService
         self.navigationService = dependencies.contactsNavigationService
+        self.reachability = dependencies.reachability
         
         self.contactId = contactId
         
@@ -41,7 +45,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         self.loadingViewHidden = AnyProperty<Bool>(self.mutableLoadingViewHidden)
         self.contentUnavailableViewHidden = AnyProperty<Bool>(self.mutableContentUnavailableViewHidden)
         self.deleteButtonEnabled = AnyProperty(self.mutableDeleteButtonEnabled)
-        
+
         self.deleteAction = Action(enabledIf: self.deleteButtonEnabled) { [weak self] _ in
             self?.contact.producer.startWithNext { [weak self] contact in
                 guard let sself = self, contact = contact else { return }
@@ -55,6 +59,17 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         self.deleteActionExecutedProducer = self.deleteAction.executing.producer.skip(1).map { _ in () }
         
         self.configureBindings()
+
+        self.reachability.reachabilityProducer
+            .filter { reachability in reachability.isReachable() }
+            .observeOn(UIScheduler())
+            .startWithNext { [weak self] reachability in
+            guard let sself = self else { return }
+
+            if !sself.loadingContactData.value && sself.contact.value == nil {
+                sself.configureBindings()
+            }
+        }
     }
     
     func configureBindings() {
@@ -64,6 +79,8 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         
         let loadingHiddenProducer = loadingHiddenProducerFrom(contactProducer)
         self.mutableLoadingViewHidden <~ loadingHiddenProducer
+        
+        self.loadingContactData <~ loadingProducerFrom(contactProducer)
         
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
         let contactOrNilProducer = contactProducer.flatMapError { _ in SignalProducer<Contact?, NoError>(value: nil) }

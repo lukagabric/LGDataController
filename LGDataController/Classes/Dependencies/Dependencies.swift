@@ -15,12 +15,14 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     private let navigationController: UINavigationController
     private let application: UIApplication
     public var cacheController: CacheControllerType!
+    public let reachability: ReachabilityType
 
     //MARK: - Init
     
     init(navigationController: UINavigationController, application: UIApplication) {
         self.navigationController = navigationController
         self.application = application
+        self.reachability = LGReachability()
         self.cacheController = LGCacheController(application: self.application, context: self.mainContext, notificationCenter: self.notificationCenter)
     }
     

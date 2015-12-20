@@ -87,6 +87,10 @@
 		41EF86C41C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
 		41EF86C51C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */; };
 		41EF86C61C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */; };
+		41F18FA51C26EA2600EEABF7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FA41C26EA2600EEABF7 /* Reachability.swift */; };
+		41F18FA61C26EA2600EEABF7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FA41C26EA2600EEABF7 /* Reachability.swift */; };
+		41F18FBA1C26EA4600EEABF7 /* LGReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachability.swift */; };
+		41F18FBB1C26EA4600EEABF7 /* LGReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -329,6 +333,8 @@
 		41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsViewController.xib; sourceTree = "<group>"; };
+		41F18FA41C26EA2600EEABF7 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		41F18FB91C26EA4600EEABF7 /* LGReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGReachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -552,6 +558,7 @@
 		41A75F711C20A93E007DD6AA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				41F18FA31C26EA2600EEABF7 /* LGReachability */,
 				41D0AEE41C236D29002AB0D4 /* LGTextOverlayView */,
 				419B65F81C22A22800C7C28B /* LGCacheController */,
 				41A75F721C20A93E007DD6AA /* LGLoadingView */,
@@ -587,6 +594,15 @@
 				41EF0B501C25D20B0088CFCC /* Rex.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		41F18FA31C26EA2600EEABF7 /* LGReachability */ = {
+			isa = PBXGroup;
+			children = (
+				41F18FA41C26EA2600EEABF7 /* Reachability.swift */,
+				41F18FB91C26EA4600EEABF7 /* LGReachability.swift */,
+			);
+			path = LGReachability;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -888,10 +904,12 @@
 				419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */,
 				41D0AEF21C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */,
 				4186A9E81C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
+				41F18FBA1C26EA4600EEABF7 /* LGReachability.swift in Sources */,
 				4186AA0A1C19D2A4003C3A89 /* NavigationService.swift in Sources */,
 				419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */,
 				419B65FA1C22A24400C7C28B /* LGCacheController.swift in Sources */,
 				4186A9F21C19D2A4003C3A89 /* Dependencies.swift in Sources */,
+				41F18FA51C26EA2600EEABF7 /* Reachability.swift in Sources */,
 				4186AA001C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */,
 				4186A9F01C19D2A4003C3A89 /* LGRequestOperation.swift in Sources */,
 				4186A9FC1C19D2A4003C3A89 /* ContactsViewController.swift in Sources */,
@@ -930,12 +948,14 @@
 				4186AA031C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */,
 				4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */,
 				41D0AEF31C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */,
+				41F18FA61C26EA2600EEABF7 /* Reachability.swift in Sources */,
 				4186A9FB1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */,
 				419B65E71C2298C800C7C28B /* PermanentEntity.swift in Sources */,
 				41CA59F51C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */,
 				419B65FB1C22A24400C7C28B /* LGCacheController.swift in Sources */,
 				4186A9E91C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
 				419B65EB1C2298C800C7C28B /* SessionEntity.swift in Sources */,
+				41F18FBB1C26EA4600EEABF7 /* LGReachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
