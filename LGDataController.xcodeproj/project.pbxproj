@@ -89,8 +89,8 @@
 		41EF86C61C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */; };
 		41F18FA51C26EA2600EEABF7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FA41C26EA2600EEABF7 /* Reachability.swift */; };
 		41F18FA61C26EA2600EEABF7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FA41C26EA2600EEABF7 /* Reachability.swift */; };
-		41F18FBA1C26EA4600EEABF7 /* LGReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachability.swift */; };
-		41F18FBB1C26EA4600EEABF7 /* LGReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachability.swift */; };
+		41F18FBA1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */; };
+		41F18FBB1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -334,7 +334,7 @@
 		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsViewController.xib; sourceTree = "<group>"; };
 		41F18FA41C26EA2600EEABF7 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		41F18FB91C26EA4600EEABF7 /* LGReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGReachability.swift; sourceTree = "<group>"; };
+		41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGReachabilityService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -600,7 +600,7 @@
 			isa = PBXGroup;
 			children = (
 				41F18FA41C26EA2600EEABF7 /* Reachability.swift */,
-				41F18FB91C26EA4600EEABF7 /* LGReachability.swift */,
+				41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */,
 			);
 			path = LGReachability;
 			sourceTree = "<group>";
@@ -904,7 +904,7 @@
 				419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */,
 				41D0AEF21C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */,
 				4186A9E81C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
-				41F18FBA1C26EA4600EEABF7 /* LGReachability.swift in Sources */,
+				41F18FBA1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */,
 				4186AA0A1C19D2A4003C3A89 /* NavigationService.swift in Sources */,
 				419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */,
 				419B65FA1C22A24400C7C28B /* LGCacheController.swift in Sources */,
@@ -955,7 +955,7 @@
 				419B65FB1C22A24400C7C28B /* LGCacheController.swift in Sources */,
 				4186A9E91C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
 				419B65EB1C2298C800C7C28B /* SessionEntity.swift in Sources */,
-				41F18FBB1C26EA4600EEABF7 /* LGReachability.swift in Sources */,
+				41F18FBB1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

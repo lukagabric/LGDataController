@@ -94,8 +94,7 @@ public class LGDataController: DataController {
             let operation = LGRequestOperation(session: self.session, request: request)
             self.dataDownloadQueue.addOperation(operation)
             
-            let (producer, updateObserver) = SignalProducer<T?, NSError>.buffer(1)
-            let updateProducer = producer.observeOn(UIScheduler())
+            let (updateProducer, updateObserver) = SignalProducer<T?, NSError>.buffer(1)
             
             let operationProducer = operation.producer.takeLast(1)
             operationProducer.startWithNext { response in
@@ -133,7 +132,7 @@ public class LGDataController: DataController {
                 updateObserver.sendFailed(error)
             }
             
-            let resultProducer = updateProducer.takeLast(1)
+            let resultProducer = updateProducer.takeLast(1).observeOn(UIScheduler())
             
             resultProducer.start { [weak self] event in
                 if event.isTerminating {

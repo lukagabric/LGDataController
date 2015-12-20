@@ -15,6 +15,7 @@ public protocol ContactDetailsViewModelType {
     var contact: AnyProperty<Contact?> { get }
     var loadingViewHidden: AnyProperty<Bool> { get }
     var contentUnavailableViewHidden: AnyProperty<Bool> { get }
+    var contentUnavailableText: AnyProperty<String> { get }
     var deleteAction: Action<Void, Void, NoError>! { get }
 
 }
@@ -30,6 +31,9 @@ public class ContactDetailsViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet var deleteBarButtonItem: UIBarButtonItem!
+    
+    weak var contentUnavailableView: LGTextOverlayView!
+    
     
     //MARK: - Init
     
@@ -54,7 +58,9 @@ public class ContactDetailsViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
         LGLoadingView.attachToView(self.view).rex_hidden <~ self.viewModel.loadingViewHidden
-        LGTextOverlayView.contentUnavailableViewAttachToView(self.view).rex_hidden <~ self.viewModel.contentUnavailableViewHidden
+        self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
+        self.contentUnavailableView.rex_hidden <~ self.viewModel.contentUnavailableViewHidden
+        self.contentUnavailableView.rac_text <~ self.viewModel.contentUnavailableText
 
         self.viewModel.contact.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }

@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import ReactiveCocoa
+import Rex
 
 public class LGTextOverlayView: UIView {
     
-    class func contentUnavailableViewAttachToView(view: UIView) -> LGTextOverlayView {
-        let overlayView = LGTextOverlayView(frame: view.bounds, text: "Content not available")
+    class func attachToView(view: UIView) -> LGTextOverlayView {
+        let overlayView = LGTextOverlayView(frame: view.bounds)
         overlayView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.addSubview(overlayView)
         
@@ -19,17 +21,23 @@ public class LGTextOverlayView: UIView {
 
         return overlayView
     }
+    
+    public var label: UILabel!
 
-    init(frame: CGRect, text: String) {
-        super.init(frame: frame)
+    public var rac_text: MutableProperty<String> {
+        return label.rex_text
+    }
+    
+    override init(frame: CGRect) {
+        self.label = UILabel(frame: frame)
         
+        super.init(frame: frame)
+
         self.backgroundColor = UIColor.lightGrayColor()
 
-        let label = UILabel(frame: frame)
-        label.text = text
-        label.textAlignment = .Center
-        label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        self.addSubview(label)
+        self.label.textAlignment = .Center
+        self.label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.addSubview(self.label)
     }
     
     required public init?(coder aDecoder: NSCoder) {

@@ -13,7 +13,7 @@ public protocol ContactsModuleDependencies {
     
     var contactsDataService: ContactsDataServiceType { get }
     var contactsNavigationService: ContactsNavigationServiceType { get }
-    var reachability: ReachabilityType { get }
+    var reachabilityService: ReachabilityServiceType { get }
     
 }
 

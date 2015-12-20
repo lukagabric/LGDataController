@@ -15,7 +15,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
     
     private let dataService: ContactsDataServiceType
     private let navigationService: ContactsNavigationServiceType
-    private let reachability: ReachabilityType
+    private let reachabilityService: ReachabilityServiceType
     
     public let contact: AnyProperty<Contact?>
     private let mutableContact = MutableProperty<Contact?>(nil)
@@ -28,23 +28,31 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
     public let contentUnavailableViewHidden: AnyProperty<Bool>
     private let mutableContentUnavailableViewHidden = MutableProperty<Bool>(true)
     
+    public let contentUnavailableText: AnyProperty<String>
+    private let mutableContentUnavailableText = MutableProperty<String>("")
+    
     private var deleteButtonEnabled: AnyProperty<Bool>
     private var mutableDeleteButtonEnabled = MutableProperty<Bool>(false)
     
     public var deleteAction: Action<Void, Void, NoError>!
     private var deleteActionExecutedProducer: SignalProducer<Void, NoError>!
     
+    private let isOffline: MutableProperty<Bool>
+    
     init(dependencies: ContactsModuleDependencies, contactId: String) {
         self.dataService = dependencies.contactsDataService
         self.navigationService = dependencies.contactsNavigationService
-        self.reachability = dependencies.reachability
+        self.reachabilityService = dependencies.reachabilityService
         
         self.contactId = contactId
         
-        self.contact = AnyProperty<Contact?>(self.mutableContact)
-        self.loadingViewHidden = AnyProperty<Bool>(self.mutableLoadingViewHidden)
-        self.contentUnavailableViewHidden = AnyProperty<Bool>(self.mutableContentUnavailableViewHidden)
+        self.contact = AnyProperty(self.mutableContact)
+        self.loadingViewHidden = AnyProperty(self.mutableLoadingViewHidden)
+        self.contentUnavailableViewHidden = AnyProperty(self.mutableContentUnavailableViewHidden)
+        self.contentUnavailableText = AnyProperty(self.mutableContentUnavailableText)
         self.deleteButtonEnabled = AnyProperty(self.mutableDeleteButtonEnabled)
+
+        self.isOffline = self.reachabilityService.isOffline
 
         self.deleteAction = Action(enabledIf: self.deleteButtonEnabled) { [weak self] _ in
             self?.contact.producer.startWithNext { [weak self] contact in
@@ -60,9 +68,8 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         
         self.configureBindings()
 
-        self.reachability.reachabilityProducer
+        self.reachabilityService.reachability.producer
             .filter { reachability in reachability.isReachable() }
-            .observeOn(UIScheduler())
             .startWithNext { [weak self] reachability in
             guard let sself = self else { return }
 
@@ -87,16 +94,14 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         let contactAvailableBoolProducer = contactOrNilProducer.map { contact in contact != nil }
         let contactDeletedEventProducer = contactOrNilProducer.flatMap(.Concat) { contact in contact?.deleteProducer ?? SignalProducer.empty }
         let falseOnContactDeletedProducer = contactDeletedEventProducer.map { _ in false }
-        
-        let contentUnavailableProducers = [trueProducer, contactAvailableBoolProducer, falseOnContactDeletedProducer]
-        let contentUnavailableProducer = SignalProducer<SignalProducer<Bool, NoError>, NoError>(values: contentUnavailableProducers).flatten(.Concat)
-        let contentUnavailableExceptUserDeleteActionProducer = contentUnavailableProducer.takeUntil(self.deleteActionExecutedProducer)
+        let contentUnavailableProducer = contactAvailableBoolProducer.concat(falseOnContactDeletedProducer)
+        let contentUnavailableExceptUserDeleteActionProducer = trueProducer.concat(contentUnavailableProducer).takeUntil(self.deleteActionExecutedProducer)
         self.mutableContentUnavailableViewHidden <~ contentUnavailableExceptUserDeleteActionProducer
         
-        let deleteButtonEnabledProducer = loadingHiddenProducer
-            .combineLatestWith(contentUnavailableProducer)
-            .map { $0 && $1 }
-        self.mutableDeleteButtonEnabled <~ deleteButtonEnabledProducer
+        self.mutableContentUnavailableText <~ contentUnavailableExceptUserDeleteActionProducer.combineLatestWith(self.isOffline.producer)
+            .map { return $0.1 ? "You're offline." : "Content not available." }
+
+        self.mutableDeleteButtonEnabled <~ loadingHiddenProducer.combineLatestWith(contentUnavailableProducer).map { $0 && $1 }
     }
 
 }
