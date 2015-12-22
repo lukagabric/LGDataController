@@ -43,7 +43,6 @@ public class LGReachabilityService: ReachabilityServiceType {
     
     init() {
         self.reach = try! Reachability.reachabilityForInternetConnection()
-        try! reach.startNotifier()
         
         let (reachabilityProducer, reachabilityObserver) = SignalProducer<Reachability, NoError>.buffer(1)
         self.reachabilityProducer = reachabilityProducer.observeOn(UIScheduler())
@@ -55,6 +54,8 @@ public class LGReachabilityService: ReachabilityServiceType {
         self.reach.whenUnreachable = { [weak self] reachability in
             self?.reachabilityObserver.sendNext(reachability)
         }
+        
+        try! reach.startNotifier()
     }
     
 }
