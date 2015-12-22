@@ -99,18 +99,24 @@ public class LGDataController: DataController {
             let operationProducer = operation.producer.takeLast(1)
             operationProducer.startWithNext { response in
                 if let error = self.validateResponse(response) {
-                    updateObserver.sendFailed(error)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        updateObserver.sendFailed(error)
+                    })
                     return
                 }
                 
                 if !self.isDataNew(reqestId: requestId, response: response) {
                     self.refreshUpdateInfo(reqestId: requestId, response: response)
-                    updateObserver.sendCompleted()
+                    dispatch_async(dispatch_get_main_queue(), {
+                        updateObserver.sendCompleted()
+                    })
                     return
                 }
                 
                 guard let serializedResponse = self.serializedResponse(response) else {
-                    updateObserver.sendFailed(NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
+                    dispatch_async(dispatch_get_main_queue(), {
+                        updateObserver.sendFailed(NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
+                    })
                     return
                 }
                 
@@ -122,17 +128,21 @@ public class LGDataController: DataController {
                         
                         let mainContextResults = resultData?.transferredToContext(self.mainContext) as? T
                         
-                        updateObserver.sendNext(mainContextResults)
-                        updateObserver.sendCompleted()
+                        dispatch_async(dispatch_get_main_queue(), {
+                            updateObserver.sendNext(mainContextResults)
+                            updateObserver.sendCompleted()
+                        })
                     }
                 }
             }
             
             operationProducer.startWithFailed { error in
-                updateObserver.sendFailed(error)
+                dispatch_async(dispatch_get_main_queue(), {
+                    updateObserver.sendFailed(error)
+                })
             }
             
-            let resultProducer = updateProducer.takeLast(1).observeOn(UIScheduler())
+            let resultProducer = updateProducer.takeLast(1).observeOn(ImmediateScheduler())
             
             resultProducer.start { [weak self] event in
                 if event.isTerminating {

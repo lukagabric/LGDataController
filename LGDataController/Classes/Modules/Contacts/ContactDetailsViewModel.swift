@@ -20,7 +20,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
     public let contact: AnyProperty<Contact?>
     private let mutableContact = MutableProperty<Contact?>(nil)
 
-    private let loadingContactData = MutableProperty<Bool>(false)
+    private let mutableLoadingContactData = MutableProperty<Bool>(false)
 
     public let loadingViewHidden: AnyProperty<Bool>
     private let mutableLoadingViewHidden = MutableProperty<Bool>(true)
@@ -31,7 +31,6 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
     public let contentUnavailableText: AnyProperty<String>
     private let mutableContentUnavailableText = MutableProperty<String>("")
     
-    private var deleteButtonEnabled: AnyProperty<Bool>
     private var mutableDeleteButtonEnabled = MutableProperty<Bool>(false)
     
     public var deleteAction: Action<Void, Void, NoError>!
@@ -50,11 +49,10 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         self.loadingViewHidden = AnyProperty(self.mutableLoadingViewHidden)
         self.contentUnavailableViewHidden = AnyProperty(self.mutableContentUnavailableViewHidden)
         self.contentUnavailableText = AnyProperty(self.mutableContentUnavailableText)
-        self.deleteButtonEnabled = AnyProperty(self.mutableDeleteButtonEnabled)
 
         self.isOffline = self.reachabilityService.isOffline
 
-        self.deleteAction = Action(enabledIf: self.deleteButtonEnabled) { [weak self] _ in
+        self.deleteAction = Action(enabledIf: self.mutableDeleteButtonEnabled) { [weak self] _ in
             self?.contact.producer.startWithNext { [weak self] contact in
                 guard let sself = self, contact = contact else { return }
                 
@@ -73,35 +71,36 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
             .startWithNext { [weak self] reachability in
             guard let sself = self else { return }
 
-            if !sself.loadingContactData.value && sself.contact.value == nil {
+            if !sself.mutableLoadingContactData.value && sself.contact.value == nil {
                 sself.configureBindings()
             }
         }
     }
     
     func configureBindings() {
-        let contactProducer = self.dataService.producerForContactWithId(self.contactId, weight: .Full)
-        
-        self.mutableContact <~ contactProducer.ignoreError()
-        
-        let loadingHiddenProducer = lg_loadingHiddenProducerFrom(contactProducer)
-        self.mutableLoadingViewHidden <~ loadingHiddenProducer
-        
-        self.loadingContactData <~ lg_loadingProducerFrom(contactProducer)
-        
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
-        let contactOrNilProducer = contactProducer.flatMapError { _ in SignalProducer<Contact?, NoError>(value: nil) }
-        let contactAvailableBoolProducer = contactOrNilProducer.map { contact in contact != nil }
-        let contactDeletedEventProducer = contactOrNilProducer.flatMap(.Concat) { contact in contact?.deleteProducer ?? SignalProducer.empty }
-        let falseOnContactDeletedProducer = contactDeletedEventProducer.map { _ in false }
-        let contentUnavailableProducer = contactAvailableBoolProducer.concat(falseOnContactDeletedProducer)
-        let contentUnavailableExceptUserDeleteActionProducer = trueProducer.concat(contentUnavailableProducer).takeUntil(self.deleteActionExecutedProducer)
-        self.mutableContentUnavailableViewHidden <~ contentUnavailableExceptUserDeleteActionProducer
-        
-        self.mutableContentUnavailableText <~ contentUnavailableExceptUserDeleteActionProducer.combineLatestWith(self.isOffline.producer)
-            .map { return $0.1 ? "You're offline." : "Content not available." }
+        let nilContactProducer = SignalProducer<Contact?, NoError>(value: nil)
 
-        self.mutableDeleteButtonEnabled <~ loadingHiddenProducer.combineLatestWith(contentUnavailableProducer).map { $0 && $1 }
+        let contactOrNilAndErrorProducer = self.dataService.producerForContactWithId(self.contactId, weight: .Full)
+        let contactOrNilProducer = contactOrNilAndErrorProducer.flatMapError { _ in SignalProducer<Contact?, NoError>(value: nil) }
+        let contactProducer = contactOrNilProducer.filter { $0 != nil }
+        
+        let loadingProducer = trueProducer.concat(contactOrNilProducer.map { _ in false})
+        
+        let contactDeletedEventProducer = contactProducer.flatMap(.Concat) { $0!.deleteProducer }
+        let falseOnContactDeletedProducer = contactDeletedEventProducer.map { _ in false }
+        
+        let contactAvailableAfterLoad = contactOrNilProducer.map { $0 != nil }
+        let contactAvailableProducer = contactAvailableAfterLoad.concat(falseOnContactDeletedProducer)
+        let contactAvailableExceptUserDeleteActionProducer = contactAvailableProducer.takeUntil(self.deleteActionExecutedProducer)
+        
+        self.mutableContact <~ nilContactProducer.concat(contactProducer)
+        self.mutableLoadingViewHidden <~ loadingProducer.map { !$0 }
+        self.mutableLoadingContactData <~ loadingProducer
+        self.mutableContentUnavailableViewHidden <~ loadingProducer.filter { $0 == true }.concat(contactAvailableExceptUserDeleteActionProducer)
+        self.mutableContentUnavailableText <~ contactAvailableExceptUserDeleteActionProducer.combineLatestWith(self.isOffline.producer)
+            .map { return $0.1 ? "You're offline." : "Content not available." }
+        self.mutableDeleteButtonEnabled <~ loadingProducer.combineLatestWith(contactAvailableProducer).map { !$0 && $1 }
     }
 
 }

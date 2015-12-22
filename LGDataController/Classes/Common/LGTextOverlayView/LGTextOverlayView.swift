@@ -25,7 +25,7 @@ public class LGTextOverlayView: UIView {
     public var label: UILabel!
 
     public var rac_text: MutableProperty<String> {
-        return label.rex_text
+        return self.label.rex_text
     }
     
     override init(frame: CGRect) {
