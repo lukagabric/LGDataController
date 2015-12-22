@@ -76,6 +76,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
     
     func configureBindings() {
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
+        let falseProducer = SignalProducer<Bool, NoError>(value: false)
         let nilContactProducer = SignalProducer<Contact?, NoError>(value: nil)
         
         let contactOrNilAndErrorProducer = self.dataService.producerForContactWithId(self.contactId, weight: .Full)
@@ -86,6 +87,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         
         let contactDeletedEventProducer = contactProducer.flatMap(.Concat) { $0!.deleteProducer }
         let falseOnContactDeletedProducer = contactDeletedEventProducer.map { _ in false }
+        let firstFalseThenTrueOnContactDeletedProducer = falseProducer.concat(contactDeletedEventProducer.map { _ in true })
         
         let contactAvailableAfterLoad = contactOrNilProducer.map { $0 != nil }
         let contactAvailableProducer = contactAvailableAfterLoad.concat(falseOnContactDeletedProducer)
@@ -95,8 +97,9 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         self.mutableLoadingViewHidden <~ loadingProducer.map { !$0 }
         self.mutableLoadingContactData <~ loadingProducer
         self.mutableContentUnavailableViewHidden <~ loadingProducer.filter { $0 == true }.concat(contactAvailableExceptUserDeleteActionProducer)
-        self.mutableContentUnavailableText <~ contactAvailableExceptUserDeleteActionProducer.combineLatestWith(self.isOffline.producer)
-            .map { return $0.1 ? "You're offline." : "Content not available." }
+        self.mutableContentUnavailableText <~ self.isOffline.producer.combineLatestWith(firstFalseThenTrueOnContactDeletedProducer)
+            .map { return $0 && !$1 ? "You're offline." : "Content not available." }
+
         self.mutableDeleteButtonEnabled <~ loadingProducer.combineLatestWith(contactAvailableProducer).map { !$0 && $1 }
     }
 
