@@ -65,22 +65,19 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         self.deleteActionExecutedProducer = self.deleteAction.executing.producer.skip(1).map { _ in () }
         
         self.configureBindings()
-
+        
         self.reachabilityService.reachability.producer
             .filter { reachability in reachability.isReachable() }
             .startWithNext { [weak self] reachability in
-            guard let sself = self else { return }
-
-            if !sself.mutableLoadingContactData.value && sself.contact.value == nil {
+                guard let sself = self where !sself.mutableLoadingContactData.value && sself.contact.value == nil else { return }
                 sself.configureBindings()
-            }
         }
     }
     
     func configureBindings() {
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
         let nilContactProducer = SignalProducer<Contact?, NoError>(value: nil)
-
+        
         let contactOrNilAndErrorProducer = self.dataService.producerForContactWithId(self.contactId, weight: .Full)
         let contactOrNilProducer = contactOrNilAndErrorProducer.flatMapError { _ in SignalProducer<Contact?, NoError>(value: nil) }
         let contactProducer = contactOrNilProducer.filter { $0 != nil }
