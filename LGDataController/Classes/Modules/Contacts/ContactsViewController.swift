@@ -69,15 +69,18 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-        let contact = self.viewModel.contacts.value![indexPath.row]
+        let contact = self.contacts![indexPath.row]
         cell.textLabel?.text = contact.info
         return cell
     }
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let contact = self.viewModel.contacts.value![indexPath.row]
+        let contact = self.contacts![indexPath.row]
         self.viewModel.didSelectContact(contact)
-//        self.simulateDeleteOfContact(contact)
+        
+        if indexPath.row == 0 {
+            self.simulateDeleteOfContact(contact)
+        }
     }
     
     //MARK: - Just for testing when an object is deleted under you on e.g. details screen
