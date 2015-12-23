@@ -12,7 +12,7 @@ import Rex
 
 public protocol ContactDetailsViewModelType {
     
-    var contact: AnyProperty<Contact?> { get }
+    var model: AnyProperty<Contact?>! { get }
     var loadingViewHidden: AnyProperty<Bool> { get }
     var contentUnavailableViewHidden: AnyProperty<Bool> { get }
     var contentUnavailableText: AnyProperty<String> { get }
@@ -62,7 +62,7 @@ public class ContactDetailsViewController: UIViewController {
         self.contentUnavailableView.rex_hidden <~ self.viewModel.contentUnavailableViewHidden
         self.contentUnavailableView.rac_text <~ self.viewModel.contentUnavailableText
 
-        self.viewModel.contact.producer.startWithNext { [weak self] contact in
+        self.viewModel.model.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
             sself.guidLabel.text = contact.guid
             sself.firstNameLabel.rex_text <~ contact.firstNameProducer

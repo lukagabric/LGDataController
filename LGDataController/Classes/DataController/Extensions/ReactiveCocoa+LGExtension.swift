@@ -12,21 +12,7 @@ import ReactiveCocoa
 func lg_loadingProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
     guard let producer = producer else { return SignalProducer(value: false) }
     
-    let (loadingProducer, loadingObserver) = SignalProducer<Bool, NoError>.buffer(1)
-    loadingObserver.sendNext(true)
-    
-    producer
-        .map { _ in false }
-        .flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
-        .takeLast(1)
-        .start { event in
-            if event.isTerminating {
-                loadingObserver.sendNext(false)
-                loadingObserver.sendCompleted()
-            }
-    }
-    
-    return loadingProducer
+    return producer.lg_loadingProducer
 }
 
 func lg_loadingHiddenProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
@@ -34,6 +20,20 @@ func lg_loadingHiddenProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> Sign
 }
 
 extension SignalProducerType {
+    
+    var lg_loadingProducer: SignalProducer<Bool, NoError> {
+        let trueProducer = SignalProducer<Bool, NoError>(value: true)
+        
+        let falseOnLoadCompleteProducer = self
+            .map { _ in false }
+            .flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
+        
+        return trueProducer.concat(falseOnLoadCompleteProducer)
+    }
+    
+    var lg_loadingViewHiddenProducer: SignalProducer<Bool, NoError> {
+        return self.lg_loadingProducer.map { !$0 }
+    }
     
     var lg_tableReloadProducer: SignalProducer<Void, NoError> {
         return self.map { _ in () }.flatMapError { _ in SignalProducer.empty }
