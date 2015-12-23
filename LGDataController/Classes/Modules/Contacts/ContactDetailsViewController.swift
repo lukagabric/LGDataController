@@ -10,14 +10,14 @@ import UIKit
 import ReactiveCocoa
 import Rex
 
-public protocol ContactDetailsViewModelType: BaseViewModelType {
+public protocol ContactDetailsViewModelType: LoadingViewModelType {
     
     var model: AnyProperty<Contact?>! { get }
     var deleteAction: Action<Void, Void, NoError>! { get }
 
 }
 
-public class ContactDetailsViewController: BaseViewController {
+public class ContactDetailsViewController: LoadingViewController {
     
     private var viewModel: ContactDetailsViewModelType!
     
@@ -33,7 +33,7 @@ public class ContactDetailsViewController: BaseViewController {
     
     init(viewModel: ContactDetailsViewModelType) {
         self.viewModel = viewModel
-        super.init(baseViewModel: viewModel)
+        super.init(loadingViewModel: viewModel)
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -44,13 +44,10 @@ public class ContactDetailsViewController: BaseViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.edgesForExtendedLayout = .None
-        
-        self.deleteBarButtonItem.rex_action <~ SignalProducer(value: CocoaAction(self.viewModel.deleteAction, input: ()))
-        
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
-        
+        self.deleteBarButtonItem.rex_action <~ SignalProducer(value: CocoaAction(self.viewModel.deleteAction, input: ()))
         self.viewModel.model.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
             sself.guidLabel.text = contact.guid

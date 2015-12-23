@@ -1,5 +1,5 @@
 //
-//  BaseViewController.swift
+//  LoadingViewController.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 22/12/15.
@@ -11,7 +11,7 @@ import Foundation
 import ReactiveCocoa
 import Rex
 
-public protocol BaseViewModelType {
+public protocol LoadingViewModelType {
     
     var loadingViewHidden: AnyProperty<Bool> { get }
     var contentUnavailableViewHidden: AnyProperty<Bool> { get }
@@ -19,7 +19,7 @@ public protocol BaseViewModelType {
     
 }
 
-public class BaseViewModel<T: ContentEntity>: BaseViewModelType {
+public class LoadingViewModel<T: ContentEntity>: LoadingViewModelType {
     let reachabilityService: ReachabilityServiceType
 
     public var modelProducer: SignalProducer<T?, NSError>! {
@@ -109,16 +109,16 @@ public class BaseViewModel<T: ContentEntity>: BaseViewModelType {
     
 }
 
-public class BaseViewController: UIViewController {
+public class LoadingViewController: UIViewController {
 
-    var baseViewModel: BaseViewModelType!
+    var loadingViewModel: LoadingViewModelType!
     weak var loadingView: LGLoadingView!
     weak var contentUnavailableView: LGTextOverlayView!
     
     //MARK: - Init
     
-    init(baseViewModel: BaseViewModelType) {
-        self.baseViewModel = baseViewModel
+    init(loadingViewModel: LoadingViewModelType) {
+        self.loadingViewModel = loadingViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -134,10 +134,10 @@ public class BaseViewController: UIViewController {
         self.edgesForExtendedLayout = .None
         
         self.loadingView = LGLoadingView.attachToView(self.view)
-        self.loadingView.rex_hidden <~ self.baseViewModel.loadingViewHidden
+        self.loadingView.rex_hidden <~ self.loadingViewModel.loadingViewHidden
         self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
-        self.contentUnavailableView.rex_hidden <~ self.baseViewModel.contentUnavailableViewHidden
-        self.contentUnavailableView.rac_text <~ self.baseViewModel.contentUnavailableText
+        self.contentUnavailableView.rex_hidden <~ self.loadingViewModel.contentUnavailableViewHidden
+        self.contentUnavailableView.rac_text <~ self.loadingViewModel.contentUnavailableText
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  BaseViewModel.swift
+//  LoadingViewModel.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 22/12/15.

@@ -9,7 +9,7 @@
 import Foundation
 import ReactiveCocoa
 
-public class ContactDetailsViewModel: BaseViewModel<Contact>, ContactDetailsViewModelType {
+public class ContactDetailsViewModel: LoadingViewModel<Contact>, ContactDetailsViewModelType {
     
     private let contactId: String
     
