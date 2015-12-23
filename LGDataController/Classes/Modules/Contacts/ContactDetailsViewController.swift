@@ -33,7 +33,7 @@ public class ContactDetailsViewController: LoadingViewController {
     
     init(viewModel: ContactDetailsViewModelType) {
         self.viewModel = viewModel
-        super.init(loadingViewModel: viewModel)
+        super.init(loadingViewModel: self.viewModel)
     }
     
     public required init?(coder aDecoder: NSCoder) {
