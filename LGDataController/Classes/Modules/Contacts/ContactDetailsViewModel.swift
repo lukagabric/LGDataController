@@ -44,6 +44,8 @@ public class ContactDetailsViewModel: BaseViewModel<Contact>, ContactDetailsView
     }
     
     override func configureBindings() {
+        self.takeUntilProducer = self.deleteActionExecutedProducer
+        
         self.modelProducer = dataService.producerForContactWithId(contactId, weight: .Full)
         
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
@@ -60,5 +62,5 @@ public class ContactDetailsViewModel: BaseViewModel<Contact>, ContactDetailsView
 
         self.mutableDeleteButtonEnabled <~ loadingProducer.combineLatestWith(contactAvailableProducer).map { !$0 && $1 }
     }
-
+    
 }

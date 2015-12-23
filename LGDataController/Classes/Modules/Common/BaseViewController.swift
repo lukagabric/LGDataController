@@ -35,6 +35,8 @@ public class BaseViewModel<T: ContentEntity> {
     let mutableContentUnavailableText = MutableProperty<String>("")
     
     let isOffline: MutableProperty<Bool>
+    
+    var takeUntilProducer: SignalProducer<Void, NoError>?
 
     public init(reachabilityService: ReachabilityServiceType) {
         self.reachabilityService = reachabilityService
@@ -73,13 +75,28 @@ public class BaseViewModel<T: ContentEntity> {
 
         let modelAvailableAfterLoad = modelOrNilProducer.map { $0 != nil }
         let modelAvailableProducer = modelAvailableAfterLoad.concat(falseOnModelDeletedProducer)
-
-        self.mutableModel <~ nilModelProducer.concat(modelProducer)
-        self.mutableLoadingViewHidden <~ loadingProducer.map { !$0 }
-        self.loadingData <~ loadingProducer
-        self.mutableContentUnavailableViewHidden <~ loadingProducer.filter { $0 == true }.concat(modelAvailableProducer)
-        self.mutableContentUnavailableText <~ self.isOffline.producer.combineLatestWith(firstFalseThenTrueOnModelDeletedProducer)
+        
+        let mutableModelProducer = nilModelProducer.concat(modelProducer)
+        let mutableLoadingViewHiddenProducer = loadingProducer.map { !$0 }
+        let loadingDataProducer = loadingProducer
+        let mutableContentUnavailableViewHiddenProducer = loadingProducer.filter { $0 == true }.concat(modelAvailableProducer)
+        let mutableContentUnavailableTextProducer = self.isOffline.producer.combineLatestWith(firstFalseThenTrueOnModelDeletedProducer)
             .map { return $0 && !$1 ? "You're offline." : "Content not available." }
+
+        if let takeUntilProducer = self.takeUntilProducer {
+            self.mutableModel <~ mutableModelProducer.takeUntil(takeUntilProducer)
+            self.mutableLoadingViewHidden <~ mutableLoadingViewHiddenProducer.takeUntil(takeUntilProducer)
+            self.loadingData <~ loadingDataProducer.takeUntil(takeUntilProducer)
+            self.mutableContentUnavailableViewHidden <~ mutableContentUnavailableViewHiddenProducer.takeUntil(takeUntilProducer)
+            self.mutableContentUnavailableText <~ mutableContentUnavailableTextProducer.takeUntil(takeUntilProducer)
+        }
+        else {
+            self.mutableModel <~ mutableModelProducer
+            self.mutableLoadingViewHidden <~ mutableLoadingViewHiddenProducer
+            self.loadingData <~ loadingDataProducer
+            self.mutableContentUnavailableViewHidden <~ mutableContentUnavailableViewHiddenProducer
+            self.mutableContentUnavailableText <~ mutableContentUnavailableTextProducer
+        }
     }
     
 }
