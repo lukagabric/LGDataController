@@ -10,14 +10,15 @@ import UIKit
 import ReactiveCocoa
 import Rex
 
-public protocol ContactDetailsViewModelType: LoadingViewModelType {
+public protocol ContactDetailsViewModelType {
     
-    var model: AnyProperty<Contact?>! { get }
+    var contact: AnyProperty<Contact?> { get }
+    var loadingViewModel: LoadingViewModelType! { get }
     var deleteAction: Action<Void, Void, NoError>! { get }
 
 }
 
-public class ContactDetailsViewController: LoadingViewController {
+public class ContactDetailsViewController: UIViewController {
     
     private var viewModel: ContactDetailsViewModelType!
     
@@ -29,11 +30,15 @@ public class ContactDetailsViewController: LoadingViewController {
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet var deleteBarButtonItem: UIBarButtonItem!
     
+    weak var contentUnavailableView: LGTextOverlayView!
+    weak var loadingView: LGLoadingView!
+    
+    
     //MARK: - Init
     
     init(viewModel: ContactDetailsViewModelType) {
         self.viewModel = viewModel
-        super.init(loadingViewModel: self.viewModel)
+        super.init(nibName: nil, bundle: nil)
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -47,8 +52,14 @@ public class ContactDetailsViewController: LoadingViewController {
         
         self.edgesForExtendedLayout = .None
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
-        self.deleteBarButtonItem.rex_action <~ SignalProducer(value: CocoaAction(self.viewModel.deleteAction, input: ()))
-        self.viewModel.model.producer.startWithNext { [weak self] contact in
+        
+        self.loadingView = LGLoadingView.attachToView(self.view)
+        self.loadingView.rex_hidden <~ self.viewModel.loadingViewModel.loadingViewHidden
+        self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
+        self.contentUnavailableView.rex_hidden <~ self.viewModel.loadingViewModel.contentUnavailableViewHidden
+        self.contentUnavailableView.rac_text <~ self.viewModel.loadingViewModel.contentUnavailableText
+
+        self.viewModel.contact.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
             sself.guidLabel.text = contact.guid
             sself.firstNameLabel.rex_text <~ contact.firstNameProducer

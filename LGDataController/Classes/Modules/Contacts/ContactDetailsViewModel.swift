@@ -9,7 +9,7 @@
 import Foundation
 import ReactiveCocoa
 
-public class ContactDetailsViewModel: LoadingViewModel<Contact>, ContactDetailsViewModelType {
+public class ContactDetailsViewModel: ContactDetailsViewModelType {
     
     private let contactId: String
     
@@ -17,8 +17,17 @@ public class ContactDetailsViewModel: LoadingViewModel<Contact>, ContactDetailsV
     private let navigationService: ContactsNavigationServiceType
     private var mutableDeleteButtonEnabled = MutableProperty<Bool>(false)
     
+    public let contact: AnyProperty<Contact?>
+    private let mutableContact = MutableProperty<Contact?>(nil)
+
     public var deleteAction: Action<Void, Void, NoError>!
     private var deleteActionExecutedProducer: SignalProducer<Void, NoError>!
+    
+    public var loadingViewModel: LoadingViewModelType!
+    
+    private var contactProducer: SignalProducer<Contact?, NSError> {
+        return self.dataService.producerForContactWithId(contactId, weight: .Full)
+    }
     
     init(dependencies: ContactsModuleDependencies, contactId: String) {
         self.dataService = dependencies.contactsDataService
@@ -27,10 +36,14 @@ public class ContactDetailsViewModel: LoadingViewModel<Contact>, ContactDetailsV
         
         self.contactId = contactId
         
-        super.init(reachabilityService: reachabilityService)
+        self.contact = AnyProperty(self.mutableContact)
+
+        self.loadingViewModel = LoadingViewModel(reachabilityService: reachabilityService) {
+            return self.contactProducer.map { $0 != nil }
+        }
 
         self.deleteAction = Action(enabledIf: self.mutableDeleteButtonEnabled) { [weak self] _ in
-            self?.model.producer.startWithNext { [weak self] contact in
+            self?.contact.producer.startWithNext { [weak self] contact in
                 guard let sself = self, contact = contact else { return }
                 
                 sself.dataService.deleteContact(contact)
@@ -40,27 +53,43 @@ public class ContactDetailsViewModel: LoadingViewModel<Contact>, ContactDetailsV
             return SignalProducer.empty
         }
         self.deleteActionExecutedProducer = self.deleteAction.executing.producer.skip(1).map { _ in () }
-        self.configureBindings()
+        
+        self.loadingViewModel.modelLoaded.producer.filter { $0 == true }.startWithNext { [weak self] _ in
+            self?.configureBindings()
+        }
     }
     
-    override func configureBindings() {
-        self.takeUntilProducer = self.deleteActionExecutedProducer
-        
-        self.modelProducer = dataService.producerForContactWithId(contactId, weight: .Full)
-        
+    func configureBindings() {
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
+//        let falseProducer = SignalProducer<Bool, NoError>(value: false)
+        let nilContactProducer = SignalProducer<Contact?, NoError>(value: nil)
         
-        let contactOrNilProducer = self.modelProducer.flatMapError { _ in SignalProducer<Contact?, NoError>(value: nil) }
+        let contactOrNilAndErrorProducer = self.contactProducer
+//        let contactBoolAndErrorProducer = contactOrNilAndErrorProducer.map { contact in contact != nil }
+        let contactOrNilProducer = contactOrNilAndErrorProducer.flatMapError { _ in SignalProducer<Contact?, NoError>(value: nil) }
         let contactProducer = contactOrNilProducer.filter { $0 != nil }
+        
         let loadingProducer = trueProducer.concat(contactOrNilProducer.map { _ in false})
         
         let contactDeletedEventProducer = contactProducer.flatMap(.Concat) { $0!.deleteProducer }
         let falseOnContactDeletedProducer = contactDeletedEventProducer.map { _ in false }
-
+//        let firstFalseThenTrueOnContactDeletedProducer = falseProducer.concat(contactDeletedEventProducer.map { _ in true })
+        
         let contactAvailableAfterLoad = contactOrNilProducer.map { $0 != nil }
         let contactAvailableProducer = contactAvailableAfterLoad.concat(falseOnContactDeletedProducer)
-
+//        let contactAvailableExceptUserDeleteActionProducer = contactAvailableProducer.takeUntil(self.deleteActionExecutedProducer)
+        
+        self.mutableContact <~ nilContactProducer.concat(contactProducer)
+//        self.mutableLoadingViewHidden <~ loadingProducer.map { !$0 }
+//        self.mutableContentUnavailableViewHidden <~ loadingProducer.filter { $0 == true }.concat(contactAvailableExceptUserDeleteActionProducer)
+//        self.mutableContentUnavailableText <~ self.isOffline.producer.combineLatestWith(firstFalseThenTrueOnContactDeletedProducer)
+//            .map { return $0 && !$1 ? "You're offline." : "Content not available." }
+        
         self.mutableDeleteButtonEnabled <~ loadingProducer.combineLatestWith(contactAvailableProducer).map { !$0 && $1 }
+        
+//        self.takeUntilProducer = self.deleteActionExecutedProducer
+//        self.modelProducer = contactBoolAndErrorProducer
+//        self.modelBecameUnavailableProducer = contactDeletedEventProducer
     }
     
 }
