@@ -19,18 +19,16 @@ public protocol LoadingViewModelType {
     
 }
 
-public class LoadingViewModel<T: ContentEntity>: LoadingViewModelType {
+public class LoadingViewModel: LoadingViewModelType {
     let reachabilityService: ReachabilityServiceType
+    let modelLoaded = MutableProperty<Bool>(false)
 
-    public var modelProducer: SignalProducer<T?, NSError>! {
+    public var modelProducer: SignalProducer<Bool, NSError>! {
         didSet {
             self.configureBindingsForModelProducer()
         }
     }
 
-    public var model: AnyProperty<T?>!
-    var mutableModel = MutableProperty<T?>(nil)
-    
     public let loadingData = MutableProperty<Bool>(false)
 
     public let loadingViewHidden: AnyProperty<Bool>
@@ -49,7 +47,6 @@ public class LoadingViewModel<T: ContentEntity>: LoadingViewModelType {
     public init(reachabilityService: ReachabilityServiceType) {
         self.reachabilityService = reachabilityService
 
-        self.model = AnyProperty(self.mutableModel)
         self.loadingViewHidden = AnyProperty(self.mutableLoadingViewHidden)
         self.contentUnavailableViewHidden = AnyProperty(self.mutableContentUnavailableViewHidden)
         self.contentUnavailableText = AnyProperty(self.mutableContentUnavailableText)
@@ -59,7 +56,7 @@ public class LoadingViewModel<T: ContentEntity>: LoadingViewModelType {
             .skip(1)
             .startWithNext { [weak self] reachability in
                 guard let sself = self where
-                    reachability.isReachable() && !sself.loadingData.value && sself.mutableModel.value == nil else { return }
+                    reachability.isReachable() && !sself.loadingData.value && !sself.modelLoaded.value else { return }
 
                 sself.configureBindings()
         }
@@ -70,21 +67,16 @@ public class LoadingViewModel<T: ContentEntity>: LoadingViewModelType {
     private func configureBindingsForModelProducer() {
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
         let falseProducer = SignalProducer<Bool, NoError>(value: false)
-        let nilModelProducer = SignalProducer<T?, NoError>(value: nil)
         
-        let modelOrNilProducer = self.modelProducer.flatMapError { _ in SignalProducer<T?, NoError>(value: nil) }
-        let modelProducer = modelOrNilProducer.filter { $0 != nil }
+        let modelOrNilProducer = self.modelProducer.flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
+        let trueOnModelLoadProducer = modelOrNilProducer.filter { $0 != false }
         
         let loadingProducer = trueProducer.concat(modelOrNilProducer.map { _ in false})
         
-        let modelDeletedEventProducer = modelProducer.flatMap(.Concat) { $0!.deleteProducer }
-        let falseOnModelDeletedProducer = modelDeletedEventProducer.map { _ in false }
-        let firstFalseThenTrueOnModelDeletedProducer = falseProducer.concat(modelDeletedEventProducer.map { _ in true })
-
         let modelAvailableAfterLoad = modelOrNilProducer.map { $0 != nil }
         let modelAvailableProducer = modelAvailableAfterLoad.concat(falseOnModelDeletedProducer)
         
-        let mutableModelProducer = nilModelProducer.concat(modelProducer)
+        let mutableModelProducer = falseProducer.concat(trueOnModelLoadProducer)
         let mutableLoadingViewHiddenProducer = loadingProducer.map { !$0 }
         let loadingDataProducer = loadingProducer
         let mutableContentUnavailableViewHiddenProducer = loadingProducer.filter { $0 == true }.concat(modelAvailableProducer)
