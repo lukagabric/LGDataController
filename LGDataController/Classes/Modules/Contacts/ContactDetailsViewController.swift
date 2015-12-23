@@ -10,17 +10,14 @@ import UIKit
 import ReactiveCocoa
 import Rex
 
-public protocol ContactDetailsViewModelType {
+public protocol ContactDetailsViewModelType: BaseViewModelType {
     
     var model: AnyProperty<Contact?>! { get }
-    var loadingViewHidden: AnyProperty<Bool> { get }
-    var contentUnavailableViewHidden: AnyProperty<Bool> { get }
-    var contentUnavailableText: AnyProperty<String> { get }
     var deleteAction: Action<Void, Void, NoError>! { get }
 
 }
 
-public class ContactDetailsViewController: UIViewController {
+public class ContactDetailsViewController: BaseViewController {
     
     private var viewModel: ContactDetailsViewModelType!
     
@@ -32,14 +29,11 @@ public class ContactDetailsViewController: UIViewController {
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet var deleteBarButtonItem: UIBarButtonItem!
     
-    weak var contentUnavailableView: LGTextOverlayView!
-    
-    
     //MARK: - Init
     
     init(viewModel: ContactDetailsViewModelType) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(baseViewModel: viewModel)
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -57,11 +51,6 @@ public class ContactDetailsViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
-        LGLoadingView.attachToView(self.view).rex_hidden <~ self.viewModel.loadingViewHidden
-        self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
-        self.contentUnavailableView.rex_hidden <~ self.viewModel.contentUnavailableViewHidden
-        self.contentUnavailableView.rac_text <~ self.viewModel.contentUnavailableText
-
         self.viewModel.model.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
             sself.guidLabel.text = contact.guid

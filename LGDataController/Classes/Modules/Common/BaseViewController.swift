@@ -11,7 +11,15 @@ import Foundation
 import ReactiveCocoa
 import Rex
 
-public class BaseViewModel<T: ContentEntity> {
+public protocol BaseViewModelType {
+    
+    var loadingViewHidden: AnyProperty<Bool> { get }
+    var contentUnavailableViewHidden: AnyProperty<Bool> { get }
+    var contentUnavailableText: AnyProperty<String> { get }
+    
+}
+
+public class BaseViewModel<T: ContentEntity>: BaseViewModelType {
     let reachabilityService: ReachabilityServiceType
 
     public var modelProducer: SignalProducer<T?, NSError>! {
@@ -102,5 +110,34 @@ public class BaseViewModel<T: ContentEntity> {
 }
 
 public class BaseViewController: UIViewController {
+
+    var baseViewModel: BaseViewModelType!
+    weak var loadingView: LGLoadingView!
+    weak var contentUnavailableView: LGTextOverlayView!
+    
+    //MARK: - Init
+    
+    init(baseViewModel: BaseViewModelType) {
+        self.baseViewModel = baseViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    //MARK: - View Lifecycle
+    
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.edgesForExtendedLayout = .None
+        
+        self.loadingView = LGLoadingView.attachToView(self.view)
+        self.loadingView.rex_hidden <~ self.baseViewModel.loadingViewHidden
+        self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
+        self.contentUnavailableView.rex_hidden <~ self.baseViewModel.contentUnavailableViewHidden
+        self.contentUnavailableView.rac_text <~ self.baseViewModel.contentUnavailableText
+    }
     
 }
