@@ -13,7 +13,7 @@ import Rex
 
 public protocol LoadingViewModelType {
     
-    var modelLoaded: AnyProperty<Bool> { get }
+    var modelLoadedProducer: SignalProducer<Void, NoError> { get }
     var loadingViewHidden: AnyProperty<Bool> { get }
     var contentUnavailableViewHidden: AnyProperty<Bool> { get }
     var contentUnavailableText: AnyProperty<String> { get }
@@ -27,8 +27,10 @@ public class LoadingViewModel: LoadingViewModelType {
 
     private let isLoadingData = MutableProperty<Bool>(false)
 
-    public let modelLoaded: AnyProperty<Bool>
-    public let mutableModelLoaded = MutableProperty<Bool>(false)
+    public let modelLoadedProducer: SignalProducer<Void, NoError>
+    private let modelLoadedObserver: Observer<Void, NoError>
+    
+    private var onLoadSuccessProducer: SignalProducer<Void, NoError> = SignalProducer.empty
 
     public let loadingViewHidden: AnyProperty<Bool>
     private let mutableLoadingViewHidden = MutableProperty<Bool>(true)
@@ -49,13 +51,14 @@ public class LoadingViewModel: LoadingViewModelType {
         self.contentUnavailableViewHidden = AnyProperty(self.mutableContentUnavailableViewHidden)
         self.contentUnavailableText = AnyProperty(self.mutableContentUnavailableText)
         self.isOffline = self.reachabilityService.isOffline
-        self.modelLoaded = AnyProperty(self.mutableModelLoaded)
-
+        (self.modelLoadedProducer, self.modelLoadedObserver) = SignalProducer.buffer(1)
+        
         self.reachabilityService.reachability.producer
             .skip(1)
+            .takeUntil(self.modelLoadedProducer)
             .startWithNext { [weak self] reachability in
                 guard let sself = self where
-                    reachability.isReachable() && !sself.isLoadingData.value && !sself.mutableModelLoaded.value else { return }
+                    reachability.isReachable() && !sself.isLoadingData.value else { return }
 
                 sself.configureLoadingBindingsForModelProducer()
         }
@@ -65,7 +68,6 @@ public class LoadingViewModel: LoadingViewModelType {
     
     private func configureLoadingBindingsForModelProducer() {
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
-        let falseProducer = SignalProducer<Bool, NoError>(value: false)
 
         let loadProducer = self.loadProducerClosure()
         let isLoadSuccessProducer = loadProducer.flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
@@ -76,9 +78,12 @@ public class LoadingViewModel: LoadingViewModelType {
             .map { _ in false }
             .flatMapError { _ in SignalProducer<Bool, NoError>(value: true) }
         
-        self.isLoadingData <~ trueProducer.concat(falseOnLoadComplete)
-        self.mutableModelLoaded <~ falseProducer.concat(isLoadSuccessProducer.filter { $0 == true })
+        self.onLoadSuccessProducer = isLoadSuccessProducer.filter { $0 == true }.map { _ in () }
+        self.onLoadSuccessProducer.startWithNext { [weak self] in
+            self?.modelLoadedObserver.sendCompleted()
+        }
         
+        self.isLoadingData <~ trueProducer.concat(falseOnLoadComplete)
         self.mutableLoadingViewHidden <~ self.isLoadingData.producer.map { !$0 }
         self.mutableContentUnavailableViewHidden <~ trueProducer.concat(isLoadSuccessProducer)
         self.mutableContentUnavailableText <~ combineLatest(isOfflineProducer, didLoadFailWithErrorProducer)

@@ -48,10 +48,12 @@ public class LGLoadingView: UIView {
         self.activityIndicator.rex_hidden <~ self.loadingViewModel.loadingViewHidden
         self.label.rex_hidden <~ self.loadingViewModel.contentUnavailableViewHidden
         self.label.rex_text <~ self.loadingViewModel.contentUnavailableText
-        
-        self.loadingViewModel.modelLoaded.producer
-            .filter { $0 == true }
-            .startWithNext { [weak self] _ in self?.removeFromSuperview() }
+    }
+    
+    public override func didMoveToSuperview() {
+        self.loadingViewModel.modelLoadedProducer.startWithCompleted { [weak self] in
+            self?.removeFromSuperview()
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
