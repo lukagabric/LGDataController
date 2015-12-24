@@ -53,11 +53,13 @@ public class ContactDetailsViewController: UIViewController {
         self.edgesForExtendedLayout = .None
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
-        self.loadingView = LGLoadingView.attachToView(self.view)
-        self.loadingView.rex_hidden <~ self.viewModel.loadingViewModel.loadingViewHidden
-        self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
-        self.contentUnavailableView.rex_hidden <~ self.viewModel.loadingViewModel.contentUnavailableViewHidden
-        self.contentUnavailableView.rac_text <~ self.viewModel.loadingViewModel.contentUnavailableText
+        self.loadingView = LGLoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
+        
+//        self.loadingView = LGLoadingView.attachToView(self.view)
+//        self.loadingView.rex_hidden <~ self.viewModel.loadingViewModel.loadingViewHidden
+//        self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
+//        self.contentUnavailableView.rex_hidden <~ self.viewModel.loadingViewModel.contentUnavailableViewHidden
+//        self.contentUnavailableView.rac_text <~ self.viewModel.loadingViewModel.contentUnavailableText
 
         self.viewModel.contact.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }

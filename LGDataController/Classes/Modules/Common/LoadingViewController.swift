@@ -73,8 +73,8 @@ public class LoadingViewModel: LoadingViewModelType {
         
         let isOfflineProducer = self.isOffline.producer
         let didLoadFailWithErrorProducer = loadProducer
-            .flatMapError { _ in SignalProducer<Bool, NoError>(value: true) }
             .map { _ in false }
+            .flatMapError { _ in SignalProducer<Bool, NoError>(value: true) }
         
         self.isLoadingData <~ trueProducer.concat(falseOnLoadComplete)
         self.mutableModelLoaded <~ falseProducer.concat(isLoadSuccessProducer.filter { $0 == true })
@@ -92,35 +92,35 @@ public class LoadingViewModel: LoadingViewModelType {
     
 }
 
-public class LoadingViewController: UIViewController {
-
-    var loadingViewModel: LoadingViewModelType!
-    weak var loadingView: LGLoadingView!
-    weak var contentUnavailableView: LGTextOverlayView!
-    
-    //MARK: - Init
-    
-    init(loadingViewModel: LoadingViewModelType) {
-        self.loadingViewModel = loadingViewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    //MARK: - View Lifecycle
-    
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.edgesForExtendedLayout = .None
-        
-        self.loadingView = LGLoadingView.attachToView(self.view)
-        self.loadingView.rex_hidden <~ self.loadingViewModel.loadingViewHidden
-        self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
-        self.contentUnavailableView.rex_hidden <~ self.loadingViewModel.contentUnavailableViewHidden
-        self.contentUnavailableView.rac_text <~ self.loadingViewModel.contentUnavailableText
-    }
-    
-}
+//public class LoadingViewController: UIViewController {
+//
+//    var loadingViewModel: LoadingViewModelType!
+//    weak var loadingView: LGLoadingView!
+//    weak var contentUnavailableView: LGTextOverlayView!
+//    
+//    //MARK: - Init
+//    
+//    init(loadingViewModel: LoadingViewModelType) {
+//        self.loadingViewModel = loadingViewModel
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//    
+//    public required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//    }
+//    
+//    //MARK: - View Lifecycle
+//    
+//    override public func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        self.edgesForExtendedLayout = .None
+//        
+//        self.loadingView = LGLoadingView.attachToView(self.view)
+//        self.loadingView.rex_hidden <~ self.loadingViewModel.loadingViewHidden
+//        self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
+//        self.contentUnavailableView.rex_hidden <~ self.loadingViewModel.contentUnavailableViewHidden
+//        self.contentUnavailableView.rac_text <~ self.loadingViewModel.contentUnavailableText
+//    }
+//    
+//}
