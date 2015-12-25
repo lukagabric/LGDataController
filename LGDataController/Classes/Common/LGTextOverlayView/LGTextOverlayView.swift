@@ -43,6 +43,7 @@ public class LGTextOverlayView: UIView {
         
         self.label = UILabel(frame: frame)
         self.label.textAlignment = .Center
+        self.label.textColor = UIColor.whiteColor()
         self.label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.addSubview(self.label)
     }

@@ -42,6 +42,7 @@ public class LGLoadingView: UIView {
         self.label = UILabel(frame: frame)
         self.label.textAlignment = .Center
         self.label.numberOfLines = 0
+        self.label.textColor = UIColor.whiteColor()
         self.label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.addSubview(self.label)
     }

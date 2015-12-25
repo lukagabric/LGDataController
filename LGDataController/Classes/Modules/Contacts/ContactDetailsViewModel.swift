@@ -18,6 +18,9 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
     private let contactId: String
     public let contact: AnyProperty<Contact?>
     private let mContact = MutableProperty<Contact?>(nil)
+    
+    public let noContentViewHidden: AnyProperty<Bool>
+    private let mNoContentViewHidden = MutableProperty<Bool>(true)
 
     public var deleteAction: Action<Void, Void, NoError>!
     private var deleteActionExecutedProducer: SignalProducer<Void, NoError>!
@@ -31,9 +34,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         self.contactId = contactId
         self.contact = AnyProperty(self.mContact)
 
-        self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
-            return self?.configuredLoadingProducer() ?? SignalProducer.empty
-        }
+        self.noContentViewHidden = AnyProperty(self.mNoContentViewHidden)
 
         self.deleteAction = Action(enabledIf: self.deleteButtonEnabled) { [weak self] _ in
             self?.contact.producer.startWithNext { [weak self] contact in
@@ -46,6 +47,10 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
             return SignalProducer.empty
         }
         self.deleteActionExecutedProducer = self.deleteAction.executing.producer.skip(1).map { _ in () }
+        
+        self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
+            return self?.configuredLoadingProducer() ?? SignalProducer.empty
+        }
     }
     
     func configuredLoadingProducer() -> SignalProducer<Void, NSError> {
@@ -60,6 +65,9 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         let contactAvailableAfterLoad = contactOrNilProducer.map { $0 != nil }
         let falseProducer = SignalProducer<Bool, NoError>(value: false)
         let nilProducer = SignalProducer<Contact?, NoError>(value: nil)
+        
+        let deleteButtonActionProducer = self.deleteAction.executing.producer.skip(1).map { _ in () }
+        self.mNoContentViewHidden <~ contactAvailableAfterLoad.concat(falseOnContactDeletedProducer).takeUntil(deleteButtonActionProducer)
         self.mContact <~ nilProducer.concat(contactProducer)
         self.deleteButtonEnabled <~ falseProducer.concat(contactAvailableAfterLoad).concat(falseOnContactDeletedProducer)
         

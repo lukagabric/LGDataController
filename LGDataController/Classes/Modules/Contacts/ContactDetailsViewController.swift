@@ -13,6 +13,7 @@ import Rex
 public protocol ContactDetailsViewModelType {
     
     var contact: AnyProperty<Contact?> { get }
+    var noContentViewHidden: AnyProperty<Bool> { get }
     var loadingViewModel: LoadingViewModelType! { get }
     var deleteAction: Action<Void, Void, NoError>! { get }
 
@@ -31,7 +32,7 @@ public class ContactDetailsViewController: UIViewController {
     @IBOutlet var deleteBarButtonItem: UIBarButtonItem!
     
     weak var loadingView: LGLoadingView!
-    
+    weak var noContentView: LGTextOverlayView!
     
     //MARK: - Init
     
@@ -55,8 +56,10 @@ public class ContactDetailsViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
+        self.noContentView = LGTextOverlayView.attachContentUnavailableViewToView(self.view)
+        self.noContentView.rex_hidden <~ self.viewModel.noContentViewHidden
         self.loadingView = LGLoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
-        
+
         self.viewModel.contact.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
             sself.guidLabel.text = contact.guid
@@ -64,12 +67,7 @@ public class ContactDetailsViewController: UIViewController {
             sself.lastNameLabel.rex_text <~ contact.lastNameProducer
             sself.companyLabel.rex_text <~ contact.companyProducer
             sself.emailLabel.rex_text <~ contact.emailProducer
-            sself.weightLabel.rex_text <~ contact.weightProducer
-            
-            let deleteButtonActionProducer = sself.viewModel.deleteAction.executing.producer.skip(1).map { _ in () }
-            contact.deleteProducer.takeUntil(deleteButtonActionProducer).startWithNext {
-                LGTextOverlayView.attachContentUnavailableViewToView(sself.view)
-            }
+            sself.weightLabel.rex_text <~ contact.weightProducer            
         }
     }
     

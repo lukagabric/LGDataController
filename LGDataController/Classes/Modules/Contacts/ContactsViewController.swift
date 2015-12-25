@@ -14,6 +14,7 @@ import Rex
 public protocol ContactsViewModelType {
 
     var contacts: AnyProperty<[Contact]?> { get }
+    var noContentViewHidden: AnyProperty<Bool> { get }
     var loadingViewModel: LoadingViewModelType! { get }
     var contactsTitle: AnyProperty<String> { get }
 
@@ -31,6 +32,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     
     @IBOutlet private weak var tableView: UITableView!
     weak var loadingView: LGLoadingView!
+    weak var noContentView: LGTextOverlayView!
 
     //MARK: - Init
     
@@ -48,8 +50,9 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     override public func viewDidLoad() {
         super.viewDidLoad()
 
+        self.noContentView = LGTextOverlayView.attachContentUnavailableViewToView(self.view)
+        self.noContentView.rex_hidden <~ self.viewModel.noContentViewHidden
         self.loadingView = LGLoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
-
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
         
         self.configureBindings()

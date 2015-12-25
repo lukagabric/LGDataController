@@ -14,8 +14,12 @@ public class ContactsViewModel: ContactsViewModelType {
     
     public let contacts: AnyProperty<[Contact]?>
     private let mContacts = MutableProperty<[Contact]?>(nil)
+
     public let contactsTitle: AnyProperty<String>
     private let mContactsTitle = MutableProperty<String>("")
+
+    public let noContentViewHidden: AnyProperty<Bool>
+    private let mNoContentViewHidden = MutableProperty<Bool>(true)
     
     public var loadingViewModel: LoadingViewModelType!
 
@@ -30,6 +34,7 @@ public class ContactsViewModel: ContactsViewModelType {
         self.navigationService = dependencies.contactsNavigationService
         self.contacts = AnyProperty(self.mContacts)
         self.contactsTitle = AnyProperty(self.mContactsTitle)
+        self.noContentViewHidden = AnyProperty(self.mNoContentViewHidden)
         
         self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
             return self?.configuredLoadingProducer() ?? SignalProducer(value: ())
@@ -43,7 +48,8 @@ public class ContactsViewModel: ContactsViewModelType {
 
         let loadingProducer = self.contactsModelObserver.loadingProducer
         let fetchedObjectsProducer = self.contactsModelObserver.fetchedObjectsProducer
-
+        
+        self.mNoContentViewHidden <~ fetchedObjectsProducer.map { $0?.count > 0 }
         self.mContacts <~ fetchedObjectsProducer
         self.mContactsTitle <~ fetchedObjectsProducer.map { contacts -> String in
             guard let contacts = contacts else { return "0 contact(s)" }
