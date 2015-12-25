@@ -85,11 +85,9 @@ public class LoadingViewModel: LoadingViewModelType {
         self.isLoadingData <~ trueProducer.concat(falseOnLoadComplete)
         self.mutableLoadingViewHidden <~ self.isLoadingData.producer.map { !$0 }
         self.mutableContentUnavailableViewHidden <~ trueProducer.concat(isLoadSuccessProducer)
-        self.mutableContentUnavailableText <~ combineLatest(isOfflineProducer, didLoadFailWithErrorProducer)
-            .map { isOffline, didFailWithError -> String in
-                if isOffline { return "You're offline." }
-                else if didFailWithError { return "An error has occured during load. Please try again later." }
-                return "No content available."
+        self.mutableContentUnavailableText <~ isOfflineProducer.map {
+            if $0 { return "You're offline." }
+            return "An error has occured during load. Please try again later."
         }
     }
     
