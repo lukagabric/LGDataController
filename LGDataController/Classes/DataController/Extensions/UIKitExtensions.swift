@@ -11,11 +11,10 @@ import UIKit
 import ReactiveCocoa
 
 public struct AssociationKey {
-    static var hidden: UInt8 = 1
-    static var alpha: UInt8 = 2
-    static var text: UInt8 = 3
-    static var title: UInt8 = 4
-    static var tableReload: UInt = 5
+    static var stopped: UInt8 = 1
+    static var text: UInt8 = 2
+    static var title: UInt8 = 3
+    static var tableReload: UInt = 4
 }
 
 // lazily creates a gettable associated property via the given factory
@@ -38,6 +37,24 @@ public func lazyMutableProperty<T>(host: AnyObject, key: UnsafePointer<Void>, se
     
     return property
   }
+}
+
+extension UIActivityIndicatorView {
+    public var rac_stopped: MutableProperty<Bool> {
+        return lazyAssociatedProperty(self, key: &AssociationKey.stopped) {
+            let property = MutableProperty<Bool>(true)
+            property.producer
+                .startWithNext { stopped in
+                    if stopped {
+                        self.stopAnimating()
+                    }
+                    else {
+                        self.startAnimating()
+                    }
+            }
+            return property
+        }
+    }
 }
 
 extension UIViewController {

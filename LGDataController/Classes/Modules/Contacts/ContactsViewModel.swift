@@ -32,7 +32,7 @@ public class ContactsViewModel: ContactsViewModelType {
         self.contactsTitle = AnyProperty(self.mContactsTitle)
         
         self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
-            return self?.configuredLoadingProducer() ?? SignalProducer.empty
+            return self?.configuredLoadingProducer() ?? SignalProducer(value: false)
         }
     }
     

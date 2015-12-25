@@ -34,26 +34,28 @@ public class LGLoadingView: UIView {
 //        loadingView.backgroundColor = UIColor.lightGrayColor()
         
         self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        self.addSubview(self.activityIndicator)
         self.activityIndicator.center = self.center
         self.activityIndicator.autoresizingMask = [.FlexibleTopMargin, .FlexibleBottomMargin, .FlexibleLeftMargin, .FlexibleRightMargin]
         self.activityIndicator.startAnimating()
+        self.addSubview(self.activityIndicator)
 
         self.label = UILabel(frame: frame)
         self.label.textAlignment = .Center
         self.label.numberOfLines = 0
         self.label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.addSubview(self.label)
-        
-        self.activityIndicator.rex_hidden <~ self.loadingViewModel.loadingViewHidden
-        self.label.rex_hidden <~ self.loadingViewModel.contentUnavailableViewHidden
-        self.label.rex_text <~ self.loadingViewModel.contentUnavailableText
     }
     
     public override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        
         self.loadingViewModel.modelLoadedProducer.startWithCompleted { [weak self] in
             self?.removeFromSuperview()
         }
+        
+        self.activityIndicator.rac_stopped <~ self.loadingViewModel.loadingViewHidden
+        self.label.rex_hidden <~ self.loadingViewModel.contentUnavailableViewHidden
+        self.label.rex_text <~ self.loadingViewModel.contentUnavailableText
     }
     
     required public init?(coder aDecoder: NSCoder) {
