@@ -22,7 +22,7 @@ public protocol LoadingViewModelType {
 public class LoadingViewModel: LoadingViewModelType {
     
     private let reachabilityService: ReachabilityServiceType
-    private let loadProducerClosure: () -> SignalProducer<Bool, NSError>
+    private let loadProducerClosure: () -> SignalProducer<Void, NSError>
     
     private let isLoadingData = MutableProperty<Bool>(false)
     
@@ -42,7 +42,7 @@ public class LoadingViewModel: LoadingViewModelType {
     
     private let isOffline: MutableProperty<Bool>
     
-    public init(reachabilityService: ReachabilityServiceType, loadProducerClosure: () -> SignalProducer<Bool, NSError>) {
+    public init(reachabilityService: ReachabilityServiceType, loadProducerClosure: () -> SignalProducer<Void, NSError>) {
         self.reachabilityService = reachabilityService
         self.loadProducerClosure = loadProducerClosure
         
@@ -66,22 +66,22 @@ public class LoadingViewModel: LoadingViewModelType {
     }
     
     private func configureLoadingBindingsForModelProducer() {
-        let trueProducer = SignalProducer<Bool, NoError>(value: true)
-        
         let loadProducer = self.loadProducerClosure()
-        let isLoadSuccessProducer = loadProducer.flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
-        let falseOnLoadComplete = isLoadSuccessProducer.map { _ in false }
         
         let isOfflineProducer = self.isOffline.producer
         let didLoadFailWithErrorProducer = loadProducer
             .map { _ in false }
             .flatMapError { _ in SignalProducer<Bool, NoError>(value: true) }
-        
-        self.onLoadSuccessProducer = isLoadSuccessProducer.filter { $0 == true }.map { _ in () }
+        let isLoadSuccessProducer = didLoadFailWithErrorProducer.map { !$0 }
+        let falseOnLoadComplete = didLoadFailWithErrorProducer.map { _ in false }
+
+        self.onLoadSuccessProducer = didLoadFailWithErrorProducer.filter { $0 == false }.map { _ in () }
         self.onLoadSuccessProducer.startWithNext { [weak self] in
             self?.modelLoadedObserver.sendCompleted()
         }
         
+        let trueProducer = SignalProducer<Bool, NoError>(value: true)
+
         self.isLoadingData <~ trueProducer.concat(falseOnLoadComplete)
         self.mutableLoadingViewHidden <~ self.isLoadingData.producer.map { !$0 }
         self.mutableContentUnavailableViewHidden <~ trueProducer.concat(isLoadSuccessProducer)

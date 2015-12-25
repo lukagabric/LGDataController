@@ -32,13 +32,13 @@ public class ContactsViewModel: ContactsViewModelType {
         self.contactsTitle = AnyProperty(self.mContactsTitle)
         
         self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
-            return self?.configuredLoadingProducer() ?? SignalProducer(value: false)
+            return self?.configuredLoadingProducer() ?? SignalProducer(value: ())
         }
     }
     
     //MARK: - Loading
     
-    func configuredLoadingProducer() -> SignalProducer<Bool, NSError> {
+    func configuredLoadingProducer() -> SignalProducer<Void, NSError> {
         self.contactsModelObserver = self.dataService.contactsModelObserver()
 
         let loadingProducer = self.contactsModelObserver.loadingProducer

@@ -48,7 +48,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         self.deleteActionExecutedProducer = self.deleteAction.executing.producer.skip(1).map { _ in () }
     }
     
-    func configuredLoadingProducer() -> SignalProducer<Bool, NSError> {
+    func configuredLoadingProducer() -> SignalProducer<Void, NSError> {
         let contactUpdateProducer = self.dataService.producerForContactWithId(contactId, weight: .Full)
         
         let contactOrNilProducer = contactUpdateProducer.flatMapError { _ in SignalProducer<Contact?, NoError>(value: nil) }
@@ -63,7 +63,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         self.mContact <~ nilProducer.concat(contactProducer)
         self.deleteButtonEnabled <~ falseProducer.concat(contactAvailableAfterLoad).concat(falseOnContactDeletedProducer)
         
-        return contactUpdateProducer.map { $0 != nil }
+        return contactUpdateProducer.map { _ in () }
     }
     
 }
