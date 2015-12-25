@@ -12,6 +12,15 @@ import Rex
 
 public class LGTextOverlayView: UIView {
     
+    class func attachContentUnavailableViewToView(view: UIView) -> LGTextOverlayView {
+        let overlayView = LGTextOverlayView(frame: view.bounds)
+        overlayView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        overlayView.rac_text <~ SignalProducer(value: "Content not available")
+        view.addSubview(overlayView)
+        
+        return overlayView
+    }
+    
     class func attachToView(view: UIView) -> LGTextOverlayView {
         let overlayView = LGTextOverlayView(frame: view.bounds)
         overlayView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]

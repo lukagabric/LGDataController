@@ -12,10 +12,6 @@
 		4127C9C11C0061AC006C0DFE /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9801C00615E006C0DFE /* ReactiveCocoa.framework */; };
 		4127C9C21C0061AC006C0DFE /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4127C9801C00615E006C0DFE /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		41341B711BF273390074AF6A /* LGDataControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B701BF273390074AF6A /* LGDataControllerTests.swift */; };
-		4185AB9A1C2A0041005C5CDB /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185AB8E1C29EF41005C5CDB /* LoadingViewController.swift */; };
-		4185AB9B1C2A0041005C5CDB /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185AB911C29EF53005C5CDB /* LoadingViewModel.swift */; };
-		4185AB9C1C2A0042005C5CDB /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185AB8E1C29EF41005C5CDB /* LoadingViewController.swift */; };
-		4185AB9D1C2A0042005C5CDB /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185AB911C29EF53005C5CDB /* LoadingViewModel.swift */; };
 		4186A9E21C19D2A4003C3A89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C51C19D2A4003C3A89 /* AppDelegate.swift */; };
 		4186A9E31C19D2A4003C3A89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C51C19D2A4003C3A89 /* AppDelegate.swift */; };
 		4186A9E41C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C81C19D2A4003C3A89 /* NSArray+LGExtension.swift */; };
@@ -95,6 +91,8 @@
 		41F18FA61C26EA2600EEABF7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FA41C26EA2600EEABF7 /* Reachability.swift */; };
 		41F18FBA1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */; };
 		41F18FBB1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */; };
+		41F9AD091C2D8641001DD670 /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */; };
+		41F9AD0A1C2D8641001DD670 /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -298,8 +296,6 @@
 		41341B6C1BF273390074AF6A /* LGDataControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LGDataControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41341B701BF273390074AF6A /* LGDataControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGDataControllerTests.swift; sourceTree = "<group>"; };
 		41341B721BF273390074AF6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4185AB8E1C29EF41005C5CDB /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
-		4185AB911C29EF53005C5CDB /* LoadingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 		4186A9C51C19D2A4003C3A89 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4186A9C81C19D2A4003C3A89 /* NSArray+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+LGExtension.swift"; sourceTree = "<group>"; };
 		4186A9C91C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+LGExtension.swift"; sourceTree = "<group>"; };
@@ -341,6 +337,7 @@
 		41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsViewController.xib; sourceTree = "<group>"; };
 		41F18FA41C26EA2600EEABF7 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGReachabilityService.swift; sourceTree = "<group>"; };
+		41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -432,15 +429,6 @@
 			path = LGDataControllerTests;
 			sourceTree = "<group>";
 		};
-		4185AB7B1C29EF22005C5CDB /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				4185AB8E1C29EF41005C5CDB /* LoadingViewController.swift */,
-				4185AB911C29EF53005C5CDB /* LoadingViewModel.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		4186A9C31C19D2A4003C3A89 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,7 +500,6 @@
 		4186A9D41C19D2A4003C3A89 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				4185AB7B1C29EF22005C5CDB /* Common */,
 				4186A9DB1C19D2A4003C3A89 /* Home */,
 				4186A9D51C19D2A4003C3A89 /* Contacts */,
 			);
@@ -585,6 +572,7 @@
 		41A75F721C20A93E007DD6AA /* LGLoadingView */ = {
 			isa = PBXGroup;
 			children = (
+				41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */,
 				41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */,
 			);
 			path = LGLoadingView;
@@ -900,8 +888,6 @@
 				4186A9E61C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */,
 				41CA59F61C2218F400A47168 /* ContentEntity.swift in Sources */,
 				4186A9F81C19D2A4003C3A89 /* ContactsDataService.swift in Sources */,
-				4185AB9D1C2A0042005C5CDB /* LoadingViewModel.swift in Sources */,
-				4185AB9C1C2A0042005C5CDB /* LoadingViewController.swift in Sources */,
 				41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
 				41EF0B561C25D2950088CFCC /* UIKitExtensions.swift in Sources */,
 				4186A9E41C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
@@ -931,6 +917,7 @@
 				4186AA001C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */,
 				4186A9F01C19D2A4003C3A89 /* LGRequestOperation.swift in Sources */,
 				4186A9FC1C19D2A4003C3A89 /* ContactsViewController.swift in Sources */,
+				41F9AD091C2D8641001DD670 /* LoadingViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,7 +936,6 @@
 				41CA59F71C2218F400A47168 /* ContentEntity.swift in Sources */,
 				419B65E51C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */,
 				4186AA011C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */,
-				4185AB9A1C2A0041005C5CDB /* LoadingViewController.swift in Sources */,
 				4186A9E71C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */,
 				4186A9F71C19D2A4003C3A89 /* Contact.swift in Sources */,
 				419B65E91C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */,
@@ -971,11 +957,11 @@
 				4186A9FB1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */,
 				419B65E71C2298C800C7C28B /* PermanentEntity.swift in Sources */,
 				41CA59F51C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */,
-				4185AB9B1C2A0041005C5CDB /* LoadingViewModel.swift in Sources */,
 				419B65FB1C22A24400C7C28B /* LGCacheController.swift in Sources */,
 				4186A9E91C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
 				419B65EB1C2298C800C7C28B /* SessionEntity.swift in Sources */,
 				41F18FBB1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */,
+				41F9AD0A1C2D8641001DD670 /* LoadingViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

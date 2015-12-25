@@ -1,5 +1,5 @@
 //
-//  LoadingViewController.swift
+//  LoadingViewModel.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 22/12/15.
@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 import ReactiveCocoa
 import Rex
 
@@ -17,21 +16,21 @@ public protocol LoadingViewModelType {
     var loadingViewHidden: AnyProperty<Bool> { get }
     var contentUnavailableViewHidden: AnyProperty<Bool> { get }
     var contentUnavailableText: AnyProperty<String> { get }
-
+    
 }
 
 public class LoadingViewModel: LoadingViewModelType {
     
     private let reachabilityService: ReachabilityServiceType
     private let loadProducerClosure: () -> SignalProducer<Bool, NSError>
-
+    
     private let isLoadingData = MutableProperty<Bool>(false)
-
+    
     public let modelLoadedProducer: SignalProducer<Void, NoError>
     private let modelLoadedObserver: Observer<Void, NoError>
     
     private var onLoadSuccessProducer: SignalProducer<Void, NoError> = SignalProducer.empty
-
+    
     public let loadingViewHidden: AnyProperty<Bool>
     private let mutableLoadingViewHidden = MutableProperty<Bool>(true)
     
@@ -59,7 +58,7 @@ public class LoadingViewModel: LoadingViewModelType {
             .startWithNext { [weak self] reachability in
                 guard let sself = self where
                     reachability.isReachable() && !sself.isLoadingData.value else { return }
-
+                
                 sself.configureLoadingBindingsForModelProducer()
         }
         
@@ -68,7 +67,7 @@ public class LoadingViewModel: LoadingViewModelType {
     
     private func configureLoadingBindingsForModelProducer() {
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
-
+        
         let loadProducer = self.loadProducerClosure()
         let isLoadSuccessProducer = loadProducer.flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
         let falseOnLoadComplete = isLoadSuccessProducer.map { _ in false }
@@ -92,40 +91,6 @@ public class LoadingViewModel: LoadingViewModelType {
                 else if didFailWithError { return "An error has occured during load. Please try again later." }
                 return "This content is no longer available."
         }
-        
     }
     
 }
-
-//public class LoadingViewController: UIViewController {
-//
-//    var loadingViewModel: LoadingViewModelType!
-//    weak var loadingView: LGLoadingView!
-//    weak var contentUnavailableView: LGTextOverlayView!
-//    
-//    //MARK: - Init
-//    
-//    init(loadingViewModel: LoadingViewModelType) {
-//        self.loadingViewModel = loadingViewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    public required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//    }
-//    
-//    //MARK: - View Lifecycle
-//    
-//    override public func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        self.edgesForExtendedLayout = .None
-//        
-//        self.loadingView = LGLoadingView.attachToView(self.view)
-//        self.loadingView.rex_hidden <~ self.loadingViewModel.loadingViewHidden
-//        self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
-//        self.contentUnavailableView.rex_hidden <~ self.loadingViewModel.contentUnavailableViewHidden
-//        self.contentUnavailableView.rac_text <~ self.loadingViewModel.contentUnavailableText
-//    }
-//    
-//}

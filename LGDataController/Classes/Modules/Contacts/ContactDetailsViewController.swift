@@ -30,7 +30,6 @@ public class ContactDetailsViewController: UIViewController {
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet var deleteBarButtonItem: UIBarButtonItem!
     
-    weak var contentUnavailableView: LGTextOverlayView!
     weak var loadingView: LGLoadingView!
     
     
@@ -51,16 +50,13 @@ public class ContactDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         self.edgesForExtendedLayout = .None
+        
+        self.deleteBarButtonItem.rex_action <~ SignalProducer(value: CocoaAction(self.viewModel.deleteAction, input: ()))
+        
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
         self.loadingView = LGLoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
         
-//        self.loadingView = LGLoadingView.attachToView(self.view)
-//        self.loadingView.rex_hidden <~ self.viewModel.loadingViewModel.loadingViewHidden
-//        self.contentUnavailableView = LGTextOverlayView.attachToView(self.view)
-//        self.contentUnavailableView.rex_hidden <~ self.viewModel.loadingViewModel.contentUnavailableViewHidden
-//        self.contentUnavailableView.rac_text <~ self.viewModel.loadingViewModel.contentUnavailableText
-
         self.viewModel.contact.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }
             sself.guidLabel.text = contact.guid
@@ -69,6 +65,11 @@ public class ContactDetailsViewController: UIViewController {
             sself.companyLabel.rex_text <~ contact.companyProducer
             sself.emailLabel.rex_text <~ contact.emailProducer
             sself.weightLabel.rex_text <~ contact.weightProducer
+            
+            let deleteButtonActionProducer = sself.viewModel.deleteAction.executing.producer.skip(1).map { _ in () }
+            contact.deleteProducer.takeUntil(deleteButtonActionProducer).startWithNext {
+                LGTextOverlayView.attachContentUnavailableViewToView(sself.view)
+            }
         }
     }
     
