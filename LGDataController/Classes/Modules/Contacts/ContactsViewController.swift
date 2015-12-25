@@ -12,10 +12,10 @@ import CoreData
 import Rex
 
 public protocol ContactsViewModelType {
-    
-    var contacts: MutableProperty<[Contact]?> { get }
-    var loadingHidden: MutableProperty<Bool> { get }
-    var contactsTitleProducer: SignalProducer<String, NoError> { get }
+
+    var contacts: AnyProperty<[Contact]?> { get }
+    var loadingViewModel: LoadingViewModelType! { get }
+    var contactsTitle: AnyProperty<String> { get }
 
     func didSelectContact(contact: Contact)
 
@@ -30,7 +30,8 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     @IBOutlet private weak var tableView: UITableView!
-    
+    weak var loadingView: LGLoadingView!
+
     //MARK: - Init
     
     init(viewModel: ContactsViewModelType) {
@@ -47,7 +48,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     override public func viewDidLoad() {
         super.viewDidLoad()
 
-//        LGLoadingView.attachToView(self.view).rex_hidden <~ self.viewModel.loadingHidden.producer
+        self.loadingView = LGLoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
 
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
         
@@ -57,7 +58,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     //MARK: - Configuration
     
     func configureBindings() {
-        self.rac_title <~ self.viewModel.contactsTitleProducer
+        self.rac_title <~ self.viewModel.contactsTitle.producer
         self.tableView.rac_tableReload <~ self.viewModel.contacts.producer.lg_tableReloadProducer
     }
     

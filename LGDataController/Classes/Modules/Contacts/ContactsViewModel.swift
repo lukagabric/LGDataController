@@ -12,12 +12,15 @@ import CoreData
 
 public class ContactsViewModel: ContactsViewModelType {
     
-    public let contacts = MutableProperty<[Contact]?>(nil)
-    public let loadingHidden = MutableProperty<Bool>(true)
-    public let contactsTitleProducer: SignalProducer<String, NoError>
+    public let contacts: AnyProperty<[Contact]?>
+    private let mContacts = MutableProperty<[Contact]?>(nil)
+    public let contactsTitle: AnyProperty<String>
+    private let mContactsTitle = MutableProperty<String>("")
     
+    public var loadingViewModel: LoadingViewModelType!
+
     private let dataService: ContactsDataServiceType
-    private let contactsModelObserver: LGModelObserver<Contact>
+    private var contactsModelObserver: LGModelObserver<Contact>!
     private let navigationService: ContactsNavigationServiceType
     
     //MARK: - Init
@@ -25,17 +28,29 @@ public class ContactsViewModel: ContactsViewModelType {
     init(dependencies: ContactsModuleDependencies) {
         self.dataService = dependencies.contactsDataService
         self.navigationService = dependencies.contactsNavigationService
-        self.contactsModelObserver = self.dataService.contactsModelObserver()
+        self.contacts = AnyProperty(self.mContacts)
+        self.contactsTitle = AnyProperty(self.mContactsTitle)
         
-        self.contacts <~ self.contactsModelObserver.fetchedObjectsProducer
-        self.contactsTitleProducer = self.contactsModelObserver.fetchedObjectsProducer.map { contacts -> String in
+        self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
+            return self?.configuredLoadingProducer() ?? SignalProducer.empty
+        }
+    }
+    
+    //MARK: - Loading
+    
+    func configuredLoadingProducer() -> SignalProducer<Bool, NSError> {
+        self.contactsModelObserver = self.dataService.contactsModelObserver()
+
+        let loadingProducer = self.contactsModelObserver.loadingProducer
+        let fetchedObjectsProducer = self.contactsModelObserver.fetchedObjectsProducer
+
+        self.mContacts <~ fetchedObjectsProducer
+        self.mContactsTitle <~ fetchedObjectsProducer.map { contacts -> String in
             guard let contacts = contacts else { return "0 contact(s)" }
             return "\(String(contacts.count)) contact(s)"
         }
         
-        if self.contacts.value == nil || self.contacts.value!.count == 0 {
-            self.loadingHidden <~ lg_loadingHiddenProducerFrom(self.contactsModelObserver.refreshProducer)
-        }
+        return loadingProducer
     }
     
     //MARK: - User Interaction

@@ -89,7 +89,7 @@ public class LoadingViewModel: LoadingViewModelType {
             .map { isOffline, didFailWithError -> String in
                 if isOffline { return "You're offline." }
                 else if didFailWithError { return "An error has occured during load. Please try again later." }
-                return "This content is no longer available."
+                return "No content available."
         }
     }
     
