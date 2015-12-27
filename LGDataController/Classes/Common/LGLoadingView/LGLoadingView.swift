@@ -30,8 +30,7 @@ public class LGLoadingView: UIView {
         
         self.loadingViewModel = loadingViewModel
         
-        self.backgroundColor = UIColor(white: 0, alpha: 0.6)
-//        loadingView.backgroundColor = UIColor.lightGrayColor()
+        self.backgroundColor = UIColor.lightGrayColor()
         
         self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
         self.activityIndicator.center = self.center
@@ -42,7 +41,8 @@ public class LGLoadingView: UIView {
         self.label = UILabel(frame: frame)
         self.label.textAlignment = .Center
         self.label.numberOfLines = 0
-        self.label.textColor = UIColor.whiteColor()
+        self.label.textColor = UIColor.blackColor()
+        self.label.font = UIFont.boldSystemFontOfSize(17)
         self.label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.addSubview(self.label)
     }

@@ -38,12 +38,12 @@ public class LGTextOverlayView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-//        self.backgroundColor = UIColor.lightGrayColor()
-        self.backgroundColor = UIColor(white: 0, alpha: 0.6)
+        self.backgroundColor = UIColor.lightGrayColor()
         
         self.label = UILabel(frame: frame)
         self.label.textAlignment = .Center
-        self.label.textColor = UIColor.whiteColor()
+        self.label.textColor = UIColor.blackColor()
+        self.label.font = UIFont.boldSystemFontOfSize(17)
         self.label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.addSubview(self.label)
     }
