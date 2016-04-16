@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import enum Result.NoError
+
+public typealias NoError = Result.NoError
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

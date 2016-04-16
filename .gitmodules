@@ -1,6 +1,0 @@
-[submodule "ReactiveCocoa"]
-	path = ReactiveCocoa
-	url = https://lukagabric@github.com/ReactiveCocoa/ReactiveCocoa.git
-[submodule "Rex"]
-	path = Rex
-	url = https://lukagabric@github.com/neilpa/Rex.git

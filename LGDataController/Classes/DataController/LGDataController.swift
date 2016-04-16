@@ -13,7 +13,7 @@ import CoreData
 typealias LGActionClosure = () -> ()
 
 public protocol LGContextTransferable {
-    typealias TransferredType
+    associatedtype TransferredType
     func transferredToContext(context: NSManagedObjectContext) -> TransferredType
 }
 

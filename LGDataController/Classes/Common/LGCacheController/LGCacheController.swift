@@ -34,7 +34,7 @@ public class LGCacheController: NSObject, CacheControllerType {
     }
     
     func configureNotifications() {
-        self.notificationCenter.addObserver(self, selector: "registerPurgeBackgroundTask", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        self.notificationCenter.addObserver(self, selector: #selector(self.registerPurgeBackgroundTask), name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
 
     public func registerPurgeBackgroundTask() {
