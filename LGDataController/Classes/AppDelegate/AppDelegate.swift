@@ -15,18 +15,10 @@ public typealias NoError = Result.NoError
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
     var dependencies: Dependencies!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        let navigationController = UINavigationController()
-        self.dependencies = Dependencies(navigationController: navigationController, application: application)
-        
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = navigationController
-        self.window?.makeKeyAndVisible()
-        
-        self.dependencies.navigationService.showHomeView()
+        self.dependencies = Dependencies()
         
         return true
     }

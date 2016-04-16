@@ -12,21 +12,14 @@ import CoreData
 
 public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     
-    private let navigationController: UINavigationController
-    private let application: UIApplication
-    public var cacheController: CacheControllerType!
-    public let reachabilityService: ReachabilityServiceType
-
-    //MARK: - Init
+    //MARK: - Vars
     
-    init(navigationController: UINavigationController, application: UIApplication) {
-        self.navigationController = navigationController
-        self.application = application
-        self.reachabilityService = LGReachabilityService()
-        self.cacheController = LGCacheController(application: self.application, context: self.mainContext, notificationCenter: self.notificationCenter)
+    public var application: UIApplication {
+        return UIApplication.sharedApplication()
     }
     
-    //MARK: - Dependencies
+    public var cacheController: CacheControllerType!
+    public let reachabilityService: ReachabilityServiceType
 
     lazy public var urlSession: NSURLSession = {
         let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -45,10 +38,8 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
         return LGDataController(session: self.urlSession, mainContext: self.mainContext)
     }()
     
-    lazy public var navigationService: NavigationService = {
-        return NavigationService(dependencies: self, navigationController: self.navigationController)
-    }()
-    
+    public var navigationService: NavigationService!
+
     public var homeNavigationService: HomeNavigationServiceType {
         return self.navigationService
     }
@@ -63,6 +54,10 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     
     public var notificationCenter: NSNotificationCenter {
         return NSNotificationCenter.defaultCenter()
+    }
+    
+    public var mainScreen: UIScreen {
+        return UIScreen.mainScreen()
     }
     
     private lazy var mainContext: NSManagedObjectContext = {
@@ -94,6 +89,14 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()
+    
+    //MARK: - Init
+    
+    init() {
+        self.reachabilityService = LGReachabilityService()
+        self.navigationService = NavigationService(dependencies: self)
+        self.cacheController = LGCacheController(application: self.application, context: self.mainContext, notificationCenter: self.notificationCenter)
+    }
     
     //MARK: -
     
