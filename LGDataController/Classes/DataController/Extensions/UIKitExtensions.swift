@@ -59,7 +59,7 @@ extension UIActivityIndicatorView {
 
 extension UIViewController {
     public var rac_title: MutableProperty<String> {
-        return lazyMutableProperty(self, key: &AssociationKey.title, setter: { self.title = $0 }, getter: { self.title ?? "" })
+        return lazyMutableProperty(self, key: &AssociationKey.title, setter: { [weak self] in self?.title = $0 }, getter: { [weak self] in self?.title ?? "" })
     }
 }
 

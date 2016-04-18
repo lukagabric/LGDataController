@@ -50,9 +50,9 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
         return self.navigationService
     }
     
-    lazy public var contactsDataService: ContactsDataServiceType = {
+    public var contactsDataService: ContactsDataServiceType {
         return ContactsDataService(dataController: self.dataController)
-    }()
+    }
     
     public var notificationCenter: NSNotificationCenter {
         return NSNotificationCenter.defaultCenter()
