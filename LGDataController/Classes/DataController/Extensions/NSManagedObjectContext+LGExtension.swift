@@ -87,5 +87,26 @@ extension NSManagedObjectContext {
     public func lg_allObjects<T: NSManagedObject>() -> [T] {
         return self.lg_allObjects().0
     }
+    
+    public func lg_saveToPersistentStore(completion: (() -> ())?) {
+        self.lg_saveContextToPersistentStore(context: self, completion: completion)
+    }
+    
+    private func lg_saveContextToPersistentStore(context context: NSManagedObjectContext, completion: (() -> ())?) {
+        context.performBlock { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            try! context.save()
+            
+            if context.parentContext != nil {
+                strongSelf.lg_saveContextToPersistentStore(context: context.parentContext!, completion: completion)
+            }
+            else {
+                if completion != nil {
+                    dispatch_async(dispatch_get_main_queue(), completion!)
+                }
+            }
+        }
+    }
 
 }

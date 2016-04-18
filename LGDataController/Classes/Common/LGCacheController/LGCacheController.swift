@@ -44,10 +44,13 @@ public class LGCacheController: NSObject, CacheControllerType {
                 self.context.deleteObject(entity)
             }
         }
-
-        self.endBackgroundTask()
         
-        if completion != nil { completion!() }
+        self.context.lg_saveToPersistentStore { 
+            self.endBackgroundTask()
+            
+            if completion != nil { completion!() }
+        }
+        
     }
     
     func endBackgroundTask() {

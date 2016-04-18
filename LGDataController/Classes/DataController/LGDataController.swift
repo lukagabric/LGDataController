@@ -10,8 +10,6 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-typealias LGActionClosure = () -> ()
-
 public protocol LGContextTransferable {
     associatedtype TransferredType
     func transferredToContext(context: NSManagedObjectContext) -> TransferredType
@@ -123,7 +121,7 @@ public class LGDataController: DataController {
                 self.bgContext.performBlock {
                     let resultData = dataUpdate(payload: serializedResponse, response: response, context: self.bgContext)
                     
-                    self.saveDataToPersistentStore(context: self.bgContext) {
+                    self.bgContext.lg_saveToPersistentStore {
                         self.refreshUpdateInfo(reqestId: requestId, response: response)
                         
                         let mainContextResults = resultData?.transferredToContext(self.mainContext) as? T
@@ -159,7 +157,7 @@ public class LGDataController: DataController {
         assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
 
         self.mainContext.deleteObject(object)
-        self.saveDataToPersistentStore(context: self.mainContext, completion: nil)
+        self.mainContext.lg_saveToPersistentStore(nil)
     }
     
     //MARK: - Cache Invalidation
@@ -243,25 +241,6 @@ public class LGDataController: DataController {
     
     func serializedResponse(response: LGResponse) -> AnyObject? {
         return try? NSJSONSerialization.JSONObjectWithData(response.responseData, options: [])
-    }
-    
-    //MARK: - Save
-    
-    func saveDataToPersistentStore(context context: NSManagedObjectContext, completion: LGActionClosure?) {
-        context.performBlock { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            try! context.save()
-            
-            if context.parentContext != nil {
-                strongSelf.saveDataToPersistentStore(context: context.parentContext!, completion: completion)
-            }
-            else {
-                if completion != nil {
-                    dispatch_async(dispatch_get_main_queue(), completion!)
-                }
-            }
-        }
     }
     
     //MARK: - Request Convenience
