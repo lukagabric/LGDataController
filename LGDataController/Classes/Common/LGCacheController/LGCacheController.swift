@@ -12,32 +12,24 @@ import UIKit
 
 public protocol CacheControllerType {
     
-    func registerPurgeBackgroundTask()
+    func purgeSessionContentEntities(completion: (() -> Void)?)
     
 }
 
 public class LGCacheController: NSObject, CacheControllerType {
     
     let context: NSManagedObjectContext
-    let notificationCenter: NSNotificationCenter
     let application: UIApplication
     var backgroundTask: UIBackgroundTaskIdentifier!
     
-    init(application: UIApplication, context: NSManagedObjectContext, notificationCenter: NSNotificationCenter) {
+    init(application: UIApplication, context: NSManagedObjectContext) {
         self.application = application
         self.context = context
-        self.notificationCenter = notificationCenter
 
         super.init()
-        
-        self.configureNotifications()
     }
     
-    func configureNotifications() {
-        self.notificationCenter.addObserver(self, selector: #selector(self.registerPurgeBackgroundTask), name: UIApplicationDidEnterBackgroundNotification, object: nil)
-    }
-
-    public func registerPurgeBackgroundTask() {
+    public func purgeSessionContentEntities(completion: (() -> Void)?) {
         self.backgroundTask = self.application.beginBackgroundTaskWithExpirationHandler {
             [unowned self] in
             self.endBackgroundTask()
@@ -45,11 +37,6 @@ public class LGCacheController: NSObject, CacheControllerType {
         
         assert(self.backgroundTask != UIBackgroundTaskInvalid, "Background task is invalid!")
         
-        self.purgeSessionContentEntities()
-        self.endBackgroundTask()
-    }
-    
-    func purgeSessionContentEntities() {
         let sessionEntity = SessionEntity.sessionEntityInContext(self.context)
         if let sessionEntities = sessionEntity.contentEntity {
             for entity in sessionEntities {
@@ -57,6 +44,10 @@ public class LGCacheController: NSObject, CacheControllerType {
                 self.context.deleteObject(entity)
             }
         }
+
+        self.endBackgroundTask()
+        
+        if completion != nil { completion!() }
     }
     
     func endBackgroundTask() {

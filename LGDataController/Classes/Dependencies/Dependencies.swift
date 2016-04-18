@@ -104,7 +104,7 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
         self.reachabilityService = LGReachabilityService()
         self.navigationController = navigationController
         self.navigationService = NavigationService(dependencies: self)
-        self.cacheController = LGCacheController(application: self.application, context: self.mainContext, notificationCenter: self.notificationCenter)
+        self.cacheController = LGCacheController(application: self.application, context: self.mainContext)
     }
     
     //MARK: -

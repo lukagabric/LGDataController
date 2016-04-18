@@ -28,7 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.dependencies = Dependencies(navigationController: self.navigationController)
         
-        self.dependencies.navigationService.showHomeView()
+        self.dependencies.cacheController.purgeSessionContentEntities() {
+            self.dependencies.navigationService.showHomeView()
+        }
         
         return true
     }
