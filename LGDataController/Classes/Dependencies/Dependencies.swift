@@ -62,7 +62,7 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
         return UIScreen.mainScreen()
     }
     
-    private lazy var mainContext: NSManagedObjectContext = {
+    private lazy var rootContext: NSManagedObjectContext = {
         let modelURL = NSBundle.mainBundle().URLForResource("LGDataController", withExtension: "mom")!
         let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)!
         
@@ -87,8 +87,14 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
             abort()
         }
 
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+    }()
+    
+    private lazy var mainContext: NSManagedObjectContext = {
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        managedObjectContext.parentContext = self.rootContext
         return managedObjectContext
     }()
     
