@@ -12,21 +12,15 @@ import UIKit
 public class NavigationService: HomeNavigationServiceType, ContactsNavigationServiceType {
     
     private let dependencies: Dependencies
-    private let navigationController: UINavigationController
-    private let window: UIWindow
+    
+    var navigationController: UINavigationController {
+        return self.dependencies.navigationController
+    }
     
     //MARK: - Init
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        
-        self.navigationController = UINavigationController()
-        
-        self.window = UIWindow(frame: self.dependencies.mainScreen.bounds)
-        self.window.rootViewController = self.navigationController
-        self.window.makeKeyAndVisible()
-        
-        self.showHomeView()
     }
     
     //MARK: - Common

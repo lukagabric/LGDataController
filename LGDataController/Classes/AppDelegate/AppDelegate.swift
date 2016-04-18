@@ -16,9 +16,19 @@ public typealias NoError = Result.NoError
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var dependencies: Dependencies!
+    var navigationController: UINavigationController!
+    var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.dependencies = Dependencies()
+        self.navigationController = UINavigationController()
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.rootViewController = self.navigationController
+        self.window?.makeKeyAndVisible()
+
+        self.dependencies = Dependencies(navigationController: self.navigationController)
+        
+        self.dependencies.navigationService.showHomeView()
         
         return true
     }

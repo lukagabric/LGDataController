@@ -37,7 +37,9 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     lazy public var dataController: DataController = {
         return LGDataController(session: self.urlSession, mainContext: self.mainContext)
     }()
-    
+
+    public let navigationController: UINavigationController
+
     public var navigationService: NavigationService!
 
     public var homeNavigationService: HomeNavigationServiceType {
@@ -92,8 +94,9 @@ public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
     
     //MARK: - Init
     
-    init() {
+    init(navigationController: UINavigationController) {
         self.reachabilityService = LGReachabilityService()
+        self.navigationController = navigationController
         self.navigationService = NavigationService(dependencies: self)
         self.cacheController = LGCacheController(application: self.application, context: self.mainContext, notificationCenter: self.notificationCenter)
     }
