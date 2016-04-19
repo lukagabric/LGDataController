@@ -108,8 +108,8 @@ extension NSManagedObject {
         abort()
     }
     
-    class func lg_mergeObjectsWithPayload<T where T: NSManagedObject, T: LGContentEntityType>(
-        payload: [[String : AnyObject]],
+    class func lg_mergeObjects<T where T: NSManagedObject, T: LGContentEntityType>(
+        payload payload: [[String : AnyObject]],
         payloadGuidKey: String,
         objectGuidKey: String,
         weight: LGContentWeight,
@@ -138,8 +138,8 @@ extension NSManagedObject {
             return objects
     }
     
-    class func lg_mergeAndTruncateObjectsWithPayload<T where T: NSManagedObject, T: LGContentEntityType>(
-        payload: [[String : AnyObject]],
+    class func lg_mergeAndTruncateObjects<T where T: NSManagedObject, T: LGContentEntityType>(
+        payload payload: [[String : AnyObject]],
         payloadGuidKey: String,
         objectGuidKey: String,
         weight: LGContentWeight,
