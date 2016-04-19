@@ -58,6 +58,12 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
         self.configureBindings()
     }
     
+    override public func viewDidAppear(animated: Bool) {
+        if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
+        }
+    }
+    
     //MARK: - Configuration
     
     func configureBindings() {

@@ -100,11 +100,8 @@ public class ContactsDataService: ContactsDataServiceType {
                 let contact = contacts.first
                 return contact
         }
-        
-        let updateProducer = contactUpdateProducer ?? SignalProducer(value: nil)
-        let resultProducer = contact != nil ? SignalProducer(value: contact) : updateProducer
-        
-        return resultProducer
+
+        return lg_producerForObject(contact, updateProducer: contactUpdateProducer)
     }
 
     //MARK: - Delete

@@ -8,6 +8,7 @@
 
 import Foundation
 import ReactiveCocoa
+import CoreData
 
 func lg_loadingProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
     guard let producer = producer else { return SignalProducer(value: false) }
@@ -39,4 +40,16 @@ extension SignalProducerType {
         return self.map { _ in () }.flatMapError { _ in SignalProducer.empty }
     }
     
+}
+
+func lg_producerForObject<T: NSManagedObject>(object: T?, updateProducer: SignalProducer<T?, NSError>?) -> SignalProducer<T?, NSError> {
+    if object != nil {
+        return SignalProducer(value: object)
+    }
+    else if updateProducer != nil {
+        return updateProducer!
+    }
+    else {
+        return SignalProducer(value: nil)
+    }
 }
