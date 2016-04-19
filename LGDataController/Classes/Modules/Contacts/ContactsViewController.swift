@@ -58,12 +58,6 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
         self.configureBindings()
     }
     
-    override public func viewDidAppear(animated: Bool) {
-        if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
-        }
-    }
-    
     //MARK: - Configuration
     
     func configureBindings() {
@@ -87,7 +81,8 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let contact = self.contacts![indexPath.row]
         self.viewModel.didSelectContact(contact)
-        
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
         if indexPath.row == 0 {
             self.simulateDeleteOfContact(contact)
         }
