@@ -7,71 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41341B711BF273390074AF6A /* LGDataControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41341B701BF273390074AF6A /* LGDataControllerTests.swift */; };
 		4186A9E21C19D2A4003C3A89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C51C19D2A4003C3A89 /* AppDelegate.swift */; };
-		4186A9E31C19D2A4003C3A89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C51C19D2A4003C3A89 /* AppDelegate.swift */; };
 		4186A9E41C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C81C19D2A4003C3A89 /* NSArray+LGExtension.swift */; };
-		4186A9E51C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C81C19D2A4003C3A89 /* NSArray+LGExtension.swift */; };
 		4186A9E61C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C91C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift */; };
-		4186A9E71C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9C91C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift */; };
 		4186A9E81C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CA1C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift */; };
-		4186A9E91C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CA1C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift */; };
 		4186A9EC1C19D2A4003C3A89 /* LGDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CC1C19D2A4003C3A89 /* LGDataController.swift */; };
-		4186A9ED1C19D2A4003C3A89 /* LGDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CC1C19D2A4003C3A89 /* LGDataController.swift */; };
 		4186A9EE1C19D2A4003C3A89 /* LGModelObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CD1C19D2A4003C3A89 /* LGModelObserver.swift */; };
-		4186A9EF1C19D2A4003C3A89 /* LGModelObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CD1C19D2A4003C3A89 /* LGModelObserver.swift */; };
 		4186A9F01C19D2A4003C3A89 /* LGRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CE1C19D2A4003C3A89 /* LGRequestOperation.swift */; };
-		4186A9F11C19D2A4003C3A89 /* LGRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9CE1C19D2A4003C3A89 /* LGRequestOperation.swift */; };
 		4186A9F21C19D2A4003C3A89 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D01C19D2A4003C3A89 /* Dependencies.swift */; };
-		4186A9F31C19D2A4003C3A89 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D01C19D2A4003C3A89 /* Dependencies.swift */; };
 		4186A9F41C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D21C19D2A4003C3A89 /* Contact+CoreDataProperties.swift */; };
-		4186A9F51C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D21C19D2A4003C3A89 /* Contact+CoreDataProperties.swift */; };
 		4186A9F61C19D2A4003C3A89 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D31C19D2A4003C3A89 /* Contact.swift */; };
-		4186A9F71C19D2A4003C3A89 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D31C19D2A4003C3A89 /* Contact.swift */; };
 		4186A9F81C19D2A4003C3A89 /* ContactsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D61C19D2A4003C3A89 /* ContactsDataService.swift */; };
-		4186A9F91C19D2A4003C3A89 /* ContactsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D61C19D2A4003C3A89 /* ContactsDataService.swift */; };
 		4186A9FA1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D71C19D2A4003C3A89 /* ContactsModuleDependencies.swift */; };
-		4186A9FB1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D71C19D2A4003C3A89 /* ContactsModuleDependencies.swift */; };
 		4186A9FC1C19D2A4003C3A89 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */; };
-		4186A9FD1C19D2A4003C3A89 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */; };
 		4186A9FE1C19D2A4003C3A89 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */; };
-		4186A9FF1C19D2A4003C3A89 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */; };
 		4186AA001C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */; };
-		4186AA011C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */; };
 		4186AA021C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DC1C19D2A4003C3A89 /* HomeModuleDependencies.swift */; };
-		4186AA031C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DC1C19D2A4003C3A89 /* HomeModuleDependencies.swift */; };
 		4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */; };
-		4186AA051C19D2A4003C3A89 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */; };
 		4186AA061C19D2A4003C3A89 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4186A9DE1C19D2A4003C3A89 /* HomeViewController.xib */; };
-		4186AA071C19D2A4003C3A89 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4186A9DE1C19D2A4003C3A89 /* HomeViewController.xib */; };
 		4186AA081C19D2A4003C3A89 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DF1C19D2A4003C3A89 /* HomeViewModel.swift */; };
-		4186AA091C19D2A4003C3A89 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DF1C19D2A4003C3A89 /* HomeViewModel.swift */; };
 		4186AA0A1C19D2A4003C3A89 /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9E11C19D2A4003C3A89 /* NavigationService.swift */; };
-		4186AA0B1C19D2A4003C3A89 /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9E11C19D2A4003C3A89 /* NavigationService.swift */; };
 		4186AA161C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */; };
-		4186AA171C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */; };
 		4186AA281C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
-		4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* LGDataController.xcdatamodel */; };
 		418827ED1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418827EC1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift */; };
-		418827EE1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418827EC1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift */; };
 		419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */; };
-		419B65E51C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */; };
 		419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E11C2298C800C7C28B /* PermanentEntity.swift */; };
-		419B65E71C2298C800C7C28B /* PermanentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E11C2298C800C7C28B /* PermanentEntity.swift */; };
 		419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */; };
-		419B65E91C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */; };
 		419B65EA1C2298C800C7C28B /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E31C2298C800C7C28B /* SessionEntity.swift */; };
-		419B65EB1C2298C800C7C28B /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E31C2298C800C7C28B /* SessionEntity.swift */; };
 		419B65FA1C22A24400C7C28B /* LGCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65F91C22A24400C7C28B /* LGCacheController.swift */; };
-		419B65FB1C22A24400C7C28B /* LGCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65F91C22A24400C7C28B /* LGCacheController.swift */; };
 		41A75F801C20A956007DD6AA /* LGLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */; };
-		41A75F811C20A956007DD6AA /* LGLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */; };
 		41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
-		41BD999A1C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
 		41CA59F41C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */; };
-		41CA59F51C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */; };
 		41CA59F61C2218F400A47168 /* ContentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F31C2218F400A47168 /* ContentEntity.swift */; };
-		41CA59F71C2218F400A47168 /* ContentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F31C2218F400A47168 /* ContentEntity.swift */; };
 		41D0921A1CC27ADD00023DFB /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D092171CC27ADD00023DFB /* ReactiveCocoa.framework */; };
 		41D0921B1CC27ADD00023DFB /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41D092171CC27ADD00023DFB /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		41D0921C1CC27ADD00023DFB /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D092181CC27ADD00023DFB /* Result.framework */; };
@@ -79,31 +46,13 @@
 		41D0921E1CC27ADD00023DFB /* Rex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D092191CC27ADD00023DFB /* Rex.framework */; };
 		41D0921F1CC27ADD00023DFB /* Rex.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41D092191CC27ADD00023DFB /* Rex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		41D0AEF21C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */; };
-		41D0AEF31C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */; };
-		41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */; };
 		41EF0B561C25D2950088CFCC /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */; };
-		41EF0B571C25D2950088CFCC /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */; };
 		41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
-		41EF86C41C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
 		41EF86C51C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */; };
-		41EF86C61C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */; };
 		41F18FA51C26EA2600EEABF7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FA41C26EA2600EEABF7 /* Reachability.swift */; };
-		41F18FA61C26EA2600EEABF7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FA41C26EA2600EEABF7 /* Reachability.swift */; };
 		41F18FBA1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */; };
-		41F18FBB1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */; };
 		41F9AD091C2D8641001DD670 /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */; };
-		41F9AD0A1C2D8641001DD670 /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		41341B6D1BF273390074AF6A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41341B4D1BF273380074AF6A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 41341B541BF273380074AF6A;
-			remoteInfo = LGDataController;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4101905E1BF5544F007677CC /* Embed Frameworks */ = {
@@ -123,9 +72,6 @@
 
 /* Begin PBXFileReference section */
 		41341B551BF273380074AF6A /* LGDataController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGDataController.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		41341B6C1BF273390074AF6A /* LGDataControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LGDataControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		41341B701BF273390074AF6A /* LGDataControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGDataControllerTests.swift; sourceTree = "<group>"; };
-		41341B721BF273390074AF6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4186A9C51C19D2A4003C3A89 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4186A9C81C19D2A4003C3A89 /* NSArray+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+LGExtension.swift"; sourceTree = "<group>"; };
 		4186A9C91C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+LGExtension.swift"; sourceTree = "<group>"; };
@@ -163,7 +109,6 @@
 		41D092181CC27ADD00023DFB /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		41D092191CC27ADD00023DFB /* Rex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rex.framework; path = Carthage/Build/iOS/Rex.framework; sourceTree = "<group>"; };
 		41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTextOverlayView.swift; sourceTree = "<group>"; };
-		41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGRequestOperationTests.swift; sourceTree = "<group>"; };
 		41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsViewController.xib; sourceTree = "<group>"; };
@@ -183,13 +128,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		41341B691BF273390074AF6A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -200,7 +138,6 @@
 				41D092181CC27ADD00023DFB /* Result.framework */,
 				41D092191CC27ADD00023DFB /* Rex.framework */,
 				41341B571BF273380074AF6A /* LGDataController */,
-				41341B6F1BF273390074AF6A /* LGDataControllerTests */,
 				41341B561BF273380074AF6A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -209,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				41341B551BF273380074AF6A /* LGDataController.app */,
-				41341B6C1BF273390074AF6A /* LGDataControllerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -221,16 +157,6 @@
 				4186AA0C1C19D376003C3A89 /* Resources */,
 			);
 			path = LGDataController;
-			sourceTree = "<group>";
-		};
-		41341B6F1BF273390074AF6A /* LGDataControllerTests */ = {
-			isa = PBXGroup;
-			children = (
-				41341B701BF273390074AF6A /* LGDataControllerTests.swift */,
-				41D2F89B1BF677DA00E57DE2 /* LGRequestOperationTests.swift */,
-				41341B721BF273390074AF6A /* Info.plist */,
-			);
-			path = LGDataControllerTests;
 			sourceTree = "<group>";
 		};
 		4186A9C31C19D2A4003C3A89 /* Classes */ = {
@@ -420,24 +346,6 @@
 			productReference = 41341B551BF273380074AF6A /* LGDataController.app */;
 			productType = "com.apple.product-type.application";
 		};
-		41341B6B1BF273390074AF6A /* LGDataControllerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 41341B781BF273390074AF6A /* Build configuration list for PBXNativeTarget "LGDataControllerTests" */;
-			buildPhases = (
-				41341B681BF273390074AF6A /* Sources */,
-				41341B691BF273390074AF6A /* Frameworks */,
-				41341B6A1BF273390074AF6A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				41341B6E1BF273390074AF6A /* PBXTargetDependency */,
-			);
-			name = LGDataControllerTests;
-			productName = LGDataControllerTests;
-			productReference = 41341B6C1BF273390074AF6A /* LGDataControllerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -450,10 +358,6 @@
 				TargetAttributes = {
 					41341B541BF273380074AF6A = {
 						CreatedOnToolsVersion = 7.1;
-					};
-					41341B6B1BF273390074AF6A = {
-						CreatedOnToolsVersion = 7.1;
-						TestTargetID = 41341B541BF273380074AF6A;
 					};
 				};
 			};
@@ -471,7 +375,6 @@
 			projectRoot = "";
 			targets = (
 				41341B541BF273380074AF6A /* LGDataController */,
-				41341B6B1BF273390074AF6A /* LGDataControllerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -485,17 +388,6 @@
 				4186A9FE1C19D2A4003C3A89 /* ContactsViewController.xib in Resources */,
 				4186AA161C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */,
 				4186AA061C19D2A4003C3A89 /* HomeViewController.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		41341B6A1BF273390074AF6A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				41EF86C61C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */,
-				4186AA171C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */,
-				4186A9FF1C19D2A4003C3A89 /* ContactsViewController.xib in Resources */,
-				4186AA071C19D2A4003C3A89 /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,59 +436,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		41341B681BF273390074AF6A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4186A9F31C19D2A4003C3A89 /* Dependencies.swift in Sources */,
-				4186A9E51C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
-				4186A9F91C19D2A4003C3A89 /* ContactsDataService.swift in Sources */,
-				4186A9F11C19D2A4003C3A89 /* LGRequestOperation.swift in Sources */,
-				4186A9FD1C19D2A4003C3A89 /* ContactsViewController.swift in Sources */,
-				4186A9E31C19D2A4003C3A89 /* AppDelegate.swift in Sources */,
-				4186A9EF1C19D2A4003C3A89 /* LGModelObserver.swift in Sources */,
-				4186AA0B1C19D2A4003C3A89 /* NavigationService.swift in Sources */,
-				41CA59F71C2218F400A47168 /* ContentEntity.swift in Sources */,
-				419B65E51C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */,
-				4186AA011C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */,
-				4186A9E71C19D2A4003C3A89 /* NSManagedObject+LGExtension.swift in Sources */,
-				4186A9F71C19D2A4003C3A89 /* Contact.swift in Sources */,
-				419B65E91C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */,
-				4186A9ED1C19D2A4003C3A89 /* LGDataController.swift in Sources */,
-				41A75F811C20A956007DD6AA /* LGLoadingView.swift in Sources */,
-				4186A9F51C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
-				41EF86C41C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */,
-				41EF0B571C25D2950088CFCC /* UIKitExtensions.swift in Sources */,
-				41BD999A1C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
-				418827EE1C24A7C700E3A145 /* ReactiveCocoa+LGExtension.swift in Sources */,
-				41D2F89C1BF677DA00E57DE2 /* LGRequestOperationTests.swift in Sources */,
-				41341B711BF273390074AF6A /* LGDataControllerTests.swift in Sources */,
-				4186AA051C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
-				4186AA091C19D2A4003C3A89 /* HomeViewModel.swift in Sources */,
-				4186AA031C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */,
-				4186AA291C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */,
-				41D0AEF31C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */,
-				41F18FA61C26EA2600EEABF7 /* Reachability.swift in Sources */,
-				4186A9FB1C19D2A4003C3A89 /* ContactsModuleDependencies.swift in Sources */,
-				419B65E71C2298C800C7C28B /* PermanentEntity.swift in Sources */,
-				41CA59F51C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */,
-				419B65FB1C22A24400C7C28B /* LGCacheController.swift in Sources */,
-				4186A9E91C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
-				419B65EB1C2298C800C7C28B /* SessionEntity.swift in Sources */,
-				41F18FBB1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */,
-				41F9AD0A1C2D8641001DD670 /* LoadingViewModel.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		41341B6E1BF273390074AF6A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 41341B541BF273380074AF6A /* LGDataController */;
-			targetProxy = 41341B6D1BF273390074AF6A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		41341B731BF273390074AF6A /* Debug */ = {
@@ -714,38 +554,6 @@
 			};
 			name = Release;
 		};
-		41341B791BF273390074AF6A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = LGDataControllerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lukagabric.LGDataControllerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LGDataController.app/LGDataController";
-			};
-			name = Debug;
-		};
-		41341B7A1BF273390074AF6A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = LGDataControllerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lukagabric.LGDataControllerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LGDataController.app/LGDataController";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -763,15 +571,6 @@
 			buildConfigurations = (
 				41341B761BF273390074AF6A /* Debug */,
 				41341B771BF273390074AF6A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		41341B781BF273390074AF6A /* Build configuration list for PBXNativeTarget "LGDataControllerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				41341B791BF273390074AF6A /* Debug */,
-				41341B7A1BF273390074AF6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

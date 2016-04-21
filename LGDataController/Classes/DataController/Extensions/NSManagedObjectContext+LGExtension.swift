@@ -18,7 +18,7 @@ extension NSManagedObjectContext {
         let fetchRequest = NSFetchRequest(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "%K == %@", guidKey, guid)
 
-        let existingObjects: [T] = try! self.executeFetchRequest(fetchRequest) as! [T]
+        let existingObjects = try! self.executeFetchRequest(fetchRequest) as! [T]
         
         let object: T
         if let entity = existingObjects.first {
@@ -41,16 +41,9 @@ extension NSManagedObjectContext {
         let fetchRequest = NSFetchRequest(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "(%K IN %@)", guidKey, guids)
         
-        let existingObjects: [T]
+        let existingObjects = try! self.executeFetchRequest(fetchRequest) as! [T]
         
-        do {
-            existingObjects = try self.executeFetchRequest(fetchRequest) as! [T]
-        }
-        catch let error as NSError {
-            return ([], error)
-        }
-        
-        let existingObjectsGuids: [String] = existingObjects.map { ($0 as NSManagedObject).valueForKey(guidKey) as! String }
+        let existingObjectsGuids = existingObjects.map { ($0 as NSManagedObject).valueForKey(guidKey) as! String }
         let newObjectGuids = guids.filter { guid in !existingObjectsGuids.contains(guid) }
         let newObjects = newObjectGuids.map { (guid: String) -> T in
             let newObject = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self)

@@ -111,7 +111,7 @@ public class LGDataController: DataController {
                     return
                 }
                 
-                guard let serializedResponse = self.serializedResponse(response) else {
+                guard let serializedPayload = self.serializedPayload(response: response) else {
                     dispatch_async(dispatch_get_main_queue(), {
                         updateObserver.sendFailed(NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
                     })
@@ -119,7 +119,7 @@ public class LGDataController: DataController {
                 }
                 
                 self.bgContext.performBlock {
-                    let resultData = dataUpdate(payload: serializedResponse, response: response, context: self.bgContext)
+                    let resultData = dataUpdate(payload: serializedPayload, response: response, context: self.bgContext)
                     
                     self.bgContext.lg_saveToPersistentStore {
                         self.refreshUpdateInfo(reqestId: requestId, response: response)
@@ -239,8 +239,8 @@ public class LGDataController: DataController {
         return nil
     }
     
-    func serializedResponse(response: LGResponse) -> AnyObject? {
-        return try? NSJSONSerialization.JSONObjectWithData(response.responseData, options: [])
+    func serializedPayload(response response: LGResponse) -> AnyObject? {
+        return try? NSJSONSerialization.JSONObjectWithData(response.payload, options: [])
     }
     
     //MARK: - Request Convenience

@@ -20,12 +20,8 @@ public class Contact: ContentEntity {
     
     //MARK: - Mappings
     
-    static var mappings: [String : String] = [
-        "objectId" : "guid"
-    ]
-    
-    override class func lg_responseToEntityMappings() -> [String : String] {
-        return mappings
+    override class func lg_payloadToEntityMappings() -> [String : String] {
+        return ["objectId" : "guid"]
     }
     
     //MARK: Parsing Payload

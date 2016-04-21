@@ -68,20 +68,10 @@ public class ContactsDataService: ContactsDataServiceType {
     
     //MARK: - Contact
     
-    public func contactWithId(contactId: String, weight: LGContentWeight = .Full) -> Contact? {
-        let fetchRequest = NSFetchRequest(entityName: Contact.lg_entityName())
-        let predicate = NSPredicate(format: "guid == %@ && weight >= %ld", contactId, weight.rawValue)
-        fetchRequest.predicate = predicate
-        
-        let contact = try! self.dataController.mainContext.executeFetchRequest(fetchRequest).first as? Contact
-        
-        return contact
-    }
-
     public func producerForContactWithId(contactId: String, weight: LGContentWeight = .Full) -> SignalProducer<Contact?, NSError> {
         guard let parameters = self.parametersForObjectId(contactId) else { return SignalProducer(error: self.parametersError) }
         
-        let contact = self.contactWithId(contactId, weight: weight)
+        let contact: Contact? = NSManagedObject.lg_objectWithId(contactId, weight: weight, context: self.dataController.mainContext)
 
         let contactUpdateProducer = self.dataController.updateData(
             url: "https://api.parse.com/1/classes/contacts",

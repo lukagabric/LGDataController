@@ -12,14 +12,14 @@ import ReactiveCocoa
 public struct LGResponse {
     
     let httpResponse: NSHTTPURLResponse
-    let responseData: NSData
+    let payload: NSData
     let eTag: String?
     let lastModified: String?
     let statusCode: Int
     
-    init(response: NSHTTPURLResponse, data: NSData) {
+    init(response: NSHTTPURLResponse, payload: NSData) {
         self.httpResponse = response
-        self.responseData = data
+        self.payload = payload
         self.statusCode = response.statusCode
         self.eTag = self.httpResponse.allHeaderFields["Etag"] as? String
         self.lastModified = self.httpResponse.allHeaderFields["Last-Modified"] as? String
@@ -51,7 +51,7 @@ public class LGRequestOperation: NSOperation {
         self.dataProducer = self.session.rac_dataWithRequest(request)
             .retry(1)
             .takeLast(1)
-            .map { (data, response) -> LGResponse in LGResponse(response: response as! NSHTTPURLResponse, data: data) }
+            .map { (data, response) -> LGResponse in LGResponse(response: response as! NSHTTPURLResponse, payload: data) }
             .on(terminated: { [weak self] _ in self?.completeOperation() })
     }
     

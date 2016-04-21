@@ -39,7 +39,7 @@ extension NSManagedObject {
     public func lg_mergeWithDictionary(dictionary: [String : AnyObject]) {
         if !lg_isUpdateDictionaryValid(dictionary) { return }
 
-        let mappings = self.dynamicType.lg_responseToEntityMappings()
+        let mappings = self.dynamicType.lg_payloadToEntityMappings()
         let attributes = self.entity.attributesByName
         let dateFormatter = self.dynamicType.lg_dateFormatter()
         
@@ -93,7 +93,7 @@ extension NSManagedObject {
         return true
     }
     
-    class func lg_responseToEntityMappings() -> [String : String] {
+    class func lg_payloadToEntityMappings() -> [String : String] {
         return [String : String]()
     }
     
@@ -110,41 +110,41 @@ extension NSManagedObject {
     
     class func lg_mergeObjects<T where T: NSManagedObject, T: LGContentEntityType>(
         payload payload: [[String : AnyObject]],
-        payloadGuidKey: String,
-        objectGuidKey: String,
-        weight: LGContentWeight,
-        permanent: Bool = true,
-        context: NSManagedObjectContext) -> [T] {
-            let guids = payload.map { (dictionary: [String : AnyObject]) -> String in
-                dictionary[payloadGuidKey] as! String
+                payloadGuidKey: String = "objectId",
+                objectGuidKey: String = "guid",
+                weight: LGContentWeight,
+                permanent: Bool = true,
+                context: NSManagedObjectContext) -> [T] {
+        let guids = payload.map { (dictionary: [String : AnyObject]) -> String in
+            dictionary[payloadGuidKey] as! String
+        }
+        
+        let objects: [T] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: objectGuidKey)
+        
+        let objectsById = objects.lg_indexedByKeyPath(objectGuidKey)
+        
+        for dictionary in payload {
+            let guid = dictionary[payloadGuidKey] as! String
+            let object = objectsById[guid]!
+            
+            if object.shouldUpdateDataForWeight(weight, payloadDict: dictionary) {
+                self.lg_parsePayloadForObject(object, payloadDict: dictionary, context: context)
+                object.updateForPayloadWeight(weight)
             }
             
-            let objects: [T] = context.lg_existingObjectsOrStubs(guids: guids, guidKey: objectGuidKey)
-            
-            let objectsById: [String : T] = objects.lg_indexedByKeyPath(objectGuidKey)
-            
-            for dictionary in payload {
-                let guid = dictionary[payloadGuidKey] as! String
-                let object = objectsById[guid]!
-                
-                if object.shouldUpdateDataForWeight(weight, payloadDict: dictionary) {
-                    self.lg_parsePayloadForObject(object, payloadDict: dictionary, context: context)
-                    object.updateForPayloadWeight(weight)
-                }
-
-                object.markAs(permanent: permanent, context: context)
-            }
-            
-            return objects
+            object.markAs(permanent: permanent, context: context)
+        }
+        
+        return objects
     }
     
     class func lg_mergeAndTruncateObjects<T where T: NSManagedObject, T: LGContentEntityType>(
         payload payload: [[String : AnyObject]],
-        payloadGuidKey: String,
-        objectGuidKey: String,
-        weight: LGContentWeight,
-        permanent: Bool = true,
-        context: NSManagedObjectContext) -> [T] {
+                payloadGuidKey: String = "objectId",
+                objectGuidKey: String = "guid",
+                weight: LGContentWeight,
+                permanent: Bool = true,
+                context: NSManagedObjectContext) -> [T] {
         let allObjects: [T] = context.lg_allObjects()
         var objectsByGuid: [String : T] = allObjects.lg_indexedByKeyPath(objectGuidKey)
         
@@ -165,7 +165,7 @@ extension NSManagedObject {
             }
             
             object.markAs(permanent: permanent, context: context)
-
+            
             resultObjects.append(object)
         }
         
@@ -181,5 +181,15 @@ extension NSManagedObject {
         object.lg_mergeWithDictionary(payloadDict)
         //Subclasses may override this method to perform additional parsing, like handle relationship objects
     }
+    
+    class func lg_objectWithId<T: NSManagedObject>(guid: String, weight: LGContentWeight = .Full, context: NSManagedObjectContext) -> T? {
+        let fetchRequest = NSFetchRequest(entityName: T.lg_entityName())
+        let predicate = NSPredicate(format: "guid == %@ && weight >= %ld", guid, weight.rawValue)
+        fetchRequest.predicate = predicate
         
+        let object = try! context.executeFetchRequest(fetchRequest).first as? T
+        
+        return object
+    }
+    
 }
