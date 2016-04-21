@@ -55,9 +55,9 @@ public class ContentEntity: NSManagedObject, LGContentEntityType {
     }
 
     func updateForPayloadWeight(weight: LGContentWeight) {
-        if self.contentWeight.rawValue > weight.rawValue { return }
-        
-        self.contentWeight = weight
+        if weight.rawValue > self.contentWeight.rawValue {
+            self.contentWeight = weight
+        }
     }
     
     func markAs(permanent permanent: Bool, context: NSManagedObjectContext) {
