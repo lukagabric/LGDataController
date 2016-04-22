@@ -11,7 +11,23 @@ import CoreData
 
 extension NSManagedObjectContext {
     
-    public func lg_existingObjectOrStub<T: NSManagedObject>(guid guid: String, guidKey: String) -> T {
+    //MARK: - Fetch
+    
+    public func lg_allObjects<T: NSManagedObject>() -> [T] {
+        let entityName = T.lg_entityName()
+        let fetchRequest = NSFetchRequest(entityName: entityName)
+        return try! self.executeFetchRequest(fetchRequest) as! [T]
+    }
+    
+    public func lg_objectWithId<T: NSManagedObject>(guid: String, weight: LGContentWeight = .Full) -> T? {
+        let fetchRequest = NSFetchRequest(entityName: T.lg_entityName())
+        let predicate = NSPredicate(format: "guid == %@ && weight >= %ld", guid, weight.rawValue)
+        fetchRequest.predicate = predicate
+        
+        return try! self.executeFetchRequest(fetchRequest).first as? T
+    }
+    
+    public func lg_existingObjectOrStub<T: NSManagedObject>(guid guid: String, guidKey: String = "guid") -> T {
         let entityName = T.lg_entityName()
         assert(!entityName.isEmpty, "Entity name must be specified")
         
@@ -33,10 +49,8 @@ extension NSManagedObjectContext {
         return object
     }
     
-    public func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String) -> ([T], NSError?) {
+    public func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String = "guid") -> [T] {
         let entityName = T.lg_entityName()
-        if entityName.isEmpty { return ([T](), NSError(domain: "Entity name must be specified", code: 0, userInfo: nil)) }
-        assert(!entityName.isEmpty, "Entity name must be specified")
         
         let fetchRequest = NSFetchRequest(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "(%K IN %@)", guidKey, guids)
@@ -51,35 +65,10 @@ extension NSManagedObjectContext {
             return newObject as! T
         }
         
-        return (newObjects + existingObjects, nil)
+        return newObjects + existingObjects
     }
     
-    public func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String) -> [T] {
-        return self.lg_existingObjectsOrStubs(guids: guids, guidKey: guidKey).0
-    }
-    
-    public func lg_allObjects<T: NSManagedObject>() -> ([T], NSError?) {
-        let entityName = T.lg_entityName()
-        if entityName.isEmpty { return ([T](), NSError(domain: "Entity name must be specified", code: 0, userInfo: nil)) }
-        assert(!entityName.isEmpty, "Entity name must be specified")
-        
-        let fetchRequest = NSFetchRequest(entityName: entityName)
-        
-        let existingObjects: [T]
-        
-        do {
-            existingObjects = try self.executeFetchRequest(fetchRequest) as! [T]
-        }
-        catch let error as NSError {
-            return ([], error)
-        }
-        
-        return (existingObjects, nil)
-    }
-    
-    public func lg_allObjects<T: NSManagedObject>() -> [T] {
-        return self.lg_allObjects().0
-    }
+    //MARK: - Save
     
     public func lg_saveToPersistentStore(completion: (() -> ())?) {
         self.lg_saveContextToPersistentStore(context: self, completion: completion)
@@ -101,5 +90,7 @@ extension NSManagedObjectContext {
             }
         }
     }
+    
+    //MARK: -
 
 }

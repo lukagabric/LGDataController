@@ -24,13 +24,6 @@ public class Contact: ContentEntity {
         return ["objectId" : "guid"]
     }
     
-    //MARK: Parsing Payload
-        
-    override public func lg_mergeWithDictionary(dictionary: [String : AnyObject]) {
-        super.lg_mergeWithDictionary(dictionary)
-        self.updatedAtString = dictionary["updatedAt"] as? String
-    }
-    
     //MARK: Info
     
     var info: String {

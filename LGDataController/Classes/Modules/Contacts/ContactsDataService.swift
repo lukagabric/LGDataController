@@ -54,12 +54,14 @@ public class ContactsDataService: ContactsDataServiceType {
             staleInterval: 10) { (payload, response, context) -> [Contact]? in
                 let dataDictionary = payload as! NSDictionary
                 let payloadArray = dataDictionary["results"] as? [[String : AnyObject]] ?? [[String : AnyObject]]()
-                let contacts: [Contact] = NSManagedObject.lg_mergeAndTruncateObjects(
+                let contacts: [Contact] = LGParsing.lg_mergeAndTruncateObjects(
                     payload: payloadArray,
                     payloadGuidKey: "objectId",
                     objectGuidKey: "guid",
                     weight: .Light,
-                    context: context)
+                    context: context) { object, payloadDict in
+                        object.updatedAtString = payloadDict["updatedAt"] as? String
+                }
                 return contacts
         }
 
@@ -71,7 +73,7 @@ public class ContactsDataService: ContactsDataServiceType {
     public func producerForContactWithId(contactId: String, weight: LGContentWeight = .Full) -> SignalProducer<Contact?, NSError> {
         guard let parameters = self.parametersForObjectId(contactId) else { return SignalProducer(error: self.parametersError) }
         
-        let contact: Contact? = NSManagedObject.lg_objectWithId(contactId, weight: weight, context: self.dataController.mainContext)
+        let contact: Contact? = self.dataController.mainContext.lg_objectWithId(contactId, weight: weight)
 
         let contactUpdateProducer = self.dataController.updateData(
             url: "https://api.parse.com/1/classes/contacts",
@@ -81,12 +83,14 @@ public class ContactsDataService: ContactsDataServiceType {
             staleInterval: 10) { (payload, response, context) -> Contact? in
                 let dataDictionary = payload as! NSDictionary
                 let payloadArray = dataDictionary["results"] as? [[String : AnyObject]] ?? [[String : AnyObject]]()
-                let contacts: [Contact] = NSManagedObject.lg_mergeObjects(
+                let contacts: [Contact] = LGParsing.lg_mergeObjects(
                     payload: payloadArray,
                     payloadGuidKey: "objectId",
                     objectGuidKey: "guid",
                     weight: weight,
-                    context: context)
+                    context: context) { object, payloadDict in
+                        object.updatedAtString = payloadDict["updatedAt"] as? String
+                }
                 let contact = contacts.first
                 return contact
         }

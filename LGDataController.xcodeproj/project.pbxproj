@@ -51,6 +51,7 @@
 		41EF86C51C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */; };
 		41F18FA51C26EA2600EEABF7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FA41C26EA2600EEABF7 /* Reachability.swift */; };
 		41F18FBA1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */; };
+		41F6B3FE1CCA0A4000DE7DA7 /* LGParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F6B3FD1CCA0A4000DE7DA7 /* LGParsing.swift */; };
 		41F9AD091C2D8641001DD670 /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +115,7 @@
 		41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsViewController.xib; sourceTree = "<group>"; };
 		41F18FA41C26EA2600EEABF7 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGReachabilityService.swift; sourceTree = "<group>"; };
+		41F6B3FD1CCA0A4000DE7DA7 /* LGParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGParsing.swift; sourceTree = "<group>"; };
 		41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +189,7 @@
 				4186A9CC1C19D2A4003C3A89 /* LGDataController.swift */,
 				4186A9CD1C19D2A4003C3A89 /* LGModelObserver.swift */,
 				4186A9CE1C19D2A4003C3A89 /* LGRequestOperation.swift */,
+				41F6B3FD1CCA0A4000DE7DA7 /* LGParsing.swift */,
 				4186A9C71C19D2A4003C3A89 /* Extensions */,
 			);
 			path = DataController;
@@ -407,6 +410,7 @@
 				41EF0B561C25D2950088CFCC /* UIKitExtensions.swift in Sources */,
 				4186A9E41C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
 				419B65EA1C2298C800C7C28B /* SessionEntity.swift in Sources */,
+				41F6B3FE1CCA0A4000DE7DA7 /* LGParsing.swift in Sources */,
 				41A75F801C20A956007DD6AA /* LGLoadingView.swift in Sources */,
 				419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */,
 				4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
