@@ -16,6 +16,31 @@ class LGParsing {
     
     //MARK: - Merge Array Of Objects With Payload Dictionaries
     
+    class func lg_mergeObject<T where T: NSManagedObject, T: LGContentEntityType>(
+        payload payload: [String : AnyObject],
+                payloadGuidKey: String = defaultPayloadGuidKey,
+                objectGuidKey: String = defaultObjectGuidKey,
+                weight: LGContentWeight,
+                permanent: Bool = true,
+                context: NSManagedObjectContext,
+                merge: ((object: T, payloadDict: [String : AnyObject]) -> ())? = nil) -> T {
+        let guid = payload[payloadGuidKey] as! String
+        
+        let object: T = context.lg_existingObjectOrStub(guid: guid)
+        
+        if object.shouldUpdateData(weight: weight, payloadDict: payload) {
+            object.lg_mergeWithDictionary(payload)
+            object.updateForPayloadWeight(weight)
+            if let merge = merge {
+                merge(object: object, payloadDict: payload)
+            }
+        }
+        
+        object.markAs(permanent: permanent, context: context)
+        
+        return object
+    }
+    
     class func lg_mergeObjects<T where T: NSManagedObject, T: LGContentEntityType>(
         payload payload: [[String : AnyObject]],
                 payloadGuidKey: String = defaultPayloadGuidKey,
@@ -92,6 +117,6 @@ class LGParsing {
         return resultObjects
     }
     
-    //MARK: - 
+    //MARK: -
     
 }
