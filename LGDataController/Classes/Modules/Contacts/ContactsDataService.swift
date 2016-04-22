@@ -51,7 +51,7 @@ public class ContactsDataService: ContactsDataServiceType {
             methodName: "GET",
             parameters: parameters,
             requestId: "GetAllContacts",
-            staleInterval: 10) { (payload, response, context) -> [Contact]? in
+            staleInterval: 10) { payload, response, context -> [Contact]? in
                 let dataDictionary = payload as! NSDictionary
                 let payloadArray = dataDictionary["results"] as? [[String : AnyObject]] ?? [[String : AnyObject]]()
                 let contacts: [Contact] = LGParsing.lg_mergeAndTruncateObjects(
@@ -78,7 +78,7 @@ public class ContactsDataService: ContactsDataServiceType {
             methodName: "GET",
             parameters: parameters,
             requestId: contactId,
-            staleInterval: 10) { (payload, response, context) -> Contact? in
+            staleInterval: 10) { payload, response, context -> Contact? in
                 let dataDictionary = payload as! NSDictionary
                 let payloadArray = dataDictionary["results"] as? [[String : AnyObject]] ?? [[String : AnyObject]]()
                 let contacts: [Contact] = LGParsing.lg_mergeObjects(
