@@ -24,7 +24,7 @@ public protocol ContactsViewModelType {
 
 public class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    private var viewModel: ContactsViewModelType!
+    private var viewModel: ContactsViewModelType
     
     private var contacts: [Contact]? {
         return self.viewModel.contacts.value
@@ -38,11 +38,11 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     
     init(viewModel: ContactsViewModelType) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: "ContactsView", bundle: nil)
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("NSCoding not supported")
     }
     
     //MARK: - View Lifecycle

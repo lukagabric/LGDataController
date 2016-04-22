@@ -21,7 +21,7 @@ public protocol ContactDetailsViewModelType {
 
 public class ContactDetailsViewController: UIViewController {
     
-    private var viewModel: ContactDetailsViewModelType!
+    private var viewModel: ContactDetailsViewModelType
     
     @IBOutlet weak var guidLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -38,11 +38,11 @@ public class ContactDetailsViewController: UIViewController {
     
     init(viewModel: ContactDetailsViewModelType) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: "ContactDetailsView", bundle: nil)
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("NSCoding not supported")
     }
     
     //MARK: - View Lifecycle

@@ -20,7 +20,7 @@
 		4186A9F81C19D2A4003C3A89 /* ContactsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D61C19D2A4003C3A89 /* ContactsDataService.swift */; };
 		4186A9FA1C19D2A4003C3A89 /* ContactsDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D71C19D2A4003C3A89 /* ContactsDependencies.swift */; };
 		4186A9FC1C19D2A4003C3A89 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */; };
-		4186A9FE1C19D2A4003C3A89 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */; };
+		4186A9FE1C19D2A4003C3A89 /* ContactsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4186A9D91C19D2A4003C3A89 /* ContactsView.xib */; };
 		4186AA001C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */; };
 		4186AA021C19D2A4003C3A89 /* HomeDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DC1C19D2A4003C3A89 /* HomeDependencies.swift */; };
 		4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */; };
@@ -48,7 +48,7 @@
 		41D0AEF21C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */; };
 		41EF0B561C25D2950088CFCC /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */; };
 		41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
-		41EF86C51C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */; };
+		41EF86C51C1FEB3100EBAA48 /* ContactDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsView.xib */; };
 		41F18FA51C26EA2600EEABF7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FA41C26EA2600EEABF7 /* Reachability.swift */; };
 		41F18FBA1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */; };
 		41F6B3FE1CCA0A4000DE7DA7 /* LGParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F6B3FD1CCA0A4000DE7DA7 /* LGParsing.swift */; };
@@ -86,7 +86,7 @@
 		4186A9D61C19D2A4003C3A89 /* ContactsDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsDataService.swift; sourceTree = "<group>"; };
 		4186A9D71C19D2A4003C3A89 /* ContactsDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsDependencies.swift; sourceTree = "<group>"; };
 		4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
-		4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
+		4186A9D91C19D2A4003C3A89 /* ContactsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsView.xib; sourceTree = "<group>"; };
 		4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
 		4186A9DC1C19D2A4003C3A89 /* HomeDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDependencies.swift; sourceTree = "<group>"; };
 		4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTextOverlayView.swift; sourceTree = "<group>"; };
 		41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
-		41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsViewController.xib; sourceTree = "<group>"; };
+		41EF86C21C1FEB3100EBAA48 /* ContactDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsView.xib; sourceTree = "<group>"; };
 		41F18FA41C26EA2600EEABF7 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGReachabilityService.swift; sourceTree = "<group>"; };
 		41F6B3FD1CCA0A4000DE7DA7 /* LGParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGParsing.swift; sourceTree = "<group>"; };
@@ -246,10 +246,10 @@
 				4186A9D61C19D2A4003C3A89 /* ContactsDataService.swift */,
 				4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */,
 				4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */,
-				4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */,
+				4186A9D91C19D2A4003C3A89 /* ContactsView.xib */,
 				41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */,
 				41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */,
-				41EF86C21C1FEB3100EBAA48 /* ContactDetailsViewController.xib */,
+				41EF86C21C1FEB3100EBAA48 /* ContactDetailsView.xib */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -387,8 +387,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41EF86C51C1FEB3100EBAA48 /* ContactDetailsViewController.xib in Resources */,
-				4186A9FE1C19D2A4003C3A89 /* ContactsViewController.xib in Resources */,
+				41EF86C51C1FEB3100EBAA48 /* ContactDetailsView.xib in Resources */,
+				4186A9FE1C19D2A4003C3A89 /* ContactsView.xib in Resources */,
 				4186AA161C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */,
 				4186AA061C19D2A4003C3A89 /* HomeViewController.xib in Resources */,
 			);
