@@ -20,9 +20,9 @@ protocol LGContentEntityType {
     var guid: String? { get }
     var contentWeight: LGContentWeight { get set }
 
+    func shouldUpdateData(weight weight: LGContentWeight, payloadDict: [String : AnyObject]) -> Bool
     func updateForPayloadWeight(weight: LGContentWeight)
     func markAs(permanent permanent: Bool, context: NSManagedObjectContext)
-    func shouldUpdateDataForWeight(weight: LGContentWeight, payloadDict: [String : AnyObject]) -> Bool
     
 }
 

@@ -27,7 +27,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
     
     public var loadingViewModel: LoadingViewModelType!
     
-    init(dependencies: ContactsModuleDependencies, contactId: String) {
+    init(dependencies: ContactsDependencies, contactId: String) {
         self.dataService = dependencies.contactsDataService
         self.navigationService = dependencies.contactsNavigationService
         

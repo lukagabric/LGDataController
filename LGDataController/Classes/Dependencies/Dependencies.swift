@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-public class Dependencies: ContactsModuleDependencies, HomeModuleDependencies {
+public class Dependencies: ContactsDependencies, HomeModuleDependencies {
     
     //MARK: - Vars
     

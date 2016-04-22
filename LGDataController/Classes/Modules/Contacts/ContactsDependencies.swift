@@ -1,5 +1,5 @@
 //
-//  ContactsModuleDependencies.swift
+//  ContactsDependencies.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 10/12/15.
@@ -9,7 +9,7 @@
 import Foundation
 import ReactiveCocoa
 
-public protocol ContactsModuleDependencies {
+public protocol ContactsDependencies {
     
     var contactsDataService: ContactsDataServiceType { get }
     var contactsNavigationService: ContactsNavigationServiceType { get }

@@ -29,7 +29,7 @@ public class ContactsViewModel: ContactsViewModelType {
     
     //MARK: - Init
 
-    init(dependencies: ContactsModuleDependencies) {
+    init(dependencies: ContactsDependencies) {
         self.dataService = dependencies.contactsDataService
         self.navigationService = dependencies.contactsNavigationService
         self.contacts = AnyProperty(self.mContacts)

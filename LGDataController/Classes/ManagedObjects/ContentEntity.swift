@@ -12,6 +12,35 @@ import ReactiveCocoa
 
 public class ContentEntity: NSManagedObject, LGContentEntityType {
 
+    //MARK: - LGContentEntityType
+    
+    func shouldUpdateData(weight weight: LGContentWeight, payloadDict: [String : AnyObject]) -> Bool {
+        return self.contentWeight.rawValue < weight.rawValue || self.updatedAtString != payloadDict["updatedAt"] as? String
+    }
+    
+    func updateForPayloadWeight(weight: LGContentWeight) {
+        if weight.rawValue > self.contentWeight.rawValue {
+            self.contentWeight = weight
+        }
+    }
+    
+    func markAs(permanent permanent: Bool, context: NSManagedObjectContext) {
+        if permanent {
+            self.markAsPermanentInContext(context)
+        }
+        else {
+            self.markAsSessionInContext(context)
+        }
+    }
+    
+    func markAsPermanentInContext(context: NSManagedObjectContext) {
+        self.permanentEntity = PermanentEntity.permanentEntityInContext(context)
+    }
+    
+    func markAsSessionInContext(context: NSManagedObjectContext) {
+        self.sessionEntity = SessionEntity.sessionEntityInContext(context)
+    }
+    
     public var contentWeight: LGContentWeight {
         get {
             guard let weight = self.weight else { return .Stub }
@@ -25,6 +54,8 @@ public class ContentEntity: NSManagedObject, LGContentEntityType {
             self.weight = NSNumber(integer: contentWeight.rawValue)
         }
     }
+    
+    //MARK: - Producers
     
     lazy public var weightProducer: SignalProducer<String, NoError> = {
         let weightProperty = DynamicProperty(object: self, keyPath: "weight")
@@ -47,38 +78,15 @@ public class ContentEntity: NSManagedObject, LGContentEntityType {
     
     private var deleteObserver: Observer<Void, NoError>?
     
+    //MARK: - Override
+    
     override public func prepareForDeletion() {
         if let observer = self.deleteObserver {
             observer.sendNext()
             observer.sendCompleted()
         }
     }
-
-    func updateForPayloadWeight(weight: LGContentWeight) {
-        if weight.rawValue > self.contentWeight.rawValue {
-            self.contentWeight = weight
-        }
-    }
     
-    func markAs(permanent permanent: Bool, context: NSManagedObjectContext) {
-        if permanent {
-            self.markAsPermanentInContext(context)
-        }
-        else {
-            self.markAsSessionInContext(context)
-        }
-    }
-    
-    func markAsPermanentInContext(context: NSManagedObjectContext) {
-        self.permanentEntity = PermanentEntity.permanentEntityInContext(context)
-    }
-
-    func markAsSessionInContext(context: NSManagedObjectContext) {
-        self.sessionEntity = SessionEntity.sessionEntityInContext(context)
-    }
-    
-    func shouldUpdateDataForWeight(weight: LGContentWeight, payloadDict: [String : AnyObject]) -> Bool {
-        return self.contentWeight.rawValue < weight.rawValue || self.updatedAtString != payloadDict["updatedAt"] as? String
-    }
+    //MARK: -
     
 }

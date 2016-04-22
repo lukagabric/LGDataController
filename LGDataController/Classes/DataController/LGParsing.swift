@@ -36,7 +36,7 @@ class LGParsing {
             let guid = payloadDict[payloadGuidKey] as! String
             let object = objectsById[guid]!
             
-            if object.shouldUpdateDataForWeight(weight, payloadDict: payloadDict) {
+            if object.shouldUpdateData(weight: weight, payloadDict: payloadDict) {
                 object.lg_mergeWithDictionary(payloadDict)
                 object.updateForPayloadWeight(weight)
                 if let merge = merge {
@@ -72,7 +72,7 @@ class LGParsing {
                 object = NSEntityDescription.insertNewObjectForEntityForName(T.lg_entityName(), inManagedObjectContext: context) as! T
             }
             
-            if object.shouldUpdateDataForWeight(weight, payloadDict: payloadDict) {
+            if object.shouldUpdateData(weight: weight, payloadDict: payloadDict) {
                 object.lg_mergeWithDictionary(payloadDict)
                 object.updateForPayloadWeight(weight)
                 if let merge = merge {
@@ -91,5 +91,7 @@ class LGParsing {
         
         return resultObjects
     }
+    
+    //MARK: - 
     
 }
