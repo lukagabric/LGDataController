@@ -14,7 +14,7 @@ public class HomeViewModel: HomeViewModelType {
     
     //MARK: - Init
 
-    init(dependencies: HomeModuleDependencies) {
+    init(dependencies: HomeDependencies) {
         self.navigationService = dependencies.homeNavigationService
     }
     

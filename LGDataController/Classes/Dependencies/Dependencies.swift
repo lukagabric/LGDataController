@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-public class Dependencies: ContactsDependencies, HomeModuleDependencies {
+public class Dependencies: ContactsDependencies, HomeDependencies {
     
     //MARK: - Vars
     
@@ -51,7 +51,7 @@ public class Dependencies: ContactsDependencies, HomeModuleDependencies {
     }
     
     public var contactsDataService: ContactsDataServiceType {
-        return ContactsDataService(dataController: self.dataController)
+        return ContactsDataService(dependencies: self)
     }
     
     public var notificationCenter: NSNotificationCenter {

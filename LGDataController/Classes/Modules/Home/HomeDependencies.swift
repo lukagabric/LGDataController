@@ -1,5 +1,5 @@
 //
-//  HomeModuleDependencies.swift
+//  HomeDependencies.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 10/12/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol HomeModuleDependencies {
+public protocol HomeDependencies {
     
     var homeNavigationService: HomeNavigationServiceType { get }
     

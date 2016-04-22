@@ -72,6 +72,15 @@ public class Contact: ContentEntity {
         print("Email: \(email)")
     }
     
+    //MARK: Parsing Payload
+    
+    class func parseAllContacts(payloadArray payloadArray: [[String : AnyObject]], weight: LGContentWeight, context: NSManagedObjectContext) -> [Contact] {
+        let contacts: [Contact] = LGParsing.lg_mergeAndTruncateObjects(payload: payloadArray, weight: weight, context: context) { object, payloadDict in
+            object.updatedAtString = payloadDict["updatedAt"] as? String
+        }
+        return contacts
+    }
+    
     //MARK: -
 
 }

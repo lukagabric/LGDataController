@@ -22,7 +22,7 @@
 		4186A9FC1C19D2A4003C3A89 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */; };
 		4186A9FE1C19D2A4003C3A89 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */; };
 		4186AA001C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */; };
-		4186AA021C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DC1C19D2A4003C3A89 /* HomeModuleDependencies.swift */; };
+		4186AA021C19D2A4003C3A89 /* HomeDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DC1C19D2A4003C3A89 /* HomeDependencies.swift */; };
 		4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */; };
 		4186AA061C19D2A4003C3A89 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4186A9DE1C19D2A4003C3A89 /* HomeViewController.xib */; };
 		4186AA081C19D2A4003C3A89 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DF1C19D2A4003C3A89 /* HomeViewModel.swift */; };
@@ -88,7 +88,7 @@
 		4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		4186A9D91C19D2A4003C3A89 /* ContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
 		4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
-		4186A9DC1C19D2A4003C3A89 /* HomeModuleDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeModuleDependencies.swift; sourceTree = "<group>"; };
+		4186A9DC1C19D2A4003C3A89 /* HomeDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDependencies.swift; sourceTree = "<group>"; };
 		4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4186A9DE1C19D2A4003C3A89 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		4186A9DF1C19D2A4003C3A89 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 		4186A9DB1C19D2A4003C3A89 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				4186A9DC1C19D2A4003C3A89 /* HomeModuleDependencies.swift */,
+				4186A9DC1C19D2A4003C3A89 /* HomeDependencies.swift */,
 				4186A9DF1C19D2A4003C3A89 /* HomeViewModel.swift */,
 				4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */,
 				4186A9DE1C19D2A4003C3A89 /* HomeViewController.xib */,
@@ -420,7 +420,7 @@
 				4186A9EE1C19D2A4003C3A89 /* LGModelObserver.swift in Sources */,
 				4186A9E21C19D2A4003C3A89 /* AppDelegate.swift in Sources */,
 				41CA59F41C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */,
-				4186AA021C19D2A4003C3A89 /* HomeModuleDependencies.swift in Sources */,
+				4186AA021C19D2A4003C3A89 /* HomeDependencies.swift in Sources */,
 				4186A9FA1C19D2A4003C3A89 /* ContactsDependencies.swift in Sources */,
 				4186A9F41C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
 				4186AA281C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */,

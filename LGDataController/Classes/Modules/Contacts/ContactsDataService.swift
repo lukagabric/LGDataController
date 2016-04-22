@@ -17,8 +17,8 @@ public class ContactsDataService: ContactsDataServiceType {
     
     //MARK: - Init
     
-    init(dataController: DataController) {
-        self.dataController = dataController
+    init(dependencies: ContactsDependencies) {
+        self.dataController = dependencies.dataController
     }
     
     //MARK: - Contacts Model Observer
@@ -54,13 +54,8 @@ public class ContactsDataService: ContactsDataServiceType {
             staleInterval: 10) { payload, response, context -> [Contact]? in
                 let dataDictionary = payload as! NSDictionary
                 let payloadArray = dataDictionary["results"] as? [[String : AnyObject]] ?? [[String : AnyObject]]()
-                let contacts: [Contact] = LGParsing.lg_mergeAndTruncateObjects(
-                    payload: payloadArray,
-                    weight: .Light,
-                    context: context) { object, payloadDict in
-                        object.updatedAtString = payloadDict["updatedAt"] as? String
-                }
-                return contacts
+                
+                return Contact.parseAllContacts(payloadArray: payloadArray, weight: .Light, context: context)
         }
         
         return contactsUpdateProducer
