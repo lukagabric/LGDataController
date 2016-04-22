@@ -49,7 +49,7 @@ extension NSManagedObjectContext {
         return object
     }
     
-    public func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String = "guid") -> [T] {
+    public func lg_existingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String = defaultObjectGuidKey) -> [T] {
         let entityName = T.lg_entityName()
         
         let fetchRequest = NSFetchRequest(entityName: entityName)
@@ -57,15 +57,46 @@ extension NSManagedObjectContext {
         
         let existingObjects = try! self.executeFetchRequest(fetchRequest) as! [T]
         
-        let existingObjectsGuids = existingObjects.map { ($0 as NSManagedObject).valueForKey(guidKey) as! String }
-        let newObjectGuids = guids.filter { guid in !existingObjectsGuids.contains(guid) }
-        let newObjects = newObjectGuids.map { (guid: String) -> T in
+        let existingObjectsGuids = Set(existingObjects.map { ($0 as NSManagedObject).valueForKey(guidKey) as! String })
+        let guidsSet = Set(guids)
+        let newObjectGuids = guidsSet.subtract(existingObjectsGuids)
+        let newObjects = newObjectGuids.map { guid -> T in
             let newObject = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self)
             newObject.setValue(guid, forKey: guidKey)
             return newObject as! T
         }
         
         return newObjects + existingObjects
+    }
+
+    public func lg_orderedExistingObjectsOrStubs<T: NSManagedObject>(guids guids: [String], guidKey: String = defaultObjectGuidKey) -> [T] {
+        let entityName = T.lg_entityName()
+        
+        let fetchRequest = NSFetchRequest(entityName: entityName)
+        fetchRequest.predicate = NSPredicate(format: "(%K IN %@)", guidKey, guids)
+        
+        let existingObjects = try! self.executeFetchRequest(fetchRequest) as! [T]
+
+        let existingObjectsByGuid = existingObjects.lg_indexedByKeyPath("guid")
+        
+        var orderedObjects = [T]()
+        
+        for guid in guids {
+            let object: T
+            
+            if let existingObject = existingObjectsByGuid[guid] {
+                object = existingObject
+            }
+            else {
+                let newObject = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self)
+                newObject.setValue(guid, forKey: guidKey)
+                object = newObject as! T
+            }
+            
+            orderedObjects.append(object)
+        }
+        
+        return orderedObjects
     }
     
     //MARK: - Save
