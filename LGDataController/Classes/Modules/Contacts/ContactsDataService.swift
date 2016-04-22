@@ -54,7 +54,7 @@ public class ContactsDataService: ContactsDataServiceType {
             requestId: "GetAllContacts",
             staleInterval: 10) { payload, response, context -> [Contact]? in
                 guard let
-                    dataDictionary = payload as? NSDictionary,
+                    dataDictionary = payload as? [String : AnyObject],
                     payloadArray = dataDictionary["results"] as? [[String : AnyObject]]
                     else { return nil }
                 
@@ -83,7 +83,7 @@ public class ContactsDataService: ContactsDataServiceType {
             requestId: contactId,
             staleInterval: 10) { payload, response, context -> Contact? in
                 guard let
-                    dataDictionary = payload as? NSDictionary,
+                    dataDictionary = payload as? [String : AnyObject],
                     payloadArray = dataDictionary["results"] as? [[String : AnyObject]],
                     payload = payloadArray.first
                     else { return nil }
