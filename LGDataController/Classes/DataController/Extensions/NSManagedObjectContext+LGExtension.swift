@@ -27,7 +27,7 @@ extension NSManagedObjectContext {
         return try! self.executeFetchRequest(fetchRequest).first as? T
     }
     
-    public func lg_existingObjectOrStub<T: NSManagedObject>(guid guid: String, guidKey: String = "guid") -> T {
+    public func lg_existingObjectOrStub<T: NSManagedObject>(guid guid: String, guidKey: String = defaultObjectGuidKey) -> T {
         let entityName = T.lg_entityName()
         assert(!entityName.isEmpty, "Entity name must be specified")
         

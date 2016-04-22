@@ -56,15 +56,13 @@ public class ContactsDataService: ContactsDataServiceType {
                 let payloadArray = dataDictionary["results"] as? [[String : AnyObject]] ?? [[String : AnyObject]]()
                 let contacts: [Contact] = LGParsing.lg_mergeAndTruncateObjects(
                     payload: payloadArray,
-                    payloadGuidKey: "objectId",
-                    objectGuidKey: "guid",
                     weight: .Light,
                     context: context) { object, payloadDict in
                         object.updatedAtString = payloadDict["updatedAt"] as? String
                 }
                 return contacts
         }
-
+        
         return contactsUpdateProducer
     }
     
@@ -85,8 +83,6 @@ public class ContactsDataService: ContactsDataServiceType {
                 let payloadArray = dataDictionary["results"] as? [[String : AnyObject]] ?? [[String : AnyObject]]()
                 let contacts: [Contact] = LGParsing.lg_mergeObjects(
                     payload: payloadArray,
-                    payloadGuidKey: "objectId",
-                    objectGuidKey: "guid",
                     weight: weight,
                     context: context) { object, payloadDict in
                         object.updatedAtString = payloadDict["updatedAt"] as? String
@@ -94,7 +90,7 @@ public class ContactsDataService: ContactsDataServiceType {
                 let contact = contacts.first
                 return contact
         }
-
+        
         return lg_producerForObject(contact, updateProducer: contactUpdateProducer)
     }
 
