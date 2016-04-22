@@ -24,7 +24,7 @@
 		4186AA001C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */; };
 		4186AA021C19D2A4003C3A89 /* HomeDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DC1C19D2A4003C3A89 /* HomeDependencies.swift */; };
 		4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */; };
-		4186AA061C19D2A4003C3A89 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4186A9DE1C19D2A4003C3A89 /* HomeViewController.xib */; };
+		4186AA061C19D2A4003C3A89 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4186A9DE1C19D2A4003C3A89 /* HomeView.xib */; };
 		4186AA081C19D2A4003C3A89 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9DF1C19D2A4003C3A89 /* HomeViewModel.swift */; };
 		4186AA0A1C19D2A4003C3A89 /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4186A9E11C19D2A4003C3A89 /* NavigationService.swift */; };
 		4186AA161C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */; };
@@ -90,7 +90,7 @@
 		4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
 		4186A9DC1C19D2A4003C3A89 /* HomeDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDependencies.swift; sourceTree = "<group>"; };
 		4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		4186A9DE1C19D2A4003C3A89 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		4186A9DE1C19D2A4003C3A89 /* HomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
 		4186A9DF1C19D2A4003C3A89 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4186A9E11C19D2A4003C3A89 /* NavigationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
 		4186AA111C19D376003C3A89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 				4186A9DC1C19D2A4003C3A89 /* HomeDependencies.swift */,
 				4186A9DF1C19D2A4003C3A89 /* HomeViewModel.swift */,
 				4186A9DD1C19D2A4003C3A89 /* HomeViewController.swift */,
-				4186A9DE1C19D2A4003C3A89 /* HomeViewController.xib */,
+				4186A9DE1C19D2A4003C3A89 /* HomeView.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -390,7 +390,7 @@
 				41EF86C51C1FEB3100EBAA48 /* ContactDetailsView.xib in Resources */,
 				4186A9FE1C19D2A4003C3A89 /* ContactsView.xib in Resources */,
 				4186AA161C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */,
-				4186AA061C19D2A4003C3A89 /* HomeViewController.xib in Resources */,
+				4186AA061C19D2A4003C3A89 /* HomeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

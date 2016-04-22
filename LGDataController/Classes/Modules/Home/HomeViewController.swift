@@ -16,17 +16,17 @@ public protocol HomeViewModelType {
 
 public class HomeViewController: UIViewController {
 
-    var viewModel: HomeViewModelType!
+    var viewModel: HomeViewModelType
     
     //MARK: - Init
     
     init(viewModel: HomeViewModelType) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: "HomeView", bundle: nil)
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("NSCoding not supported")
     }
     
     //MARK: - User Interaction
