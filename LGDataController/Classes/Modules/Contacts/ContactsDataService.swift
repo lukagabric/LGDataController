@@ -12,8 +12,9 @@ import CoreData
 
 public class ContactsDataService: ContactsDataServiceType {
     
+    //MARK: - Dependencies
+    
     private let dataController: DataController
-    private let parametersError = NSError(domain: "Parameters error", code: 0, userInfo: nil)
     
     //MARK: - Init
     
@@ -99,7 +100,7 @@ public class ContactsDataService: ContactsDataServiceType {
         self.dataController.deleteObject(contact)
     }
     
-    //MARK: - Private
+    //MARK: - Convenience
     
     private func parametersForLightContactsData() -> [String : String] {
         let parameterValue = "firstName,lastName"
