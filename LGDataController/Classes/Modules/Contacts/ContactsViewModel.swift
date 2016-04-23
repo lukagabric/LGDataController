@@ -21,7 +21,7 @@ public class ContactsViewModel: ContactsViewModelType {
     public let noContentViewHidden: AnyProperty<Bool>
     private let mNoContentViewHidden = MutableProperty<Bool>(true)
     
-    public var loadingViewModel: LoadingViewModelType!
+    public var loadingViewModel: LoadingViewModel!
 
     private let dataService: ContactsDataServiceType
     private var contactsModelObserver: LGModelObserver<Contact>!

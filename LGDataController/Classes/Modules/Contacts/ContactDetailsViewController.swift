@@ -14,7 +14,7 @@ public protocol ContactDetailsViewModelType {
     
     var contact: AnyProperty<Contact?> { get }
     var noContentViewHidden: AnyProperty<Bool> { get }
-    var loadingViewModel: LoadingViewModelType! { get }
+    var loadingViewModel: LoadingViewModel! { get }
     var deleteAction: Action<Void, Void, NoError>! { get }
 
 }
@@ -31,7 +31,7 @@ public class ContactDetailsViewController: UIViewController {
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet var deleteBarButtonItem: UIBarButtonItem!
     
-    weak var loadingView: LGLoadingView!
+    weak var loadingView: LoadingView!
     weak var noContentView: LGTextOverlayView!
     
     //MARK: - Init
@@ -58,7 +58,7 @@ public class ContactDetailsViewController: UIViewController {
         
         self.noContentView = LGTextOverlayView.attachContentUnavailableViewToView(self.view)
         self.noContentView.rex_hidden <~ self.viewModel.noContentViewHidden
-        self.loadingView = LGLoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
+        self.loadingView = LoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
 
         self.viewModel.contact.producer.startWithNext { [weak self] contact in
             guard let contact = contact, sself = self else { return }

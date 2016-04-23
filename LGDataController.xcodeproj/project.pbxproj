@@ -35,7 +35,7 @@
 		419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */; };
 		419B65EA1C2298C800C7C28B /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E31C2298C800C7C28B /* SessionEntity.swift */; };
 		419B65FA1C22A24400C7C28B /* LGCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65F91C22A24400C7C28B /* LGCacheController.swift */; };
-		41A75F801C20A956007DD6AA /* LGLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */; };
+		41A75F801C20A956007DD6AA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LoadingView.swift */; };
 		41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
 		41CA59F41C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */; };
 		41CA59F61C2218F400A47168 /* ContentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F31C2218F400A47168 /* ContentEntity.swift */; };
@@ -102,7 +102,7 @@
 		419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SessionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		419B65E31C2298C800C7C28B /* SessionEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionEntity.swift; sourceTree = "<group>"; };
 		419B65F91C22A24400C7C28B /* LGCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGCacheController.swift; sourceTree = "<group>"; };
-		41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGLoadingView.swift; sourceTree = "<group>"; };
+		41A75F7F1C20A956007DD6AA /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewModel.swift; sourceTree = "<group>"; };
 		41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41CA59F31C2218F400A47168 /* ContentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentEntity.swift; sourceTree = "<group>"; };
@@ -297,17 +297,18 @@
 				41F18FA31C26EA2600EEABF7 /* Reachability */,
 				41D0AEE41C236D29002AB0D4 /* LGTextOverlayView */,
 				419B65F81C22A22800C7C28B /* LGCacheController */,
-				41A75F721C20A93E007DD6AA /* LGLoadingView */,
+				41A75F721C20A93E007DD6AA /* LoadingView */,
 			);
 			path = Common;
 			sourceTree = "<group>";
 		};
-		41A75F721C20A93E007DD6AA /* LGLoadingView */ = {
+		41A75F721C20A93E007DD6AA /* LoadingView */ = {
 			isa = PBXGroup;
 			children = (
 				41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */,
-				41A75F7F1C20A956007DD6AA /* LGLoadingView.swift */,
+				41A75F7F1C20A956007DD6AA /* LoadingView.swift */,
 			);
+			name = LoadingView;
 			path = LGLoadingView;
 			sourceTree = "<group>";
 		};
@@ -412,7 +413,7 @@
 				4186A9E41C19D2A4003C3A89 /* NSArray+LGExtension.swift in Sources */,
 				419B65EA1C2298C800C7C28B /* SessionEntity.swift in Sources */,
 				41F6B3FE1CCA0A4000DE7DA7 /* LGParsing.swift in Sources */,
-				41A75F801C20A956007DD6AA /* LGLoadingView.swift in Sources */,
+				41A75F801C20A956007DD6AA /* LoadingView.swift in Sources */,
 				419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */,
 				4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
 				4186A9EC1C19D2A4003C3A89 /* LGDataController.swift in Sources */,

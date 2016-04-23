@@ -15,7 +15,7 @@ public protocol ContactsViewModelType {
 
     var contacts: AnyProperty<[Contact]?> { get }
     var noContentViewHidden: AnyProperty<Bool> { get }
-    var loadingViewModel: LoadingViewModelType! { get }
+    var loadingViewModel: LoadingViewModel! { get }
     var contactsTitle: AnyProperty<String> { get }
 
     func didSelectContact(contact: Contact)
@@ -31,7 +31,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     @IBOutlet private weak var tableView: UITableView!
-    weak var loadingView: LGLoadingView!
+    weak var loadingView: LoadingView!
     weak var noContentView: LGTextOverlayView!
 
     //MARK: - Init
@@ -52,7 +52,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
 
         self.noContentView = LGTextOverlayView.attachContentUnavailableViewToView(self.view)
         self.noContentView.rex_hidden <~ self.viewModel.noContentViewHidden
-        self.loadingView = LGLoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
+        self.loadingView = LoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
         
         self.configureBindings()

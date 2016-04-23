@@ -25,7 +25,7 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
     public var deleteAction: Action<Void, Void, NoError>!
     private var deleteActionExecutedProducer: SignalProducer<Void, NoError>!
     
-    public var loadingViewModel: LoadingViewModelType!
+    public var loadingViewModel: LoadingViewModel!
     
     init(dependencies: ContactsDependencies, contactId: String) {
         self.dataService = dependencies.contactsDataService

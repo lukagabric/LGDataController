@@ -10,16 +10,7 @@ import Foundation
 import ReactiveCocoa
 import Rex
 
-public protocol LoadingViewModelType {
-    
-    var modelLoadedProducer: SignalProducer<Void, NoError> { get }
-    var loadingViewHidden: AnyProperty<Bool> { get }
-    var contentUnavailableViewHidden: AnyProperty<Bool> { get }
-    var contentUnavailableText: AnyProperty<String> { get }
-    
-}
-
-public class LoadingViewModel: LoadingViewModelType {
+public class LoadingViewModel {
     
     private let reachabilityService: ReachabilityService
     private let loadProducerClosure: () -> SignalProducer<Void, NSError>

@@ -1,5 +1,5 @@
 //
-//  LGLoadingView.swift
+//  LoadingView.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 15/12/15.
@@ -9,12 +9,12 @@
 import UIKit
 import ReactiveCocoa
 
-public class LGLoadingView: UIView {
+public class LoadingView: UIView {
     
     //MARK: Attach
 
-    class func attachToView(view: UIView, loadingViewModel: LoadingViewModelType) -> LGLoadingView {
-        let loadingView = LGLoadingView(frame: view.bounds, loadingViewModel: loadingViewModel)
+    class func attachToView(view: UIView, loadingViewModel: LoadingViewModel) -> LoadingView {
+        let loadingView = LoadingView(frame: view.bounds, loadingViewModel: loadingViewModel)
         loadingView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.addSubview(loadingView)
         
@@ -23,9 +23,9 @@ public class LGLoadingView: UIView {
 
     private var label: UILabel!
     private var activityIndicator: UIActivityIndicatorView!
-    private var loadingViewModel: LoadingViewModelType!
+    private var loadingViewModel: LoadingViewModel!
     
-    init(frame: CGRect, loadingViewModel: LoadingViewModelType) {
+    init(frame: CGRect, loadingViewModel: LoadingViewModel) {
         super.init(frame: frame)
         
         self.loadingViewModel = loadingViewModel
