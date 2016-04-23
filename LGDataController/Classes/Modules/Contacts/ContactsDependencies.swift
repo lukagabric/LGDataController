@@ -14,7 +14,7 @@ public protocol ContactsDependencies {
     var dataController: DataController { get }
     var contactsDataService: ContactsDataServiceType { get }
     var contactsNavigationService: ContactsNavigationServiceType { get }
-    var reachabilityService: ReachabilityServiceType { get }
+    var reachabilityService: ReachabilityService { get }
     
 }
 

@@ -19,7 +19,7 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
     }
     
     public var cacheController: CacheControllerType!
-    public let reachabilityService: ReachabilityServiceType
+    public let reachabilityService: ReachabilityService
 
     lazy public var urlSession: NSURLSession = {
         let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -101,7 +101,7 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
     //MARK: - Init
     
     init(navigationController: UINavigationController) {
-        self.reachabilityService = LGReachabilityService()
+        self.reachabilityService = ReachabilityService()
         self.navigationController = navigationController
         self.navigationService = NavigationService(dependencies: self)
         self.cacheController = LGCacheController(application: self.application, context: self.mainContext)

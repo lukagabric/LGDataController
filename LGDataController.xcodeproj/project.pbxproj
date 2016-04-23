@@ -50,7 +50,7 @@
 		41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
 		41EF86C51C1FEB3100EBAA48 /* ContactDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsView.xib */; };
 		41F18FA51C26EA2600EEABF7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FA41C26EA2600EEABF7 /* Reachability.swift */; };
-		41F18FBA1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */; };
+		41F18FBA1C26EA4600EEABF7 /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F18FB91C26EA4600EEABF7 /* ReachabilityService.swift */; };
 		41F6B3FE1CCA0A4000DE7DA7 /* LGParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F6B3FD1CCA0A4000DE7DA7 /* LGParsing.swift */; };
 		41F9AD091C2D8641001DD670 /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -114,7 +114,7 @@
 		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		41EF86C21C1FEB3100EBAA48 /* ContactDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsView.xib; sourceTree = "<group>"; };
 		41F18FA41C26EA2600EEABF7 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGReachabilityService.swift; sourceTree = "<group>"; };
+		41F18FB91C26EA4600EEABF7 /* ReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		41F6B3FD1CCA0A4000DE7DA7 /* LGParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGParsing.swift; sourceTree = "<group>"; };
 		41F9AD081C2D8641001DD670 /* LoadingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -294,7 +294,7 @@
 		41A75F711C20A93E007DD6AA /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				41F18FA31C26EA2600EEABF7 /* LGReachability */,
+				41F18FA31C26EA2600EEABF7 /* Reachability */,
 				41D0AEE41C236D29002AB0D4 /* LGTextOverlayView */,
 				419B65F81C22A22800C7C28B /* LGCacheController */,
 				41A75F721C20A93E007DD6AA /* LGLoadingView */,
@@ -319,12 +319,13 @@
 			path = LGTextOverlayView;
 			sourceTree = "<group>";
 		};
-		41F18FA31C26EA2600EEABF7 /* LGReachability */ = {
+		41F18FA31C26EA2600EEABF7 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
 				41F18FA41C26EA2600EEABF7 /* Reachability.swift */,
-				41F18FB91C26EA4600EEABF7 /* LGReachabilityService.swift */,
+				41F18FB91C26EA4600EEABF7 /* ReachabilityService.swift */,
 			);
+			name = Reachability;
 			path = LGReachability;
 			sourceTree = "<group>";
 		};
@@ -427,7 +428,7 @@
 				419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */,
 				41D0AEF21C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */,
 				4186A9E81C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
-				41F18FBA1C26EA4600EEABF7 /* LGReachabilityService.swift in Sources */,
+				41F18FBA1C26EA4600EEABF7 /* ReachabilityService.swift in Sources */,
 				4186AA0A1C19D2A4003C3A89 /* NavigationService.swift in Sources */,
 				419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */,
 				419B65FA1C22A24400C7C28B /* LGCacheController.swift in Sources */,

@@ -21,7 +21,7 @@ public protocol LoadingViewModelType {
 
 public class LoadingViewModel: LoadingViewModelType {
     
-    private let reachabilityService: ReachabilityServiceType
+    private let reachabilityService: ReachabilityService
     private let loadProducerClosure: () -> SignalProducer<Void, NSError>
     
     private let isLoadingData = MutableProperty<Bool>(false)
@@ -40,19 +40,16 @@ public class LoadingViewModel: LoadingViewModelType {
     public let contentUnavailableText: AnyProperty<String>
     private let mutableContentUnavailableText = MutableProperty<String>("")
     
-    private let isOffline: MutableProperty<Bool>
-    
-    public init(reachabilityService: ReachabilityServiceType, loadProducerClosure: () -> SignalProducer<Void, NSError>) {
+    public init(reachabilityService: ReachabilityService, loadProducerClosure: () -> SignalProducer<Void, NSError>) {
         self.reachabilityService = reachabilityService
         self.loadProducerClosure = loadProducerClosure
         
         self.loadingViewHidden = AnyProperty(self.mutableLoadingViewHidden)
         self.contentUnavailableViewHidden = AnyProperty(self.mutableContentUnavailableViewHidden)
         self.contentUnavailableText = AnyProperty(self.mutableContentUnavailableText)
-        self.isOffline = self.reachabilityService.isOffline
         (self.modelLoadedProducer, self.modelLoadedObserver) = SignalProducer.buffer(1)
         
-        self.reachabilityService.reachability.producer
+        self.reachabilityService.reachabilityProducer
             .skip(1)
             .takeUntil(self.modelLoadedProducer)
             .startWithNext { [weak self] reachability in
@@ -68,7 +65,7 @@ public class LoadingViewModel: LoadingViewModelType {
     private func configureLoadingBindingsForModelProducer() {
         let loadProducer = self.loadProducerClosure()
         
-        let isOfflineProducer = self.isOffline.producer
+        let isOfflineProducer = self.reachabilityService.isOfflineProducer
         let didLoadFailWithErrorProducer = loadProducer
             .map { _ in false }
             .flatMapError { _ in SignalProducer<Bool, NoError>(value: true) }
