@@ -57,12 +57,8 @@ public class LoadingViewModel {
     private func configureLoadingBindingsForModelProducer() {
         let loadProducer = self.loadProducerClosure() ?? SignalProducer(value: ())
         
-        print("configureLoadingBindingsForModelProducer")
         let onLoadSuccessProducer = loadProducer
-            .map { _ in
-                print("load success")
-                ()
-            }
+            .map { _ in () }
             .flatMapError { _ in SignalProducer<Void, NoError>.empty }
         self.loadSuccessObserver.sendNext(onLoadSuccessProducer)
         
