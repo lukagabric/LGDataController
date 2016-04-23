@@ -10,16 +10,6 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-func lg_loadingProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
-    guard let producer = producer else { return SignalProducer(value: false) }
-    
-    return producer.lg_loadingProducer
-}
-
-func lg_loadingHiddenProducerFrom<T, U>(producer: SignalProducer<T, U>?) -> SignalProducer<Bool, NoError> {
-    return lg_loadingProducerFrom(producer).map { !$0 }
-}
-
 extension SignalProducerType {
     
     var lg_loadingProducer: SignalProducer<Bool, NoError> {
@@ -52,4 +42,14 @@ func lg_producerForObject<T: NSManagedObject>(object: T?, updateProducer: Signal
     else {
         return SignalProducer(value: nil)
     }
+}
+
+func lg_loadingViewProducer<T>(objectProducer objectProducer: SignalProducer<[T]?, NoError>, updateProducer: SignalProducer<[T]?, NSError>) -> SignalProducer<Void, NSError> {
+    let objectProducer = objectProducer
+        .filter { $0?.count > 0 }
+        .map { _ in () }
+        .promoteErrors(NSError.self)
+    let updateProducer = updateProducer.map { _ in () }
+    let mergedProducer = SignalProducer<SignalProducer<Void, NSError>, NSError>(values: [objectProducer, updateProducer]).flatten(.Merge).take(1)
+    return mergedProducer
 }

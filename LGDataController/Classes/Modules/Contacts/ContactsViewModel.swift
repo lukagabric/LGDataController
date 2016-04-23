@@ -10,21 +10,15 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-public class ContactsViewModel: ContactsViewModelType {
+public class ContactsViewModel {
     
     public let contacts: AnyProperty<[Contact]?>
-    private let mContacts = MutableProperty<[Contact]?>(nil)
-
-    public let contactsTitle: AnyProperty<String>
-    private let mContactsTitle = MutableProperty<String>("")
-
-    public let noContentViewHidden: AnyProperty<Bool>
-    private let mNoContentViewHidden = MutableProperty<Bool>(true)
-    
+    public let contactsTitleProducer: SignalProducer<String, NoError>
+    public let noContentViewHiddenProducer: SignalProducer<Bool, NoError>
     public var loadingViewModel: LoadingViewModel!
-
+    private let contactsModelObserver: LGModelObserver<Contact>
+    
     private let dataService: ContactsDataServiceType
-    private var contactsModelObserver: LGModelObserver<Contact>!
     private let navigationService: ContactsNavigationServiceType
     
     //MARK: - Init
@@ -32,31 +26,21 @@ public class ContactsViewModel: ContactsViewModelType {
     init(dependencies: ContactsDependencies) {
         self.dataService = dependencies.contactsDataService
         self.navigationService = dependencies.contactsNavigationService
-        self.contacts = AnyProperty(self.mContacts)
-        self.contactsTitle = AnyProperty(self.mContactsTitle)
-        self.noContentViewHidden = AnyProperty(self.mNoContentViewHidden)
         
-        self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
-            return self?.configuredLoadingProducer() ?? SignalProducer(value: ())
-        }
-    }
-    
-    //MARK: - Loading
-    
-    func configuredLoadingProducer() -> SignalProducer<Void, NSError> {
         self.contactsModelObserver = self.dataService.contactsModelObserver()
-
-        let loadingProducer = self.contactsModelObserver.loadingProducer
-        let fetchedObjectsProducer = self.contactsModelObserver.fetchedObjectsProducer
-        
-        self.mNoContentViewHidden <~ fetchedObjectsProducer.map { $0?.count > 0 }
-        self.mContacts <~ fetchedObjectsProducer
-        self.mContactsTitle <~ fetchedObjectsProducer.map { contacts -> String in
+        self.contacts = AnyProperty(initialValue: nil, producer: self.contactsModelObserver.fetchedObjectsProducer)
+        self.contactsTitleProducer = self.contactsModelObserver.fetchedObjectsProducer.map { contacts -> String in
             guard let contacts = contacts else { return "0 contact(s)" }
             return "\(String(contacts.count)) contact(s)"
         }
-        
-        return loadingProducer
+        self.noContentViewHiddenProducer = self.contactsModelObserver.fetchedObjectsProducer.map { $0?.count > 0 }
+
+        self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
+            guard let sself = self, updateProducer = sself.dataService.contactsUpdateProducer() else { return nil }
+            let objectProducer = sself.contactsModelObserver.fetchedObjectsProducer
+            let resultProducer = lg_loadingViewProducer(objectProducer: objectProducer, updateProducer: updateProducer)
+            return resultProducer
+        }
     }
     
     //MARK: - User Interaction

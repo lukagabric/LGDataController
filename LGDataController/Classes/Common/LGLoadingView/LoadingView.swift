@@ -17,18 +17,19 @@ public class LoadingView: UIView {
         let loadingView = LoadingView(frame: view.bounds, loadingViewModel: loadingViewModel)
         loadingView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.addSubview(loadingView)
+        loadingView.configureBindings()
         
         return loadingView
     }
 
     private var label: UILabel!
     private var activityIndicator: UIActivityIndicatorView!
-    private var loadingViewModel: LoadingViewModel!
+    private let loadingViewModel: LoadingViewModel
     
     init(frame: CGRect, loadingViewModel: LoadingViewModel) {
-        super.init(frame: frame)
-        
         self.loadingViewModel = loadingViewModel
+
+        super.init(frame: frame)
         
         self.backgroundColor = UIColor.lightGrayColor()
         
@@ -47,11 +48,10 @@ public class LoadingView: UIView {
         self.addSubview(self.label)
     }
     
-    public override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        
-        self.loadingViewModel.modelLoadedProducer.startWithCompleted { [weak self] in
-            self?.removeFromSuperview()
+    public func configureBindings() {
+        self.loadingViewModel.loadSuccessProducer.startWithNext { [weak self] in
+            guard let sself = self else { return }
+            sself.removeFromSuperview()
         }
         
         self.activityIndicator.rac_stopped <~ self.loadingViewModel.loadingViewHidden
@@ -60,7 +60,7 @@ public class LoadingView: UIView {
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("NSCoding not supported")
     }
 
 }

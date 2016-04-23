@@ -11,23 +11,12 @@ import ReactiveCocoa
 import CoreData
 import Rex
 
-public protocol ContactsViewModelType {
-
-    var contacts: AnyProperty<[Contact]?> { get }
-    var noContentViewHidden: AnyProperty<Bool> { get }
-    var loadingViewModel: LoadingViewModel! { get }
-    var contactsTitle: AnyProperty<String> { get }
-
-    func didSelectContact(contact: Contact)
-
-}
-
 public class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    private var viewModel: ContactsViewModelType
+    private var viewModel: ContactsViewModel
     
-    private var contacts: [Contact]? {
-        return self.viewModel.contacts.value
+    private var contacts: [Contact] {
+        return self.viewModel.contacts.value ?? [Contact]()
     }
     
     @IBOutlet private weak var tableView: UITableView!
@@ -36,7 +25,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
 
     //MARK: - Init
     
-    init(viewModel: ContactsViewModelType) {
+    init(viewModel: ContactsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: "ContactsView", bundle: nil)
     }
@@ -51,7 +40,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
         super.viewDidLoad()
 
         self.noContentView = LGTextOverlayView.attachContentUnavailableViewToView(self.view)
-        self.noContentView.rex_hidden <~ self.viewModel.noContentViewHidden
+        self.noContentView.rex_hidden <~ self.viewModel.noContentViewHiddenProducer
         self.loadingView = LoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
         
@@ -61,25 +50,25 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     //MARK: - Configuration
     
     func configureBindings() {
-        self.rac_title <~ self.viewModel.contactsTitle.producer
+        self.rac_title <~ self.viewModel.contactsTitleProducer
         self.tableView.rac_tableReload <~ self.viewModel.contacts.producer.lg_tableReloadProducer
     }
     
     //MARK: - UITableViewDelegate, UITableViewDataSource
     
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.contacts.value?.count ?? 0
+        return self.contacts.count
     }
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-        let contact = self.contacts![indexPath.row]
+        let contact = self.contacts[indexPath.row]
         cell.textLabel?.text = contact.info
         return cell
     }
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let contact = self.contacts![indexPath.row]
+        let contact = self.contacts[indexPath.row]
         self.viewModel.didSelectContact(contact)
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
 

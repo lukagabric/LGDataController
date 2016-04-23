@@ -44,7 +44,7 @@ public class ContactsDataService: ContactsDataServiceType {
         return contactsFrc;
     }
     
-    private func contactsUpdateProducer() -> SignalProducer<[Contact]?, NSError>? {
+    public func contactsUpdateProducer() -> SignalProducer<[Contact]?, NSError>? {
         let parameters = self.parametersForLightContactsData()
         
         let contactsUpdateProducer = self.dataController.updateData(

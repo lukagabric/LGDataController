@@ -21,6 +21,7 @@ public protocol ContactsDependencies {
 public protocol ContactsDataServiceType {
     
     func contactsModelObserver() -> LGModelObserver<Contact>
+    func contactsUpdateProducer() -> SignalProducer<[Contact]?, NSError>?
     func producerForContactWithId(contactId: String, weight: LGContentWeight) -> SignalProducer<Contact?, NSError>
     func deleteContact(contact: Contact)
     

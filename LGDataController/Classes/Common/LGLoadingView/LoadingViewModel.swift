@@ -13,14 +13,12 @@ import Rex
 public class LoadingViewModel {
     
     private let reachabilityService: ReachabilityService
-    private let loadProducerClosure: () -> SignalProducer<Void, NSError>
+    private let loadProducerClosure: () -> SignalProducer<Void, NSError>?
+    
+    public let loadSuccessProducer: SignalProducer<Void, NoError>
+    private let loadSuccessObserver: Observer<SignalProducer<Void, NoError>, NoError>
     
     private let isLoadingData = MutableProperty<Bool>(false)
-    
-    public let modelLoadedProducer: SignalProducer<Void, NoError>
-    private let modelLoadedObserver: Observer<Void, NoError>
-    
-    private var onLoadSuccessProducer: SignalProducer<Void, NoError> = SignalProducer.empty
     
     public let loadingViewHidden: AnyProperty<Bool>
     private let mutableLoadingViewHidden = MutableProperty<Bool>(true)
@@ -31,52 +29,62 @@ public class LoadingViewModel {
     public let contentUnavailableText: AnyProperty<String>
     private let mutableContentUnavailableText = MutableProperty<String>("")
     
-    public init(reachabilityService: ReachabilityService, loadProducerClosure: () -> SignalProducer<Void, NSError>) {
+    public init(reachabilityService: ReachabilityService, loadProducerClosure: () -> SignalProducer<Void, NSError>?) {
         self.reachabilityService = reachabilityService
         self.loadProducerClosure = loadProducerClosure
         
         self.loadingViewHidden = AnyProperty(self.mutableLoadingViewHidden)
         self.contentUnavailableViewHidden = AnyProperty(self.mutableContentUnavailableViewHidden)
         self.contentUnavailableText = AnyProperty(self.mutableContentUnavailableText)
-        (self.modelLoadedProducer, self.modelLoadedObserver) = SignalProducer.buffer(1)
         
-        self.reachabilityService.reachabilityProducer
+        let (p, o) = SignalProducer<SignalProducer<Void, NoError>, NoError>.buffer(1)
+        self.loadSuccessProducer = p.flatten(.Latest)
+        self.loadSuccessObserver = o
+        
+        self.reachabilityService.isOnlineProducer
+            .takeUntil(self.loadSuccessProducer)
             .skip(1)
-            .takeUntil(self.modelLoadedProducer)
+            .filter { $0 == true }
             .startWithNext { [weak self] reachability in
-                guard let sself = self where
-                    reachability.isReachable() && !sself.isLoadingData.value else { return }
+                guard let sself = self where !sself.isLoadingData.value else { return }
                 
                 sself.configureLoadingBindingsForModelProducer()
         }
-        
+
         self.configureLoadingBindingsForModelProducer()
     }
     
     private func configureLoadingBindingsForModelProducer() {
-        let loadProducer = self.loadProducerClosure()
+        let loadProducer = self.loadProducerClosure() ?? SignalProducer(value: ())
         
-        let isOfflineProducer = self.reachabilityService.isOfflineProducer
+        print("configureLoadingBindingsForModelProducer")
+        let onLoadSuccessProducer = loadProducer
+            .map { _ in
+                print("load success")
+                ()
+            }
+            .flatMapError { _ in SignalProducer<Void, NoError>.empty }
+        self.loadSuccessObserver.sendNext(onLoadSuccessProducer)
+        
         let didLoadFailWithErrorProducer = loadProducer
             .map { _ in false }
             .flatMapError { _ in SignalProducer<Bool, NoError>(value: true) }
         let isLoadSuccessProducer = didLoadFailWithErrorProducer.map { !$0 }
-        let falseOnLoadComplete = didLoadFailWithErrorProducer.map { _ in false }
-
-        self.onLoadSuccessProducer = didLoadFailWithErrorProducer.filter { $0 == false }.map { _ in () }
-        self.onLoadSuccessProducer.startWithNext { [weak self] in
-            self?.modelLoadedObserver.sendCompleted()
-        }
+        
+        let falseOnLoadComplete = loadProducer
+            .map { _ in false }
+            .flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
         
         let trueProducer = SignalProducer<Bool, NoError>(value: true)
 
         self.isLoadingData <~ trueProducer.concat(falseOnLoadComplete)
         self.mutableLoadingViewHidden <~ self.isLoadingData.producer.map { !$0 }
         self.mutableContentUnavailableViewHidden <~ trueProducer.concat(isLoadSuccessProducer)
-        self.mutableContentUnavailableText <~ isOfflineProducer.map {
+        self.mutableContentUnavailableText <~ self.reachabilityService.isOfflineProducer.map {
             if $0 { return "You're offline." }
             return "An error has occured during load. Please try again later."
         }
+        
     }
     
 }
