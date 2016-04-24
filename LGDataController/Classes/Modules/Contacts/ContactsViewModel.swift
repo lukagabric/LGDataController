@@ -16,7 +16,7 @@ public class ContactsViewModel {
     public let contactsTitleProducer: SignalProducer<String, NoError>
     public let noContentViewHiddenProducer: SignalProducer<Bool, NoError>
     public var loadingViewModel: LoadingViewModel!
-    private let contactsModelObserver: LGModelObserver<Contact>
+    private let contactsModelObserver: LGModelObserver<[Contact]>
     
     private let dataService: ContactsDataService
     private let navigationService: ContactsNavigationServiceType
