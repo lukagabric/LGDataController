@@ -12,22 +12,12 @@ import CoreData
 
 extension SignalProducerType {
     
-    var lg_loadingProducer: SignalProducer<Bool, NoError> {
-        let trueProducer = SignalProducer<Bool, NoError>(value: true)
-        
-        let falseOnLoadCompleteProducer = self
-            .map { _ in false }
-            .flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
-        
-        return trueProducer.concat(falseOnLoadCompleteProducer)
-    }
-    
-    var lg_loadingViewHiddenProducer: SignalProducer<Bool, NoError> {
-        return self.lg_loadingProducer.map { !$0 }
-    }
-    
     var lg_tableReloadProducer: SignalProducer<Void, NoError> {
         return self.map { _ in () }.flatMapError { _ in SignalProducer.empty }
+    }
+    
+    var lg_voidValue: SignalProducer<Void, Self.Error> {
+        return self.map { _ in () }
     }
     
 }
@@ -49,7 +39,6 @@ func lg_loadingViewProducer<T>(objectProducer objectProducer: SignalProducer<T?,
         .filter { $0 != nil }
         .map { _ in () }
         .promoteErrors(NSError.self)
-    let updateProducer = updateProducer.map { _ in () }
     let mergedProducer = SignalProducer<SignalProducer<Void, NSError>, NSError>(values: [objectProducer, updateProducer]).flatten(.Merge).take(1)
     return mergedProducer
 }

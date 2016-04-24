@@ -16,8 +16,8 @@ public class ContactDetailsViewModel {
     private let contactId: String
 
     public let contactModelObserver: LGModelObserver<Contact>
-    var contactProducer: SignalProducer<Contact, NoError> {
-        return self.contactModelObserver.fetchedObjectsProducer.filter { $0 != nil }.map { $0!.first! }.take(1)
+    var contactProducer: SignalProducer<Contact?, NoError> {
+        return self.contactModelObserver.fetchedObjectsProducer.map { $0?.first }
     }
 
     public var deleteAction: Action<Void, Void, NoError>!
@@ -40,8 +40,8 @@ public class ContactDetailsViewModel {
         self.contactId = contactId
         self.contactModelObserver = self.dataService.contactModelObserver(contactId: self.contactId)
         
-        let contactAvailable = self.contactProducer.map { _ in true }
-        let contactDeletedEventProducer = contactProducer.flatMap(.Latest) { $0.deleteProducer }
+        let contactAvailable = self.contactProducer.map { $0 != nil }
+        let contactDeletedEventProducer = contactProducer.flatMap(.Latest) { $0?.deleteProducer ?? SignalProducer.empty }
         let falseOnContactDeletedProducer = contactDeletedEventProducer.map { _ in false }
         let falseProducer = SignalProducer<Bool, NoError>(value: false)
 
@@ -49,7 +49,7 @@ public class ContactDetailsViewModel {
             guard let sself = self else { return SignalProducer.empty }
 
             sself.contactProducer.startWithNext { [weak self] contact in
-                guard let sself = self else { return }
+                guard let sself = self, contact = contact else { return }
                 
                 sself.dataService.deleteContact(contact)
                 sself.navigationService.popView(animated: true)
@@ -69,7 +69,7 @@ public class ContactDetailsViewModel {
                 else { return nil }
             
             let objectProducer = sself.contactModelObserver.fetchedObjectsProducer
-            return lg_loadingViewProducer(objectProducer: objectProducer, updateProducer: updateProducer)
+            return lg_loadingViewProducer(objectProducer: objectProducer, updateProducer: updateProducer.lg_voidValue)
         }
     }
     

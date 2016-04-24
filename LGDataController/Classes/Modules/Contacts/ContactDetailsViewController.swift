@@ -52,7 +52,7 @@ public class ContactDetailsViewController: UIViewController {
         self.loadingView = LoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
 
         self.viewModel.contactProducer.startWithNext { [weak self] contact in
-            guard let sself = self else { return }
+            guard let sself = self, contact = contact else { return }
             sself.guidLabel.text = contact.guid
             sself.firstNameLabel.rex_text <~ contact.firstNameProducer
             sself.lastNameLabel.rex_text <~ contact.lastNameProducer

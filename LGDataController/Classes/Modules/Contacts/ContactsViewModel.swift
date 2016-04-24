@@ -38,7 +38,7 @@ public class ContactsViewModel {
         self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
             guard let sself = self, updateProducer = sself.dataService.contactsUpdateProducer() else { return nil }
             let objectProducer = sself.contactsModelObserver.fetchedObjectsProducer
-            return lg_loadingViewProducer(objectProducer: objectProducer, updateProducer: updateProducer)
+            return lg_loadingViewProducer(objectProducer: objectProducer, updateProducer: updateProducer.lg_voidValue)
         }
     }
     

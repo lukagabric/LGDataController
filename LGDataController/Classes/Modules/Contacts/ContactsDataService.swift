@@ -28,7 +28,7 @@ public class ContactsDataService {
         let contactsFrc = self.contactsFrc()
         let contactsUpdateProducer = self.contactsUpdateProducer()
         
-        return LGModelObserver(fetchedResultsController: contactsFrc, updateProducer: contactsUpdateProducer)
+        return LGModelObserver(fetchedResultsController: contactsFrc, updateProducer: contactsUpdateProducer?.lg_voidValue)
     }
     
     private func contactsFrc() -> NSFetchedResultsController {
@@ -44,7 +44,7 @@ public class ContactsDataService {
         return contactsFrc;
     }
     
-    public func contactsUpdateProducer() -> SignalProducer<Void, NSError>? {
+    public func contactsUpdateProducer() -> SignalProducer<[Contact]?, NSError>? {
         let parameters = self.parametersForLightContactsData()
         
         let contactsUpdateProducer = self.dataController.updateData(
@@ -61,8 +61,7 @@ public class ContactsDataService {
                 return Contact.parseAllContactsPayload(payloadArray, weight: .Light, context: context)
         }
         
-        let resultProducer = contactsUpdateProducer?.map { _ in () }
-        return resultProducer
+        return contactsUpdateProducer
     }
     
     //MARK: - Contact
@@ -71,7 +70,7 @@ public class ContactsDataService {
         let contactFrc = self.contactFrc(contactId: contactId, weight: weight)
         let contactUpdateProducer = self.contactUpdateProducer(contactId: contactId, weight: weight)
         
-        return LGModelObserver(fetchedResultsController: contactFrc, updateProducer: contactUpdateProducer)
+        return LGModelObserver(fetchedResultsController: contactFrc, updateProducer: contactUpdateProducer?.lg_voidValue)
     }
     
     private func contactFrc(contactId contactId: String, weight: LGContentWeight = .Full) -> NSFetchedResultsController {
@@ -90,7 +89,7 @@ public class ContactsDataService {
         return contactsFrc;
     }
     
-    public func contactUpdateProducer(contactId contactId: String, weight: LGContentWeight = .Full) -> SignalProducer<Void, NSError>? {
+    public func contactUpdateProducer(contactId contactId: String, weight: LGContentWeight = .Full) -> SignalProducer<Contact?, NSError>? {
         let parameters = self.parametersForObjectId(contactId)
         
         let contactUpdateProducer = self.dataController.updateData(
@@ -108,7 +107,7 @@ public class ContactsDataService {
                 return Contact.parseContactPayload(payload, weight: weight, context: context)
         }
         
-        return contactUpdateProducer?.map { _ in () }
+        return contactUpdateProducer
     }
     
     //MARK: - Delete
