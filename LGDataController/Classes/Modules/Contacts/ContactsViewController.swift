@@ -83,8 +83,16 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     func simulateDeleteOfContact(contact: Contact) {
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
         dispatch_after(delayTime, dispatch_get_main_queue()) {
-            contact.managedObjectContext?.deleteObject(contact)
-            try! contact.managedObjectContext?.save()
+            let mainContext = contact.managedObjectContext!
+            let rootContext = mainContext.parentContext!
+            mainContext.performBlock {
+                contact.managedObjectContext?.deleteObject(contact)
+                try! contact.managedObjectContext?.save()
+
+                rootContext.performBlock {
+                    try! contact.managedObjectContext?.save()                    
+                }
+            }
         }
     }
 

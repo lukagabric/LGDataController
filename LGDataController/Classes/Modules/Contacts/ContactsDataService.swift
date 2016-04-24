@@ -10,7 +10,7 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-public class ContactsDataService: ContactsDataServiceType {
+public class ContactsDataService {
     
     //MARK: - Dependencies
     
@@ -26,9 +26,9 @@ public class ContactsDataService: ContactsDataServiceType {
     
     public func contactsModelObserver() -> LGModelObserver<Contact> {
         let contactsFrc = self.contactsFrc()
-        let updateProducer = self.contactsUpdateProducer()
+        let contactsUpdateProducer = self.contactsUpdateProducer()
         
-        return LGModelObserver(fetchedResultsController: contactsFrc, updateProducer: updateProducer)
+        return LGModelObserver(fetchedResultsController: contactsFrc, updateProducer: contactsUpdateProducer)
     }
     
     private func contactsFrc() -> NSFetchedResultsController {
@@ -44,7 +44,7 @@ public class ContactsDataService: ContactsDataServiceType {
         return contactsFrc;
     }
     
-    public func contactsUpdateProducer() -> SignalProducer<[Contact]?, NSError>? {
+    public func contactsUpdateProducer() -> SignalProducer<Void, NSError>? {
         let parameters = self.parametersForLightContactsData()
         
         let contactsUpdateProducer = self.dataController.updateData(
@@ -61,19 +61,36 @@ public class ContactsDataService: ContactsDataServiceType {
                 return Contact.parseAllContactsPayload(payloadArray, weight: .Light, context: context)
         }
         
-        return contactsUpdateProducer
+        let resultProducer = contactsUpdateProducer?.map { _ in () }
+        return resultProducer
     }
     
     //MARK: - Contact
     
-    public func producerForContactWithId(contactId: String, weight: LGContentWeight = .Full) -> SignalProducer<Contact?, NSError> {
-        let contact: Contact? = self.dataController.mainContext.lg_objectWithId(contactId, weight: weight)
-        let contactUpdateProducer = self.contactUpdateProducer(contactId, weight: weight)
+    public func contactModelObserver(contactId contactId: String, weight: LGContentWeight = .Full) -> LGModelObserver<Contact> {
+        let contactFrc = self.contactFrc(contactId: contactId, weight: weight)
+        let contactUpdateProducer = self.contactUpdateProducer(contactId: contactId, weight: weight)
         
-        return lg_producerForObject(contact, updateProducer: contactUpdateProducer)
+        return LGModelObserver(fetchedResultsController: contactFrc, updateProducer: contactUpdateProducer)
     }
     
-    public func contactUpdateProducer(contactId: String, weight: LGContentWeight = .Full) -> SignalProducer<Contact?, NSError>? {
+    private func contactFrc(contactId contactId: String, weight: LGContentWeight = .Full) -> NSFetchedResultsController {
+        let predicate = NSPredicate(format: "guid == %@ && weight >= %d", contactId, weight.rawValue)
+        let sortDescriptor = NSSortDescriptor(key: "guid", ascending: true)
+        
+        let contactFetchRequest = NSFetchRequest(entityName: Contact.lg_entityName())
+        contactFetchRequest.sortDescriptors = [sortDescriptor]
+        contactFetchRequest.predicate = predicate
+        
+        let contactsFrc = NSFetchedResultsController(
+            fetchRequest: contactFetchRequest,
+            managedObjectContext: self.dataController.mainContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        return contactsFrc;
+    }
+    
+    public func contactUpdateProducer(contactId contactId: String, weight: LGContentWeight = .Full) -> SignalProducer<Void, NSError>? {
         let parameters = self.parametersForObjectId(contactId)
         
         let contactUpdateProducer = self.dataController.updateData(
@@ -91,7 +108,7 @@ public class ContactsDataService: ContactsDataServiceType {
                 return Contact.parseContactPayload(payload, weight: weight, context: context)
         }
         
-        return contactUpdateProducer
+        return contactUpdateProducer?.map { _ in () }
     }
     
     //MARK: - Delete

@@ -30,7 +30,7 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     public let fetchedObjectsProducer: SignalProducer<[T]?, NoError>
     private let fetchedObjectsObserver: Observer<[T]?, NoError>
     
-    public var loadingProducer: SignalProducer<Void, NSError>!
+    public var updateProducer: SignalProducer<Void, NSError>!
     
     private let fetchedResultsController: NSFetchedResultsController
 
@@ -38,7 +38,7 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     
     //MARK: - Init
     
-    init(fetchedResultsController: NSFetchedResultsController, updateProducer: SignalProducer<[T]?, NSError>?) {
+    init(fetchedResultsController: NSFetchedResultsController, updateProducer: SignalProducer<Void, NSError>?) {
         self.fetchedResultsController = fetchedResultsController
         
         (self.modelChangedProducer, self.modelChangedObserver) = SignalProducer<LGModelChange, NoError>.buffer(1)
@@ -49,10 +49,10 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
         self.configureFRC()
         
         if self.fetchedResultsController.fetchedObjects?.count > 0 || updateProducer == nil {
-            self.loadingProducer = SignalProducer(value: ())
+            self.updateProducer = SignalProducer(value: ())
         }
         else {
-            self.loadingProducer = updateProducer!.map { _ in () }
+            self.updateProducer = updateProducer!
         }
         
         let modelChange = LGModelChange(previousSections: nil, sections: self.fetchedResultsController.sections)

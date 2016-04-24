@@ -12,18 +12,9 @@ import ReactiveCocoa
 public protocol ContactsDependencies {
     
     var dataController: DataController { get }
-    var contactsDataService: ContactsDataServiceType { get }
+    var contactsDataService: ContactsDataService { get }
     var contactsNavigationService: ContactsNavigationServiceType { get }
     var reachabilityService: ReachabilityService { get }
-    
-}
-
-public protocol ContactsDataServiceType {
-    
-    func contactsModelObserver() -> LGModelObserver<Contact>
-    func contactsUpdateProducer() -> SignalProducer<[Contact]?, NSError>?
-    func producerForContactWithId(contactId: String, weight: LGContentWeight) -> SignalProducer<Contact?, NSError>
-    func deleteContact(contact: Contact)
     
 }
 

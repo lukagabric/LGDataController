@@ -50,7 +50,7 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
         return self.navigationService
     }
     
-    public var contactsDataService: ContactsDataServiceType {
+    public var contactsDataService: ContactsDataService {
         return ContactsDataService(dependencies: self)
     }
     

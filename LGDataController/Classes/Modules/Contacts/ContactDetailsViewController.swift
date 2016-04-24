@@ -10,18 +10,9 @@ import UIKit
 import ReactiveCocoa
 import Rex
 
-public protocol ContactDetailsViewModelType {
-    
-    var contact: AnyProperty<Contact?> { get }
-    var noContentViewHidden: AnyProperty<Bool> { get }
-    var loadingViewModel: LoadingViewModel! { get }
-    var deleteAction: Action<Void, Void, NoError>! { get }
-
-}
-
 public class ContactDetailsViewController: UIViewController {
     
-    private var viewModel: ContactDetailsViewModelType
+    private var viewModel: ContactDetailsViewModel
     
     @IBOutlet weak var guidLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -36,7 +27,7 @@ public class ContactDetailsViewController: UIViewController {
     
     //MARK: - Init
     
-    init(viewModel: ContactDetailsViewModelType) {
+    init(viewModel: ContactDetailsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: "ContactDetailsView", bundle: nil)
     }
@@ -57,11 +48,11 @@ public class ContactDetailsViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
         self.noContentView = LGTextOverlayView.attachContentUnavailableViewToView(self.view)
-        self.noContentView.rex_hidden <~ self.viewModel.noContentViewHidden
+        self.noContentView.rex_hidden <~ self.viewModel.noContentViewHiddenProducer
         self.loadingView = LoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
 
-        self.viewModel.contact.producer.startWithNext { [weak self] contact in
-            guard let contact = contact, sself = self else { return }
+        self.viewModel.contactProducer.startWithNext { [weak self] contact in
+            guard let sself = self else { return }
             sself.guidLabel.text = contact.guid
             sself.firstNameLabel.rex_text <~ contact.firstNameProducer
             sself.lastNameLabel.rex_text <~ contact.lastNameProducer

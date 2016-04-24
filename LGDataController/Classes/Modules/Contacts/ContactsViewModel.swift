@@ -18,7 +18,7 @@ public class ContactsViewModel {
     public var loadingViewModel: LoadingViewModel!
     private let contactsModelObserver: LGModelObserver<Contact>
     
-    private let dataService: ContactsDataServiceType
+    private let dataService: ContactsDataService
     private let navigationService: ContactsNavigationServiceType
     
     //MARK: - Init
