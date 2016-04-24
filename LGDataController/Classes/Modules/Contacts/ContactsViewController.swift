@@ -13,16 +13,17 @@ import Rex
 
 public class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    private var viewModel: ContactsViewModel
-    
-    private var contacts: [Contact] {
-        return self.viewModel.contacts.value ?? [Contact]()
-    }
+    //MARK: - Vars
     
     @IBOutlet private weak var tableView: UITableView!
     weak var loadingView: LoadingView!
     weak var noContentView: LGTextOverlayView!
 
+    private var viewModel: ContactsViewModel
+    private var contacts: [Contact] {
+        return self.viewModel.contacts.value ?? [Contact]()
+    }
+    
     //MARK: - Init
     
     init(viewModel: ContactsViewModel) {

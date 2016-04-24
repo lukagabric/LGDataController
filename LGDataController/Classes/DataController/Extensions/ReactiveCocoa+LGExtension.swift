@@ -44,9 +44,9 @@ func lg_producerForObject<T: NSManagedObject>(object: T?, updateProducer: Signal
     }
 }
 
-func lg_loadingViewProducer<T>(objectProducer objectProducer: SignalProducer<[T]?, NoError>, updateProducer: SignalProducer<[T]?, NSError>) -> SignalProducer<Void, NSError> {
+func lg_loadingViewProducer<T>(objectProducer objectProducer: SignalProducer<T?, NoError>, updateProducer: SignalProducer<T?, NSError>) -> SignalProducer<Void, NSError> {
     let objectProducer = objectProducer
-        .filter { $0?.count > 0 }
+        .filter { $0 != nil }
         .map { _ in () }
         .promoteErrors(NSError.self)
     let updateProducer = updateProducer.map { _ in () }

@@ -49,7 +49,9 @@ public class ContactDetailsViewModel: ContactDetailsViewModelType {
         self.deleteActionExecutedProducer = self.deleteAction.executing.producer.skip(1).map { _ in () }
         
         self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
-            return self?.configuredLoadingProducer()
+            guard let sself = self else { return nil }
+            
+            return sself.configuredLoadingProducer()
         }
     }
     
