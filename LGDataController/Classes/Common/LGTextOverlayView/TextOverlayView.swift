@@ -1,5 +1,5 @@
 //
-//  LGTextOverlayView.swift
+//  TextOverlayView.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 17/12/15.
@@ -10,10 +10,10 @@ import UIKit
 import ReactiveCocoa
 import Rex
 
-public class LGTextOverlayView: UIView {
+public class TextOverlayView: UIView {
     
-    class func attachContentUnavailableViewToView(view: UIView) -> LGTextOverlayView {
-        let overlayView = LGTextOverlayView(frame: view.bounds)
+    class func attachContentUnavailableViewToView(view: UIView) -> TextOverlayView {
+        let overlayView = TextOverlayView(frame: view.bounds)
         overlayView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         overlayView.rac_text <~ SignalProducer(value: "Content not available")
         view.addSubview(overlayView)
@@ -21,8 +21,8 @@ public class LGTextOverlayView: UIView {
         return overlayView
     }
     
-    class func attachToView(view: UIView) -> LGTextOverlayView {
-        let overlayView = LGTextOverlayView(frame: view.bounds)
+    class func attachToView(view: UIView) -> TextOverlayView {
+        let overlayView = TextOverlayView(frame: view.bounds)
         overlayView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.addSubview(overlayView)
         

@@ -34,7 +34,7 @@
 		419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E11C2298C800C7C28B /* PermanentEntity.swift */; };
 		419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */; };
 		419B65EA1C2298C800C7C28B /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E31C2298C800C7C28B /* SessionEntity.swift */; };
-		419B65FA1C22A24400C7C28B /* LGCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65F91C22A24400C7C28B /* LGCacheController.swift */; };
+		419B65FA1C22A24400C7C28B /* CacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65F91C22A24400C7C28B /* CacheController.swift */; };
 		41A75F801C20A956007DD6AA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A75F7F1C20A956007DD6AA /* LoadingView.swift */; };
 		41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
 		41CA59F41C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */; };
@@ -45,7 +45,7 @@
 		41D0921D1CC27ADD00023DFB /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41D092181CC27ADD00023DFB /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		41D0921E1CC27ADD00023DFB /* Rex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D092191CC27ADD00023DFB /* Rex.framework */; };
 		41D0921F1CC27ADD00023DFB /* Rex.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41D092191CC27ADD00023DFB /* Rex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		41D0AEF21C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */; };
+		41D0AEF21C236D4D002AB0D4 /* TextOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D0AEF11C236D4D002AB0D4 /* TextOverlayView.swift */; };
 		41EF0B561C25D2950088CFCC /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */; };
 		41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
 		41EF86C51C1FEB3100EBAA48 /* ContactDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsView.xib */; };
@@ -101,7 +101,7 @@
 		419B65E11C2298C800C7C28B /* PermanentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentEntity.swift; sourceTree = "<group>"; };
 		419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SessionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		419B65E31C2298C800C7C28B /* SessionEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionEntity.swift; sourceTree = "<group>"; };
-		419B65F91C22A24400C7C28B /* LGCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGCacheController.swift; sourceTree = "<group>"; };
+		419B65F91C22A24400C7C28B /* CacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheController.swift; sourceTree = "<group>"; };
 		41A75F7F1C20A956007DD6AA /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewModel.swift; sourceTree = "<group>"; };
 		41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 		41D092171CC27ADD00023DFB /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		41D092181CC27ADD00023DFB /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		41D092191CC27ADD00023DFB /* Rex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rex.framework; path = Carthage/Build/iOS/Rex.framework; sourceTree = "<group>"; };
-		41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGTextOverlayView.swift; sourceTree = "<group>"; };
+		41D0AEF11C236D4D002AB0D4 /* TextOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextOverlayView.swift; sourceTree = "<group>"; };
 		41EF0B551C25D2950088CFCC /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		41EF86C21C1FEB3100EBAA48 /* ContactDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsView.xib; sourceTree = "<group>"; };
@@ -283,11 +283,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		419B65F81C22A22800C7C28B /* LGCacheController */ = {
+		419B65F81C22A22800C7C28B /* CacheController */ = {
 			isa = PBXGroup;
 			children = (
-				419B65F91C22A24400C7C28B /* LGCacheController.swift */,
+				419B65F91C22A24400C7C28B /* CacheController.swift */,
 			);
+			name = CacheController;
 			path = LGCacheController;
 			sourceTree = "<group>";
 		};
@@ -295,8 +296,8 @@
 			isa = PBXGroup;
 			children = (
 				41F18FA31C26EA2600EEABF7 /* Reachability */,
-				41D0AEE41C236D29002AB0D4 /* LGTextOverlayView */,
-				419B65F81C22A22800C7C28B /* LGCacheController */,
+				41D0AEE41C236D29002AB0D4 /* TextOverlayView */,
+				419B65F81C22A22800C7C28B /* CacheController */,
 				41A75F721C20A93E007DD6AA /* LoadingView */,
 			);
 			path = Common;
@@ -312,11 +313,12 @@
 			path = LGLoadingView;
 			sourceTree = "<group>";
 		};
-		41D0AEE41C236D29002AB0D4 /* LGTextOverlayView */ = {
+		41D0AEE41C236D29002AB0D4 /* TextOverlayView */ = {
 			isa = PBXGroup;
 			children = (
-				41D0AEF11C236D4D002AB0D4 /* LGTextOverlayView.swift */,
+				41D0AEF11C236D4D002AB0D4 /* TextOverlayView.swift */,
 			);
+			name = TextOverlayView;
 			path = LGTextOverlayView;
 			sourceTree = "<group>";
 		};
@@ -427,12 +429,12 @@
 				4186A9F41C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
 				4186AA281C19D870003C3A89 /* LGDataController.xcdatamodel in Sources */,
 				419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */,
-				41D0AEF21C236D4D002AB0D4 /* LGTextOverlayView.swift in Sources */,
+				41D0AEF21C236D4D002AB0D4 /* TextOverlayView.swift in Sources */,
 				4186A9E81C19D2A4003C3A89 /* NSManagedObjectContext+LGExtension.swift in Sources */,
 				41F18FBA1C26EA4600EEABF7 /* ReachabilityService.swift in Sources */,
 				4186AA0A1C19D2A4003C3A89 /* NavigationService.swift in Sources */,
 				419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */,
-				419B65FA1C22A24400C7C28B /* LGCacheController.swift in Sources */,
+				419B65FA1C22A24400C7C28B /* CacheController.swift in Sources */,
 				4186A9F21C19D2A4003C3A89 /* Dependencies.swift in Sources */,
 				41F18FA51C26EA2600EEABF7 /* Reachability.swift in Sources */,
 				4186AA001C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */,

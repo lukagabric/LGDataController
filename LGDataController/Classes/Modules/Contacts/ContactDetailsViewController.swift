@@ -23,7 +23,7 @@ public class ContactDetailsViewController: UIViewController {
     @IBOutlet var deleteBarButtonItem: UIBarButtonItem!
     
     weak var loadingView: LoadingView!
-    weak var noContentView: LGTextOverlayView!
+    weak var noContentView: TextOverlayView!
     
     //MARK: - Init
     
@@ -47,7 +47,7 @@ public class ContactDetailsViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = self.deleteBarButtonItem
         
-        self.noContentView = LGTextOverlayView.attachContentUnavailableViewToView(self.view)
+        self.noContentView = TextOverlayView.attachContentUnavailableViewToView(self.view)
         self.noContentView.rex_hidden <~ self.viewModel.noContentViewHiddenProducer
         self.loadingView = LoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
 

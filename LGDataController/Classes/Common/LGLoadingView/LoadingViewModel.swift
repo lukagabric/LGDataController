@@ -56,13 +56,10 @@ public class LoadingViewModel {
     
     private func configureLoadingBindingsForModelProducer() {
         let loadProducer = self.loadProducerClosure() ?? SignalProducer(value: ())
-        
-        let didLoadFailWithErrorProducer = loadProducer.lg_failBoolProducer
-        let isLoadSuccessProducer = didLoadFailWithErrorProducer.lg_successBoolProducer
-
         let onLoadSuccessProducer = loadProducer.ignoreError()
         self.loadSuccessObserver.sendNext(onLoadSuccessProducer)
         
+        let isLoadSuccessProducer = loadProducer.lg_successBoolProducer
         let falseOnLoadComplete = loadProducer.lg_falseOnComplete
         let trueProducer = lg_trueProducer()
 

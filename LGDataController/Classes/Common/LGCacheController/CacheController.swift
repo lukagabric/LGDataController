@@ -10,13 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-public protocol CacheControllerType {
-    
-    func purgeSessionContentEntities(completion: (() -> Void)?)
-    
-}
-
-public class LGCacheController: NSObject, CacheControllerType {
+public class CacheController: NSObject {
     
     let context: NSManagedObjectContext
     let application: UIApplication

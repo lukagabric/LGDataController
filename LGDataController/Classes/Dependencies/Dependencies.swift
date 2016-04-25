@@ -18,7 +18,7 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
         return UIApplication.sharedApplication()
     }
     
-    public var cacheController: CacheControllerType!
+    public var cacheController: CacheController!
     public let reachabilityService: ReachabilityService
 
     lazy public var urlSession: NSURLSession = {
@@ -104,7 +104,7 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
         self.reachabilityService = ReachabilityService()
         self.navigationController = navigationController
         self.navigationService = NavigationService(dependencies: self)
-        self.cacheController = LGCacheController(application: self.application, context: self.mainContext)
+        self.cacheController = CacheController(application: self.application, context: self.mainContext)
     }
     
     //MARK: -

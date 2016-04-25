@@ -17,7 +17,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     
     @IBOutlet private weak var tableView: UITableView!
     weak var loadingView: LoadingView!
-    weak var noContentView: LGTextOverlayView!
+    weak var noContentView: TextOverlayView!
 
     private var viewModel: ContactsViewModel
     private var contacts: [Contact] {
@@ -40,7 +40,7 @@ public class ContactsViewController: UIViewController, UITableViewDelegate, UITa
     override public func viewDidLoad() {
         super.viewDidLoad()
 
-        self.noContentView = LGTextOverlayView.attachContentUnavailableViewToView(self.view)
+        self.noContentView = TextOverlayView.attachContentUnavailableViewToView(self.view)
         self.noContentView.rex_hidden <~ self.viewModel.noContentViewHiddenProducer
         self.loadingView = LoadingView.attachToView(self.view, loadingViewModel: self.viewModel.loadingViewModel)
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
