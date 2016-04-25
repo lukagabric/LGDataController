@@ -57,21 +57,14 @@ public class LoadingViewModel {
     private func configureLoadingBindingsForModelProducer() {
         let loadProducer = self.loadProducerClosure() ?? SignalProducer(value: ())
         
-        let onLoadSuccessProducer = loadProducer
-            .map { _ in () }
-            .flatMapError { _ in SignalProducer<Void, NoError>.empty }
+        let didLoadFailWithErrorProducer = loadProducer.lg_failBoolProducer
+        let isLoadSuccessProducer = didLoadFailWithErrorProducer.lg_successBoolProducer
+
+        let onLoadSuccessProducer = loadProducer.ignoreError()
         self.loadSuccessObserver.sendNext(onLoadSuccessProducer)
         
-        let didLoadFailWithErrorProducer = loadProducer
-            .map { _ in false }
-            .flatMapError { _ in SignalProducer<Bool, NoError>(value: true) }
-        let isLoadSuccessProducer = didLoadFailWithErrorProducer.map { !$0 }
-        
-        let falseOnLoadComplete = loadProducer
-            .map { _ in false }
-            .flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
-        
-        let trueProducer = SignalProducer<Bool, NoError>(value: true)
+        let falseOnLoadComplete = loadProducer.lg_falseOnComplete
+        let trueProducer = lg_trueProducer()
 
         self.isLoadingData <~ trueProducer.concat(falseOnLoadComplete)
         self.mutableLoadingViewHidden <~ self.isLoadingData.producer.map { !$0 }

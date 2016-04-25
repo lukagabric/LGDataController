@@ -20,6 +20,30 @@ extension SignalProducerType {
         return self.map { _ in () }
     }
     
+    var lg_successBoolProducer: SignalProducer<Bool, NoError> {
+        return self.map { _ in true }.flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
+    }
+
+    var lg_failBoolProducer: SignalProducer<Bool, NoError> {
+        return self.map { _ in false }.flatMapError { _ in SignalProducer<Bool, NoError>(value: true) }
+    }
+    
+    var lg_falseOnComplete: SignalProducer<Bool, NoError> {
+        return self.map { _ in false }.flatMapError { _ in SignalProducer<Bool, NoError>(value: false) }
+    }
+    
+    var lg_trueOnComplete: SignalProducer<Bool, NoError> {
+        return self.map { _ in true }.flatMapError { _ in SignalProducer<Bool, NoError>(value: true) }
+    }
+    
+}
+
+func lg_trueProducer() -> SignalProducer<Bool, NoError> {
+        return SignalProducer(value: true)
+    }
+    
+func lg_falseProducer() -> SignalProducer<Bool, NoError> {
+    return SignalProducer(value: false)
 }
 
 func lg_producerForObject<T: NSManagedObject>(object: T?, updateProducer: SignalProducer<T?, NSError>?) -> SignalProducer<T?, NSError> {
