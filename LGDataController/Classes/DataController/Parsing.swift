@@ -1,5 +1,5 @@
 //
-//  LGParsing.swift
+//  Parsing.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 22/04/16.

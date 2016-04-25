@@ -12,7 +12,7 @@ import ReactiveCocoa
 
 public class ContentEntity: NSManagedObject, ContentEntityType {
 
-    //MARK: - LGContentEntityType
+    //MARK: - ContentEntityType
     
     func shouldUpdateData(weight weight: ContentWeight, payloadDict: [String : AnyObject]) -> Bool {
         return self.contentWeight.rawValue < weight.rawValue || self.updatedAtString != payloadDict["updatedAt"] as? String
