@@ -1,5 +1,5 @@
 //
-//  NSManagedObjectContext+LGExtension.swift
+//  NSManagedObjectContext+DataControllerExtension.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 19/11/15.
@@ -19,7 +19,7 @@ extension NSManagedObjectContext {
         return try! self.executeFetchRequest(fetchRequest) as! [T]
     }
     
-    public func lg_objectWithId<T: NSManagedObject>(guid: String, weight: LGContentWeight = .Full) -> T? {
+    public func lg_objectWithId<T: NSManagedObject>(guid: String, weight: ContentWeight = .Full) -> T? {
         let fetchRequest = NSFetchRequest(entityName: T.lg_entityName())
         let predicate = NSPredicate(format: "guid == %@ && weight >= %ld", guid, weight.rawValue)
         fetchRequest.predicate = predicate

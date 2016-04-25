@@ -1,5 +1,5 @@
 //
-//  NSArray+LGExtension.swift
+//  NSArray+DataControllerExtension.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 10/11/15.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-extension Array: LGContextTransferable {
+extension Array: ContextTransferableType {
 
     public func transferredToContext(context: NSManagedObjectContext) -> [Element] {
         return self.filter{$0 is NSManagedObject}.map{($0 as! NSManagedObject).transferredToContext(context) as! Element}

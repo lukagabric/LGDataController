@@ -35,7 +35,7 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
     }()
     
     lazy public var dataController: DataController = {
-        return LGDataController(session: self.urlSession, mainContext: self.mainContext)
+        return DataController(session: self.urlSession, mainContext: self.mainContext)
     }()
 
     public let navigationController: UINavigationController
@@ -63,12 +63,12 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
     }
     
     private lazy var rootContext: NSManagedObjectContext = {
-        let modelURL = NSBundle.mainBundle().URLForResource("LGDataController", withExtension: "mom")!
+        let modelURL = NSBundle.mainBundle().URLForResource("DataModel", withExtension: "mom")!
         let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)!
         
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        let url = urls[urls.count-1].URLByAppendingPathComponent("SingleViewCoreData.sqlite")
+        let url = urls[urls.count-1].URLByAppendingPathComponent("Database.sqlite")
         
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
@@ -80,7 +80,7 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             
             dict[NSUnderlyingErrorKey] = error as NSError
-            let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            let wrappedError = NSError(domain: "ERROR_DOMAIN", code: 13, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             print("Unresolved error \(wrappedError), \(wrappedError.userInfo)")

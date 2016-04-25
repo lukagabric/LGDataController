@@ -24,11 +24,11 @@ public class ContactsDataService {
     
     //MARK: - Contacts Model Observer
     
-    public func contactsModelObserver() -> LGModelObserver<Contact> {
+    public func contactsModelObserver() -> ModelObserver<Contact> {
         let contactsFrc = self.contactsFrc()
         let contactsUpdateProducer = self.contactsUpdateProducer()
         
-        return LGModelObserver(fetchedResultsController: contactsFrc, updateProducer: contactsUpdateProducer?.lg_voidValue)
+        return ModelObserver(fetchedResultsController: contactsFrc, updateProducer: contactsUpdateProducer?.lg_voidValue)
     }
     
     private func contactsFrc() -> NSFetchedResultsController {
@@ -66,14 +66,14 @@ public class ContactsDataService {
     
     //MARK: - Contact
     
-    public func contactModelObserver(contactId contactId: String, weight: LGContentWeight = .Full) -> LGModelObserver<Contact> {
+    public func contactModelObserver(contactId contactId: String, weight: ContentWeight = .Full) -> ModelObserver<Contact> {
         let contactFrc = self.contactFrc(contactId: contactId, weight: weight)
         let contactUpdateProducer = self.contactUpdateProducer(contactId: contactId, weight: weight)
         
-        return LGModelObserver(fetchedResultsController: contactFrc, updateProducer: contactUpdateProducer?.lg_voidValue)
+        return ModelObserver(fetchedResultsController: contactFrc, updateProducer: contactUpdateProducer?.lg_voidValue)
     }
     
-    private func contactFrc(contactId contactId: String, weight: LGContentWeight = .Full) -> NSFetchedResultsController {
+    private func contactFrc(contactId contactId: String, weight: ContentWeight = .Full) -> NSFetchedResultsController {
         let predicate = NSPredicate(format: "guid == %@ && weight >= %d", contactId, weight.rawValue)
         let sortDescriptor = NSSortDescriptor(key: "guid", ascending: true)
         
@@ -89,7 +89,7 @@ public class ContactsDataService {
         return contactsFrc;
     }
     
-    public func contactUpdateProducer(contactId contactId: String, weight: LGContentWeight = .Full) -> SignalProducer<Contact?, NSError>? {
+    public func contactUpdateProducer(contactId contactId: String, weight: ContentWeight = .Full) -> SignalProducer<Contact?, NSError>? {
         let parameters = self.parametersForObjectId(contactId)
         
         let contactUpdateProducer = self.dataController.updateData(

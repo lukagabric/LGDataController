@@ -10,12 +10,12 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-public protocol LGContextTransferable {
+public protocol ContextTransferableType {
     associatedtype TransferredType
     func transferredToContext(context: NSManagedObjectContext) -> TransferredType
 }
 
-public class LGUpdateInfo {
+public class UpdateInfo {
     
     var requestId: String
     var eTag: String?
@@ -29,29 +29,14 @@ public class LGUpdateInfo {
     
 }
 
-public protocol DataController {
-    
-    func updateData<T where T: LGContextTransferable>(
-        url url: String,
-        methodName: String,
-        parameters: [String : AnyObject]?,
-        requestId: String,
-        staleInterval: NSTimeInterval,
-        dataUpdate: (payload: Any, response: LGResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>?
-    
-    var mainContext: NSManagedObjectContext { get }
-    func deleteObject(object: NSManagedObject)
-    
-}
-
-public class LGDataController: DataController {
+public class DataController {
     
     let session: NSURLSession
     public let mainContext: NSManagedObjectContext
     let bgContext: NSManagedObjectContext
     let dataDownloadQueue: NSOperationQueue
     var activeUpdates: [String : Any]
-    var updateInfoCache: [String : LGUpdateInfo]
+    var updateInfoCache: [String : UpdateInfo]
     
     //MARK: - Init
     
@@ -65,20 +50,20 @@ public class LGDataController: DataController {
         self.dataDownloadQueue = NSOperationQueue()
         self.dataDownloadQueue.maxConcurrentOperationCount = 1
 
-        self.updateInfoCache = [String : LGUpdateInfo]()
+        self.updateInfoCache = [String : UpdateInfo]()
         
         self.activeUpdates = [String : Any]()
     }
     
     //MARK: - Main
     
-    public func updateData<T where T: LGContextTransferable>(
+    public func updateData<T where T: ContextTransferableType>(
         url url: String,
         methodName: String,
         parameters: [String : AnyObject]?,
         requestId: String,
         staleInterval: NSTimeInterval,
-        dataUpdate: (payload: Any, response: LGResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>? {
+        dataUpdate: (payload: Any, response: ServerResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>? {
             assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
             
             if let activeUpdateProducer = self.activeUpdates[requestId] {
@@ -89,7 +74,7 @@ public class LGDataController: DataController {
             
             guard let request = self.createRequest(requestId: requestId, url: url, methodName: methodName, parameters: parameters) else { return  nil }
 
-            let operation = LGRequestOperation(session: self.session, request: request)
+            let operation = ServerRequestOperation(session: self.session, request: request)
             self.dataDownloadQueue.addOperation(operation)
             
             let (updateProducer, updateObserver) = SignalProducer<T?, NSError>.buffer(1)
@@ -180,7 +165,7 @@ public class LGDataController: DataController {
         return isDataStale
     }
     
-    func isDataNew(reqestId requestId: String, response: LGResponse) -> Bool {
+    func isDataNew(reqestId requestId: String, response: ServerResponse) -> Bool {
         if response.eTag == nil && response.lastModified == nil {
             #if DEBUG
                 print("No response etag or last modified for request with id: '\(requestId)', url: '\(response.httpResponse.URL?.absoluteString)'. Request needs to have a fingerprint (e.g. ETag or Last-Modified) for caching.")
@@ -215,7 +200,7 @@ public class LGDataController: DataController {
     
     //MARK: - Update Info
     
-    func refreshUpdateInfo(reqestId requestId: String, response: LGResponse) -> LGUpdateInfo {
+    func refreshUpdateInfo(reqestId requestId: String, response: ServerResponse) -> UpdateInfo {
         let updateInfo = self.updateInfoForRequestId(requestId)
         updateInfo.eTag = response.eTag
         updateInfo.lastModified = response.lastModified
@@ -223,23 +208,23 @@ public class LGDataController: DataController {
         return updateInfo
     }
     
-    func updateInfoForRequestId(requestId: String) -> LGUpdateInfo {
+    func updateInfoForRequestId(requestId: String) -> UpdateInfo {
         if let updateInfo = self.updateInfoCache[requestId] {
             return updateInfo
         }
         
-        let newUpdateInfo = LGUpdateInfo(requestId: requestId)
+        let newUpdateInfo = UpdateInfo(requestId: requestId)
         self.updateInfoCache[requestId] = newUpdateInfo
         return newUpdateInfo
     }
     
     //MARK: - Response
     
-    func validateResponse(response: LGResponse) -> NSError? {
+    func validateResponse(response: ServerResponse) -> NSError? {
         return nil
     }
     
-    func serializedPayload(response response: LGResponse) -> AnyObject? {
+    func serializedPayload(response response: ServerResponse) -> AnyObject? {
         return try? NSJSONSerialization.JSONObjectWithData(response.payload, options: [])
     }
     

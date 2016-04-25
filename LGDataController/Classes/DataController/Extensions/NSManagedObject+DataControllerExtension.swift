@@ -1,5 +1,5 @@
 //
-//  NSManagedObject+LGExtension.swift
+//  NSManagedObject+DataControllerExtension.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 10/11/15.
@@ -9,24 +9,24 @@
 import Foundation
 import CoreData
 
-public enum LGContentWeight: Int {
+public enum ContentWeight: Int {
     case Stub
     case Light
     case Full
 }
 
-protocol LGContentEntityType {
+protocol ContentEntityType {
     
     var guid: String? { get }
-    var contentWeight: LGContentWeight { get set }
+    var contentWeight: ContentWeight { get set }
 
-    func shouldUpdateData(weight weight: LGContentWeight, payloadDict: [String : AnyObject]) -> Bool
-    func updateForPayloadWeight(weight: LGContentWeight)
+    func shouldUpdateData(weight weight: ContentWeight, payloadDict: [String : AnyObject]) -> Bool
+    func updateForPayloadWeight(weight: ContentWeight)
     func markAs(permanent permanent: Bool, context: NSManagedObjectContext)
     
 }
 
-extension NSManagedObject: LGContextTransferable {
+extension NSManagedObject: ContextTransferableType {
     
     public func transferredToContext(context: NSManagedObjectContext) -> NSManagedObject {
         return context.objectWithID(self.objectID)

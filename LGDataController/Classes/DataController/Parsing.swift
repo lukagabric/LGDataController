@@ -12,15 +12,15 @@ import CoreData
 let defaultPayloadGuidKey = "objectId"
 let defaultObjectGuidKey = "guid"
 
-class LGParsing {
+class Parsing {
     
     //MARK: - Merge Array Of Objects With Payload Dictionaries
     
-    class func lg_mergeObject<T where T: NSManagedObject, T: LGContentEntityType>(
+    class func lg_mergeObject<T where T: NSManagedObject, T: ContentEntityType>(
         payload payload: [String : AnyObject],
                 payloadGuidKey: String = defaultPayloadGuidKey,
                 objectGuidKey: String = defaultObjectGuidKey,
-                weight: LGContentWeight,
+                weight: ContentWeight,
                 permanent: Bool = true,
                 context: NSManagedObjectContext,
                 merge: ((object: T, payloadDict: [String : AnyObject]) -> ())? = nil) -> T {
@@ -41,11 +41,11 @@ class LGParsing {
         return object
     }
     
-    class func lg_mergeObjects<T where T: NSManagedObject, T: LGContentEntityType>(
+    class func lg_mergeObjects<T where T: NSManagedObject, T: ContentEntityType>(
         payload payload: [[String : AnyObject]],
                 payloadGuidKey: String = defaultPayloadGuidKey,
                 objectGuidKey: String = defaultObjectGuidKey,
-                weight: LGContentWeight,
+                weight: ContentWeight,
                 permanent: Bool = true,
                 context: NSManagedObjectContext,
                 merge: ((object: T, payloadDict: [String : AnyObject]) -> ())? = nil) -> [T] {
@@ -75,11 +75,11 @@ class LGParsing {
         return objects
     }
     
-    class func lg_mergeAndTruncateObjects<T where T: NSManagedObject, T: LGContentEntityType>(
+    class func lg_mergeAndTruncateObjects<T where T: NSManagedObject, T: ContentEntityType>(
         payload payload: [[String : AnyObject]],
                 payloadGuidKey: String = defaultPayloadGuidKey,
                 objectGuidKey: String = defaultObjectGuidKey,
-                weight: LGContentWeight,
+                weight: ContentWeight,
                 permanent: Bool = true,
                 context: NSManagedObjectContext,
                 merge: ((object: T, payloadDict: [String : AnyObject]) -> ())? = nil) -> [T] {

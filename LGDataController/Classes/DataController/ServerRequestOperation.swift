@@ -1,5 +1,5 @@
 //
-//  LGRequestOperation.swift
+//  RequestOperation.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 10/11/15.
@@ -9,7 +9,7 @@
 import Foundation
 import ReactiveCocoa
 
-public struct LGResponse {
+public struct ServerResponse {
     
     let httpResponse: NSHTTPURLResponse
     let payload: NSData
@@ -27,13 +27,13 @@ public struct LGResponse {
     
 }
 
-public class LGRequestOperation: NSOperation {
+public class ServerRequestOperation: NSOperation {
 
-    public let producer: SignalProducer<LGResponse, NSError>
-    private let observer: Observer<LGResponse, NSError>
+    public let producer: SignalProducer<ServerResponse, NSError>
+    private let observer: Observer<ServerResponse, NSError>
     private var disposable: Disposable?
     
-    private var dataProducer: SignalProducer<LGResponse, NSError>!
+    private var dataProducer: SignalProducer<ServerResponse, NSError>!
     
     private let session: NSURLSession
     private let request: NSURLRequest
@@ -44,14 +44,14 @@ public class LGRequestOperation: NSOperation {
         self.session = session
         self.request = request
         
-        (self.producer, self.observer) = SignalProducer<LGResponse, NSError>.buffer(1)
+        (self.producer, self.observer) = SignalProducer<ServerResponse, NSError>.buffer(1)
 
         super.init()
 
         self.dataProducer = self.session.rac_dataWithRequest(request)
             .retry(1)
             .takeLast(1)
-            .map { (data, response) -> LGResponse in LGResponse(response: response as! NSHTTPURLResponse, payload: data) }
+            .map { (data, response) -> ServerResponse in ServerResponse(response: response as! NSHTTPURLResponse, payload: data) }
             .on(terminated: { [weak self] _ in self?.completeOperation() })
     }
     

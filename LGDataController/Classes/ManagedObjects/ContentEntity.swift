@@ -10,15 +10,15 @@ import Foundation
 import CoreData
 import ReactiveCocoa
 
-public class ContentEntity: NSManagedObject, LGContentEntityType {
+public class ContentEntity: NSManagedObject, ContentEntityType {
 
     //MARK: - LGContentEntityType
     
-    func shouldUpdateData(weight weight: LGContentWeight, payloadDict: [String : AnyObject]) -> Bool {
+    func shouldUpdateData(weight weight: ContentWeight, payloadDict: [String : AnyObject]) -> Bool {
         return self.contentWeight.rawValue < weight.rawValue || self.updatedAtString != payloadDict["updatedAt"] as? String
     }
     
-    func updateForPayloadWeight(weight: LGContentWeight) {
+    func updateForPayloadWeight(weight: ContentWeight) {
         if weight.rawValue > self.contentWeight.rawValue {
             self.contentWeight = weight
         }
@@ -41,12 +41,12 @@ public class ContentEntity: NSManagedObject, LGContentEntityType {
         self.sessionEntity = SessionEntity.sessionEntityInContext(context)
     }
     
-    public var contentWeight: LGContentWeight {
+    public var contentWeight: ContentWeight {
         get {
             guard let weight = self.weight else { return .Stub }
             
-            if weight == LGContentWeight.Light.rawValue { return .Light }
-            if weight == LGContentWeight.Full.rawValue { return .Full }
+            if weight == ContentWeight.Light.rawValue { return .Light }
+            if weight == ContentWeight.Full.rawValue { return .Full }
             
             return .Stub
         }
@@ -62,8 +62,8 @@ public class ContentEntity: NSManagedObject, LGContentEntityType {
         let weightProducer = weightProperty.producer.map { value -> String in
             guard let weight = value as? NSNumber else { return "Not set" }
             
-            if weight == LGContentWeight.Light.rawValue { return "Light" }
-            if weight == LGContentWeight.Full.rawValue { return "Full" }
+            if weight == ContentWeight.Light.rawValue { return "Light" }
+            if weight == ContentWeight.Full.rawValue { return "Full" }
             
             return "Stub"
         }

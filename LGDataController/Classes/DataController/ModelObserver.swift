@@ -1,5 +1,5 @@
 //
-//  LGModelObserver.swift
+//  ModelObserver.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 22/11/15.
@@ -10,7 +10,7 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-public class LGModelChange {
+public class ModelChange {
     
     public let previousSections: [NSFetchedResultsSectionInfo]?
     public let sections: [NSFetchedResultsSectionInfo]?
@@ -22,10 +22,10 @@ public class LGModelChange {
     
 }
 
-public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsControllerDelegate {
+public class ModelObserver<T: AnyObject>: NSObject, NSFetchedResultsControllerDelegate {
     
-    public let modelChangedProducer: SignalProducer<LGModelChange, NoError>
-    private let modelChangedObserver: Observer<LGModelChange, NoError>
+    public let modelChangedProducer: SignalProducer<ModelChange, NoError>
+    private let modelChangedObserver: Observer<ModelChange, NoError>
     
     public let fetchedObjectsProducer: SignalProducer<[T]?, NoError>
     private let fetchedObjectsObserver: Observer<[T]?, NoError>
@@ -41,7 +41,7 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     init(fetchedResultsController: NSFetchedResultsController, updateProducer: SignalProducer<Void, NSError>?) {
         self.fetchedResultsController = fetchedResultsController
         
-        (self.modelChangedProducer, self.modelChangedObserver) = SignalProducer<LGModelChange, NoError>.buffer(1)
+        (self.modelChangedProducer, self.modelChangedObserver) = SignalProducer<ModelChange, NoError>.buffer(1)
         (self.fetchedObjectsProducer, self.fetchedObjectsObserver) = SignalProducer<[T]?, NoError>.buffer(1)
         
         super.init()
@@ -55,7 +55,7 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
             self.updateProducer = updateProducer!
         }
         
-        let modelChange = LGModelChange(previousSections: nil, sections: self.fetchedResultsController.sections)
+        let modelChange = ModelChange(previousSections: nil, sections: self.fetchedResultsController.sections)
         self.sendModelChange(modelChange)
         self.sendFetchedObjects()
     }
@@ -69,7 +69,7 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     
     //MARK: - Signaling
     
-    private func sendModelChange(modelChange: LGModelChange) {
+    private func sendModelChange(modelChange: ModelChange) {
         self.modelChangedObserver.sendNext(modelChange)
     }
 
@@ -85,7 +85,7 @@ public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsController
     }
     
     public func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        let modelChange = LGModelChange(previousSections: self.previousSections, sections: controller.sections)
+        let modelChange = ModelChange(previousSections: self.previousSections, sections: controller.sections)
         self.previousSections = nil
         
         self.sendModelChange(modelChange)

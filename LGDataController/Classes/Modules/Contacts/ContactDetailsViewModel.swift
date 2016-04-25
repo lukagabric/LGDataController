@@ -15,7 +15,7 @@ public class ContactDetailsViewModel {
     
     private let contactId: String
 
-    public let contactModelObserver: LGModelObserver<Contact>
+    public let contactModelObserver: ModelObserver<Contact>
     var contactProducer: SignalProducer<Contact?, NoError> {
         return self.contactModelObserver.fetchedObjectsProducer.map { contacts in contacts?.first }
     }

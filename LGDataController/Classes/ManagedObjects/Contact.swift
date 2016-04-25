@@ -74,15 +74,15 @@ public class Contact: ContentEntity {
     
     //MARK: Parsing Payload
     
-    class func parseAllContactsPayload(payload: [[String : AnyObject]], weight: LGContentWeight, context: NSManagedObjectContext) -> [Contact] {
-        let contacts: [Contact] = LGParsing.lg_mergeAndTruncateObjects(payload: payload, weight: weight, context: context) { object, payloadDict in
+    class func parseAllContactsPayload(payload: [[String : AnyObject]], weight: ContentWeight, context: NSManagedObjectContext) -> [Contact] {
+        let contacts: [Contact] = Parsing.lg_mergeAndTruncateObjects(payload: payload, weight: weight, context: context) { object, payloadDict in
             object.updatedAtString = payloadDict["updatedAt"] as? String
         }
         return contacts
     }
     
-    class func parseContactPayload(payload: [String : AnyObject], weight: LGContentWeight, context: NSManagedObjectContext) -> Contact? {
-        let contact: Contact = LGParsing.lg_mergeObject(payload: payload, weight: weight, context: context) { object, payloadDict in
+    class func parseContactPayload(payload: [String : AnyObject], weight: ContentWeight, context: NSManagedObjectContext) -> Contact? {
+        let contact: Contact = Parsing.lg_mergeObject(payload: payload, weight: weight, context: context) { object, payloadDict in
             object.updatedAtString = payloadDict["updatedAt"] as? String
         }
         return contact

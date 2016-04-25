@@ -1,5 +1,5 @@
 //
-//  ReactiveCocoa+LGExtension.swift
+//  ReactiveCocoa+DataControllerExtension.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 18/12/15.
