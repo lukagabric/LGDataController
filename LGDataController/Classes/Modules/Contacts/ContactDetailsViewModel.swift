@@ -17,7 +17,7 @@ public class ContactDetailsViewModel {
 
     public let contactModelObserver: LGModelObserver<Contact>
     var contactProducer: SignalProducer<Contact?, NoError> {
-        return self.contactModelObserver.fetchedObjectsProducer
+        return self.contactModelObserver.fetchedObjectsProducer.map { contacts in contacts?.first }
     }
 
     public var deleteAction: Action<Void, Void, NoError>!

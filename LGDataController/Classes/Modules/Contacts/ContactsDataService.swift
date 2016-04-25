@@ -24,13 +24,11 @@ public class ContactsDataService {
     
     //MARK: - Contacts Model Observer
     
-    public func contactsModelObserver() -> LGModelObserver<[Contact]> {
+    public func contactsModelObserver() -> LGModelObserver<Contact> {
         let contactsFrc = self.contactsFrc()
         let contactsUpdateProducer = self.contactsUpdateProducer()
         
-        return LGModelObserver(fetchedResultsController: contactsFrc, updateProducer: contactsUpdateProducer?.lg_voidValue) { fetchedObjects -> [Contact]? in
-            return fetchedObjects as? [Contact]
-        }
+        return LGModelObserver(fetchedResultsController: contactsFrc, updateProducer: contactsUpdateProducer?.lg_voidValue)
     }
     
     private func contactsFrc() -> NSFetchedResultsController {
@@ -72,9 +70,7 @@ public class ContactsDataService {
         let contactFrc = self.contactFrc(contactId: contactId, weight: weight)
         let contactUpdateProducer = self.contactUpdateProducer(contactId: contactId, weight: weight)
         
-        return LGModelObserver(fetchedResultsController: contactFrc, updateProducer: contactUpdateProducer?.lg_voidValue) { fetchedObjects -> Contact? in
-            return fetchedObjects?.first as? Contact
-        }
+        return LGModelObserver(fetchedResultsController: contactFrc, updateProducer: contactUpdateProducer?.lg_voidValue)
     }
     
     private func contactFrc(contactId contactId: String, weight: LGContentWeight = .Full) -> NSFetchedResultsController {

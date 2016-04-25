@@ -22,15 +22,13 @@ public class LGModelChange {
     
 }
 
-public class LGModelObserver<T>: NSObject, NSFetchedResultsControllerDelegate {
+public class LGModelObserver<T: AnyObject>: NSObject, NSFetchedResultsControllerDelegate {
     
     public let modelChangedProducer: SignalProducer<LGModelChange, NoError>
     private let modelChangedObserver: Observer<LGModelChange, NoError>
     
-    public let fetchedObjectsProducer: SignalProducer<T?, NoError>
-    private let fetchedObjectsObserver: Observer<T?, NoError>
-    
-    private let map: ((fetchedObjects: [AnyObject]?) -> T?)
+    public let fetchedObjectsProducer: SignalProducer<[T]?, NoError>
+    private let fetchedObjectsObserver: Observer<[T]?, NoError>
     
     public var updateProducer: SignalProducer<Void, NSError>!
     
@@ -40,13 +38,11 @@ public class LGModelObserver<T>: NSObject, NSFetchedResultsControllerDelegate {
     
     //MARK: - Init
     
-    init(fetchedResultsController: NSFetchedResultsController, updateProducer: SignalProducer<Void, NSError>?, map: ((fetchedObjects: [AnyObject]?) -> T?)) {
+    init(fetchedResultsController: NSFetchedResultsController, updateProducer: SignalProducer<Void, NSError>?) {
         self.fetchedResultsController = fetchedResultsController
         
         (self.modelChangedProducer, self.modelChangedObserver) = SignalProducer<LGModelChange, NoError>.buffer(1)
-        (self.fetchedObjectsProducer, self.fetchedObjectsObserver) = SignalProducer<T?, NoError>.buffer(1)
-        
-        self.map = map
+        (self.fetchedObjectsProducer, self.fetchedObjectsObserver) = SignalProducer<[T]?, NoError>.buffer(1)
         
         super.init()
 
@@ -78,9 +74,8 @@ public class LGModelObserver<T>: NSObject, NSFetchedResultsControllerDelegate {
     }
 
     private func sendFetchedObjects() {
-        let fetchedObjects = self.fetchedResultsController.fetchedObjects
-        let mappedValue = self.map(fetchedObjects: fetchedObjects?.count > 0 ? fetchedObjects : nil)
-        self.fetchedObjectsObserver.sendNext(mappedValue)
+        let fetchedObjects = self.fetchedResultsController.fetchedObjects as? [T]
+        self.fetchedObjectsObserver.sendNext(fetchedObjects?.count > 0 ? fetchedObjects : nil)
     }
     
     //MARK: - NSFetchedResultsControllerDelegate
