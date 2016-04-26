@@ -12,7 +12,7 @@ import CoreData
 extension Array: ContextTransferableType {
 
     public func transferredToContext(context: NSManagedObjectContext) -> [Element] {
-        return self.filter{$0 is NSManagedObject}.map{($0 as! NSManagedObject).transferredToContext(context) as! Element}
+        return self.map { ($0 as! NSManagedObject).transferredToContext(context) as! Element }
     }
     
 }
