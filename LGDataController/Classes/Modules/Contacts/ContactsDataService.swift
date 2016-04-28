@@ -54,7 +54,7 @@ public class ContactsDataService {
         
         let contactsUpdateProducer = self.dataController.updateData(
             url: "https://api.parse.com/1/classes/contacts",
-            methodName: "GET",
+            method: .Get,
             parameters: parameters,
             requestId: "GetAllContacts",
             staleInterval: 10) { payload, response, context -> [Contact]? in
@@ -99,7 +99,7 @@ public class ContactsDataService {
         
         let contactUpdateProducer = self.dataController.updateData(
             url: "https://api.parse.com/1/classes/contacts",
-            methodName: "GET",
+            method: .Get,
             parameters: parameters,
             requestId: contactId,
             staleInterval: 10) { payload, response, context -> Contact? in

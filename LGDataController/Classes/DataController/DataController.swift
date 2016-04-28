@@ -1,5 +1,5 @@
 //
-//  LGDataController.swift
+//  DataController.swift
 //  LGDataController
 //
 //  Created by Luka Gabric on 10/11/15.
@@ -9,6 +9,13 @@
 import Foundation
 import ReactiveCocoa
 import CoreData
+
+public enum RequestMethod: String {
+    case Get = "GET"
+    case Post = "POST"
+    case Put = "PUT"
+    case Delete = "DELETE"
+}
 
 public protocol ContextTransferableType {
     associatedtype TransferredType
@@ -59,10 +66,10 @@ public class DataController {
     
     public func updateData<T where T: ContextTransferableType>(
         url url: String,
-        methodName: String,
-        parameters: [String : AnyObject]?,
+        method: RequestMethod = .Get,
+        parameters: [String : AnyObject]? = nil,
         requestId: String,
-        staleInterval: NSTimeInterval,
+        staleInterval: NSTimeInterval = 60,
         dataUpdate: (payload: Any, response: ServerResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>? {
             assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
             
@@ -72,7 +79,7 @@ public class DataController {
             
             if !self.isDataStale(reqestId: requestId, staleInterval: staleInterval) { return nil }
             
-            guard let request = self.createRequest(requestId: requestId, url: url, methodName: methodName, parameters: parameters) else { return  nil }
+            guard let request = self.createRequest(requestId: requestId, url: url, method: method, parameters: parameters) else { return  nil }
 
             let operation = ServerRequestOperation(session: self.session, request: request)
             self.dataDownloadQueue.addOperation(operation)
@@ -230,10 +237,10 @@ public class DataController {
     
     //MARK: - Request Convenience
     
-    func createRequest(requestId requestId: String, url: String, methodName: String, parameters: [String : AnyObject]?) -> NSURLRequest? {
+    func createRequest(requestId requestId: String, url: String, method: RequestMethod, parameters: [String : AnyObject]?) -> NSURLRequest? {
         var completeUrl = url
         
-        if parameters != nil && methodName == "GET" {
+        if parameters != nil && method == .Get {
             let paramsString = self.queryStringFromParameters(parameters!)
             if paramsString != nil {
                 completeUrl.appendContentsOf("?\(paramsString!)")
@@ -243,15 +250,15 @@ public class DataController {
         guard let requestURL = NSURL(string: completeUrl) else { return nil }
         
         let request = NSMutableURLRequest(URL: requestURL, cachePolicy: .ReloadIgnoringLocalCacheData, timeoutInterval: 5)
-        request.HTTPMethod = methodName
+        request.HTTPMethod = method.rawValue
         
-        if parameters != nil && methodName == "POST" {
+        if parameters != nil && method == .Post {
             let parametersData = try? NSJSONSerialization.dataWithJSONObject(parameters!, options: [])
             request.HTTPBody = parametersData
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
         
-        if methodName == "GET" {
+        if method == .Get {
             let updateInfo = self.updateInfoForRequestId(requestId)
             if let eTag = updateInfo.eTag {
                 request.setValue(eTag, forHTTPHeaderField: "If-None-Match")
