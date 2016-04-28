@@ -56,7 +56,7 @@ public class DataController {
         
         self.dataDownloadQueue = NSOperationQueue()
         self.dataDownloadQueue.maxConcurrentOperationCount = 1
-
+        
         self.updateInfoCache = [String : UpdateInfo]()
         
         self.activeUpdates = [String : Any]()
@@ -66,88 +66,90 @@ public class DataController {
     
     public func updateData<T where T: ContextTransferableType>(
         url url: String,
-        method: RequestMethod = .Get,
-        parameters: [String : AnyObject]? = nil,
-        requestId: String? = nil,
-        staleInterval: NSTimeInterval = 60,
-        dataUpdate: (payload: Any, response: ServerResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>? {
-            assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
-            let requestId = requestId ?? url
-            if let activeUpdateProducer = self.activeUpdates[requestId] {
-                return activeUpdateProducer as? SignalProducer<T?, NSError>
-            }
-            
-            if !self.isDataStale(reqestId: requestId, staleInterval: staleInterval) { return nil }
-            
-            guard let request = self.createRequest(requestId: requestId, url: url, method: method, parameters: parameters) else { return  nil }
-
-            let operation = ServerRequestOperation(session: self.session, request: request)
-            self.dataDownloadQueue.addOperation(operation)
-            
-            let (updateProducer, updateObserver) = SignalProducer<T?, NSError>.buffer(1)
-            
-            let operationProducer = operation.producer.takeLast(1)
-            operationProducer.startWithNext { response in
-                if let error = self.validateResponse(response) {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        updateObserver.sendFailed(error)
-                    })
-                    return
-                }
-                
-                if !self.isDataNew(reqestId: requestId, response: response) {
-                    self.refreshUpdateInfo(reqestId: requestId, response: response)
-                    dispatch_async(dispatch_get_main_queue(), {
-                        updateObserver.sendCompleted()
-                    })
-                    return
-                }
-                
-                guard let serializedPayload = self.serializedPayload(response: response) else {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        updateObserver.sendFailed(NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
-                    })
-                    return
-                }
-                
-                self.bgContext.performBlock {
-                    let resultData = dataUpdate(payload: serializedPayload, response: response, context: self.bgContext)
-                    
-                    self.bgContext.lg_saveToPersistentStore {
-                        self.refreshUpdateInfo(reqestId: requestId, response: response)
-                        
-                        let mainContextResults = resultData?.transferredToContext(self.mainContext) as? T
-                        
-                        dispatch_async(dispatch_get_main_queue(), {
-                            updateObserver.sendNext(mainContextResults)
-                            updateObserver.sendCompleted()
-                        })
-                    }
-                }
-            }
-            
-            operationProducer.startWithFailed { error in
+            method: RequestMethod = .Get,
+            parameters: [String : AnyObject]? = nil,
+            requestId: String? = nil,
+            staleInterval: NSTimeInterval = 60,
+            dataUpdate: (payload: Any, response: ServerResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>? {
+        assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
+        
+        let requestId = requestId ?? url
+        
+        if let activeUpdateProducer = self.activeUpdates[requestId] {
+            return activeUpdateProducer as? SignalProducer<T?, NSError>
+        }
+        
+        if !self.isDataStale(reqestId: requestId, staleInterval: staleInterval) { return nil }
+        
+        guard let request = self.createRequest(requestId: requestId, url: url, method: method, parameters: parameters) else { return  nil }
+        
+        let operation = ServerRequestOperation(session: self.session, request: request)
+        self.dataDownloadQueue.addOperation(operation)
+        
+        let (updateProducer, updateObserver) = SignalProducer<T?, NSError>.buffer(1)
+        
+        let operationProducer = operation.producer.takeLast(1)
+        operationProducer.startWithNext { response in
+            if let error = self.validateResponse(response) {
                 dispatch_async(dispatch_get_main_queue(), {
                     updateObserver.sendFailed(error)
                 })
+                return
             }
             
-            let resultProducer = updateProducer.takeLast(1).observeOn(ImmediateScheduler())
+            if !self.isDataNew(reqestId: requestId, response: response) {
+                self.refreshUpdateInfo(reqestId: requestId, response: response)
+                dispatch_async(dispatch_get_main_queue(), {
+                    updateObserver.sendCompleted()
+                })
+                return
+            }
             
-            resultProducer.start { [weak self] event in
-                if event.isTerminating {
-                    self?.activeUpdates.removeValueForKey(requestId)
+            guard let serializedPayload = self.serializedPayload(response: response) else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    updateObserver.sendFailed(NSError(domain: "Unable to serialize data", code: 0, userInfo: nil))
+                })
+                return
+            }
+            
+            self.bgContext.performBlock {
+                let resultData = dataUpdate(payload: serializedPayload, response: response, context: self.bgContext)
+                
+                self.bgContext.lg_saveToPersistentStore {
+                    self.refreshUpdateInfo(reqestId: requestId, response: response)
+                    
+                    let mainContextResults = resultData?.transferredToContext(self.mainContext) as? T
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        updateObserver.sendNext(mainContextResults)
+                        updateObserver.sendCompleted()
+                    })
                 }
             }
-            
-            self.activeUpdates[requestId] = resultProducer
-
-            return resultProducer
+        }
+        
+        operationProducer.startWithFailed { error in
+            dispatch_async(dispatch_get_main_queue(), {
+                updateObserver.sendFailed(error)
+            })
+        }
+        
+        let resultProducer = updateProducer.takeLast(1).observeOn(ImmediateScheduler())
+        
+        resultProducer.start { [weak self] event in
+            if event.isTerminating {
+                self?.activeUpdates.removeValueForKey(requestId)
+            }
+        }
+        
+        self.activeUpdates[requestId] = resultProducer
+        
+        return resultProducer
     }
     
     public func deleteObject(object: NSManagedObject) {
         assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
-
+        
         self.mainContext.deleteObject(object)
         self.mainContext.lg_saveToPersistentStore(nil)
     }
@@ -179,7 +181,7 @@ public class DataController {
             #endif
             return true
         }
-
+        
         let updateInfo = updateInfoForRequestId(requestId)
         
         if updateInfo.eTag == nil && updateInfo.lastModified == nil {
@@ -188,7 +190,7 @@ public class DataController {
             #endif
             return true
         }
-
+        
         var isDataNew: Bool = true
         
         if let responseETag = response.eTag, updateInfoETag = updateInfo.eTag {
@@ -197,7 +199,7 @@ public class DataController {
         else if let responseLastModified = response.lastModified, updateInfoLastModified = updateInfo.lastModified {
             isDataNew = responseLastModified != updateInfoLastModified
         }
-            
+        
         #if DEBUG
             print("Data is \(isDataNew ? "" : "NOT ")new for this request.");
         #endif
