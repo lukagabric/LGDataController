@@ -68,11 +68,11 @@ public class DataController {
         url url: String,
         method: RequestMethod = .Get,
         parameters: [String : AnyObject]? = nil,
-        requestId: String,
+        requestId: String? = nil,
         staleInterval: NSTimeInterval = 60,
         dataUpdate: (payload: Any, response: ServerResponse, context: NSManagedObjectContext) -> T?) -> SignalProducer<T?, NSError>? {
             assert(NSThread.currentThread().isMainThread, "Must be called on main thread")
-            
+            let requestId = requestId ?? url
             if let activeUpdateProducer = self.activeUpdates[requestId] {
                 return activeUpdateProducer as? SignalProducer<T?, NSError>
             }
