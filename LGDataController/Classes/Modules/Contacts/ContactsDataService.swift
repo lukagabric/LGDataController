@@ -33,8 +33,13 @@ public class ContactsDataService {
     
     private func contactsFrc() -> NSFetchedResultsController {
         let contactsFetchRequest = NSFetchRequest(entityName: Contact.lg_entityName())
-        let sortDescriptor = NSSortDescriptor(key: "lastName", ascending: true)
-        contactsFetchRequest.sortDescriptors = [sortDescriptor]
+
+        let predicate = NSPredicate(format: "weight >= %d", ContentWeight.Light.rawValue)
+        contactsFetchRequest.predicate = predicate
+        
+        let lastNameSortDescriptor = NSSortDescriptor(key: "lastName", ascending: true)
+        let guidSortDescriptor = NSSortDescriptor(key: "guid", ascending: true)
+        contactsFetchRequest.sortDescriptors = [lastNameSortDescriptor, guidSortDescriptor]
         
         let contactsFrc = NSFetchedResultsController(
             fetchRequest: contactsFetchRequest,
