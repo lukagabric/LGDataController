@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Automatic">
     <entity name="Contact" representedClassName=".Contact" parentEntity="ContentEntity" syncable="YES">
         <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
@@ -9,22 +9,13 @@
     <entity name="ContentEntity" representedClassName=".ContentEntity" isAbstract="YES" syncable="YES">
         <attribute name="createdAt" attributeType="Date" syncable="YES"/>
         <attribute name="guid" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="permanent" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="updatedAt" attributeType="Date" syncable="YES"/>
         <attribute name="updatedAtString" attributeType="String" syncable="YES"/>
         <attribute name="weight" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="permanentEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PermanentEntity" inverseName="contentEntity" inverseEntity="PermanentEntity" syncable="YES"/>
-        <relationship name="sessionEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SessionEntity" inverseName="contentEntity" inverseEntity="SessionEntity" syncable="YES"/>
-    </entity>
-    <entity name="PermanentEntity" representedClassName=".PermanentEntity" syncable="YES">
-        <relationship name="contentEntity" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ContentEntity" inverseName="permanentEntity" inverseEntity="ContentEntity" syncable="YES"/>
-    </entity>
-    <entity name="SessionEntity" representedClassName=".SessionEntity" syncable="YES">
-        <relationship name="contentEntity" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ContentEntity" inverseName="sessionEntity" inverseEntity="ContentEntity" syncable="YES"/>
     </entity>
     <elements>
         <element name="Contact" positionX="-63" positionY="-18" width="128" height="105"/>
-        <element name="ContentEntity" positionX="-54" positionY="36" width="128" height="150"/>
-        <element name="PermanentEntity" positionX="-54" positionY="27" width="128" height="60"/>
-        <element name="SessionEntity" positionX="-45" positionY="36" width="128" height="60"/>
+        <element name="ContentEntity" positionX="-54" positionY="36" width="128" height="135"/>
     </elements>
 </model>

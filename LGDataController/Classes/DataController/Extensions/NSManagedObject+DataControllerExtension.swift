@@ -22,7 +22,7 @@ protocol ContentEntityType {
 
     func shouldUpdateData(weight weight: ContentWeight, payloadDict: [String : AnyObject]) -> Bool
     func updateForPayloadWeight(weight: ContentWeight)
-    func markAs(permanent permanent: Bool, context: NSManagedObjectContext)
+    func markAsPermanent(permanent: Bool)
     
 }
 

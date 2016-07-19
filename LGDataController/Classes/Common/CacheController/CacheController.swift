@@ -31,12 +31,12 @@ public class CacheController: NSObject {
         
         assert(self.backgroundTask != UIBackgroundTaskInvalid, "Background task is invalid!")
         
-        let sessionEntity = SessionEntity.sessionEntityInContext(self.context)
-        if let sessionEntities = sessionEntity.contentEntity {
-            for entity in sessionEntities {
-                let entity = entity as! ContentEntity
-                self.context.deleteObject(entity)
-            }
+        let fetchRequest = NSFetchRequest(entityName: ContentEntity.lg_entityName())
+        fetchRequest.predicate = NSPredicate(format: "permanent == false")
+        let sessionEntities = try! self.context.executeFetchRequest(fetchRequest) as! [ContentEntity]
+        
+        for entity in sessionEntities {
+            self.context.deleteObject(entity)
         }
         
         self.context.lg_saveToPersistentStore { 

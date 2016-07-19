@@ -11,6 +11,12 @@ import CoreData
 import ReactiveCocoa
 
 public class ContentEntity: NSManagedObject, ContentEntityType {
+    
+    //MARK: - Entity Name
+    
+    override class func lg_entityName() -> String {
+        return "ContentEntity"
+    }
 
     //MARK: - ContentEntityType
     
@@ -24,21 +30,9 @@ public class ContentEntity: NSManagedObject, ContentEntityType {
         }
     }
     
-    func markAs(permanent permanent: Bool, context: NSManagedObjectContext) {
-        if permanent {
-            self.markAsPermanentInContext(context)
-        }
-        else {
-            self.markAsSessionInContext(context)
-        }
-    }
-    
-    func markAsPermanentInContext(context: NSManagedObjectContext) {
-        self.permanentEntity = PermanentEntity.permanentEntityInContext(context)
-    }
-    
-    func markAsSessionInContext(context: NSManagedObjectContext) {
-        self.sessionEntity = SessionEntity.sessionEntityInContext(context)
+    func markAsPermanent(permanent: Bool) {
+        let isCurrentlyPermanent = self.permanent?.boolValue ?? false
+        self.permanent = isCurrentlyPermanent || permanent
     }
     
     public var contentWeight: ContentWeight {

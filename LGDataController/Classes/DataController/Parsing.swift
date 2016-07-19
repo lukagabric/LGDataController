@@ -36,7 +36,7 @@ class Parsing {
             }
         }
         
-        object.markAs(permanent: permanent, context: context)
+        object.markAsPermanent(permanent)
         
         return object
     }
@@ -69,7 +69,7 @@ class Parsing {
                 }
             }
             
-            object.markAs(permanent: permanent, context: context)
+            object.markAsPermanent(permanent)
         }
         
         return objects
@@ -105,7 +105,7 @@ class Parsing {
                 }
             }
             
-            object.markAs(permanent: permanent, context: context)
+            object.markAsPermanent(permanent)
             
             resultObjects.append(object)
         }

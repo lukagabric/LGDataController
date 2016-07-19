@@ -36,10 +36,6 @@
 		4186AA161C19D39E003C3A89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */; };
 		4186AA281C19D870003C3A89 /* DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4186AA271C19D870003C3A89 /* DataModel.xcdatamodel */; };
 		418827ED1C24A7C700E3A145 /* ReactiveCocoa+DataControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418827EC1C24A7C700E3A145 /* ReactiveCocoa+DataControllerExtension.swift */; };
-		419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */; };
-		419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E11C2298C800C7C28B /* PermanentEntity.swift */; };
-		419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */; };
-		419B65EA1C2298C800C7C28B /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B65E31C2298C800C7C28B /* SessionEntity.swift */; };
 		41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */; };
 		41CA59F41C2218F400A47168 /* ContentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */; };
 		41CA59F61C2218F400A47168 /* ContentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CA59F31C2218F400A47168 /* ContentEntity.swift */; };
@@ -103,10 +99,6 @@
 		4186AA151C19D39E003C3A89 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4186AA271C19D870003C3A89 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		418827EC1C24A7C700E3A145 /* ReactiveCocoa+DataControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReactiveCocoa+DataControllerExtension.swift"; sourceTree = "<group>"; };
-		419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PermanentEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		419B65E11C2298C800C7C28B /* PermanentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentEntity.swift; sourceTree = "<group>"; };
-		419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SessionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		419B65E31C2298C800C7C28B /* SessionEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionEntity.swift; sourceTree = "<group>"; };
 		41BD99981C20261200E6F94C /* ContactDetailsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewModel.swift; sourceTree = "<group>"; };
 		41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41CA59F31C2218F400A47168 /* ContentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentEntity.swift; sourceTree = "<group>"; };
@@ -252,10 +244,6 @@
 		4186A9D11C19D2A4003C3A89 /* ManagedObjects */ = {
 			isa = PBXGroup;
 			children = (
-				419B65E01C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift */,
-				419B65E11C2298C800C7C28B /* PermanentEntity.swift */,
-				419B65E21C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift */,
-				419B65E31C2298C800C7C28B /* SessionEntity.swift */,
 				41CA59F21C2218F400A47168 /* ContentEntity+CoreDataProperties.swift */,
 				41CA59F31C2218F400A47168 /* ContentEntity.swift */,
 				4186A9D21C19D2A4003C3A89 /* Contact+CoreDataProperties.swift */,
@@ -412,10 +400,8 @@
 				41BD99991C20261200E6F94C /* ContactDetailsViewModel.swift in Sources */,
 				41EF0B561C25D2950088CFCC /* UIKitExtensions.swift in Sources */,
 				4186A9E41C19D2A4003C3A89 /* NSArray+DataControllerExtension.swift in Sources */,
-				419B65EA1C2298C800C7C28B /* SessionEntity.swift in Sources */,
 				41F6B3FE1CCA0A4000DE7DA7 /* Parsing.swift in Sources */,
 				41309F4E1CCE23A30030FB1B /* LoadingViewModel.swift in Sources */,
-				419B65E81C2298C800C7C28B /* SessionEntity+CoreDataProperties.swift in Sources */,
 				4186AA041C19D2A4003C3A89 /* HomeViewController.swift in Sources */,
 				4186A9EC1C19D2A4003C3A89 /* DataController.swift in Sources */,
 				418827ED1C24A7C700E3A145 /* ReactiveCocoa+DataControllerExtension.swift in Sources */,
@@ -428,11 +414,9 @@
 				4186A9F41C19D2A4003C3A89 /* Contact+CoreDataProperties.swift in Sources */,
 				4186AA281C19D870003C3A89 /* DataModel.xcdatamodel in Sources */,
 				41309F4C1CCE23A30030FB1B /* CacheController.swift in Sources */,
-				419B65E61C2298C800C7C28B /* PermanentEntity.swift in Sources */,
 				4186A9E81C19D2A4003C3A89 /* NSManagedObjectContext+DataControllerExtension.swift in Sources */,
 				4186AA0A1C19D2A4003C3A89 /* NavigationService.swift in Sources */,
 				41309F511CCE23A30030FB1B /* TextOverlayView.swift in Sources */,
-				419B65E41C2298C800C7C28B /* PermanentEntity+CoreDataProperties.swift in Sources */,
 				4186A9F21C19D2A4003C3A89 /* Dependencies.swift in Sources */,
 				4186AA001C19D2A4003C3A89 /* ContactsViewModel.swift in Sources */,
 				4186A9F01C19D2A4003C3A89 /* ServerRequestOperation.swift in Sources */,

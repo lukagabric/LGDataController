@@ -2,7 +2,7 @@
 //  ContentEntity+CoreDataProperties.swift
 //  LGDataController
 //
-//  Created by Luka Gabric on 20/04/16.
+//  Created by Luka Gabric on 19/07/16.
 //  Copyright © 2016 Luka Gabric. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -19,7 +19,6 @@ extension ContentEntity {
     @NSManaged var updatedAt: NSDate?
     @NSManaged var updatedAtString: String?
     @NSManaged var weight: NSNumber?
-    @NSManaged var permanentEntity: PermanentEntity?
-    @NSManaged var sessionEntity: SessionEntity?
+    @NSManaged var permanent: NSNumber?
 
 }
