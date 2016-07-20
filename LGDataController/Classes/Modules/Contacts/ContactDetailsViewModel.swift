@@ -30,7 +30,7 @@ public class ContactDetailsViewModel {
 
     //MARK: - Dependencies
     
-    private let dataService: ContactsDataService
+    private let dataService: ContactsDataServiceType
     private let navigationService: ContactsNavigationServiceType
     
     init(dependencies: ContactsDependencies, contactId: String) {
@@ -38,7 +38,7 @@ public class ContactDetailsViewModel {
         self.navigationService = dependencies.contactsNavigationService
         
         self.contactId = contactId
-        self.contactModelObserver = self.dataService.contactModelObserver(contactId: self.contactId)
+        self.contactModelObserver = self.dataService.contactModelObserver(contactId: self.contactId, weight: .Full)
         
         let contactAvailable = self.contactProducer.map { $0 != nil }
         let contactDeletedEventProducer = contactProducer.flatMap(.Latest) { $0?.deleteProducer ?? SignalProducer.empty }
@@ -65,7 +65,7 @@ public class ContactDetailsViewModel {
         self.loadingViewModel = LoadingViewModel(reachabilityService: dependencies.reachabilityService) { [weak self] in
             guard let
                 sself = self,
-                updateProducer = sself.dataService.contactUpdateProducer(contactId: sself.contactId)
+                updateProducer = sself.dataService.contactUpdateProducer(contactId: sself.contactId, weight: .Full)
                 else { return nil }
             
             let objectProducer = sself.contactModelObserver.fetchedObjectsProducer

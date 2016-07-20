@@ -9,15 +9,15 @@
 import Foundation
 import ReactiveCocoa
 
-public class ReachabilityService {
+public class ReachabilityService: ReachabilityServiceType {
 
     private let reach: Reachability
 
     public let reachabilityProducer: SignalProducer<Reachability, NoError>
     private let reachabilityObserver: Observer<Reachability, NoError>
     
-    public let isOfflineProducer: SignalProducer<Bool, NoError>
     public let isOnlineProducer: SignalProducer<Bool, NoError>
+    public let isOfflineProducer: SignalProducer<Bool, NoError>
     
     init() {
         self.reach = try! Reachability.reachabilityForInternetConnection()

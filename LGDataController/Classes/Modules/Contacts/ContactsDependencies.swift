@@ -11,10 +11,9 @@ import ReactiveCocoa
 
 public protocol ContactsDependencies {
     
-    var dataController: DataController { get }
-    var contactsDataService: ContactsDataService { get }
+    var contactsDataService: ContactsDataServiceType { get }
     var contactsNavigationService: ContactsNavigationServiceType { get }
-    var reachabilityService: ReachabilityService { get }
+    var reachabilityService: ReachabilityServiceType { get }
     
 }
 

@@ -12,7 +12,7 @@ import Rex
 
 public class LoadingViewModel {
     
-    private let reachabilityService: ReachabilityService
+    private let reachabilityService: ReachabilityServiceType
     private let loadProducerClosure: () -> SignalProducer<Void, NSError>?
     
     public let loadSuccessProducer: SignalProducer<Void, NoError>
@@ -29,7 +29,7 @@ public class LoadingViewModel {
     public let contentUnavailableText: AnyProperty<String>
     private let mutableContentUnavailableText = MutableProperty<String>("")
     
-    public init(reachabilityService: ReachabilityService, loadProducerClosure: () -> SignalProducer<Void, NSError>?) {
+    public init(reachabilityService: ReachabilityServiceType, loadProducerClosure: () -> SignalProducer<Void, NSError>?) {
         self.reachabilityService = reachabilityService
         self.loadProducerClosure = loadProducerClosure
         

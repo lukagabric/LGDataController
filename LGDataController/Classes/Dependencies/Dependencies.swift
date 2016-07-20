@@ -19,7 +19,7 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
     }
     
     public var cacheController: CacheController!
-    public let reachabilityService: ReachabilityService
+    public let reachabilityService: ReachabilityServiceType
 
     lazy public var urlSession: NSURLSession = {
         let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -50,8 +50,8 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
         return self.navigationService
     }
     
-    public var contactsDataService: ContactsDataService {
-        return ContactsDataService(dependencies: self)
+    public var contactsDataService: ContactsDataServiceType {
+        return ContactsDataService(dataController: self.dataController)
     }
     
     public var notificationCenter: NSNotificationCenter {

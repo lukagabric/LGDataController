@@ -10,7 +10,7 @@ import Foundation
 import ReactiveCocoa
 import CoreData
 
-public class ContactsDataService {
+public class ContactsDataService: ContactsDataServiceType {
     
     //MARK: - Dependencies
     
@@ -18,8 +18,8 @@ public class ContactsDataService {
     
     //MARK: - Init
     
-    init(dependencies: ContactsDependencies) {
-        self.dataController = dependencies.dataController
+    init(dataController: DataController) {
+        self.dataController = dataController
     }
     
     //MARK: - Contacts Model Observer
@@ -71,14 +71,14 @@ public class ContactsDataService {
     
     //MARK: - Contact
     
-    public func contactModelObserver(contactId contactId: String, weight: ContentWeight = .Full) -> ModelObserver<Contact> {
+    public func contactModelObserver(contactId contactId: String, weight: ContentWeight) -> ModelObserver<Contact> {
         let contactFrc = self.contactFrc(contactId: contactId, weight: weight)
         let contactUpdateProducer = self.contactUpdateProducer(contactId: contactId, weight: weight)
         
         return ModelObserver(fetchedResultsController: contactFrc, updateProducer: contactUpdateProducer?.lg_voidValue)
     }
     
-    private func contactFrc(contactId contactId: String, weight: ContentWeight = .Full) -> NSFetchedResultsController {
+    private func contactFrc(contactId contactId: String, weight: ContentWeight) -> NSFetchedResultsController {
         let predicate = NSPredicate(format: "guid == %@ && weight >= %d", contactId, weight.rawValue)
         let sortDescriptor = NSSortDescriptor(key: "guid", ascending: true)
         
@@ -94,7 +94,7 @@ public class ContactsDataService {
         return contactsFrc;
     }
     
-    public func contactUpdateProducer(contactId contactId: String, weight: ContentWeight = .Full) -> SignalProducer<Contact?, NSError>? {
+    public func contactUpdateProducer(contactId contactId: String, weight: ContentWeight) -> SignalProducer<Contact?, NSError>? {
         let parameters = self.parametersForObjectId(contactId)
         
         let contactUpdateProducer = self.dataController.updateData(

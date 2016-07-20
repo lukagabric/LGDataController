@@ -49,6 +49,8 @@
 		41EF86C31C1FEB3100EBAA48 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */; };
 		41EF86C51C1FEB3100EBAA48 /* ContactDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EF86C21C1FEB3100EBAA48 /* ContactDetailsView.xib */; };
 		41F6B3FE1CCA0A4000DE7DA7 /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F6B3FD1CCA0A4000DE7DA7 /* Parsing.swift */; };
+		41FE89AD1D40094C00EADC1D /* ReachabilityServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FE89AC1D40094C00EADC1D /* ReachabilityServiceType.swift */; };
+		41FE89AF1D400ED100EADC1D /* ContactsDataServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FE89AE1D400ED100EADC1D /* ContactsDataServiceType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -109,6 +111,8 @@
 		41EF86C11C1FEB3100EBAA48 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		41EF86C21C1FEB3100EBAA48 /* ContactDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailsView.xib; sourceTree = "<group>"; };
 		41F6B3FD1CCA0A4000DE7DA7 /* Parsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
+		41FE89AC1D40094C00EADC1D /* ReachabilityServiceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityServiceType.swift; sourceTree = "<group>"; };
+		41FE89AE1D400ED100EADC1D /* ContactsDataServiceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsDataServiceType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,7 @@
 			children = (
 				41309F481CCE23A30030FB1B /* Reachability.swift */,
 				41309F491CCE23A30030FB1B /* ReachabilityService.swift */,
+				41FE89AC1D40094C00EADC1D /* ReachabilityServiceType.swift */,
 			);
 			path = Reachability;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				4186A9D71C19D2A4003C3A89 /* ContactsDependencies.swift */,
+				41FE89AE1D400ED100EADC1D /* ContactsDataServiceType.swift */,
 				4186A9D61C19D2A4003C3A89 /* ContactsDataService.swift */,
 				4186A9DA1C19D2A4003C3A89 /* ContactsViewModel.swift */,
 				4186A9D81C19D2A4003C3A89 /* ContactsViewController.swift */,
@@ -389,9 +395,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41FE89AF1D400ED100EADC1D /* ContactsDataServiceType.swift in Sources */,
 				41309F501CCE23A30030FB1B /* ReachabilityService.swift in Sources */,
 				4186AA081C19D2A4003C3A89 /* HomeViewModel.swift in Sources */,
 				4186A9F61C19D2A4003C3A89 /* Contact.swift in Sources */,
+				41FE89AD1D40094C00EADC1D /* ReachabilityServiceType.swift in Sources */,
 				4186A9E61C19D2A4003C3A89 /* NSManagedObject+DataControllerExtension.swift in Sources */,
 				41CA59F61C2218F400A47168 /* ContentEntity.swift in Sources */,
 				4186A9F81C19D2A4003C3A89 /* ContactsDataService.swift in Sources */,
