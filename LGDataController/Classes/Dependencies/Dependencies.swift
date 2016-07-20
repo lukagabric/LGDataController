@@ -38,8 +38,6 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
         return DataController(session: self.urlSession, mainContext: self.mainContext)
     }()
 
-    public let navigationController: UINavigationController
-
     public var navigationService: NavigationService!
 
     public var homeNavigationService: HomeNavigationServiceType {
@@ -102,8 +100,7 @@ public class Dependencies: ContactsDependencies, HomeDependencies {
     
     init(navigationController: UINavigationController) {
         self.reachabilityService = ReachabilityService()
-        self.navigationController = navigationController
-        self.navigationService = NavigationService(dependencies: self)
+        self.navigationService = NavigationService(dependencies: self, navigationController: navigationController)
         self.cacheController = CacheController(application: self.application, context: self.mainContext)
     }
     

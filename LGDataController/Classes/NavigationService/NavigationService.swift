@@ -13,14 +13,13 @@ public class NavigationService: HomeNavigationServiceType, ContactsNavigationSer
     
     private let dependencies: Dependencies
     
-    var navigationController: UINavigationController {
-        return self.dependencies.navigationController
-    }
+    private let navigationController: UINavigationController
     
     //MARK: - Init
 
-    init(dependencies: Dependencies) {
+    init(dependencies: Dependencies, navigationController: UINavigationController) {
         self.dependencies = dependencies
+        self.navigationController = navigationController
     }
     
     //MARK: - Common
